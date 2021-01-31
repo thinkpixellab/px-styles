@@ -1,0 +1,300 @@
+////
+/// @group transitions
+////
+
+// ----------------------------------------------------------------------
+// Mixins / Functions
+// ----------------------------------------------------------------------
+
+/// Simplified syntax for transitioning multiple individual properties on
+/// an element, defaulting to standardized values for duration and easing.
+///
+/// @param {list} $proplist A list of properties to be transitioned
+/// @param {duration} $dur [$transition-dur] The duration of the transition
+/// @param {string} $ease [$transition-ease] The easing to be used in the transition
+/// @param {duration} $delay [0ms] The delay for the transition
+///
+/// @example @include transition(transform opacity);
+/// @example @include transition(transform opacity, 500ms);
+/// @example @include transition(transform opacity, $ease: $ease-out-bounce A l);
+
+@mixin transition($proplist, $dur: $transition-dur, $ease: $transition-ease, $delay: 0ms) {
+    $transition: null;
+    $idx: 0;
+    @each $prop in $proplist {
+        @if ($idx > 0) {
+            $transition: $transition#{','};
+        }
+        $transition: $transition $prop $dur $ease $delay;
+        $idx: $idx + 1;
+    }
+    transition: $transition;
+}
+
+// [name]-enter
+// Starting state for enter. Added before element is inserted, removed one frame
+// after element is inserted.
+
+// [name]-enter-active
+// Active state for enter. Applied during the entire entering phase. Added before
+// element is inserted, removed when transition/animation finishes. This class
+// can be used to define the  duration, delay and easing curve for the entering
+// transition.
+
+// [name]-enter-to
+// Only available in versions 2.1.8+. Ending state for enter. Added one frame
+// after element is inserted (at the same time [name]-enter is removed), removed
+// when transition/animation finishes.
+
+// [name]-leave
+// Starting state for leave. Added immediately when a leaving transition is
+// triggered, removed after one frame.
+
+// [name]-leave-active
+// Active state for leave. Applied during the entire leaving phase. Added
+// immediately when leave transition is triggered, removed when the
+// transition/animation finishes. This class can be used to define the duration,
+// delay and easing curve for the leaving transition.
+
+// [name]-leave-to
+// Only available in versions 2.1.8+. Ending state for leave. Added one frame
+// after a leaving transition is triggered (at the same time v-leave is removed),
+// removed when the transition/animation finishes.
+
+// fade
+
+@mixin t-fade($name: 'fade', $dur: $vue-transition-dur, $ease: $vue-transition-ease, $pin: false) {
+    .#{$name}-enter-active,
+    .#{$name}-leave-active {
+        transition: opacity $dur $ease;
+    }
+
+    .#{$name}-enter,
+    .#{$name}-leave-to {
+        opacity: 0;
+    }
+
+    @if ($pin) {
+        .#{$name}-leave-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+
+// slide and fade
+
+@mixin t-slide-fade(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $axis: 'Y',
+    $pin: true
+) {
+    .#{$name}-leave-active,
+    .#{$name}-enter-active {
+        transition: transform $dur $ease, opacity $dur $ease;
+    }
+    .#{$name}-enter {
+        opacity: 0;
+        @if ($axis == 'X' or $axis == 'x') {
+            transform: translateX($distance);
+        } @else {
+            transform: translateY($distance);
+        }
+    }
+
+    .#{$name}-leave-to {
+        opacity: 0;
+        @if ($axis == 'X' or $axis == 'x') {
+            transform: translateX($distance * -1);
+        } @else {
+            transform: translateY($distance * -1);
+        }
+    }
+
+    @if ($pin) {
+        .#{$name}-enter-active {
+            position: relative;
+        }
+        .#{$name}-leave-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+
+@mixin t-slide-fade-reverse(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $axis: 'Y',
+    $pin: true
+) {
+    .#{$name}-leave-active,
+    .#{$name}-enter-active {
+        transition: transform $dur $ease, opacity $dur $ease;
+    }
+    .#{$name}-enter {
+        opacity: 0;
+        @if ($axis == 'X' or $axis == 'x') {
+            transform: translateX($distance);
+        } @else {
+            transform: translateY($distance);
+        }
+    }
+    .#{$name}-leave-to {
+        opacity: 0;
+        @if ($axis == 'X' or $axis == 'x') {
+            transform: translateX($distance);
+        } @else {
+            transform: translateY($distance);
+        }
+    }
+
+    @if ($pin) {
+        .#{$name}-leave-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+
+@mixin t-slide-fade-y(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $pin: true
+) {
+    @include t-slide-fade($name, $distance, $dur, $ease, 'Y');
+}
+
+@mixin t-slide-fade-y-reverse(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $pin: true
+) {
+    @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'Y');
+}
+
+@mixin t-slide-fade-x(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $pin: true
+) {
+    @include t-slide-fade($name, $distance, $dur, $ease, 'X');
+}
+
+@mixin t-slide-fade-x-reverse(
+    $name: 'slide',
+    $distance: 100px,
+    $dur: $vue-transition-dur,
+    $ease: $vue-transition-ease,
+    $pin: true
+) {
+    @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'X');
+}
+
+// ----------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------
+
+/// Global default transition duration
+/// @group site.config
+$transition-dur: 150ms !default;
+
+/// Global default transition easing
+/// @group site.config
+$transition-ease: ease-out !default;
+
+// ----------------------------------------------------------------------
+// Constants
+// ----------------------------------------------------------------------
+
+/// Cubic-bezier for Penner ease in cubic
+$ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+/// Cubic-bezier for Penner ease in cubic
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+/// Cubic-bezier for Penner ease in cubic
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+/// Cubic-bezier for Penner ease in circ
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+/// Cubic-bezier for Penner ease out circ
+$ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+/// Cubic-bezier for Penner ease in-out circ
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+/// Cubic-bezier for Penner ease in expo
+$ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+
+/// Cubic-bezier for Penner ease out expo
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+/// Cubic-bezier for Penner ease in-out expo
+$ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+
+/// Cubic-bezier for Penner ease in quad
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
+/// Cubic-bezier for Penner ease out quad
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+/// Cubic-bezier for Penner ease in-out quad
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+/// Cubic-bezier for Penner ease in quart
+$ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+
+/// Cubic-bezier for Penner ease out quart
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+/// Cubic-bezier for Penner ease in-out quart
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+/// Cubic-bezier for Penner ease in quint
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+
+/// Cubic-bezier for Penner ease out quint
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+
+/// Cubic-bezier for Penner ease in-out quint
+$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+
+/// Cubic-bezier for Penner ease in sine
+$ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+
+/// Cubic-bezier for Penner ease out sine
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+
+/// Cubic-bezier for Penner ease in-out sine
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+/// Cubic-bezier for Penner ease in back
+$ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+/// Cubic-bezier for Penner ease out back
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+/// Cubic-bezier for Penner ease in-out back
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+/// Cubic-bezier for custopm ease with a small bounce
+$ease-out-smallbounce: cubic-bezier(0.175, 0.885, 0.315, 1.19);

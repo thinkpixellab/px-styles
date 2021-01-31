@@ -1,0 +1,112 @@
+////
+/// @group miscellaneous
+////
+
+// ----------------------------------------------------------------------
+// Mixins / Functions
+// ----------------------------------------------------------------------
+
+/// Completely resets the appearance of controls (input and button)
+///
+@mixin control-reset {
+    appearance: none;
+    border: none;
+    outline: none;
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+/// Style the placeholder text for an text input element
+/// @example
+/// input {
+///   @include placeholder {
+///     /* styles for placeholder here */
+///   }
+/// }
+///
+@mixin placeholder {
+    &::placeholder {
+        @content;
+    }
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+/// Disable text selection on an element
+///
+@mixin no-select {
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+/// Use the (now broadly supported) line-clamp property to restrict the
+/// number of lines that are shown in a text element.
+///
+/// @param {number} $lines The maximum number of lines to be shown
+///
+@mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/// Create a triangle element using the border properties
+///
+/// @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)
+/// @param {color} $color The fill color for the arrow
+/// @param {length} $height The height of the arrow
+/// @param {length} $width  The width of the arrow
+///
+/// @example TODO
+///
+@mixin triangle($direction, $color, $height, $width) {
+    border-style: solid;
+    height: 0;
+    width: 0;
+
+    @if ($direction == 'up') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 ($width/2) $height ($width/2);
+    }
+    @if ($direction == 'down') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height ($width/2) 0 ($width/2);
+    }
+    @if ($direction == 'right') {
+        border-color: transparent transparent transparent $color;
+        border-width: ($height/2) 0 ($height/2) $width;
+    }
+    @if ($direction == 'left') {
+        border-color: transparent $color transparent transparent;
+        border-width: ($height/2) $width ($height/2) 0;
+    }
+    @if ($direction == 'up-left') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height $width 0 0;
+    }
+    @if ($direction == 'up-right') {
+        border-color: transparent $color transparent transparent;
+        border-width: 0 $width $height 0;
+    }
+    @if ($direction == 'down-left') {
+        border-color: transparent transparent transparent $color;
+        border-width: $height 0 0 $width;
+    }
+    @if ($direction == 'down-right') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 0 $height $width;
+    }
+}

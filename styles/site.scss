@@ -1,0 +1,7 @@
+@use 'px.scss' as *;
+
+// standard site setup
+@include sanitize();
+@include site-basics();
+
+// global site css

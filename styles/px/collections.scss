@@ -1,0 +1,148 @@
+////
+/// @group Collections
+////
+
+// ----------------------------------------------------------------------
+// Mixins / Functions
+// ----------------------------------------------------------------------
+
+/// Get a value from a map if the key exists, otherwise return a fallback
+///
+/// @example map-get-default((a:1, b:2), a, 3) => 1
+/// @example map-get-default((a:1, b:2), wontwork, 3) => 3
+///
+@function map-get-default($map, $key, $default) {
+    @if (map-has-key($map, $key)) {
+        @return map-get($map, $key);
+    } @else {
+        @return $default;
+    }
+}
+
+/// If $list-or-val is a list, return the nth value; if the item is a value
+/// return the value; if the value is null return the default
+///
+/// @example nth-or-val((a, b, c), 1, d) => 1
+/// @example nth-or-val(a, 1, d) => a
+/// @example nth-or-val(null, 1, d) => d
+///
+@function nth-or-val($list-or-value, $n, $default: null) {
+    @if (not $list-or-value) {
+        @return $default;
+    }
+    @if (type-of($list-or-value) == 'list') {
+        @return nth($list-or-value, $n);
+    }
+    @return $list-or-value;
+}
+
+/// Return a copy of a list with the nth value removed
+///
+@function list-remove($list, $n) {
+    $result: ();
+    $n: if($n < 0, length($list) + $n + 1, $n);
+    $bracketed: is-bracketed($list);
+    $separator: list-separator($list);
+    @for $i from 1 through length($list) {
+        @if $i != $n {
+            $result: append($result, nth($list, $i));
+        }
+    }
+    @return join((), $result, $separator, $bracketed);
+}
+
+/// Return a copy of a
+///
+@function list-sort-num($list) {
+    $sortedlist: ();
+    @while length($list) > 0 {
+        $value: nth($list, 1);
+        @each $item in $list {
+            @if $item < $value {
+                $value: $item;
+            }
+        }
+        $sortedlist: append($sortedlist, $value, 'space');
+        $list: list-remove($list, index($list, $value));
+    }
+    @return $sortedlist;
+}
+
+/// Return a copy of a list sorted alphabetically
+///
+@function list-sort($list) {
+    $order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']' '^' '_' '{' '|' '}' '~''0' '1' '2' '3'
+        '4' '5' '6' '7' '8' '9' 'a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v'
+        'w' 'x' 'y' 'z';
+
+    $less: ();
+    $equal: ();
+    $large: ();
+
+    @if length($list) > 1 {
+        $seed: nth($list, ceil(length($list) / 2));
+
+        @each $item in $list {
+            @if ($item == $seed) {
+                $equal: append($equal, $item);
+            } @else if ($item < $seed) {
+                $less: append($less, $item);
+            } @else if ($item > $seed) {
+                $large: append($large, $item);
+            }
+        }
+
+        @return join(join(list-sort($less, $order), $equal), list-sort($large, $order));
+    }
+
+    @return $list;
+}
+
+/// Return a copy of a map sorted by the value of each entry
+///
+@function map-sort-by-values($map) {
+    $keys: ();
+    $values: ();
+    $sortedMap: ();
+
+    @each $key, $val in $map {
+        $keys: append($keys, $key);
+        $values: append($values, $val);
+    }
+
+    $list: zip($keys, $values);
+
+    @while length($list) > 0 {
+        // find smallest pair
+        $smallestPair: nth($list, 1);
+        @each $pair in $list {
+            $value: nth($pair, 2);
+            $smallestValue: nth($smallestPair, 2);
+            @if $value < $smallestValue {
+                $smallestPair: $pair;
+            }
+        }
+
+        // add smallest pair to sorted map
+        $key: nth($smallestPair, 1);
+        $value: nth($smallestPair, 2);
+        $sortedMap: map-merge(
+            $sortedMap,
+            (
+                $key: $value
+            )
+        );
+
+        // remove from list smallest pair
+        $smallestPairIndex: index($list, $smallestPair);
+        $newList: ();
+        @for $i from 1 through length($list) {
+            @if $i != $smallestPairIndex {
+                $newList: append($newList, nth($list, $i), 'space');
+            }
+        }
+        $list: $newList;
+    }
+
+    @return $sortedMap;
+}

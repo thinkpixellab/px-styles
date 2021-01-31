@@ -1,0 +1,89 @@
+////
+/// @group shadows
+////
+
+// ----------------------------------------------------------------------
+// Dependencies
+// ----------------------------------------------------------------------
+
+@use 'color.scss' as *;
+@use 'collections.scss' as *;
+@use 'math.scss' as *;
+
+// ----------------------------------------------------------------------
+// Mixins / Functions
+// ----------------------------------------------------------------------
+
+@function shadow(
+    $level: 2,
+    $alpha: null,
+    $bg: #808080,
+    $x: $shadow-x,
+    $y: $shadow-y,
+    $blur: $shadow-blur,
+    $spread: $shadow-spread,
+    $color: $shadow-color
+) {
+    $p: $level / $shadow-levels;
+    $x: intp($p, $x);
+    $y: intp($p, $y);
+    $blur: intp($p, $blur);
+    $spread: intp($p, $spread);
+
+    $yiq: yiq($bg);
+    $yiq: ease-out-cubic($yiq / 255);
+
+    $color: mix(nth-or-val($color, 1), nth-or-val($color, 2), $yiq * 100%);
+    $color: change-color($color, $alpha: round(alpha($color) * 100) / 100);
+    @if ($alpha) {
+        $color: rgba($color, $alpha);
+    }
+
+    @return #{$x} #{$y} #{$blur} #{$spread} #{$color};
+}
+
+@mixin shadow(
+    $level: 2,
+    $alpha: null,
+    $bg: #808080,
+    $x: $shadow-x,
+    $y: $shadow-y,
+    $blur: $shadow-blur,
+    $spread: $shadow-spread,
+    $color: $shadow-color
+) {
+    box-shadow: shadow($level, $alpha, $bg, $x, $y, $blur, $spread, $color);
+}
+
+// ----------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------
+
+/// Number of shadow levels used by shadow function/mixin
+$shadow-levels: 20 !default;
+
+// Ranges that scale with the level of the shadow (e.g shadow(10) has a
+// blur of 60px). All ranges can be expressed as simple values if they
+// don't need to scale.
+
+/// A range for the x value of standardized shadow that scaled with the shadow level
+/// @group site.config
+$shadow-x: (0px, 0px) !default;
+
+/// A range for the y value of standardized shadow that scaled with the shadow level
+/// @group site.config
+$shadow-y: (0px, 10px) !default;
+
+/// A range for the blue value of standardized shadow that scaled with the shadow level
+/// @group site.config
+$shadow-blur: (0px, 30px) !default;
+
+/// A range for the spread value of standardized shadow that scaled with the shadow level
+/// @group site.config
+$shadow-spread: (0px, 0px) !default;
+
+/// A color range for the standardized shadow that scales according to the luminance
+/// of the background that the shadow is displayed over (when one is provided). If this
+/// doesn't need to scale, a simple color value can be provided.
+/// @group site.config
+$shadow-color: (rgba($black, 0.1), rgba($black, 0.3)) !default;

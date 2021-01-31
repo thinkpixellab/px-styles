@@ -1,0 +1,35 @@
+////
+/// @group color
+////
+
+// ----------------------------------------------------------------------
+// Dependencies
+// ----------------------------------------------------------------------
+
+@use 'units.scss' as *;
+
+// Spacing
+
+// for $spacer = 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'
+@function sp($vals...) {
+    @if (length($vals) == 1) {
+        @return round($spacer * nth($vals, 1));
+    } @else {
+        $r: '';
+        @each $n in $vals {
+            $r: #{$r round($n * $spacer)};
+        }
+        @return $r;
+    }
+}
+
+@function -sp($val) {
+    @return sp($val) * -1;
+}
+
+// ----------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------
+
+/// Global default value for spacing functions.
+$spacer: rems(12px);

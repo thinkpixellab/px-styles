@@ -1,0 +1,99 @@
+////
+/// @group strings
+////
+
+// ----------------------------------------------------------------------
+// Mixins / Functions
+// ----------------------------------------------------------------------
+
+/// Replace all instances of a string within another string
+///
+/// @example str-replace('test test test', 'test', 'pass') // => 'pass pass pass'
+///
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace +
+            str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+/// Url encode a string (used primarily for encoding inline svg)
+@function url-encode($string) {
+    $map: (
+        '%': '%25',
+        '<': '%3C',
+        '>': '%3E',
+        ' ': '%20',
+        '!': '%21',
+        '*': '%2A',
+        "'": '%27',
+        '"': '%22',
+        '(': '%28',
+        ')': '%29',
+        ';': '%3B',
+        ':': '%3A',
+        '@': '%40',
+        '&': '%26',
+        '=': '%3D',
+        '+': '%2B',
+        '$': '%24',
+        ',': '%2C',
+        '/': '%2F',
+        '?': '%3F',
+        '#': '%23',
+        '[': '%5B',
+        ']': '%5D'
+    );
+
+    $new: $string;
+
+    @each $search, $replace in $map {
+        $new: str-replace($new, $search, $replace);
+    }
+
+    @return $new;
+}
+
+/// Encode an svg string for use as an inline svg (like a background image).
+///
+/// @example background-image: inline-svg('<svg>...</svg>'); // background-image: url('data:image/svg+xml, ... ');
+///
+@function inline-svg($string, $replacements: null) {
+    @if ($replacements) {
+        @each $search, $replace in $replacements {
+            $string: str-replace($string, $search, $replace);
+        }
+    }
+    @return url('data:image/svg+xml,#{url-encode($string)}');
+}
+
+/// Split a string by the provide separator and return a list (similar to JavaScript string.split)
+///
+/// @param {String} $string The string to be split
+/// @param {String} $separator The separator character (must
+///
+/// @example str-split('10px 5px 10px 5px', ' ') // => (10px, 5px, 10px, 5px)
+///
+@function str-split($string, $separator) {
+    // empty array/list
+    $split-arr: ();
+    // first index of separator in string
+    $index: str-index($string, $separator);
+    // loop through string
+    @while $index != null {
+        // get the substring from the first character to the separator
+        $item: str-slice($string, 1, $index - 1);
+        // push item to array
+        $split-arr: append($split-arr, $item);
+        // remove item and separator from string
+        $string: str-slice($string, $index + 1);
+        // find new index of separator
+        $index: str-index($string, $separator);
+    }
+    // add the remaining string to list (the last item)
+    $split-arr: append($split-arr, $string);
+
+    @return $split-arr;
+}

@@ -1,0 +1,143 @@
+////
+/// @group Math
+////
+
+/// Calculate a number raised to the power of the provided exponent.
+/// @param {*} $base The base number
+/// @param {*} $exp The exponent used to raise the base
+
+@function pow($base, $exp) {
+    $value: 1;
+    @if $exp > 0 {
+        @for $i from 1 through $exp {
+            $value: $value * $base;
+        }
+    }
+    @return $value;
+}
+
+/// Round a number using the specified number of decimals.
+/// @param {number} $n The number to be rounded
+/// @param {number} $dec [2] The number of decimals in the output
+
+@function round-d($n, $dec: 2) {
+    $p: pow(10, $dec);
+    $r: round($n * $p);
+    @warn $n $dec $p $r;
+    @return (round($n * $p) / $p);
+}
+
+/// Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)
+/// @param {number} $n The number to be rounded
+/// @param {number} $frac [8] The denominator of the fractional portion of the result
+
+@function round-f($n, $frac: 8) {
+    @return (round($n * $frac) / $frac);
+}
+
+/// A shortcute for round-f($n, 2)
+@function round-2($n) {
+    @return round-f($n, 2);
+}
+
+/// A shortcute for round-f($n, 3)
+@function round-3($n) {
+    @return round-f($n, 3);
+}
+
+/// A shortcute for round-f($n, 4)
+@function round-4($n) {
+    @return round-f($n, 4);
+}
+
+/// A shortcute for round-f($n, 5)
+@function round-5($n) {
+    @return round-f($n, 5);
+}
+
+/// A shortcute for round-f($n, 8)
+@function round-8($n) {
+    @return round-f($n, 8);
+}
+
+/// A shortcute for round-f($n, 10)
+@function round-10($n) {
+    @return round-f($n, 10);
+}
+
+/// A shortcute for round-f($n, 20)
+@function round-20($n) {
+    @return round-f($n, 20);
+}
+
+/// Interpolate between two values.
+///
+/// @param {number} $prog The progress between the two values, provided as a value between 0 and 1.
+/// @param {number} $range The range of interpolation. This can be provided as a single value which represents the upper range from 0 or as two values which represent the lower and upper range.
+///
+/// @example
+/// intp(0.5, 4) // => 2
+///
+/// @example
+/// intp(0.5, (1, 3) // => 2
+
+@function intp($prog, $range) {
+    $from: 0;
+    $to: $range;
+    @if (type-of($to) == 'list') {
+        $from: nth($to, 1);
+        $to: nth($to, 2);
+    }
+    @return $from + ($prog * ($to - $from));
+}
+
+// Easing functions
+// Based on these normalized versions of Penner:
+// https://github.com/CharlotteGore/functional-easing/blob/master/penner-easing.js
+
+/// Interpolate a value between 0 and 1 using the Penner ease-in quad function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
+@function ease-in-quad($t) {
+    @return $t * $t;
+}
+
+/// Interpolate a value between 0 and 1 using the Penner ease-out quad function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
+@function ease-out-quad($t) {
+    @return -1 * $t * ($t - 2);
+}
+
+/// Interpolate a value between 0 and 1 using the Penner ease-in cubic function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
+@function ease-in-cubic($t) {
+    @return $t * $t * $t;
+}
+
+/// Interpolate a value between 0 and 1 using the Penner ease-out cubic function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
+@function ease-out-cubic($t) {
+    $t: $t - 1;
+    @return $t * $t * $t + 1;
+}
+/// Interpolate a value between 0 and 1 using the Penner ease-in quart function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+@function ease-in-quart($t) {
+    @return $t * $t * $t * $t;
+}
+
+/// Interpolate a value between 0 and 1 using the Penner ease-out quart function.
+/// @param {Number} $t The input value between 0 and 1
+/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+@function ease-out-quart($t) {
+    $t: $t - 1;
+    @return -1 * ($t * $t * $t * $t - 1);
+}
