@@ -1,14 +1,11 @@
-// Json Encoding
-// =============
+////
+/// @group utils.json
+////
 
-// JSON Ecode
-// ----------
 /// Encode any Sass value as a JSON-ready string.
 ///
-/// @group config_api-utilities
-///
-/// @param {*} $value [$herman] -
-///   Data to be encoded for JSON exporting
+/// @param {*} $value Data to be encoded for JSON exporting
+
 @function encode($value) {
     $type: type-of($value);
 
@@ -27,15 +24,11 @@
     @return quotes($value);
 }
 
-// Encode List
-// -----------
-/// Encode each item in a Sass list,
-/// and convert to a JSON-ready square-bracketed list.
+/// Encode each item in a Sass list, and convert to a JSON-ready
+/// square-bracketed list.
 ///
-/// @group config_api-utilities
-///
-/// @param {list} $list -
-///   List to be encoded for JSON exporting
+/// @param {list} $list - List to be encoded for JSON exporting
+
 @function encode-list($list) {
     $str: '';
 
@@ -47,15 +40,10 @@
     @return '[#{$str}]';
 }
 
-// Encode Map
-// ----------
-/// Encode each key/value in a Sass map,
-/// and convert to a JSON-ready object.
+/// Encode each key/value in a Sass map, and convert to a JSON-ready object.
 ///
-/// @group config_api-utilities
-///
-/// @param {map} $map -
-///   Map to be encoded for JSON exporting
+/// @param {map} $map - Map to be encoded for JSON exporting
+
 @function encode-map($map) {
     $str: '';
 
@@ -67,15 +55,10 @@
     @return '{#{$str}}';
 }
 
-// Encode Number
-// -------------
-/// Encode a number for JSON,
-/// adding proof-quotes for length values.
+/// Encode a number for JSON, adding proof-quotes for length values.
 ///
-/// @group config_api-utilities
-///
-/// @param {number} $number -
-///   Number to be encoded for JSON exporting
+/// @param {number} $number - Number to be encoded for JSON exporting
+
 @function encode-number($number) {
     @if unitless($number) {
         @return inspect($number);
@@ -84,15 +67,11 @@
     @return quotes($number);
 }
 
-// Quote
-// -----
 /// Convert any value to a double-quoted string.
-///
-/// @group config_api-utilities
 /// @access private
 ///
-/// @param {*} $value -
-///   The value to inspect and quote.
+/// @param {*} $value The value to inspect and quote.
+
 @function quotes($value) {
     $value: '#{$value}';
     $value: escape-backslashes($value);
@@ -100,15 +79,11 @@
     @return '"#{$value}"';
 }
 
-// Escape Quotes
-// -------------
 /// Return a string, with internal quotes escaped.
-///
-/// @group config_api-utilities
 /// @access private
 ///
-/// @param {string} $string -
-///   The string to be manipulated
+/// @param {string} $string The string to be manipulated
+
 @function escape-quotes($string) {
     $return: $string;
     $old: '"';
@@ -129,15 +104,11 @@
     @return $return;
 }
 
-// Escape Backslashes
-// ------------------
 /// Return a string, with internal backslashes escaped.
-///
-/// @group config_api-utilities
 /// @access private
 ///
-/// @param {string} $string -
-///   The string to be manipulated
+/// @param {string} $string - The string to be manipulated
+
 @function escape-backslashes($string) {
     $return: $string;
     $old: '\\';

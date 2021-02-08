@@ -1,15 +1,16 @@
 ////
-/// @group typography
+/// @group utils.typography
 ////
 
 @use 'math.scss' as math;
 @use 'collections.scss' as collections;
 @use 'units.scss' as units;
 
-/// Some predefined ratios that could be helpful when generating modular type scales.
+/// Some predefined ratios that could be helpful when generating modular type
+/// scales.
 ///
 /// @link  https://www.modularscale.com/
-///
+
 $typescale-ratios: (
     minor-second: 16/15,
     major-second: 9/8,
@@ -24,14 +25,19 @@ $typescale-ratios: (
 
 /// Generate a modular type size
 ///
-/// @param {Number} $base The base size used to generate the type scale (always expressed in px).
-/// @param {Number} $ratio The ratio to use for generating the modular type scale (e.g. 1.25 or 4/3)
+/// @param {Number} $base The base size used to generate the type scale (always
+/// expressed in px).
+///
+/// @param {Number} $ratio The ratio to use for generating the modular type
+/// scale (e.g. 1.25 or 4/3)
+///
 /// @param {Number} $step The number of steps away from the base (pos/neg)
 ///
-/// @return {Number} A single value (in px or rem) that represents a font-size for the given parameters
+/// @return {Number} A single value (in px or rem) that represents a font-size
+/// for the given parameters
 ///
 /// @link  https://www.modularscale.com/
-///
+
 @function modular-size($base, $ratio, $step) {
     $size: $base;
 
@@ -44,20 +50,30 @@ $typescale-ratios: (
     @return $size;
 }
 
-/// Generate a complete modular type scale, expressed as a map of type names and font sizes
+/// Generate a complete modular type scale, expressed as a map of type names and
+/// font sizes
 ///
-/// @param {Number | List} $bases The base size or sizes used to generate the typescale
+/// @param {Number | List} $bases The base size or sizes used to generate the
+/// typescale
+///
 /// @param {Number} $ratio The ratio used to generate the typescale
-/// @param {List} $names The names for the generated sizes (these will be the keys in the map that gets returned)
-/// @param {Bool} $rems [true] Whether or not to convert to rems. Note that rems will be based on the first (or only) value in $bases
-/// @param {Number} $round [4] The fractional rounding amount (e.g. value of 4 means 1/4 so round to 0.25, 0.50, etc.)
+///
+/// @param {List} $names The names for the generated sizes (these will be the
+/// keys in the map that gets returned)
+///
+/// @param {Bool} $rems [true] Whether or not to convert to rems. Note that rems
+/// will be based on the first (or only) value in $bases
+///
+/// @param {Number} $round [4] The fractional rounding amount (e.g. value of 4
+/// means 1/4 so round to 0.25, 0.50, etc.)
 ///
 /// @link  https://www.modularscale.com/
 ///
-/// @return {Map} A map of named type sizes, e.g. `(small: 0.75rem, base: 1rem, large: 1.33rem)`
+/// @return {Map} A map of named type sizes, e.g. `(small: 0.75rem, base: 1rem,
+/// large: 1.33rem)`
 ///
 /// @example $typescale: modular-scale(16px, 4/3, sm base lg);
-///
+
 @function modular-scale($bases, $ratio, $names, $rems: true, $round: 4) {
     $scale: ();
     $bases: if(is-list($bases), $bases, ($bases));
@@ -112,29 +128,26 @@ $typescale-ratios: (
     @return $scale;
 }
 
-/// Get a font-size by name from the default typescale
-/// @param {*} $name The name of the size to lookup. Must be defined in the config $typescale variable.
-///
-/// @example font-size: fs(base) // => font-size: 15px
-/// @example font-size: fs(sm) // => font-size: 14px
-///
-@function fs($name) {
-    @if ($name and is-string($name) and map-has-key($typescale, $name)) {
-        @return map-get($typescale, $name);
-    }
-    @return $name;
-}
-
-/// Simplified syntax for generating a font-face at-rule for loading custom fonts.
+/// Simplified syntax for generating a font-face at-rule for loading custom
+/// fonts.
 ///
 /// @param {String} $name - Name of the font (as referenced in css)
-/// @param {String} $path - The url path used to load the font (do not include the extension, it will be appended)
-/// @param {String} $weight - The weight associated with this variation of the font
-/// @param {String} $style (optional) The styles associated with this variation of the font
-/// @param {String} $exts [woff ttf] - (optional) The full list of extensions to be loaded (added to path), no period
 ///
-/// @example @include font-face('circular', '~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');
+/// @param {String} $path - The url path used to load the font (do not include
+/// the extension, it will be appended)
 ///
+/// @param {String} $weight - The weight associated with this variation of the
+/// font
+///
+/// @param {String} $style (optional) The styles associated with this variation
+/// of the font
+///
+/// @param {String} $exts [woff ttf] - (optional) The full list of extensions to
+/// be loaded (added to path), no period
+///
+/// @example @include font-face('circular',
+/// '~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');
+
 @mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf) {
     $src: null;
 
@@ -176,29 +189,3 @@ $typescale-ratios: (
     -webkit-font-smoothing: initial;
     -moz-osx-font-smoothing: initial;
 }
-
-/// A map between names and sizes of standard font-sizes for the site. At least one size should be named base. This is required for generating headings.
-/// @type map
-/// @group site.config
-/// @example (sm:0.75rem, base: 1rem, lg: 1.33rem);
-/// @example modular-scale(15px, 4/3, sm base md);
-///
-$typescale: modular-scale(
-    $bases: units.$base-font-size,
-    $ratio: map-get($typescale-ratios, 'perfect-fourth'),
-    $names: (
-        'xxs',
-        'xs',
-        'sm',
-        'base',
-        'md',
-        'lg',
-        'x1',
-        'x2',
-        's3',
-        's4',
-        's5',
-        's6',
-        's7'
-    )
-) !default;

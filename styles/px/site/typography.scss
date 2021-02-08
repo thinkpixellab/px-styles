@@ -1,0 +1,48 @@
+////
+/// @group site.typography
+////
+
+@use '../utils/all.scss' as *;
+// @use 'config.scss' as *;
+
+/// Get a font-size by name from the default typescale
+///
+/// @param {*} $name The name of the size to lookup. Must be defined in the
+/// config $typescale variable.
+///
+/// @example
+/// config(typescale, (sm: 14px, base: 15px, lg: 18px, xl: 20px));
+/// font-size: fs(base) // => font-size: 15px
+/// font-size: fs(sm) // => font-size: 14px
+/// font-size: fs(-1) // => font-size: 14px
+/// font-size: fs(2) // => font-size: 20px
+
+@function fs($lookup: 'base') {
+    // if lookup is a string, find the size by name
+    @if (type-of($lookup) == 'string') {
+        $size: get('typescale:' + $lookup);
+        @if ($size) {
+            @return $size;
+        }
+
+        @error '[fs] Could not find a size named #{$lookup} in the typescale.';
+    }
+
+    // if lookup is a number, find the size as an from the 'base' size (e.g
+    // fs(2) would return the size that is two larger than the base)
+    @if (type-of($lookup) == 'number') {
+        $ts: get('typescale');
+        $names: map-keys($ts);
+
+        $base-index: index($names, 'base');
+        $name-index: $base-index + $lookup;
+
+        @if ($base-index < 1 or $base-index > length($names)) {
+            @error '[fs] The requested lookup index exceeds the boundares of the typescale.';
+        }
+
+        @return fs(nth($names, $name-index));
+    }
+
+    @error '[fs] Argument is unusable. Must be a string or a number.';
+}

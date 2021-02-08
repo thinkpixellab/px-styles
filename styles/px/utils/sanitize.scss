@@ -1,5 +1,8 @@
+////
+/// @group utils.sanitize
+////
+
 /// Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).
-/// @group sanitize
 
 @mixin sanitize() {
     // Add border box sizing in all browsers (opinionated).
@@ -44,14 +47,6 @@
 
     body {
         margin: 0;
-    }
-
-    // Correct the font size and margin on `h1` elements within `section` and
-    // `article` contexts in Chrome, Edge, Firefox, and Safari.
-
-    h1 {
-        font-size: 2em;
-        margin: 0.67em 0;
     }
 
     // ----------------------------------------------------------------------------

@@ -1,0 +1,31 @@
+// load the site configuration
+@use '../../site-utils.scss' as *;
+
+@include sanitize();
+@include site-basics();
+
+// add the common test classes
+
+.button {
+    @include button(());
+}
+
+.button-purple {
+    @include button(
+        (
+            accent: purple
+        )
+    );
+}
+
+.button-outline {
+    @include button-outline(());
+}
+
+.button-outline {
+    @include button-outline(
+        (
+            accent: purple
+        )
+    );
+}

@@ -1,13 +1,12 @@
 ////
-/// @group miscellaneous
+/// @group utils.misc
 ////
 
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
+@use 'collections.scss' as *;
+@use 'strings.scss' as *;
 
 /// Completely resets the appearance of controls (input and button)
-///
+
 @mixin control-reset {
     appearance: none;
     border: none;
@@ -21,11 +20,11 @@
 /// Style the placeholder text for an text input element
 /// @example
 /// input {
-///   @include placeholder {
-///     /* styles for placeholder here */
-///   }
+///     @include placeholder {
+///         /* styles for placeholder here */
+///     }
 /// }
-///
+
 @mixin placeholder {
     &::placeholder {
         @content;
@@ -45,7 +44,7 @@
 }
 
 /// Disable text selection on an element
-///
+
 @mixin no-select {
     -webkit-touch-callout: none;
     user-select: none;
@@ -55,7 +54,7 @@
 /// number of lines that are shown in a text element.
 ///
 /// @param {number} $lines The maximum number of lines to be shown
-///
+
 @mixin line-clamp($lines) {
     display: -webkit-box;
     -webkit-line-clamp: $lines;
@@ -71,7 +70,7 @@
 /// @param {length} $width  The width of the arrow
 ///
 /// @example TODO
-///
+
 @mixin triangle($direction, $color, $height, $width) {
     border-style: solid;
     height: 0;
@@ -108,5 +107,70 @@
     @if ($direction == 'down-right') {
         border-color: transparent transparent $color transparent;
         border-width: 0 0 $height $width;
+    }
+}
+
+@mixin css-map($map, $prop-map: null, $prop-ignore: ()) {
+    $prop-map: ifnull(
+        $prop-map,
+        (
+            fs: font-size,
+            ff: font-family,
+            fw: font-weight,
+            lh: line-height,
+            bg: background-color,
+            fg: color,
+            mb: margin-bottom,
+            mt: margin-top,
+            mr: margin-right,
+            ml: margin-left,
+            pb: padding-bottom,
+            pt: padding-top,
+            pr: padding-right,
+            pl: padding-left,
+            rd: border-radius,
+            shadow: box-shadow
+        )
+    );
+
+    $props: ();
+    $hover-props: ();
+
+    @each $key, $val in $map {
+        $hover-idx: str-index($key, 'hover-');
+        @if (str-index($key, 'hover-') == 1) {
+            $hover-props: map-merge(
+                $hover-props,
+                (
+                    $key: $val
+                )
+            );
+        } @else {
+            $props: map-merge(
+                $props,
+                (
+                    $key: $val
+                )
+            );
+        }
+    }
+
+    @each $key, $val in $props {
+        $prop: map-get-default($prop-map, $key, $key);
+        @if not(list-contains($prop-ignore, $prop)) {
+            #{$prop}: $val;
+        }
+    }
+
+    @if (length($hover-props) > 0) {
+        &:hover {
+            @each $key, $val in $hover-props {
+                $key: str-replace($key, 'hover-', '');
+                $prop: map-get-default($prop-map, $key, $key);
+                @if not(list-contains($prop-ignore, $prop)) {
+                    #{$prop}: $val;
+                }
+            }
+        }
     }
 }

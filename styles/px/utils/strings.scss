@@ -1,15 +1,11 @@
 ////
-/// @group strings
+/// @group utils.strings
 ////
-
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
 
 /// Replace all instances of a string within another string
 ///
 /// @example str-replace('test test test', 'test', 'pass') // => 'pass pass pass'
-///
+
 @function str-replace($string, $search, $replace: '') {
     $index: str-index($string, $search);
     @if $index {
@@ -20,6 +16,7 @@
 }
 
 /// Url encode a string (used primarily for encoding inline svg)
+
 @function url-encode($string) {
     $map: (
         '%': '%25',
@@ -58,8 +55,9 @@
 
 /// Encode an svg string for use as an inline svg (like a background image).
 ///
-/// @example background-image: inline-svg('<svg>...</svg>'); // background-image: url('data:image/svg+xml, ... ');
-///
+/// @example
+/// background-image: inline-svg('<svg>...</svg>'); // => background-image: url('data:image/svg+xml, ... ');
+
 @function inline-svg($string, $replacements: null) {
     @if ($replacements) {
         @each $search, $replace in $replacements {
@@ -69,13 +67,6 @@
     @return url('data:image/svg+xml,#{url-encode($string)}');
 }
 
-/// Split a string by the provide separator and return a list (similar to JavaScript string.split)
-///
-/// @param {String} $string The string to be split
-/// @param {String} $separator The separator character (must
-///
-/// @example str-split('10px 5px 10px 5px', ' ') // => (10px, 5px, 10px, 5px)
-///
 @function str-split($string, $separator) {
     // empty array/list
     $split-arr: ();
@@ -96,4 +87,21 @@
     $split-arr: append($split-arr, $string);
 
     @return $split-arr;
+}
+
+/// Creates and returns a new string by concatenating all of the elements in a
+/// list separated by $separator. Similiar to Javascript Array.join JavaScript
+///
+/// @param {List} $list The list to be joined
+/// @param {String} $separator The separator character
+///
+/// @example list-join('a' 'b' 'c', ':') // => 'a:b:c'
+
+@function list-join($list, $separator) {
+    $str: '';
+    @for $i from 1 through length($list) {
+        $s: nth($list, $i);
+        $str: $str + $s + if($i != length($list), $separator, '');
+    }
+    @return $str;
 }

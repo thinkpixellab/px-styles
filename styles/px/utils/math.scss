@@ -1,5 +1,5 @@
 ////
-/// @group Math
+/// @group utils.math
 ////
 
 /// Calculate a number raised to the power of the provided exponent.
@@ -72,8 +72,12 @@
 
 /// Interpolate between two values.
 ///
-/// @param {number} $prog The progress between the two values, provided as a value between 0 and 1.
-/// @param {number} $range The range of interpolation. This can be provided as a single value which represents the upper range from 0 or as two values which represent the lower and upper range.
+/// @param {number} $prog The progress between the two values, provided as a
+/// value between 0 and 1.
+///
+/// @param {number} $range The range of interpolation. This can be provided as a
+/// single value which represents the upper range from 0 or as two values which
+/// represent the lower and upper range.
 ///
 /// @example
 /// intp(0.5, 4) // => 2
@@ -91,8 +95,7 @@
     @return $from + ($prog * ($to - $from));
 }
 
-// Easing functions
-// Based on these normalized versions of Penner:
+// Easing functions based on these normalized versions of Penner:
 // https://github.com/CharlotteGore/functional-easing/blob/master/penner-easing.js
 
 /// Interpolate a value between 0 and 1 using the Penner ease-in quad function.
@@ -127,9 +130,11 @@
     $t: $t - 1;
     @return $t * $t * $t + 1;
 }
+
 /// Interpolate a value between 0 and 1 using the Penner ease-in quart function.
 /// @param {Number} $t The input value between 0 and 1
 /// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
 @function ease-in-quart($t) {
     @return $t * $t * $t * $t;
 }
@@ -137,7 +142,19 @@
 /// Interpolate a value between 0 and 1 using the Penner ease-out quart function.
 /// @param {Number} $t The input value between 0 and 1
 /// @return {Number} The eased equivalent of the input (also between 0 and 1).
+
 @function ease-out-quart($t) {
     $t: $t - 1;
     @return -1 * ($t * $t * $t * $t - 1);
+}
+
+/// Clamp a number (keep it within the confines of min/max). Note: the weird
+/// name is to differentiate from the clamp() css function.
+///
+/// @param {*} $number The number to be clampled
+/// @param {*} $min Min allowed value
+/// @param {*} $max Max allowed value
+
+@function clamp-number($number, $min, $max) {
+    @return min(max($number, $min), $max);
 }

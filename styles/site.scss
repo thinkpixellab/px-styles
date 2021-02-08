@@ -1,7 +1,10 @@
-@use 'px.scss' as *;
+// ----------------------------------------------------------------------------
+// site.scss
+// This file contains global css for the site.
+// ----------------------------------------------------------------------------
 
-// standard site setup
+@use 'site-utils.scss' as *;
+@use 'px/controls/controls.scss' as *;
+
 @include sanitize();
 @include site-basics();
-
-// global site css

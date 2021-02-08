@@ -2,15 +2,11 @@
 /// @group Collections
 ////
 
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
-
 /// Get a value from a map if the key exists, otherwise return a fallback
 ///
 /// @example map-get-default((a:1, b:2), a, 3) => 1
 /// @example map-get-default((a:1, b:2), wontwork, 3) => 3
-///
+
 @function map-get-default($map, $key, $default) {
     @if (map-has-key($map, $key)) {
         @return map-get($map, $key);
@@ -19,13 +15,46 @@
     }
 }
 
+/// Deep lookup for map values, each parameter represents the next level lookup
+/// @param {map} $map - Map
+/// @param {arglist} $keys - Key chain
+
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
+}
+
+// /// Get just the keys from a map (similar to JavaScript's Object.keys)
+// /// @param {*} $map
+
+// @function map-keys($map) {
+//     $keys: ();
+//     @each $key, $val in $map {
+//         $keys: append($keys, $key);
+//     }
+//     @return $keys;
+// }
+
+// /// Get just the keys from a map (similar to JavaScript's Object.values)
+// /// @param {*} $map
+
+// @function map-values($map) {
+//     $vals: ();
+//     @each $key, $val in $map {
+//         $vals: append($vals, $val);
+//     }
+//     @return $vals;
+// }
+
 /// If $list-or-val is a list, return the nth value; if the item is a value
 /// return the value; if the value is null return the default
 ///
 /// @example nth-or-val((a, b, c), 1, d) => 1
 /// @example nth-or-val(a, 1, d) => a
 /// @example nth-or-val(null, 1, d) => d
-///
+
 @function nth-or-val($list-or-value, $n, $default: null) {
     @if (not $list-or-value) {
         @return $default;
@@ -37,7 +66,7 @@
 }
 
 /// Return a copy of a list with the nth value removed
-///
+
 @function list-remove($list, $n) {
     $result: ();
     $n: if($n < 0, length($list) + $n + 1, $n);
@@ -51,8 +80,14 @@
     @return join((), $result, $separator, $bracketed);
 }
 
-/// Return a copy of a
-///
+/// Returns true if the list contains a value, otherwise false
+
+@function list-contains($list, $val) {
+    @return index($list, $val) != null;
+}
+
+/// Return a copy of a list sorted numerically
+
 @function list-sort-num($list) {
     $sortedlist: ();
     @while length($list) > 0 {
@@ -69,7 +104,7 @@
 }
 
 /// Return a copy of a list sorted alphabetically
-///
+
 @function list-sort($list) {
     $order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']' '^' '_' '{' '|' '}' '~''0' '1' '2' '3'
         '4' '5' '6' '7' '8' '9' 'a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v'
@@ -99,7 +134,7 @@
 }
 
 /// Return a copy of a map sorted by the value of each entry
-///
+
 @function map-sort-by-values($map) {
     $keys: ();
     $values: ();
@@ -145,4 +180,56 @@
     }
 
     @return $sortedMap;
+}
+
+/// Creates a new list with the results of calling a function once for every
+/// item in this list. Equivalent to Array.map in JavaScript.
+///
+/// @param {List} $list the list to which the function is being applied
+///
+/// @param {Function} $fn reference to a function(item, index) that will be
+/// applied to every item.
+///
+/// @example
+/// @function square($x, $i) { @return $x * $x }
+/// list-map(1 2 3 4, square); // => 1 4 9 16
+///
+@function list-map($list, $fn) {
+    @if length($list) == 0 {
+        @return ();
+    }
+    $new-list: $list;
+    @for $i from 1 through length($list) {
+        $new-list: set-nth($new-list, $i, call($fn, nth($list, $i)));
+    }
+    @return $new-list;
+}
+
+/// Creates a new list with all items that pass the test implemented by the
+/// provided function. Similar to Array.filter in JavaScript.
+///
+/// @param {List} $list the list being filtered
+/// @param {Function} $fn reference to a filtering function
+///
+/// @example
+///   @function aboveTen($x) { @return x > 10 }
+///   list-filter(2 20 30 3 4 100, aboveTen); // => (20 30 100)
+
+@function list-filter($list, $fn) {
+    $new-list: ();
+    @each $item in $list {
+        @if call($fn, $item) {
+            $new-list: append($new-list, $item);
+        }
+    }
+    @return $new-list;
+}
+
+/// Shortcut that checks whether a value is null and if it is, return a
+/// fallback. Otherwise return the non-null original value.
+/// @param {*} $value
+/// @param {*} $fallback
+
+@function ifnull($value, $fallback) {
+    @return if($value != null, $value, $fallback);
 }

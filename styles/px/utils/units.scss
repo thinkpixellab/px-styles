@@ -1,5 +1,5 @@
 ////
-/// @group units
+/// @group utils.units
 ////
 
 @use 'math.scss' as math;
@@ -130,6 +130,18 @@
     @return type-of($value) == 'string';
 }
 
+/// Return true if the provided value is a string
+///
+@function is-map($value) {
+    @return type-of($value) == 'map';
+}
+
+/// Return true if the provided value is a string
+///
+@function is-list($value) {
+    @return type-of($value) == 'list';
+}
+
 /// Convert any valid four-part value (like those used for margin or padding) into a map with
 /// the correct values for top, right, bottom, left)
 ///
@@ -217,24 +229,3 @@
     }
     @return null;
 }
-
-/// Convert rem to px for a given base font size (the font size of the document root element)
-///
-@function px($rems, $basepx: $base-font-size) {
-    @return ($rems / 1rem) * $basepx;
-}
-
-/// Convert px to rem for a given base font size (the font size of the document root element)
-///
-@function rems($px, $basepx: $base-font-size, $round: 0) {
-    $r: ($px / $basepx) * 1rem;
-    @return if($round > 0, math.round-f($r, $round), $r);
-}
-
-// ----------------------------------------------------------------------
-// Variables
-// ----------------------------------------------------------------------
-
-/// The base font-size for the root of the page (used for converting to/from rems)
-/// @group config
-$base-font-size: 16px !default;

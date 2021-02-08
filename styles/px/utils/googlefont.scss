@@ -1,12 +1,8 @@
 ////
-/// @group typography
+/// @group utils.typography
 ////
 
 // Based on this: https://codepen.io/jakob-e/pen/LVVXjO
-
-// ----------------------------------------------------------------------
-// Internal
-// ----------------------------------------------------------------------
 
 @function __gf__list-unique($list) {
     $result: ();
@@ -37,20 +33,50 @@
     @return $list;
 }
 
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
+/// The font subset to loaded. Note that the latin subset is always included if
+/// available and need not be specified. Also, if a client browser supports
+/// supports unicode-range then this subset parameter is igored and the browser
+/// will select from the subsets supported by the font to get what it needs to
+/// render the text.
+
+$google-font-subsets: (
+    'arabic': false,
+    'bengali': false,
+    'cyrillic': false,
+    'cyrillic-ext': false,
+    'devanagari': false,
+    'greek': false,
+    'greek-ext': false,
+    'gujarati': false,
+    'hebrew': false,
+    'khmer': false,
+    'latin': false,
+    'latin-ext': false,
+    'tamil': false,
+    'telugu': false,
+    'thai': false,
+    'vietnamese': false
+) !default;
 
 /// Mixin for loading google fonts.
 ///
 /// @param {string} $name [null] Name of the font (must match google)
-/// @param {list or number} $weights [400]  A list of weights to be loaded (or single weight)
-/// @param {list or string} $styles [normal] A list of styles to be loaded (or single style)
+///
+/// @param {list or number} $weights [400]  A list of weights to be loaded (or
+/// single weight)
+///
+/// @param {list or string} $styles [normal] A list of styles to be loaded (or
+/// single style)
+///
 /// @param {*} $text [null] Subsetting text
 ///
 /// @example @include google-font(Lato, 300);
+///
 /// @example @include google-font(Open Sans, 400, italic)
-/// @example @include google-font(Slapo 27px, 400 200, $text: 'Lorem ipsum dolor sit amet');
+///
+/// @example @include google-font(Slapo 27px, 400 200, $text: 'Lorem ipsum dolor
+/// sit amet');
+///
 /// @example
 ///     // By placing google-font includes inside a google-font include (without arguments)
 ///     // nested includes will be merged into a single import
@@ -63,8 +89,9 @@
 ///     }
 ///
 ///
-/// // => @import url("//fonts.googleapis.com/css?family=Material+Icons:400|Open+Sans:300,400,700,300i,400i,700i|Lato:300,400
-///
+/// // => @import
+/// url("//fonts.googleapis.com/css?family=Material+Icons:400|Open+Sans:300,400,700,300i,400i,700i|Lato:300,400
+
 @mixin google-font($name: null, $weights: 400, $styles: normal, $text: null) {
     //  base url
     $URL: '//fonts.googleapis.com/css?family=';
@@ -186,32 +213,3 @@
         $__gf__combine: false !global;
     }
 }
-
-// ----------------------------------------------------------------------
-// Variables
-// ----------------------------------------------------------------------
-
-/// The font subset to loaded. Note that the latin subset is always included
-/// if available and need not be specified. Also, if a client browser supports
-/// supports unicode-range then this subset parameter is igored and the
-/// browser will select from the subsets supported by the font to get what it
-///  needs to render the text.
-
-$google-font-subsets: (
-    'arabic': false,
-    'bengali': false,
-    'cyrillic': false,
-    'cyrillic-ext': false,
-    'devanagari': false,
-    'greek': false,
-    'greek-ext': false,
-    'gujarati': false,
-    'hebrew': false,
-    'khmer': false,
-    'latin': false,
-    'latin-ext': false,
-    'tamil': false,
-    'telugu': false,
-    'thai': false,
-    'vietnamese': false
-) !default;

@@ -1,0 +1,193 @@
+////
+/// @group site.mediaquery
+////
+
+@use '../utils/all.scss' as *;
+// @use 'config.scss' as *;
+
+// ----------------------------------------------------------------------
+// Media query helpers
+//
+// Notes:
+//
+// These are not particularly smart mixins, they just media queries a litte
+// easier to read and encourage consistent breakpoints.
+//
+// Remember that order matters. If using a series of "media-until" rules, they
+// should be ordered from largest to smallest. If using a series of
+// "media-after" rules then the opposite is true.
+//
+// Finally, the behavior at the breakpoint itself is also determined by order.
+// So if there is a "smaller-than" rule and "larger-than" rule for the same
+// breakpoint, the last one will win. The rules are all inclusive and no
+// "shifting" (e.g. adding  0.1px to the sizing, etc.) has been done to
+// automatically resolve conflicts. That just seemed to add to the confusing.
+//
+// Sample usage:
+//
+// html body {
+//
+//     background-color: #f2f2f2;
+//
+//     /* "until-media" should be ordered largest to smallest */
+//     @include media-until(tablet) {
+//         background-color: orange;
+//     }
+//
+//     @include media-until(phone) {
+//         background-color: red;
+//     }
+//
+//     /* "media-after" should be ordered smallest to largest */
+//
+//     @include media-after(desktop-md) {
+//         background-color: green;
+//     }
+//
+//     @include media-after(desktop-lg) {
+//         background-color: blue;
+//     }
+//
+//     /* "media-between" ordering doesn't but placing last will
+//         probably be easiest to understand */
+//
+//     @include media-between(1100px, 1200px) {
+//         background-color: yellow;
+//     }
+//
+// }
+// ----------------------------------------------------------------------
+
+/// Get a breakpoint by name. If an number value is provided, that number will
+/// be returned.
+///
+/// @param {String | Length} $break The name of the breakpoint or a number that
+/// will be returned
+
+@function get-breakpoint($break) {
+    @if is-number($break) {
+        @return $break;
+    } @else {
+        $bp: get('breakpoints:' + $break);
+        @if ($bp) {
+            @return $bp;
+        } @else {
+            @error "A breakpoint named `#{$break}` could not be found.";
+        }
+    }
+}
+
+/// Creates a media query that applies for all browser widths **smaller** than
+/// the provided breakpoint.
+///
+/// @param {String | Length} $break The breakpoint for the generated media
+/// query. Use a string for a named site breakpoint or a length.
+///
+/// @example
+///     // Note that media-until rules should be ordered largest to smallest
+///
+///     @include media-until(md) { ... } // => @media screen and (max-width: 1024px) { ... }
+///     @include media-until(sm) { ... } // => @media screen and (max-width: 768px) { ... }
+
+@mixin media-until($break) {
+    $breakpoint: get-breakpoint($break);
+    @media screen and (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+/// Creates a media query that applies for all browser widths **larger** than
+/// the provided breakpoint.
+///
+/// @param {String | Length} $break The breakpoint for the generated media
+/// query. Use a string for a named site breakpoint or a length.
+///
+/// @example
+///     // Note that media-afters rules should be ordered smallest to largest
+///
+///     @include media-after(sm) { ... } // => @media screen and (max-width: 768px) { ... }
+///     @include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }
+
+@mixin media-after($break) {
+    $breakpoint: get-breakpoint($break);
+    @media screen and (min-width: $breakpoint) {
+        @content;
+    }
+}
+
+/// Creates a media query that applies for all browser widths between the two
+/// provided breakpoints.
+///
+/// @param {String | Length} $break-from The lower limit breakpoint for the
+/// generated media query. Use a string for a named site breakpoint or a length.
+///
+/// @param {String | Length} $break-to The upper limit breakpoint for the
+/// generated media query. Use a string for a named site breakpoint or a length.
+///
+/// @example @include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and (max-width: 1024px) { ... }
+
+@mixin media-between($break-from, $break-to) {
+    $breakpoint-from: get-breakpoint($break-from);
+    $breakpoint-to: get-breakpoint($break-to);
+    @media screen and (min-width: $breakpoint-from) and (max-width: $breakpoint-to) {
+        @content;
+    }
+}
+
+/// Creates a media query that applies for all browser heights **smaller** than
+/// the provided size.
+///
+/// @param {Length} $size The size for the generated media query.
+///
+/// @example
+/// @include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }
+
+@mixin media-until-height($size) {
+    @media screen and (max-height: $size) {
+        @content;
+    }
+}
+
+/// Creates a media query that applies for all browser heights **larger** than
+/// the provided size.
+/// @param {Length} $size The size for the generated media query.
+///
+/// @example
+/// @include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }
+
+@mixin media-after-height($size) {
+    @media screen and (min-height: $size) {
+        @content;
+    }
+}
+
+/// Creates a media query that applies for all browser heights between the two
+/// provided sizes.
+///
+/// @param {Length} $size-from The lower limit size for the generated media
+/// query.
+///
+/// @param {Length} $size-to The upper limit size for the generated media query.
+///
+/// @example
+/// @include media-between(sm, md) { ... } // => @media screen and (min-height:
+/// 768px) and (max-height: 1024px) { ... }
+///
+@mixin media-between-height($size-from, $size-to) {
+    @media screen and (min-height: $size-from) and (min-height: $size-to) {
+        @content;
+    }
+}
+
+/// A convenience mixin that is equivalent to media-until($mobile-breakpoint).
+@mixin media-until-mobile() {
+    @include media-until(get(mobile-breakpoint)) {
+        @content;
+    }
+}
+
+/// Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest
+///
+@function breakpoints-asc() {
+    @return map-sort-by-values(get(breakpoints));
+}

@@ -1,10 +1,9 @@
 ////
-/// @group transitions
+/// @group site.transitions
 ////
 
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
+@use '../utils/all.scss' as *;
+// @use 'config.scss' as *;
 
 /// Simplified syntax for transitioning multiple individual properties on
 /// an element, defaulting to standardized values for duration and easing.
@@ -18,17 +17,16 @@
 /// @example @include transition(transform opacity, 500ms);
 /// @example @include transition(transform opacity, $ease: $ease-out-bounce A l);
 
-@mixin transition($proplist, $dur: $transition-dur, $ease: $transition-ease, $delay: 0ms) {
-    $transition: null;
-    $idx: 0;
+@mixin transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
+    $name: ifnull($name, 'default');
+    $dur: ifnull($dur, get('transitions:' + $name + ':dur'));
+    $ease: ifnull($ease, get('transitions:' + $name + ':ease'));
+    $transitions: ();
+
     @each $prop in $proplist {
-        @if ($idx > 0) {
-            $transition: $transition#{','};
-        }
-        $transition: $transition $prop $dur $ease $delay;
-        $idx: $idx + 1;
+        $transitions: append($transitions, list-join($prop $dur $ease $delay, ' '));
     }
-    transition: $transition;
+    transition: unquote(list-join($transitions, ', '));
 }
 
 // [name]-enter
@@ -63,166 +61,162 @@
 
 // fade
 
-@mixin t-fade($name: 'fade', $dur: $vue-transition-dur, $ease: $vue-transition-ease, $pin: false) {
-    .#{$name}-enter-active,
-    .#{$name}-leave-active {
-        transition: opacity $dur $ease;
-    }
+// @mixin t-fade($name: 'fade', $dur: $vue-transition-dur, $ease: $vue-transition-ease, $pin: false) {
+//     .#{$name}-enter-active,
+//     .#{$name}-leave-active {
+//         transition: opacity $dur $ease;
+//     }
 
-    .#{$name}-enter,
-    .#{$name}-leave-to {
-        opacity: 0;
-    }
+//     .#{$name}-enter,
+//     .#{$name}-leave-to {
+//         opacity: 0;
+//     }
 
-    @if ($pin) {
-        .#{$name}-leave-active {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-    }
-}
+//     @if ($pin) {
+//         .#{$name}-leave-active {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//         }
+//     }
+// }
 
-// slide and fade
+// // slide and fade
 
-@mixin t-slide-fade(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $axis: 'Y',
-    $pin: true
-) {
-    .#{$name}-leave-active,
-    .#{$name}-enter-active {
-        transition: transform $dur $ease, opacity $dur $ease;
-    }
-    .#{$name}-enter {
-        opacity: 0;
-        @if ($axis == 'X' or $axis == 'x') {
-            transform: translateX($distance);
-        } @else {
-            transform: translateY($distance);
-        }
-    }
+// @mixin t-slide-fade(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $axis: 'Y',
+//     $pin: true
+// ) {
+//     .#{$name}-leave-active,
+//     .#{$name}-enter-active {
+//         transition: transform $dur $ease, opacity $dur $ease;
+//     }
+//     .#{$name}-enter {
+//         opacity: 0;
+//         @if ($axis == 'X' or $axis == 'x') {
+//             transform: translateX($distance);
+//         } @else {
+//             transform: translateY($distance);
+//         }
+//     }
 
-    .#{$name}-leave-to {
-        opacity: 0;
-        @if ($axis == 'X' or $axis == 'x') {
-            transform: translateX($distance * -1);
-        } @else {
-            transform: translateY($distance * -1);
-        }
-    }
+//     .#{$name}-leave-to {
+//         opacity: 0;
+//         @if ($axis == 'X' or $axis == 'x') {
+//             transform: translateX($distance * -1);
+//         } @else {
+//             transform: translateY($distance * -1);
+//         }
+//     }
 
-    @if ($pin) {
-        .#{$name}-enter-active {
-            position: relative;
-        }
-        .#{$name}-leave-active {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-    }
-}
+//     @if ($pin) {
+//         .#{$name}-enter-active {
+//             position: relative;
+//         }
+//         .#{$name}-leave-active {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//         }
+//     }
+// }
 
-@mixin t-slide-fade-reverse(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $axis: 'Y',
-    $pin: true
-) {
-    .#{$name}-leave-active,
-    .#{$name}-enter-active {
-        transition: transform $dur $ease, opacity $dur $ease;
-    }
-    .#{$name}-enter {
-        opacity: 0;
-        @if ($axis == 'X' or $axis == 'x') {
-            transform: translateX($distance);
-        } @else {
-            transform: translateY($distance);
-        }
-    }
-    .#{$name}-leave-to {
-        opacity: 0;
-        @if ($axis == 'X' or $axis == 'x') {
-            transform: translateX($distance);
-        } @else {
-            transform: translateY($distance);
-        }
-    }
+// @mixin t-slide-fade-reverse(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $axis: 'Y',
+//     $pin: true
+// ) {
+//     .#{$name}-leave-active,
+//     .#{$name}-enter-active {
+//         transition: transform $dur $ease, opacity $dur $ease;
+//     }
+//     .#{$name}-enter {
+//         opacity: 0;
+//         @if ($axis == 'X' or $axis == 'x') {
+//             transform: translateX($distance);
+//         } @else {
+//             transform: translateY($distance);
+//         }
+//     }
+//     .#{$name}-leave-to {
+//         opacity: 0;
+//         @if ($axis == 'X' or $axis == 'x') {
+//             transform: translateX($distance);
+//         } @else {
+//             transform: translateY($distance);
+//         }
+//     }
 
-    @if ($pin) {
-        .#{$name}-leave-active {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-    }
-}
+//     @if ($pin) {
+//         .#{$name}-leave-active {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//         }
+//     }
+// }
 
-@mixin t-slide-fade-y(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $pin: true
-) {
-    @include t-slide-fade($name, $distance, $dur, $ease, 'Y');
-}
+// @mixin t-slide-fade-y(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $pin: true
+// ) {
+//     @include t-slide-fade($name, $distance, $dur, $ease, 'Y');
+// }
 
-@mixin t-slide-fade-y-reverse(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $pin: true
-) {
-    @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'Y');
-}
+// @mixin t-slide-fade-y-reverse(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $pin: true
+// ) {
+//     @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'Y');
+// }
 
-@mixin t-slide-fade-x(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $pin: true
-) {
-    @include t-slide-fade($name, $distance, $dur, $ease, 'X');
-}
+// @mixin t-slide-fade-x(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $pin: true
+// ) {
+//     @include t-slide-fade($name, $distance, $dur, $ease, 'X');
+// }
 
-@mixin t-slide-fade-x-reverse(
-    $name: 'slide',
-    $distance: 100px,
-    $dur: $vue-transition-dur,
-    $ease: $vue-transition-ease,
-    $pin: true
-) {
-    @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'X');
-}
+// @mixin t-slide-fade-x-reverse(
+//     $name: 'slide',
+//     $distance: 100px,
+//     $dur: $vue-transition-dur,
+//     $ease: $vue-transition-ease,
+//     $pin: true
+// ) {
+//     @include t-slide-fade-reverse($name, $distance, $dur, $ease, 'X');
+// }
 
 // ----------------------------------------------------------------------
 // Variables
 // ----------------------------------------------------------------------
 
-/// Global default transition duration
-/// @group site.config
-$transition-dur: 150ms !default;
+// /// Global default transition duration
+// /// @group site.config
+// $transition-dur: 150ms !default;
 
-/// Global default transition easing
-/// @group site.config
-$transition-ease: ease-out !default;
-
-// ----------------------------------------------------------------------
-// Constants
-// ----------------------------------------------------------------------
+// /// Global default transition easing
+// /// @group site.config
+// $transition-ease: ease-out !default;
 
 /// Cubic-bezier for Penner ease in cubic
 $ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);

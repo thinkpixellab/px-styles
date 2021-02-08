@@ -1,0 +1,126 @@
+////
+/// @group site.color
+////
+
+@use '../utils/all.scss' as *;
+// @use 'config.scss' as *;
+
+/// Produce a shade (a lighter or darker version) of a color based on the value
+/// of $shade and an optional darkest to lightest shade range.
+///
+/// @param {*} $color [null] The color to be shaded. If not provided, it will be
+/// calculated as the middle value within $shade-range.
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {*} $shade-range [(black,white)] The range of colors will be produced
+/// as a list (darkest, lightest).
+
+@function shade(
+    $color: null,
+    $shade: 0,
+    $shade-range: (
+        black,
+        white
+    )
+) {
+    $shade-steps: get(shade-steps);
+    $shade-amount: (100% / $shade-steps) * 2;
+    $shade: clamp-number($shade, $shade-steps / -2, $shade-steps / 2);
+    $shade-range: ifnull($shade-range, get(shade-range));
+
+    @if ($color == null) {
+        $color: mix(nth($shade-range, 1), nth($shade-range, 2));
+    }
+
+    @if ($shade < 0) {
+        $color1: nth($shade-range, 1);
+        @return mix($color1, $color, ($shade * $shade-amount) * -1);
+    }
+    @if ($shade > 0) {
+        @return mix(nth($shade-range, 2), $color, ($shade * $shade-amount));
+    }
+
+    @return $color;
+}
+
+/// Get a standardized shade of site's base gray.
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+
+@function gray($shade: 0) {
+    @return shade($color: get('gray-base'), $shade: $shade, $shade-range: get('gray-range'));
+}
+
+/// Get a standardized shade of the site's primary color
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+
+@function primary($shade: 0) {
+    @return shade(
+        $color: get('colors:primary'),
+        $shade: $shade,
+        $shade-range: get(('shade-range-primary' 'shade-range'))
+    );
+}
+
+/// Get a standardized shade of the site's base color
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+
+@function accent($shade: 0) {
+    @return shade(
+        $color: get('colors:accent'),
+        $shade: $shade,
+        $shade-range: get(('shade-range-accent' 'shade-range'))
+    );
+}
+
+/// Lookup a color by name and optionally get a shade of it
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+
+@function clr($name, $shade: 0) {
+    $clr: get('colors:' + $name);
+    @if ($clr == null) {
+        @error 'The color #{$name} could not be found.';
+    }
+    @return shade($clr, $shade: $shade, $shade-range: get(('shade-range-accent' 'shade-range')));
+}
+
+/// Computes the the luminance (grayscale value) of a color in the yiq color space
+
+@function yiq($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $yiq: (($r * 299) + ($g * 587) + ($b * 114))/1000;
+
+    // 0 (black) - 255 (white)
+    @return $yiq;
+}
+
+/// Choose a contrasting foreground based on a background color
+
+@function contrast-color($bg, $light-fg: get(contrast-light), $dark-fg: get(contrast-dark), $contrast-threshold: 128) {
+    @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
+}
+
+/// Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)
+///
+/// @param {*} $color1 [yellowgreen] The first color in the gradient
+/// @param {*} $color2 [gold] The second color in the gradient
+
+@mixin debug-zebra($color1: yellowgreen, $color2: gold) {
+    background-image: repeating-linear-gradient(-45deg, $color1 0 20px, $color2 20px 40px);
+}
