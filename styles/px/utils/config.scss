@@ -11,7 +11,7 @@ $config: ();
 /// Retrieve a configuration setting.
 ///
 /// @param {string or list} $paths The path (string) list of paths (list) where
-/// the setting should be found. Each path is one or more keys keys separated by
+/// the setting should be found. Each path is one or more keys separated by
 /// colons (e.g. 'colors:accent' would find the value accent in the colors map).
 /// If a list of strings is provided, they will searched in order and the first
 /// non-null value will be returned.
@@ -30,22 +30,7 @@ $config: ();
         @return $fallback;
     }
 
-    // assume $paths is a string
-    $keys: str-split($paths, ':');
-    $map: $config;
-    @each $key in $keys {
-        @if (map-has-key($map, $key)) {
-            $map: map-get($map, $key);
-        } @else {
-            @return $fallback;
-        }
-    }
-
-    @if ($map == null and $fallback != null) {
-        @return $fallback;
-    }
-
-    @return $map;
+    @return map-get-path($config, $paths, $fallback);
 }
 
 /// Add a configuration setting.
@@ -57,47 +42,5 @@ $config: ();
 /// @param {*} $val [null] The value to be added.
 
 @mixin config($path, $val: null) {
-    $keys: str-split($path, ':');
-    $keys-left: $keys;
-    $map: null;
-    @for $i from length($keys) through 1 {
-        $key: nth($keys, $i);
-        @if ($i > 1) {
-            $keys-left: list-remove($keys-left, $i);
-            $map: get(list-join($keys-left, ':'));
-
-            @if ($map == null) {
-                $map: (
-                    unquote($key): $val
-                );
-            } @else {
-                @if (type-of($map) == 'map') {
-                    $map: map-merge(
-                        $map,
-                        (
-                            unquote($key): $val
-                        )
-                    );
-                } @else {
-                    @error "Mixin config failed. Non-map value encountered when setting path #{$path} at key #{$key}.";
-                }
-            }
-
-            $val: $map;
-        } @else {
-            $current: get($key);
-
-            // if the current value and new value are both maps then we want to combine them
-            @if ($current and type-of($current) == 'map' and type-of($val) == 'map') {
-                $val: map-merge($current, $val);
-            }
-
-            $config: map-merge(
-                $config,
-                (
-                    unquote($key): $val
-                )
-            ) !global;
-        }
-    }
+    $config: map-set-path($config, $path, $val) !global;
 }

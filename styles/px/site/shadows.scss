@@ -6,8 +6,8 @@
 
 /// Returns the definition of a standardized drop shadow
 @function shadow($depth: null, $color: null) {
-    $depth: ifnull($depth, 2) / get('shadows:levels');
-    $color: ifnull($color, $depth) / get('shadows:levels');
+    $depth: if-null($depth, 2) / get('shadows:levels');
+    $color: if-null($color, $depth) / get('shadows:levels');
     $color: clamp-number($color, 0, 1);
 
     $x: intp($depth, get('shadows:range-x'));

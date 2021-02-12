@@ -1,0 +1,34 @@
+@use '../utils/all.scss' as *;
+@use '../site/all.scss' as *;
+
+$-global-override-scope: null;
+
+@mixin set-override-scope($override) {
+    $prev: $-global-override-scope;
+    $-global-override-scope: $override !global;
+    @content;
+    $-global-override-scope: $prev !global;
+}
+
+@function override($override-key, $value) {
+    @if ($-global-override-scope == null) {
+        @error 'The override function can only be used within the scope of the the override-scope mixin.';
+    }
+    @return map-get-default($-global-override-scope, $override-key, $value);
+}
+
+@function override-shade($override-key, $value, $shade-base) {
+    $result: override($override-key, $value);
+    @return if(is-number($result), shade($shade-base, $result), $result);
+}
+
+@mixin control-focus-shadow($color: rgba(primary(), 0.33), $width: 3px) {
+    box-shadow: 0 0 0 $width $color;
+}
+
+@function shade-if-number($value, $shade-base) {
+    @if (is-number($value)) {
+        @return shade($shade-base, $value);
+    }
+    @return $value;
+}

@@ -12,49 +12,6 @@
 @use 'mediaquery.scss' as *;
 @use 'typography.scss' as *;
 
-// ----------------------------------------------------------------------
-// Internal
-// ----------------------------------------------------------------------
-
-@mixin -type-styles(
-    $selectors,
-    $font-size,
-    $font-size-bp,
-    $font-family,
-    $font-weight,
-    $line-height,
-    $letter-spacing,
-    $color,
-    $margin
-) {
-    @each $selector in $selectors {
-        $index: index($selectors, $selector);
-
-        #{$selector} {
-            font-family: nth-or-val($font-family, $index, $font-family);
-            font-size: nth-or-val($font-size, $index);
-            font-weight: nth-or-val($font-weight, $index);
-            line-height: nth-or-val($line-height, $index);
-            letter-spacing: nth-or-val($letter-spacing, $index);
-            color: nth-or-val($color, $index);
-            margin: unquote(nth-or-val($margin, $index));
-
-            @each $break, $sizes in $font-size-resp {
-                @include media-until($break) {
-                    font-size: nth-or-val($sizes, $index);
-                }
-            }
-        }
-    }
-}
-// ----------------------------------------------------------------------
-// Mixins / Functions
-// ----------------------------------------------------------------------
-
-/// Generate the basic typography for a site. This will perform the following:
-/// - Load fonts based on $fonts
-/// - Generate heading styles based on
-
 // prettier-ignore
 @mixin site-basics(
 
@@ -307,15 +264,5 @@
             @include css-map($props, $prop-ignore: base);
         }
     }
-    // @include -type-styles(
-    //     $selectors: $headings-selectors,
-    //     $font-size: $headings-font-size,
-    //     $font-size-bp: $headings-font-size-resp,
-    //     $font-family: $headings-font-family,
-    //     $font-weight: $headings-font-weight,
-    //     $line-height: $headings-line-height,
-    //     $letter-spacing: $headings-letter-spacing,
-    //     $color: $headings-color,
-    //     $margin: $headings-margin
-    // );
+
 }

@@ -3,301 +3,72 @@
 
 @use '../utils/all.scss' as *;
 @use '../site/all.scss' as *;
+@use 'helpers.scss' as *;
+@use 'base.scss' as *;
 
-$-global-override-scope: null;
+// Select (dropdown)
 
-@mixin -set-override-scope($override) {
-    $-global-override-scope: $override !global;
-    @content;
-    $-global-override-scope: null !global;
-}
+@mixin dropdown-base($padding, $arrow-width) {
+    @include set-override-scope($overrides) {
+        @include control-base(
+            map-merge(
+                $overrides,
+                (
+                    border: override(border, get('controls:dropdown:border')),
+                )
+            )
+        );
 
-@function -override($override-key, $value) {
-    @if ($-global-override-scope == null) {
-        @error 'The override function can only be used within the scope of the the override-scope mixin.';
-    }
-    @return map-get-default($-global-override-scope, $override-key, $value);
-}
+        // @include control-base($control-all-radius, $control-all-ff, $control-all-fs, $control-all-fw);
 
-@function -override-shade($override-key, $value, $shade-base) {
-    $result: -override($override-key, $value);
-    @return if(is-number($result), shade($shade-base, $result), $result);
-}
-
-// base (shared by most input types)
-
-@mixin control-base($overrides) {
-    @include -set-override-scope($overrides) {
-        appearance: none;
-        box-sizing: border-box;
-
-        font-family: -override(font-family, get('controls:font-family'));
-        font-size: -override(font-size, get('controls:font-size'));
-        font-weight: -override(font-weight, get('controls:font-weight'));
-
-        border: -override(outline, none);
-        border: -override(border, none);
-        border-radius: -override(radius, get('controls:radius'));
-
-        display: -override(display, flex);
-        align-items: -override(align-items, center);
-        justify-content: -override(justify-content, center);
-
-        &:disabled {
-            cursor: not-allowed;
-        }
+        cursor: override(cursor, get('controls:dropdown:cursor'));
+        padding: 0 (2.25 * $padding) 0 $padding;
+        background-repeat: no-repeat;
+        background-position: right $padding top 50%;
+        background-size: $arrow-width auto;
     }
 }
 
-// // focus styles
-
-// @mixin control-focus-outline() {
-//     outline: 1px dashed primary();
-//     outline-offset: 2px;
-// }
-
-// @mixin control-focus-shadow() {
-//     @include transition-props(box-shadow);
-//     box-shadow: 0px 0px 0px 2px primary();
-// }
-
-// // error equivalent of focus shadow
-// @mixin control-error-shadow() {
-//     @include transition-props(box-shadow);
-//     box-shadow: 0px 0px 0px 2px $danger;
-// }
-
-// buttons
-
-@mixin button-base($overrides) {
-    @include control-base($overrides);
-
-    @include -set-override-scope($overrides) {
-        display: -override(display, inline-flex);
-        height: -override(height, get(('controls:button:height' 'controls:height')));
-        min-width: -override('min-width', get('controls:button:min-width'));
-        padding: -override('padding', get('controls:button:padding'));
-        cursor: -override(cursor, get(('controls:button:cursor')));
-
-        // text does not wrap by default, use a span for text that should wrap
-        $wrap: -override(whitespace, nowrap);
-        white-space: $wrap;
-        @if ($wrap == 'nowrap') {
-            span {
-                margin: 0;
-                padding: 0;
-            }
-        }
-
-        // disable text selection
-        @include no-select();
-
-        // transition common properties
-        @include transition((background color border box-shadow));
+@mixin dropdown(
+    $height: $control-textbox-height,
+    $padding: $control-textbox-padding,
+    $bg: $control-textbox-bg,
+    $fg: $control-select-textbox-fg,
+    $radius: $control-all-radius,
+    $ff: $control-all-ff,
+    $fs: $control-all-fs,
+    $fw: $control-all-fw,
+    $arrow-width: $control-select-arrow-width,
+    $arrow-svg: $control-select-arrow-svg,
+    $hover-fg: $control-select-textbox-hover-fg
+) {
+    @include textbox(
+        $height: $height,
+        $padding: $padding,
+        $bg: $bg,
+        $fg: $fg,
+        $radius: $radius,
+        $ff: $ff,
+        $fs: $fs,
+        $fw: $fw
+    );
+    @include dropdown-base($padding, $arrow-width);
+    background-image: inline-svg(
+        $arrow-svg,
+        (
+            '#fillcolor': $fg,
+        )
+    );
+    &:hover {
+        color: $hover-fg;
+        background-image: inline-svg(
+            $arrow-svg,
+            (
+                '#fillcolor': $hover-fg,
+            )
+        );
     }
 }
-
-///
-/// @param {*} $overrides [()] Supported overrides:
-/// - `bg` (+ hover-, active-, disabled- variants) - background-color (if a
-///   number is provided for hover-bg, active-bg, disabled-bg then they will be
-///   interpreted as a shade of bg)
-/// - `fg` (+ hover-, active-, disabled- variants)
-/// - `shadow` (+ hover-, active-, disabled- variants)
-
-@mixin button($overrides: ()) {
-    @include button-base($overrides);
-
-    @include -set-override-scope($overrides) {
-        $accent: -override('accent', get('controls:button:bg' 'controls:accent'));
-        $fg: -override('fg', get('controls:button:fg', contrast-color($accent)));
-        $disabled-bg: -override('disabled:bg', get('controls:button:disabled:bg'));
-        $disabled-bg: if($disabled-bg, $disabled-bg, mix($accent, gray()));
-
-        background-color: $accent;
-        color: $fg;
-        box-shadow: -override('shadow', get('controls:button:shadow'));
-
-        &:hover {
-            background-color: -override-shade('hover:bg', get('controls:button:hover:bg'), $accent);
-            color: -override('hover:fg', get('controls:button:hover:fg'));
-            box-shadow: -override('hover-shadow', get('controls:button:hover:shadow'));
-        }
-
-        &:active {
-            background-color: -override-shade('active:bg', get('controls:button:active:bg'), $accent);
-            color: -override('active:fg', get('controls:button:active:fg'));
-            box-shadow: -override('active:shadow', get('controls:button:active:shadow'));
-        }
-
-        &:disabled {
-            background-color: $disabled-bg;
-            color: -override('disabled:fg', get('controls:button:disabled:fg'));
-            box-shadow: -override('disabled:shadow', get('controls:button:disabled:shadow'));
-        }
-    }
-}
-
-@mixin button-outline($overrides: ()) {
-    @include button-base($overrides);
-
-    @include -set-override-scope($overrides) {
-        $accent: -override('accent', get('controls:button:bg' 'controls:accent'));
-        $hover-accent: -override-shade('hover-accent', 0, $accent);
-        $active-accent: -override-shade('active-accent', -2, $accent);
-        $disabled-accent: -override-shade('disabled-accent', gray(-2), $accent);
-        //$disabled-accent: -override('base-color', get('controls:button:bg' 'controls:accent'));
-
-        border-color: $accent;
-        border-style: -override('border-style', solid);
-        border-width: -override('border-width', 2px);
-
-        background-color: -override('bg', transparent);
-        color: -override('fg', $accent);
-
-        &:hover {
-            color: $hover-accent;
-            border-color: $hover-accent;
-            background-color: -override(hover-bg, rgba($hover-accent, 0.05));
-        }
-
-        &:active {
-            color: $active-accent;
-            border-color: $active-accent;
-            background-color: -override(hover-bg, rgba($active-accent, 0.15));
-        }
-
-        &:disabled {
-            color: $disabled-accent;
-            border-color: $disabled-accent;
-            background-color: -override(disabled-bg, rgba($disabled-accent, 0.15));
-            // background-color: $disabled-bg;
-            // color: -override('disabled:fg', get('controls:button:disabled:fg'));
-        }
-    }
-}
-
-@mixin button-text($overrides: ()) {
-    @include button-base($overrides);
-
-    @include -set-override-scope($overrides) {
-        $accent: -override('accent', get('controls:button:bg' 'controls:accent'));
-        $hover-accent: -override-shade('hover-accent', 0, $accent);
-        $active-accent: -override-shade('active-accent', -2, $accent);
-        $disabled-accent: -override-shade('disabled-accent', gray(-2), $accent);
-        //$disabled-accent: -override('base-color', get('controls:button:bg' 'controls:accent'));
-
-        border-color: $accent;
-        border-style: -override('border-style', solid);
-        border-width: -override('border-width', 2px);
-
-        background-color: -override('bg', transparent);
-        color: -override('fg', $accent);
-
-        &:hover {
-            color: $hover-accent;
-            border-color: $hover-accent;
-            background-color: -override(hover-bg, rgba($hover-accent, 0.05));
-        }
-
-        &:active {
-            color: $active-accent;
-            border-color: $active-accent;
-            background-color: -override(hover-bg, rgba($active-accent, 0.15));
-        }
-
-        &:disabled {
-            color: $disabled-accent;
-            border-color: $disabled-accent;
-            background-color: -override(disabled-bg, rgba($disabled-accent, 0.15));
-            // background-color: $disabled-bg;
-            // color: -override('disabled:fg', get('controls:button:disabled:fg'));
-        }
-    }
-}
-
-// // Textbox
-
-// @mixin textbox(
-//     $height: $control-textbox-height,
-//     $padding: $control-textbox-padding,
-//     $bg: $control-textbox-bg,
-//     $fg: $control-textbox-fg,
-//     $fg-readonly: $control-textbox-readonly-fg,
-//     $placeholder-fg: $control-textbox-placeholder-fg,
-//     $radius: $control-all-radius,
-//     $ff: $control-all-ff,
-//     $fs: $control-all-fs,
-//     $fw: $control-all-fw
-// ) {
-//     @include control-base($radius, $ff, $fs, $fw);
-
-//     height: $height;
-//     line-height: $height;
-//     padding: 0 $padding;
-//     background-color: $bg;
-//     color: $fg;
-//     &::placeholder {
-//         color: $placeholder-fg;
-//         opacity: 1;
-//     }
-//     @include focus {
-//         @include control-focus-shadow();
-//     }
-// }
-
-// // Select (dropdown)
-
-// @mixin dropdown-base($padding, $arrow-width) {
-//     // @include control-base($control-all-radius, $control-all-ff, $control-all-fs, $control-all-fw);
-
-//     cursor: pointer;
-//     padding: 0 (2.25 * $padding) 0 $padding;
-//     background-repeat: no-repeat;
-//     background-position: right $padding top 50%;
-//     background-size: $arrow-width auto;
-// }
-
-// @mixin dropdown(
-//     $height: $control-textbox-height,
-//     $padding: $control-textbox-padding,
-//     $bg: $control-textbox-bg,
-//     $fg: $control-select-textbox-fg,
-//     $radius: $control-all-radius,
-//     $ff: $control-all-ff,
-//     $fs: $control-all-fs,
-//     $fw: $control-all-fw,
-//     $arrow-width: $control-select-arrow-width,
-//     $arrow-svg: $control-select-arrow-svg,
-//     $hover-fg: $control-select-textbox-hover-fg
-// ) {
-//     @include textbox(
-//         $height: $height,
-//         $padding: $padding,
-//         $bg: $bg,
-//         $fg: $fg,
-//         $radius: $radius,
-//         $ff: $ff,
-//         $fs: $fs,
-//         $fw: $fw
-//     );
-//     @include dropdown-base($padding, $arrow-width);
-//     background-image: inline-svg(
-//         $arrow-svg,
-//         (
-//             '#fillcolor': $fg
-//         )
-//     );
-//     &:hover {
-//         color: $hover-fg;
-//         background-image: inline-svg(
-//             $arrow-svg,
-//             (
-//                 '#fillcolor': $hover-fg
-//             )
-//         );
-//     }
-// }
 
 // @mixin dropdown-button() {
 //     // @include button();

@@ -489,14 +489,11 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 1em;
   cursor: pointer;
@@ -507,7 +504,6 @@ h5, .h5 {
   transition: background 100ms ease-out 0ms, color 100ms ease-out 0ms, border 100ms ease-out 0ms, box-shadow 100ms ease-out 0ms;
   background-color: #0061ff;
   color: white;
-  border: none;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
 }
 .button:disabled {
@@ -537,14 +533,11 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 1em;
   cursor: pointer;
@@ -555,7 +548,6 @@ h5, .h5 {
   transition: background 100ms ease-out 0ms, color 100ms ease-out 0ms, border 100ms ease-out 0ms, box-shadow 100ms ease-out 0ms;
   background-color: purple;
   color: white;
-  border: none;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
 }
 .button-purple:disabled {
@@ -574,7 +566,7 @@ h5, .h5 {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
 }
 .button-purple:disabled {
-  background-color: #a465a7;
+  background-color: #6496e6;
   box-shadow: none;
 }
 .button-purple.keyboard-focused {
@@ -585,14 +577,11 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 1em;
   cursor: pointer;
@@ -604,7 +593,7 @@ h5, .h5 {
   border-color: #0061ff;
   border-style: solid;
   border-width: 2px;
-  background-color: rgba(0, 97, 255, 0);
+  background-color: transparent;
   color: #0061ff;
 }
 .button-outline:disabled {
@@ -615,14 +604,14 @@ h5, .h5 {
   padding: 0;
 }
 .button-outline:hover {
-  color: #1a71ff;
-  border-color: #1a71ff;
-  background-color: rgba(26, 113, 255, 0.05);
+  color: #0061ff;
+  border-color: #0061ff;
+  background-color: rgba(0, 97, 255, 0.05);
 }
 .button-outline:active {
-  color: #0057e6;
-  border-color: #0057e6;
-  background-color: rgba(0, 87, 230, 0.15);
+  color: #004ecc;
+  border-color: #004ecc;
+  background-color: rgba(0, 78, 204, 0.15);
 }
 .button-outline:disabled {
   color: #a4a8ab;
@@ -637,14 +626,11 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 1em;
   cursor: pointer;
@@ -656,7 +642,7 @@ h5, .h5 {
   border-color: purple;
   border-style: solid;
   border-width: 2px;
-  background-color: rgba(128, 0, 128, 0);
+  background-color: transparent;
   color: purple;
 }
 .button-outline-purple:disabled {
@@ -672,9 +658,9 @@ h5, .h5 {
   background-color: rgba(0, 128, 0, 0.05);
 }
 .button-outline-purple:active {
-  color: #730073;
-  border-color: #730073;
-  background-color: rgba(115, 0, 115, 0.15);
+  color: #660066;
+  border-color: #660066;
+  background-color: rgba(102, 0, 102, 0.15);
 }
 .button-outline-purple:disabled {
   color: #a4a8ab;
@@ -689,14 +675,11 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  height: 2.25em;
   min-width: 0;
   padding: 0 0.5em;
   cursor: pointer;
@@ -716,10 +699,10 @@ h5, .h5 {
   padding: 0;
 }
 .button-text:hover {
-  color: #1a71ff;
+  color: #0044b3;
 }
 .button-text:active {
-  color: #0057e6;
+  color: #0044b3;
   transform: translate3d(0, 1px, 0);
 }
 .button-text:disabled {
@@ -733,36 +716,33 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  background-color: #e6e8eb;
-  color: #3c4246;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 0.5em;
+  background-color: #e6e8eb;
+  color: #3c4246;
 }
 .textbox:disabled {
   cursor: not-allowed;
 }
 .textbox::placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox::-webkit-input-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox:-moz-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox::-moz-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox:-ms-input-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox:disabled {
   background-color: #f8f8f9;
@@ -770,19 +750,19 @@ h5, .h5 {
   border: none;
 }
 .textbox:disabled::placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox:disabled::-webkit-input-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox:disabled:-moz-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox:disabled::-moz-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox:disabled:-ms-input-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox:read-only {
   background-color: #e9eaed;
@@ -790,22 +770,22 @@ h5, .h5 {
   border: none;
   background-image: url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%2211%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M4.5%200a3%203%200%20013%203v1h1a.5.5%200%2001.5.5v6a.5.5%200%2001-.5.5h-8a.5.5%200%2001-.5-.5v-6A.5.5%200%2001.5%204h1V3a3%203%200%20013-3zm0%201.5a1.5%201.5%200%2000-1.493%201.356L3%203v1h3V3a1.5%201.5%200%2000-1.5-1.5z%22%20fill%3D%22%239ea1a3%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
-  background-position: calc(100% - 5px) center;
+  background-position: calc(100% - 8px) center;
 }
 .textbox:read-only::placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox:read-only::-webkit-input-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox:read-only:-moz-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox:read-only::-moz-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox:read-only:-ms-input-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox.keyboard-focused {
   box-shadow: 0 0 0 2px #0061ff;
@@ -815,36 +795,33 @@ h5, .h5 {
   appearance: none;
   box-sizing: border-box;
   position: relative;
+  outline: none;
+  border: 2px solid green;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  outline: none;
-  border: 2px solid green;
-  border-radius: 2px;
-  background-color: white;
-  color: #3c4246;
-  height: 2.25em;
   min-width: 6em;
   padding: 0 0.5em;
+  background-color: white;
+  color: #3c4246;
 }
 .textbox-outline:disabled {
   cursor: not-allowed;
 }
 .textbox-outline::placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox-outline::-webkit-input-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox-outline:-moz-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox-outline::-moz-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox-outline:-ms-input-placeholder {
-  color: #8a8e90;
+  color: rgba(60, 66, 70, 0.66);
 }
 .textbox-outline:disabled {
   background-color: white;
@@ -852,19 +829,19 @@ h5, .h5 {
   border: none;
 }
 .textbox-outline:disabled::placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox-outline:disabled::-webkit-input-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox-outline:disabled:-moz-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox-outline:disabled::-moz-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox-outline:disabled:-ms-input-placeholder {
-  color: #d0d2d3;
+  color: #b1b3b5;
 }
 .textbox-outline:read-only {
   background-color: white;
@@ -872,22 +849,22 @@ h5, .h5 {
   border: none;
   background-image: url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%2211%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M4.5%200a3%203%200%20013%203v1h1a.5.5%200%2001.5.5v6a.5.5%200%2001-.5.5h-8a.5.5%200%2001-.5-.5v-6A.5.5%200%2001.5%204h1V3a3%203%200%20013-3zm0%201.5a1.5%201.5%200%2000-1.493%201.356L3%203v1h3V3a1.5%201.5%200%2000-1.5-1.5z%22%20fill%3D%22%239ea1a3%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
-  background-position: calc(100% - 5px) center;
+  background-position: calc(100% - 8px) center;
 }
 .textbox-outline:read-only::placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox-outline:read-only::-webkit-input-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox-outline:read-only:-moz-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox-outline:read-only::-moz-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox-outline:read-only:-ms-input-placeholder {
-  color: #d0d2d3;
+  color: #9ea1a3;
 }
 .textbox-outline.keyboard-focused {
   box-shadow: 0 0 0 2px #0061ff;

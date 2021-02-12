@@ -18,9 +18,9 @@
 /// @example @include transition(transform opacity, $ease: $ease-out-bounce A l);
 
 @mixin transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
-    $name: ifnull($name, 'default');
-    $dur: ifnull($dur, get('transitions:' + $name + ':dur'));
-    $ease: ifnull($ease, get('transitions:' + $name + ':ease'));
+    $name: if-null($name, 'default');
+    $dur: if-null($dur, get('transitions:' + $name + ':dur'));
+    $ease: if-null($ease, get('transitions:' + $name + ':ease'));
     $transitions: ();
 
     @each $prop in $proplist {

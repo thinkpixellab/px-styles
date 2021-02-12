@@ -29,7 +29,7 @@
     $shade-steps: get(shade-steps);
     $shade-amount: (100% / $shade-steps) * 2;
     $shade: clamp-number($shade, $shade-steps / -2, $shade-steps / 2);
-    $shade-range: ifnull($shade-range, get(shade-range));
+    $shade-range: if-null($shade-range, get(shade-range));
 
     @if ($color == null) {
         $color: mix(nth($shade-range, 1), nth($shade-range, 2));
@@ -112,7 +112,12 @@
 
 /// Choose a contrasting foreground based on a background color
 
-@function contrast-color($bg, $light-fg: get(contrast-light), $dark-fg: get(contrast-dark), $contrast-threshold: 128) {
+@function contrast-color(
+    $bg,
+    $light-fg: get(contrast-light),
+    $dark-fg: get(contrast-dark),
+    $contrast-threshold: 128
+) {
     @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
 }
 

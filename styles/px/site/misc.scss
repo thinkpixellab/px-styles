@@ -1,0 +1,7 @@
+@use '../utils/all.scss' as *;
+
+@mixin focus() {
+    &#{get('focus-selector')} {
+        @content;
+    }
+}

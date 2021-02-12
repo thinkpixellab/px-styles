@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="test.css" />
     </head>
 
-    <body>
+    <body style="padding-bottom: 20vh">
         <div class="container">
             <h1 class="display1">pxstyles Test</h1>
             <section>
@@ -20,10 +20,10 @@
                     <button class="button">Or, maybe so</button>
                     <button class="button" disabled>Disabled</button>
                 </div>
-                <h3>Purple Buttons</h3>
+                <br />
                 <p class="sh3">
-                    Buttons that have been color shifted by passing (accent:purple) as the override parameter to the
-                    button mixin.
+                    Buttons that have been made purple by passing (accent:purple) as the override
+                    parameter to the button mixin.
                 </p>
                 <div>
                     <button class="button-purple">Yes</button>
@@ -38,17 +38,81 @@
                     <button class="button-outline">Or, maybe so</button>
                     <button class="button-outline" disabled>Disabled</button>
                 </div>
-                <h3>
-                    <Text-only></Text-only>
-                    Buttons
-                </h3>
+                <br />
+                <p class="sh3">
+                    Outlnine buttons that have been made purple by passing (accent:purple,
+                    'hover:accent': green) as the override parameter to the button mixin.
+                </p>
+                <div>
+                    <button class="button-outline-purple">Yes</button>
+                    <button class="button-outline-purple">No</button>
+                    <button class="button-outline-purple">Or, maybe so</button>
+                    <button class="button-outline-purple" disabled>Disabled</button>
+                </div>
+
+                <h3>Text Buttons</h3>
                 <div>
                     <button class="button-text">Yes</button>
                     <button class="button-text">No</button>
                     <button class="button-text">Or, maybe so</button>
                     <button class="button-text" disabled>Disabled</button>
                 </div>
+                <h3>Buttons of Various Sizes</h3>
+                <div>
+                    <button class="button" style="font-size: 13px">thirteen</button>
+                    <button class="button" style="font-size: 18px">eighteen</button>
+                    <button class="button" style="font-size: 24px">twenty four</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>TextBox</h2>
+                <div>
+                    <input type="text" class="textbox" placeholder="normal" />
+                    <input type="text" class="textbox" placeholder="disabled" disabled />
+                    <input type="text" class="textbox" disabled value="This is disabled." />
+                    <input type="text" class="textbox" readonly value="This is readonly." />
+                    <input type="text" class="textbox-outline" value="This is readonly." />
+                </div>
             </section>
         </div>
     </body>
+    <script>
+        let isMouseActive = false;
+        const focusClassName = 'keyboard-focused';
+
+        const canFocus = function (element) {
+            return (
+                ['BUTTON', 'INPUT', 'SELECT', 'A', 'VIDEO'].indexOf(element.tagName) >= 0 ||
+                (element.getAttribute && element.getAttribute('tabindex') !== null)
+            );
+        };
+
+        const onDown = function (e) {
+            if (!isMouseActive) {
+                isMouseActive = true;
+                setTimeout(() => {
+                    isMouseActive = false;
+                }, 200);
+            }
+        };
+
+        document.body.addEventListener('mousedown', onDown);
+        document.body.addEventListener('pointerdown', onDown);
+        document.body.addEventListener('touchdown', onDown);
+
+        document.addEventListener('focusin', e => {
+            if (!isMouseActive && canFocus(e.target)) {
+                e.stopPropagation();
+                e.target.classList.add(focusClassName);
+            }
+        });
+
+        document.addEventListener('focusout', e => {
+            let keyboardFocused = document.querySelector('.' + focusClassName);
+            if (keyboardFocused) {
+                keyboardFocused.classList.remove(focusClassName);
+            }
+        });
+    </script>
 </html>

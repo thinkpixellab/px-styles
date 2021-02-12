@@ -1,0 +1,41 @@
+@use '../utils/all.scss' as *;
+@use '../site/all.scss' as *;
+@use './helpers.scss' as *;
+
+@mixin control-base($overrides) {
+    // get defaults from config and then apply overrides
+    $local: flatten-maps-merge(get('controls:base'), $overrides);
+
+    // variables (anything here can be overriden or set controls:base)
+    $display: map-get-path($local, 'display', flex);
+    $align-items: map-get-path($local, 'align-items', center);
+    $justify-content: map-get-path($local, 'justify-content', center);
+    $font-family: map-get-path($local, 'font-family', null);
+    $font-size: map-get-path($local, 'font-size', fs(base));
+    $font-weight: map-get-path($local, 'font-weight', null);
+    $outline: map-get-path($local, 'outline', none);
+    $border: map-get-path($local, 'border', none);
+    $border-radius: map-get-path($local, 'border-radius', 2px);
+
+    @include set-override-scope($overrides) {
+        appearance: none;
+        box-sizing: border-box;
+        position: relative;
+
+        display: $display;
+        align-items: $align-items;
+        justify-content: $justify-content;
+
+        font-family: $font-family;
+        font-size: $font-size;
+        font-weight: $font-weight;
+
+        outline: $outline;
+        border: $border;
+        border-radius: $border-radius;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+}

@@ -22,10 +22,32 @@
     @include button-outline(());
 }
 
-.button-outline {
+.button-outline-purple {
     @include button-outline(
         (
-            accent: purple
+            accent: purple,
+            'hover:accent': green
         )
     );
+}
+
+.button-text {
+    @include button-text(());
+}
+
+.textbox {
+    @include textbox();
+}
+
+.textbox-outline {
+    @include textbox(
+        (
+            bg: clr(page-bg),
+            border: 2px solid green
+        )
+    );
+}
+
+.dropdown {
+    //@include dropdown();
 }

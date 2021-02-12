@@ -48,7 +48,7 @@
     @include config('colors:primary', $color-primary);
 
     // global dfeaylt accent color (updated in init)
-    @include config('colors:accent', ifnull($color-accent, complement($color-primary)));
+    @include config('colors:accent', if-null($color-accent, complement($color-primary)));
 
     // default base (midpoint) for gray color calculations; use to callibrate
     // the midpoint of gray lookups as well as to establish hue for middle grays
@@ -71,10 +71,10 @@
     @include config('colors:page-fg', gray(-8));
 
     // defaults for computing contrast colors
-    @include config('contrast-light', ifnull($contrast-light, clr(page-bg)));
+    @include config('contrast-light', if-null($contrast-light, clr(page-bg)));
 
     // defaults for computing contrast colors
-    @include config('contrast-dark', ifnull($contrast-dark, clr(page-fg)));
+    @include config('contrast-dark', if-null($contrast-dark, clr(page-fg)));
 
     // ----------------------------------------------------------------------
     // Color
@@ -268,45 +268,120 @@
     // Controls
     // ----------------------------------------------------------------------
 
-    // shared control defaults
+    // standard global focus selector (for focus() mixin)
+    @include config('focus-selector', '.keyboard-focused');
+
+    // shared control defaults (full list in controls/base.scss)
     @include config(
-        'controls',
+        'controls:base',
         (
-            radius: 2px,
+            border-radius: 2px,
             font-family: null,
             font-size: fs(base),
-            font-weight: normal,
-            height: 2.25em,
-            accent: primary()
+            accent: primary(),
+            height: 2.25em
+        )
+    );
+
+    // prettier-ignore
+    @include config(
+        'controls:button',
+        (
+            //height: null,
+            min-width: 6em,
+            padding: 0 1em,
+            cursor: pointer,
+            focus-style: shadow,
+            accent: primary(),
+            fg: null,
+            shadow: shadow(2, 2),
+
+            hover: (
+                accent: 1,
+                fg: null,
+                border: null,
+                shadow: shadow(3, 4)
+            ),
+
+            active: (
+                accent: -1,
+                fg: null,
+                border: null,
+                shadow: shadow(1, 2)
+            ),
+
+            disabled: (
+                accent: null,
+                fg: null,
+                border: null,
+                shadow: none
+            )
         )
     );
 
     @include config(
-        'controls:button',
+        'controls:textbox',
         (
-            height: null,
-            min-width: 6em,
-            padding: 0 1em,
-            line-height: 1.25,
-            cursor: pointer,
-            bg: primary(),
+            accent: primary(),
+            bg: gray(6),
             fg: null,
-            shadow: shadow(2, 2),
-            hover: (
-                bg: 1,
-                fg: null,
-                shadow: shadow(3, 4)
-            ),
-            active: (
-                bg: -1,
-                fg: null,
-                shadow: shadow(1, 2)
-            ),
+            placeholder: null,
+            height: null,
+            border: none,
+            min-width: 6em,
+            padding: 0 0.5em,
             disabled: (
-                bg: null,
-                fg: null,
-                shadow: none
+                bg: 7,
+                fg: 4,
+                placeholder: 6,
+                border: none,
+                icon: null,
+                icon-fill: null
+            ),
+            readonly: (
+                bg: 1,
+                fg: 0,
+                placeholder: 0,
+                border: none,
+                icon:
+                    '<svg width="9" height="11" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z" fill="#fill" fill-rule="evenodd"/></svg>',
+                icon-fill: 5
             )
+        )
+    );
+
+    @include config(
+        'controls:dropdown',
+        (
+            cursor: pointer,
+            padding: 0 0.5em,
+            icon:
+                '<svg width="8" height="5" xmlns="http://www.w3.org/2000/svg"><path fill="#fill" d="M0 0h8L4 5z" fill-rule="evenodd"/></svg>',
+            icon-fill: 3 // accent: primary(),
+                // bg: gray(6),
+                // fg: null,
+                // placeholder: null,
+                // height: null,
+                // border: none,
+                // min-width: 6em,
+                // padding: 0 0.5em,
+                // disabled: (
+                //     bg: 7,
+                //     fg: 4,
+                //     placeholder: 6,
+                //     border: none,
+                //     icon: null,
+                //     icon-fill: null,
+                // ),
+                // readonly: (
+                //     bg: 1,
+                //     fg: 0,
+                //     placeholder: 0,
+                //     border: none,
+                //     icon:
+                //         '<svg width="9" height="11" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z" fill="#fill" fill-rule="evenodd"/></svg>',
+                //     icon-fill: 5,
+                // ),,,
         )
     );
 }

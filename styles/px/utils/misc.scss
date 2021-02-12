@@ -4,6 +4,7 @@
 
 @use 'collections.scss' as *;
 @use 'strings.scss' as *;
+@use 'units.scss' as *;
 
 /// Completely resets the appearance of controls (input and button)
 
@@ -62,6 +63,34 @@
     overflow: hidden;
 }
 
+/// Shortcut for the ::before pseudo element with common defaults for content
+/// and display.
+///
+/// @param {*} $content [''] The value for the content property.
+/// @param {*} $display [block] The value for the display property.
+
+@mixin before($content: '', $display: block) {
+    &:before {
+        content: '';
+        display: block;
+        @content;
+    }
+}
+
+/// Shortcut for the ::after pseudo element with common defaults for content
+/// and display.
+///
+/// @param {*} $content [''] The value for the content property.
+/// @param {*} $display [block] The value for the display property.
+
+@mixin after($content: '', $display: block) {
+    &:after {
+        content: '';
+        display: block;
+        @content;
+    }
+}
+
 /// Create a triangle element using the border properties
 ///
 /// @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)
@@ -111,7 +140,7 @@
 }
 
 @mixin css-map($map, $prop-map: null, $prop-ignore: ()) {
-    $prop-map: ifnull(
+    $prop-map: if-null(
         $prop-map,
         (
             fs: font-size,

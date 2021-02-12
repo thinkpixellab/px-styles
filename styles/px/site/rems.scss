@@ -8,7 +8,7 @@
 /// Convert px to rem for a given base font size (the font size of the document root element)
 ///
 @function rems($px, $basepx: get(font-size-base), $round: 0) {
-    $basepx: ifnull($basepx, get(font-size-base));
+    $basepx: if-null($basepx, get(font-size-base));
 
     $r: ($px / $basepx) * 1rem;
     @return if($round > 0, math.round-f($r, $round), $r);
@@ -17,7 +17,7 @@
 /// Convert rem to px for a given base font size (the font size of the document root element)
 ///
 @function px($rems, $basepx: null) {
-    $basepx: ifnull($basepx, get(font-size-base));
+    $basepx: if-null($basepx, get(font-size-base));
 
     @return ($rems / 1rem) * $basepx;
 }

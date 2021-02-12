@@ -1,0 +1,111 @@
+@use '../utils/all.scss' as *;
+@use 'typography.scss' as *;
+
+/// Generates classes for "readable" content, e.g. standard HTML that should be
+/// formatted to be read, rather than structured as ui.
+@mixin reading($overrides: ()) {
+    $config: flatten-map-merge(get('reading', ()), $overrides);
+
+    $font-family: map-get-default($config, 'font-family', get('font-family'));
+    $font-size: map-get-default($config, 'font-size', fs(base));
+    $line-height: map-get-default($config, 'line-height', null);
+    $strong-font-weight: map-get-default($config, 'strong-font-weight', 700);
+    $paragraph-space: map-get-default($config, 'paragraph-space', 1em);
+    $links: map-get-default($config, 'links', get('links'));
+    $links-hover: map-get-default($config, 'links-hover', get('link-hover'));
+    $list-padding: map-get-default($config, 'list-padding', 2em);
+    $list-item-padding: map-get-default($config, 'list-item-padding', 0.25em);
+    $list-item-spacing: map-get-default($config, 'list-item-spacing', 0.25em);
+    $styles-base: map-get-default($config, 'styles-base', ());
+
+    // prettier-ignore
+    $styles: map-get-default($config, 'styles', (
+        'h1, .h1': ('font-size': fs(5)),
+        'h2, .h2': ('font-size': fs(4)),
+        'h3, .h3': ('font-size': fs(3)),
+        'h4, .h4': ('font-size': fs(2)),
+        'h5, .h5': ('font-size': fs(1)),
+    ));
+
+    font-family: $font-family;
+    font-size: $font-size;
+    line-height: $line-height;
+
+    a,
+    span,
+    p {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    strong {
+        font-weight: $strong-font-weight;
+    }
+
+    ul,
+    ol,
+    p {
+        margin: 0 0 $paragraph-space 0;
+        padding: 0;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    a,
+    .link {
+        @if is-map($links) {
+            @include css-map($links);
+        }
+        &:hover {
+            @if is-map($links-hover) {
+                @include css-map(get(links-hover));
+            }
+        }
+    }
+
+    ul {
+        list-style: disc outside none;
+    }
+    ol {
+        list-style: decimal outside none;
+    }
+
+    ol,
+    ul {
+        padding-left: $list-padding;
+        li {
+            padding-left: $list-item-padding;
+            margin: 0 0 $list-item-spacing 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        ol,
+        ul {
+            margin: 0;
+        }
+    }
+
+    ol,
+    ul {
+        ol {
+            list-style-type: upper-alpha;
+        }
+        ol ol {
+            list-style-type: lower-roman;
+        }
+        ol ol ol {
+            list-style-type: lower-alpha;
+        }
+    }
+
+    // create type styles
+    @each $selector, $props in $styles {
+        $props: map-merge($styles-base, $props);
+        #{$selector} {
+            @include css-map($props, $prop-ignore: base);
+        }
+    }
+}

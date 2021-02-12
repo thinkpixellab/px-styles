@@ -64,12 +64,6 @@
     @return type-of($value) == 'number';
 }
 
-/// Return true if the provided value is a list
-///
-@function is-list($value) {
-    @return type-of($value) == 'list';
-}
-
 /// Return true if the provided value is in rem units
 ///
 @function is-rems($val) {
@@ -103,7 +97,8 @@
 /// Return true if the provided value is a relative length value (if you don't know about vmin/vmax then look them up because they are cool).
 ///
 @function is-relative-length($value) {
-    @return is-number($value) and index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', unit($value)) != null;
+    @return is-number($value) and index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', unit($value))
+        != null;
 }
 
 /// Return true if the provided value is an absolute length value
@@ -140,6 +135,76 @@
 ///
 @function is-list($value) {
     @return type-of($value) == 'list';
+}
+
+/// Return true if the provided value is a color
+///
+@function is-color($value) {
+    @return type-of($value) == 'color';
+}
+
+/// Provide an alternate value when $value is null
+///
+@function if-null($value, $fallback) {
+    @if ($value != null) {
+        @return $value;
+    }
+    @return $fallback;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+@function if-string($value, $trueval, $falseval) {
+    @if (is-string($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+@function if-number($value, $trueval, $falseval) {
+    @if (is-number($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+@function if-list($value, $trueval, $falseval) {
+    @if (is-list($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+@function if-map($value, $trueval, $falseval) {
+    @if (is-map($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a color or not
+///
+@function if-color($value, $trueval, $falseval) {
+    @if (is-color($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on the type of another value by provide a mapping between type and values
+///
+@function if-type($value, $value-map, $fallback: null) {
+    $type: type-of($value);
+    @if (map-has-key($value-map, $type)) {
+        @return map-get($value-map, $type);
+    }
+    @return $fallback;
 }
 
 /// Convert any valid four-part value (like those used for margin or padding) into a map with
