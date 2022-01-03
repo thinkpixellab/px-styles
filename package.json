@@ -1,16 +1,13 @@
 {
-    "name": "pxstyles",
+    "name": "@thinkpixellab/pxstyles",
     "title": "pxstyles",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "author": {
         "name": "Pixel Lab",
         "url": "http://thinkpixellab.com/"
     },
-    "scripts": {
-        "docs": "sassdoc ./src/**/*.scss & sass ./docs/styles.scss ./docs/styles.css",
-        "docs-watch": "sass --no-source-map --watch ./docs/styles.scss ./docs/styles.css"
-    },
+    "scripts": {},
     "repository": {
         "type": "git",
         "url": "https://github.com/thinkpixellab/px-styles"
