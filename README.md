@@ -101,6 +101,7 @@ Sample code that retrieves a bunch of common values:
 -   Cleanup docs.
 -   Possible enhancements:
     -   Bem helpers?
+    -   Make easing variables available via function or else cleanup the docs to filter them somehow
     -   Better CSS Grid helpers
     -   Mixin for cover(url, centerx, centery)
     -   Mixin for contain(url, centerx, centery)

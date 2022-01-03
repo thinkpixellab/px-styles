@@ -99,3 +99,6 @@ world.json
 temp/
 output/
 
+# sass
+.sass-cache/*
+docs/styles.css.map
