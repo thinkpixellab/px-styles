@@ -1,0 +1,16 @@
+////
+/// @group site.misc
+////
+
+@use '../utils' as *;
+
+/// Adds a site-specific focus selector use the value defined by `focus:selector`
+///
+/// @example
+/// .item { @include focus() {...} }  => .item:focus-visible {...}
+
+@mixin focus() {
+    &#{get('focus:selector')} {
+        @content;
+    }
+}

@@ -1,0 +1,379 @@
+////
+/// @group utils.units
+////
+
+@use 'sass:math' as sass-math;
+
+@use 'math.scss' as math;
+
+/// Strip the unit from a number
+///
+/// @param {*} $value
+
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return sass-math.div($number, $number * 0 + 1);
+    }
+    @return $number;
+}
+
+/// Convert a number-like string value to a proper number (that can be used for
+/// arithmetic, etc.)
+///
+/// @param {*} $value
+
+@function to-number($value) {
+    @if type-of($value) == 'number' {
+        @return $value;
+    } @else if type-of($value) != 'string' {
+        $_: log('Value for `to-number` should be a number or a string.');
+    }
+
+    $result: 0;
+    $digits: 0;
+    $minus: str-slice($value, 1, 1) == '-';
+    $numbers: (
+        '0': 0,
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+        '6': 6,
+        '7': 7,
+        '8': 8,
+        '9': 9,
+    );
+
+    @for $i from if($minus, 2, 1) through str-length($value) {
+        $character: str-slice($value, $i, $i);
+
+        @if not(index(map-keys($numbers), $character) or $character == '.') {
+            @return to-length(if($minus, -$result, $result), str-slice($value, $i));
+        }
+
+        @if $character == '.' {
+            $digits: 1;
+        } @else if $digits == 0 {
+            $result: $result * 10 + map-get($numbers, $character);
+        } @else {
+            $digits: $digits * 10;
+            $result: $result + sass-math.div(map-get($numbers, $character), $digits);
+        }
+    }
+
+    @return if($minus, -$result, $result);
+}
+
+/// Return true if the provided value is a number
+///
+/// @param {*} $value
+
+@function is-number($value) {
+    @return type-of($value) == 'number';
+}
+
+/// Return true if the provided value is in rem units
+///
+/// @param {*} $value
+
+@function is-rems($value) {
+    @return (unit($value) == 'rem');
+}
+
+/// Return true if the provided value is in px units
+///
+/// @param {*} $value
+
+@function is-px($val) {
+    @return (unit($val) == 'px');
+}
+
+/// Return true if the provided value is a css duration / time
+///
+/// @param {*} $value
+
+@function is-time($value) {
+    @return is-number($value) and index('ms' 's', unit($value)) != null;
+}
+
+/// Return true if the provided value is a css angle
+///
+/// @param {*} $value
+
+@function is-angle($value) {
+    @return is-number($value) and index('deg' 'rad' 'grad' 'turn', unit($value)) != null;
+}
+
+/// Return true if the provided value is an integer
+///
+/// @param {*} $value
+
+@function is-integer($value) {
+    @return is-number($value) and round($value) == $value;
+}
+
+/// Return true if the provided value is a relative length value (if you don't
+/// know about vmin/vmax then look them up because they are cool).
+///
+/// @param {*} $value
+
+@function is-relative-length($value) {
+    @return is-number($value) and index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', unit($value))
+        != null;
+}
+
+/// Return true if the provided value is an absolute length value
+///
+/// @param {*} $value
+
+@function is-absolute-length($value) {
+    @return is-number($value) and index('cm' 'mm' 'in' 'px' 'pt' 'pc', unit($value)) != null;
+}
+
+/// Return true if the provided value is an absolute length value
+///
+/// @param {*} $value
+
+@function is-percentage($value) {
+    @return is-number($value) and unit($value) == '%';
+}
+
+/// Return true if the provided value is a length
+///
+/// @param {*} $value
+
+@function is-length($value) {
+    @return is-relative-length($value) or is-absolute-length($value) or is-percentage($value);
+}
+
+/// Return true if the provided value is a string
+///
+/// @param {*} $value
+
+@function is-string($value) {
+    @return type-of($value) == 'string';
+}
+
+/// Return true if the provided value is a string
+///
+/// @param {*} $value
+
+@function is-map($value) {
+    @return type-of($value) == 'map' or (is-list($value) and length($value) == 0);
+}
+
+/// Return true if the provided value is a string
+///
+/// @param {*} $value
+
+@function is-list($value) {
+    @return type-of($value) == 'list';
+}
+
+/// Return true if the provided value is a color
+///
+/// @param {*} $value
+
+@function is-color($value) {
+    @return type-of($value) == 'color';
+}
+
+/// Provide an alternate value when $value is null
+///
+/// @param {*} $value
+/// @param {*} $fallback
+
+@function if-null($value, $fallback) {
+    @if ($value != null) {
+        @return $value;
+    }
+    @return $fallback;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+/// @param {*} $value
+/// @param {*} $trueval
+/// @param {*} $falseval
+
+@function if-string($value, $trueval, $falseval) {
+    @if (is-string($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+/// @param {*} $value
+/// @param {*} $trueval
+/// @param {*} $falseval
+
+@function if-number($value, $trueval, $falseval) {
+    @if (is-number($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+/// @param {*} $value
+/// @param {*} $trueval
+/// @param {*} $falseval
+
+@function if-list($value, $trueval, $falseval) {
+    @if (is-list($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a string or not
+///
+/// @param {*} $value
+/// @param {*} $trueval
+/// @param {*} $falseval
+
+@function if-map($value, $trueval, $falseval) {
+    @if (is-map($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on whether another value is a color or not
+///
+/// @param {*} $value
+/// @param {*} $trueval
+/// @param {*} $falseval
+
+@function if-color($value, $trueval, $falseval) {
+    @if (is-color($value)) {
+        @return $trueval;
+    }
+    @return $falseval;
+}
+
+/// Choose a value based on the type of another value by provide a mapping between type and values
+///
+/// @param {*} $value
+/// @param {*} $value-map
+/// @param {*} $fallback [null]
+
+@function if-type($value, $value-map, $fallback: null) {
+    $type: type-of($value);
+    @if (map-has-key($value-map, $type)) {
+        @return map-get($value-map, $type);
+    }
+    @return $fallback;
+}
+
+/// Convert any valid four-part value (like those used for margin or padding) into a map with
+/// the correct values for top, right, bottom, left)
+///
+/// @param {*} $value
+///
+/// @example get-fourpart('2px') => (top: 2px, right: 2px, bottom: 2px, left: 2px)
+/// @example get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)
+/// @example get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)
+/// @example get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)
+
+@function get-fourpart($value) {
+    @if (type-of($value) == 'list') {
+        $length: length($value);
+        @return (
+            top: to-number(nth($value, 1)),
+            right: to-number(if($length > 1, nth($value, 2), nth($value, 1))),
+            bottom: to-number(if($length > 2, nth($value, 3), nth($value, 1))),
+            left: to-number(if($length > 3, nth($value, 4), nth($value, 2)))
+        );
+    } @else {
+        $list: str-split($value, ' ');
+
+        @if (type-of($list) == 'list') {
+            @return get-fourpart($list);
+        }
+
+        $value: to-number($value);
+        @return (top: $value, right: $value, bottom: $value, left: $value);
+    }
+}
+
+/// Convenience function to just retrieve the left value from get-fourpart
+///
+/// @param {*} $value
+
+@function get-fourpart-left($value) {
+    @return map-get(get-fourpart($value), left);
+}
+
+/// Convenience function to just retrieve the top value from get-fourpart
+///
+/// @param {*} $value
+
+@function get-fourpart-top($value) {
+    @return map-get(get-fourpart($value), top);
+}
+
+/// Convenience function to just retrieve the bottom value from get-fourpart
+///
+/// @param {*} $value
+
+@function get-fourpart-bottom($value) {
+    @return map-get(get-fourpart($value), bottom);
+}
+
+/// Convenience function to just retrieve the right value from get-fourpart
+///
+/// @param {*} $value
+
+@function get-fourpart-right($value) {
+    @return map-get(get-fourpart($value), right);
+}
+
+/// Extract the width from a shorthand border css value
+///
+/// @param {*} $input
+///
+/// @example get-border-width('2px solid red') // => 2px
+
+@function get-border-width($input) {
+    @each $part in $input {
+        @if type-of($part) == number {
+            @return $part;
+        }
+    }
+    @return 0;
+}
+
+/// Extract the style from a shorthand border css value
+///
+/// @param {*} $input
+///
+/// @example get-border-width('2px solid red') // => solid
+
+@function get-border-style($input) {
+    @each $part in $input {
+        @if type-of($part) == string {
+            @return $part;
+        }
+    }
+    @return null;
+}
+
+/// Extract the style from a shorthand border css value
+///
+/// @param {*} $input
+///
+/// @example get-border-width('2px solid red') // => red
+
+@function get-border-color($input) {
+    @each $part in $input {
+        @if type-of($part) == color {
+            @return $part;
+        }
+    }
+    @return null;
+}

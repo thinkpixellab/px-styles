@@ -1,0 +1,141 @@
+////
+/// @group site.color
+////
+
+@use 'sass:math';
+
+@use '../utils' as *;
+// @use 'config.scss' as *;
+
+/// Produce a shade (a lighter or darker version) of a color based on the value
+/// of $shade and an optional darkest to lightest shade range.
+///
+/// @param {*} $color [null] The color to be shaded. If not provided, it will be
+/// calculated as the middle value within $shade-range.
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {*} $shade-range [(black,white)] The range of colors will be produced
+/// as a list (darkest, lightest).
+
+@function shade($color: null, $shade: 0, $shade-range: null) {
+    $shade-steps: get(shade-steps);
+    $shade-amount: math.div(100%, $shade-steps) * 2;
+    $shade: clamp-number($shade, math.div($shade-steps, -2), $shade-steps * 0.5);
+    $shade-range: if-null($shade-range, get(shade-range));
+
+    @if ($color == null) {
+        $color: mix(nth($shade-range, 1), nth($shade-range, 2));
+    }
+
+    @if ($shade < 0) {
+        $color1: nth($shade-range, 1);
+        @return mix($color1, $color, ($shade * $shade-amount) * -1);
+    }
+    @if ($shade > 0) {
+        @return mix(nth($shade-range, 2), $color, ($shade * $shade-amount));
+    }
+
+    @return $color;
+}
+
+/// Get a standardized shade of site's base gray.
+///
+/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {number} $alpha [1] The alpha value of the final color that will be returned.
+
+@function gray($shade: 0, $alpha: 1) {
+    @return clr(gray, $shade, $alpha);
+    //@return shade($color: get('colors:gray'), $shade: $shade, $shade-range: get(('gray-range')));
+}
+
+/// Get a standardized shade of the site's primary color
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10 (can be overriden
+/// with config(shade-steps)). 0 returns the color itself. Negative values make the color darker,
+/// postive values make it lighter.
+///
+/// @param {Number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
+/// is provided, the ooutput will be in rgba format.
+
+@function primary($shade: 0, $alpha: 1) {
+    @return clr(primary, $shade, $alpha);
+}
+
+/// Lookup a color by name and optionally get a shade of it
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {Number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
+/// is provided, the ooutput will be in rgba format.
+///
+/// @example
+/// // Add the color to the global configuration
+/// config('colors:purple', #C578DD);
+///
+/// // Retrieve the color
+/// clr(purple) => #C578DD
+/// clr(purple, -1) => (purple but 1 level darker)
+/// clr(purple, $alpha: 0.5) => (purple half alpha of 0.5)
+
+@function clr($name, $shade: 0, $alpha: 1) {
+    $color: get('colors:' + $name);
+
+    @if ($color == null) {
+        @error 'The color #{$name} could not be found.';
+    }
+
+    $base: $color;
+    $range: get('shade-range');
+
+    // $color is a list of 2 values representing the dark and light shade range,
+    // so calculate base as the middle value between them
+    @if (is-list($color) and length($color) == 2) {
+        $range: (nth($color, 1), nth($color, 2));
+        $base: null;
+    }
+
+    // $color is a list of 3 values like: (base, range-dark, range-light)
+    @if (is-list($color) and length($color) == 3) {
+        $base: nth($color, 1);
+        $range: (nth($color, 2), nth($color, 3));
+    }
+
+    // get the shaded version of the color
+    $shade: shade($base, $shade: $shade, $shade-range: $range);
+
+    @return rgba($shade, $alpha);
+}
+
+/// Computes the the luminance (grayscale value) of a color in the yiq color space
+
+@function yiq($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
+
+    // 0 (black) - 255 (white)
+    @return $yiq;
+}
+
+/// Choose a contrasting foreground based on a background color
+
+@function contrast-color(
+    $bg,
+    $light-fg: get(contrast-light),
+    $dark-fg: get(contrast-dark),
+    $contrast-threshold: 128
+) {
+    @if (not(is-color($bg))) {
+        $bg: clr($bg);
+    }
+    @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
+}

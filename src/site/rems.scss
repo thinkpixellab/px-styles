@@ -1,0 +1,24 @@
+////
+/// @group site.rems
+////
+
+@use "sass:math";
+
+@use '../utils' as *;
+
+/// Convert px to rem for a given base font size (the font size of the document root element)
+///
+@function rems($px, $round: 0) {
+    $basepx: get(font-size-base, $throw-not-found: true);
+
+    $r: math.div($px, $basepx) * 1rem;
+    @return if($round > 0, math.round-f($r, $round), $r);
+}
+
+/// Convert rem to px for a given base font size (the font size of the document root element)
+///
+@function px($rems, $basepx: null) {
+    $basepx: if-null($basepx, get(font-size-base));
+
+    @return math.div($rems, 1rem) * $basepx;
+}

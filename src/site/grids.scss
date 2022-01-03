@@ -1,0 +1,30 @@
+////
+/// @group site.grid
+////
+
+/// Create a CSS grid that mimics a table where columns are specified and rows are added as needed.
+/// @param {column definitions} $columns Column definitions
+/// @param {row definition} $row-height [auto] The height of each row
+/// @param {number} $gap [8px] The gap between items
+
+@mixin table-grid($columns, $row-height: auto, $gap: 8px) {
+    display: grid;
+    grid-template-columns: $columns;
+    grid-template-rows: $row-height;
+    grid-auto-rows: $row-height;
+    grid-gap: $gap;
+}
+
+/// Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)
+/// and fills the entire row
+/// @param {*} $item-min-width Minimum width of the item
+/// @param {*} $item-max-width Maximum width of the item
+/// @param {*} $item-height [auto] The item height
+/// @param {*} $gap [24px] The gap between items
+
+@mixin item-grid($item-min-width, $item-max-width, $item-height: auto, $gap: 24px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($item-min-width, $item-max-width));
+    grid-auto-rows: $item-height;
+    grid-gap: $gap;
+}

@@ -1,0 +1,630 @@
+@use 'utils' as *;
+@use 'site' as *;
+
+// All defaults for all modules must be defined in this mixin. In addition to fixing a generalized
+// loading issue (defined below) this also allows us to document all possible defaults in a single
+// location. The problem with defaults in a nutshell
+
+//     // set a primary color as a default
+//     $primary: red !default;
+
+//     // derive another value from it
+//     $link: $primary !default;
+
+//     // now update the primary color
+//     $primary: blue;
+
+//     // result => $link is red (but it should be blue)
+
+// Brute force fix:
+
+//     // create a mixin that allows us to defer setting global defaults
+//     @mixin defaults() {
+//         $primary: red !default !global;
+//         $link: darken($primary, 10%) !default !global;
+//     }
+
+//     $primary: blue;
+//     @include defaults();
+
+//     result ==> $link is correctly derived from blue
+
+// Config library fix
+
+@mixin defaults() {
+    // ----------------------------------------------------------------------------
+    // Site
+    // ----------------------------------------------------------------------------
+
+    // base font size (set on the body, used for rems calculations)
+    @include default('font-size-base', 15px);
+
+    /// Global default value for spacing functions
+    @include default('spacer', rems(12px));
+
+    // the total number of available shades in the shade and color functions
+    // (value of 20 produces a range of shades from -10, 10)
+    @include default('shade-steps', 20);
+
+    // the default range for color shading
+    @include default('shade-range', (black, white));
+
+    // global default primary color
+    @include default('colors:primary', #0099fd);
+
+    // default base gray color
+    @include default('colors:gray', (mix(#a0a0a0, primary(), 95%), primary(-9), white));
+
+    // global default selection color
+    @include config('colors:select', primary(-4));
+
+    // global default page background color
+    @include default('colors:page-bg', white);
+
+    // global default page foreground
+    @include default('colors:page-fg', gray(-7));
+
+    // defaults for computing contrast colors
+    @include default('contrast-light', clr(page-bg));
+
+    // defaults for computing contrast colors
+    @include default('contrast-dark', clr(page-fg));
+
+    // background for selected text
+    @include default('selection-bg', clr(select));
+
+    // foreground/color for selected text
+    @include default('selection-fg', contrast-color(clr(select)));
+
+    // ----------------------------------------------------------------------
+    // Typography
+    // ----------------------------------------------------------------------
+
+    // additional font faces (and where to find them)
+
+    @include default(
+        'fonts',
+        (
+            // 'Inter': (
+            //     (googleFont: true, weight: 400, style: normal),
+            // ),
+            // 'circular': (
+            //     (src: '../assets/fonts/circular', weight: 300, ext: woff2)
+            // ),
+        )
+    );
+
+    // basics: default / fallback font family for the site
+    @include default('font-family', sans-serif);
+
+    // basics: default / standard font-weight for the site
+    @include default('font-weight', 400);
+
+    // basics: whether to enable font-smoothing
+    @include default('font-smoothing', true);
+
+    // basics: default / fallback line-height for standard text
+    @include default('line-height', 1.5);
+
+    // basics: default / fallback letter spacing for the site
+    @include default('letter-spacing', normal);
+
+    // basics: responsive base font size adjustments
+    // prettier-ignore
+    @include default('font-size-breaks', (md: -1));
+
+    // site: map of standard named font sizes; at least one size must be named 'base' which should
+    // correspond to base-font-size
+    @include default(
+        'type-scale',
+        (
+            'xxs': 11px,
+            'xs': 13px,
+            'sm': 14px,
+            'base': get('font-size-base'),
+            'md': 18px,
+            'lg': 20px,
+            'xl': 24px,
+            'h4': 28px,
+            'h3': 36px,
+            'h2': 42px,
+            'h1': 54px,
+            'd2': 60px,
+            'd1': 72px,
+        )
+    );
+
+    // basics: code
+    @include default('code-font-family', (Menlo, Monaco, Consolas, monospace));
+    @include default('code-font-size', rems(13px));
+
+    // site: base type styles (type-styles will be derived from these)
+    // can customize individual settings like config('type-bases:headings:font-weight', 500)
+    @include default(
+        'type-bases',
+        (
+            headings: (
+                font-family: null,
+                font-weight: 700,
+                line-height: 1,
+                letter-spacing: null,
+                color: null,
+                margin-top: 1.75em,
+                margin-bottom: 0.75em,
+            ),
+            sub-headings: (
+                font-family: null,
+                font-weight: null,
+                line-height: 1.15,
+                letter-spacing: null,
+                color: null,
+                margin-bottom: 0.5em,
+            ),
+            code: (
+                font-family: get('code-font-family'),
+                font-size: get('code-font-size'),
+                font-weight: 400,
+                line-height: 1.4,
+            ),
+        )
+    );
+
+    // basics: set of type styles that will be generated based on type bases
+    @include default(
+        'type-styles',
+        (
+            '.display1': (
+                font-size: fs(7),
+                -base: 'headings',
+            ),
+            '.display2': (
+                font-size: fs(6),
+                -base: 'headings',
+            ),
+            '.h1': (
+                font-size: fs(5),
+                -base: 'headings',
+            ),
+            '.h2': (
+                font-size: fs(4),
+                -base: 'headings',
+            ),
+            '.h3': (
+                font-size: fs(3),
+                -base: 'headings',
+            ),
+            '.h4': (
+                font-size: fs(2),
+                -base: 'headings',
+            ),
+            '.h5': (
+                font-size: fs(1),
+                -base: 'headings',
+            ),
+            '.sh1': (
+                font-size: fs(2),
+                -base: 'sub-headings',
+            ),
+            '.sh2': (
+                font-size: fs(1),
+                -base: 'sub-headings',
+            ),
+            '.sh3': (
+                font-size: fs(0),
+                -base: 'sub-headings',
+            ),
+        )
+    );
+
+    // ----------------------------------------------------------------------
+    // Media Queries
+    // ----------------------------------------------------------------------
+
+    @include default(
+        'breakpoints',
+        (
+            xs: 640px,
+            mobile: 768px,
+            sm: 1024px,
+            md: 1366px,
+            lg: 1600px,
+            xl: 1920px,
+        )
+    );
+
+    $variable: true;
+
+    /// @config {String | Number} mobile-breakpoint - The standardized breakpoint where a mobile version of the design begins
+    @include default('mobile-breakpoint', 'mobile');
+
+    // ----------------------------------------------------------------------
+    // site (update): Transitions
+    // ----------------------------------------------------------------------
+
+    @include default(
+        'transitions',
+        (
+            default: (
+                dur: 200ms,
+                ease: ease-out,
+            ),
+            fast: (
+                dur: 100ms,
+                ease: $ease-out-quart,
+            ),
+            none: (
+                dur: 0,
+                ease: null,
+            ),
+            slow: (
+                dur: 400ms,
+                ease: ease-out,
+            ),
+        )
+    );
+
+    // ----------------------------------------------------------------------
+    // site (update): Shadows
+    // ----------------------------------------------------------------------
+
+    // number of distinct levels for both parameters ($depth, $color) of the
+    // standardized shadow function/mixin
+    @include default('shadows:levels', 20);
+
+    // color range for the standardized shadow
+    @include default('shadows:color', black);
+
+    // darkest portion of the key shadow
+    @include default('shadows:umbra:y', (0px 12px));
+    @include default('shadows:umbra:blur', (0px 20px));
+    @include default('shadows:umbra:spread', (0px -7px));
+    @include default('shadows:umbra:opacity', (0.2 0.3));
+
+    // soft portion of the key shadow
+    @include default('shadows:penumbra:y', (1px 24px));
+    @include default('shadows:penumbra:blur', (0px 38px));
+    @include default('shadows:penumbra:spread', (0px 0px));
+    @include default('shadows:penumbra:opacity', (0 0.15));
+
+    // ambient light portion of the shadow
+    @include default('shadows:ambient:y', (0px 9px));
+    @include default('shadows:ambient:blur', (0px 50px));
+    @include default('shadows:ambient:spread', (0px 8px));
+    @include default('shadows:ambient:opacity', (0.05 0.15));
+
+    // ----------------------------------------------------------------------
+    // Site Basics
+    // ----------------------------------------------------------------------
+
+    // container
+
+    @include default(
+        'container',
+        (
+            width: 1200px,
+            gutter: sp(3),
+            selector: '.container',
+        )
+    );
+
+    //  resets
+
+    @include default(
+        'reset',
+        (
+            link: true,
+            button: true,
+            lists: true,
+            headings: true,
+            paragraph: true,
+        )
+    );
+
+    // links
+
+    @include default(
+        'links',
+        (
+            -selector: '.link',
+            color: adjust-color(primary(), $saturation: 40%),
+            text-decoration: none,
+            text-decoration-color: null,
+            hover: (
+                color: null,
+                background-color: rgba(primary(), 0.1),
+                text-decoration: underline,
+                text-decoration-color: null
+            )
+        )
+    );
+
+    // ----------------------------------------------------------------------
+    // Reading
+    // ----------------------------------------------------------------------
+
+    // reading: default styles (css map)
+    @include default(
+        'reading',
+        (
+            base: (
+                font-family: get('font-family'),
+                font-size: fs(base),
+                line-height: 1.75,
+                font-weight: 400,
+            ),
+        )
+    );
+
+    // reading: font weight for <strong> text
+    @include default('reading:font-weight-strong', 600);
+
+    // reading: default vertical spacing between block elements (set as a margin-bottom)
+    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table));
+    @include default('reading:block-spacing', 1em);
+
+    // reading: list / list item (li) customization
+    @include default('reading:list-padding', 1.25em);
+    @include default('reading:list-item-padding', 0.25em);
+    @include default('reading:list-item-spacing', 0.25em);
+
+    // reading: links
+    @include default(
+        'reading:links',
+        flat-merge(
+            get('links'),
+            (
+                text-decoration: underline,
+            )
+        )
+    );
+
+    // reading: type styles
+    @include default('reading:styles-base', 'headings');
+    @include default(
+        'reading:styles',
+        (
+            'h1, .h1': (
+                'font-size': fs(5),
+            ),
+            'h2, .h2': (
+                'font-size': fs(4),
+            ),
+            'h3, .h3': (
+                'font-size': fs(3),
+            ),
+            'h4, .h4': (
+                'font-size': fs(2),
+            ),
+            'h5, .h5': (
+                'font-size': fs(1),
+            ),
+        )
+    );
+
+    // ----------------------------------------------------------------------
+    // Controls
+    // ----------------------------------------------------------------------
+
+    @include default(
+        'controls',
+        (
+            accent: primary(),
+            border-radius: 3px,
+            font-family: get(font-family),
+            font-size: fs(base),
+            font-weight: 400,
+            min-height: 2.25em,
+            min-width: 6em,
+        )
+    );
+
+    @include default(
+        'focus',
+        (
+            selector: ':focus-visible',
+            shadow-color: primary($alpha: 0.33),
+            shadow-width: 3px,
+        )
+    );
+
+    // @include default(
+    //     'controls:base',
+    //     (
+    //         -px-accent: primary(),
+    //         -px-radius: 3px,
+    //         -px-focus-style: 'shadow',
+    //         -px-transition: 'fast',
+    //         min-height: 2.25em,
+    //         line-height: 1.33,
+    //         font-family: get('font-family'),
+    //         font-size: fs(base),
+    //         font-weight: 400
+    //     )
+    // );
+
+    // textbox
+
+    // @include default(
+    //     'controls:textbox',
+    //     (
+    //         -px-accent: primary(),
+    //         -px-placeholder: rgba(clr('page-fg'), 0.5),
+    //         border: none,
+    //         background-color: rgba(gray(7), 0.66),
+    //         color: clr('page-fg'),
+    //         min-height: 2.25em,
+    //         min-width: 6em,
+    //         padding: 0 0.5em,
+    //         hover: (),
+    //         disabled: (),
+    //         read-only: ()
+    //     )
+    // );
+
+    @include default(
+        'controls:slider',
+        (
+            track-height: 4px,
+            track-max-width: 200px,
+            track-radius: 2px,
+            track-bg: gray(5),
+            track-border: none,
+            track-shadow: null,
+            thumb-bg: primary(),
+            thumb-border: none,
+            thumb-width: 12px,
+            thumb-height: 12px,
+            thumb-radius: 50%,
+            thumb-px-shadow: shadow(2),
+        )
+    );
+
+    // checkbox
+
+    // prettier-ignore
+    @include default(
+        'controls:checkbox',
+        (
+            // toggle-width: 16px,
+            // toggle-height: 16px,
+            // toggle-spacing: 6px,
+            // toggle-side: left,
+            // toggle-background: inline-svg('<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="2" fill="--fill" fill-rule="evenodd"/></svg>', (--fill: gray(6))),
+            // toggle-background-hover:inline-svg('<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="2" fill="--fill" fill-rule="evenodd"/></svg>',(--fill: gray(3))),
+            // toggle-check: inline-svg('<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M3.7 9.7L7 13l7.3-7.3" stroke="--stroke" stroke-width="2.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/></svg>',(--stroke: get('controls:base:-px-accent'))),
+            // toggle-indeterminate: inline-svg('<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="8" height="8" rx="1" fill="--fill" fill-rule="evenodd"/></svg>',(--fill: get('controls:base:-px-accent')))
+        )
+    );
+
+    // radio
+
+    // prettier-ignore
+    @include default(
+        'controls:radio',
+        (
+            // toggle-width: 16px,
+            // toggle-height: 16px,
+            // toggle-spacing: 6px,
+            // toggle-side: left,
+            // toggle-background: inline-svg('<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="8.5" fill="--fill" stroke="--stroke" fill-rule="evenodd"/></svg>', (--fill: gray(5), --stroke: gray())),
+            // toggle-background-hover: inline-svg('<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="8.5" fill="--fill" stroke="--stroke" fill-rule="evenodd"/></svg>', (--fill: gray(3), --stroke: gray())),
+            // toggle-check:inline-svg('<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="5" fill="--fill" fill-rule="evenodd"/></svg>',(--fill: get('controls:base:-px-accent')))
+        )
+    );
+
+    // toggle
+
+    // prettier-ignore
+    @include default(
+        'controls:toggle',
+        (
+            // toggle-width: 38px,
+            // toggle-height: 19px,
+            // toggle-spacing: 6px,
+            // toggle-side: left,
+            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),
+            // toggle-off-background: gray(4),
+            // toggle-off-background-hover:null,
+            // toggle-off-background-active: gray(2),
+            // toggle-on-background: primary(),
+            // toggle-on-background-hover: null,
+            // toggle-on-background-active: primary(-1),
+            // indicator-gap: 2px,
+            // indicator-aspect: 1,
+            // indicator-off-background: gray(8),
+            // indicator-on-background: white,
+            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)
+        )
+    );
+
+    // toggle-button
+
+    @include default(
+        'controls:toggle-button',
+        (
+            // -px-accent: gray(10),
+            // -px-shadow: shadow(1),
+            // -px-icon: inline-svg(
+            //         '<svg width="10" height="8" viewBox="0 0 10 8" xmlns="http://www.w3.org/2000/svg"><path stroke="--stroke" stroke-width="2" d="m1 3.256 2.755 2.863L8.875 1" fill="none" fill-rule="evenodd"/></svg>',
+            //         (
+            //             --stroke: rgba(white, 0.66),
+            //         )
+            //     ),
+            // -px-icon-width: 0.7em,
+            // -px-icon-height: 1em,
+            // -px-icon-space: 0.3em,
+            // -px-connect: false,
+            // font-size: fs(sm),
+            // min-height: 2em,
+            // min-width: initial,
+            // padding: 0 1.25em,
+            // border: 1px solid gray(),
+            // color: gray(-6),
+            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),
+            // active: (
+            //     -px-accent: clr(select, -1),
+            //     color: contrast-color(select),
+            //     border: 1px solid clr(select, -3)
+            // ),
+            // checked: (
+            //     -px-accent: clr(select),
+            //     color: contrast-color(select),
+            //     border: 1px solid clr(select, -4),
+            //     hover: (border: 1px solid clr(select, -4)),
+            //     active: (-px-accent: clr(select, 2))
+            //)
+        )
+    );
+
+    // tooltip
+
+    @include default(
+        'controls:tooltip',
+        (
+            // background-color: #fae9c8,
+            // border: 1px solid #e3ba71,
+            // font-size: rems(13px),
+            // max-width: 40em,
+            // min-height: 1.75em,
+            // display: flex,
+            // align-items: center,
+            // padding: 0 0.75em,
+            // border-radius: get('controls:base:-px-radius'),
+        )
+    );
+}
+
+// @include default(
+//     'controls:dropdown',
+//     (
+//         cursor: pointer,
+//         padding: 0 0.5em,
+//         icon:
+//             '<svg width="8" height="5" xmlns="http://www.w3.org/2000/svg"><path fill="#fill" d="M0 0h8L4 5z" fill-rule="evenodd"/></svg>',
+//         icon-fill: 3 // accent: primary(),
+//             // bg: gray(6),
+//             // fg: null,
+//             // placeholder: null,
+//             // height: null,
+//             // border: none,
+//             // min-width: 6em,
+//             // padding: 0 0.5em,
+//             // disabled: (
+//             //     bg: 7,
+//             //     fg: 4,
+//             //     placeholder: 6,
+//             //     border: none,
+//             //     icon: null,
+//             //     icon-fill: null,
+//             // ),
+//             // readonly: (
+//             //     bg: 1,
+//             //     fg: 0,
+//             //     placeholder: 0,
+//             //     border: none,
+//             //     icon:
+//             //         '<svg width="9" height="11" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z" fill="#fill" fill-rule="evenodd"/></svg>',
+//             //     icon-fill: 5,
+//             // ),,,
+//     )
+// );

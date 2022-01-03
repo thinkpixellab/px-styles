@@ -1,0 +1,149 @@
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8" />
+        <title>pxstyles</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body>
+        <div id="app">
+            <nav class="nav">
+                <div class="nav-filter">
+                    <input class="textbox" placeholder="filter" type="textbox" />
+                </div>
+                <ul>
+                    <li v-for="(group, name) in docs" :key="name" class="nav-group">
+                        <strong class="nav-header">{{name}}</strong>
+                        <ul>
+                            <li v-for="item in group" :key="item.name">
+                                <a class="nav-item" :href="`#${itemToId(item)}`">
+                                    {{item.docName}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <section v-for="(group, name) in docs" :key="name" class="group container">
+                    <h2 class="group-header">{{name}}</h2>
+                    <div :id="itemToId(item)" class="item" v-for="item in group" :key="item.name">
+                        <!-- item name -->
+                        <h3 class="item-header">
+                            <strong>{{item.name}}</strong>
+                            <span v-if="itemParamString && itemParamString.length">
+                                {{itemParamString(item)}}
+                            </span>
+                        </h3>
+
+                        <!-- item description -->
+                        <p class="item-description" v-html="item.description" />
+
+                        <!-- item parameters -->
+                        <div class="item-params" v-if="item.parameter && item.parameter.length">
+                            <div class="item-params-heading">
+                                <span>Parameter Name</span>
+                                <span>Type</span>
+                                <span>Default</span>
+                                <span>Description</span>
+                            </div>
+                            <div
+                                class="item-param"
+                                v-for="(param, index) in item.parameter"
+                                :key="index"
+                            >
+                                <span>${{param.name}}</span>
+                                <span>{{param.type}}</span>
+                                <span>{{param.default}}</span>
+                                <span>{{param.description}}</span>
+                            </div>
+                        </div>
+
+                        <!-- item examples -->
+                        <div class="item-examples" v-if="item.example && item.example.length">
+                            <div
+                                class="item-example"
+                                v-for="(example, index) in item.example"
+                                :key="index"
+                            >
+                                <!--prettier-ignore -->
+                                <code>
+<pre :class="example.type">
+{{example.code}}
+</pre>
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <ul>
+                        <li v-for="item in group" :key="item.name">
+                            <a :href="`#${itemToId(item)}`">{{item.docName}}</a>
+                        </li>
+                    </ul> -->
+                </section>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+        <script src="data/docs.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                new Vue({
+                    el: '#app',
+                    data() {
+                        return {
+                            docs: window.pxstyles,
+                        };
+                    },
+                    mounted() {
+                        // first, find all the div.code blocks
+                        document.querySelectorAll('.item-example code pre').forEach(el => {
+                            // then highlight each
+                            hljs.highlightElement(el);
+                        });
+                    },
+                    computed: {
+                        groups() {},
+                    },
+                    methods: {
+                        itemToId(item) {
+                            return this.toSlug(item.group) + '-' + this.toSlug(item.name);
+                        },
+
+                        itemParamString(item) {
+                            if (item.type == 'mixin' || item.type == 'function') {
+                                let params = item.parameter
+                                    ? item.parameter.map(p => '$' + p.name)
+                                    : [];
+                                return '(' + params.join(', ') + ')';
+                            }
+
+                            return null;
+                        },
+
+                        toSlug(str) {
+                            str = str.replace(/^\s+|\s+$/g, ''); // trim
+                            str = str.toLowerCase();
+
+                            // remove accents, swap ñ for n, etc
+                            var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
+                            var to = 'aaaaeeeeiiiioooouuuunc------';
+                            for (var i = 0, l = from.length; i < l; i++) {
+                                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                            }
+
+                            str = str
+                                .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                                .replace(/-+/g, '-'); // collapse dashes
+
+                            return str;
+                        },
+                    },
+                });
+            });
+        </script>
+    </body>
+</html>

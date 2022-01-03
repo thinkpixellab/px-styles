@@ -1,0 +1,35 @@
+@use '../utils' as *;
+@use '../site' as *;
+@use 'helpers.scss' as *;
+@use 'base.scss' as *;
+
+@mixin textbox($overrides: ()) {
+    // base config
+    $css: control-base();
+
+    // local config
+    $css: flat-merge($css, ());
+
+    // textbox config
+    $css: flat-merge($css, get('controls:textbox'));
+
+    // add placeholder styles
+    $placeholder: flat-get($css, '-px-placeholder');
+    @if ($placeholder) {
+        @include placeholder {
+            color: $placeholder;
+        }
+    }
+
+    // add focus selector
+    @include control-focus(flat-get($css, '-px-focus-style'));
+
+    // output the css
+    @include css-map(
+        $css,
+        (
+            '-px-radius': 'border-radius',
+            '-px-shadow': 'box-shadow',
+        )
+    );
+}

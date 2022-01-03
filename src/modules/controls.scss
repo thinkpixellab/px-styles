@@ -1,0 +1,250 @@
+////
+/// @group site.controls
+////
+
+@use '../utils' as *;
+@use '../site' as *;
+
+// ----------------------------------------------------------------------------
+// base
+// ----------------------------------------------------------------------------
+
+@function -control-base() {
+    @return (
+        appearance: none,
+        box-sizing: border-box,
+        position: relative,
+        outline: none,
+        border: none,
+        white-space: nowrap,
+        font-family: get('controls:font-family'),
+        font-size: get('controls:font-size'),
+        font-weight: get('controls:font-weight')
+    );
+}
+
+@function -button-base() {
+    @return (
+        display: inline-flex,
+        align-items: center,
+        justify-content: center,
+        overflow: hidden,
+        text-overflow: ellipsis,
+        user-select: none,
+        padding: 0 1em,
+        border-radius: get('controls:border-radius'),
+        min-width: get('controls:min-width'),
+        min-height: get('controls:min-height'),
+        cursor: pointer,
+        disabled: (
+            cursor: not-allowed,
+        )
+    );
+}
+
+// ----------------------------------------------------------------------------
+// button
+// ----------------------------------------------------------------------------
+
+@function -button($accent) {
+    @return (
+        background: $accent,
+        box-shadow: shadow(2, 0.5),
+        color: contrast-color($accent),
+        hover: (
+            background: shade($accent, 1),
+            box-shadow: shadow(4, 1),
+        ),
+        active: (
+            background: shade($accent, -2),
+            box-shadow: shadow(0),
+        ),
+        disabled: (
+            background: gray(5),
+            color: gray(-2),
+            box-shadow: none,
+        )
+    );
+}
+
+/// Generates a button style based on the site's button settings. The default button is pretty
+/// opinionated. All sizing is in ems (so setting the font size will scale the button). See the
+/// source for more details.
+///
+/// @param {map} $overrides [()] CSS map. Just about any css is valid (currently transitions can't
+/// be override) including supported state specific values: hover, active, disabled. If background
+/// or color are set, they will be adapted for other states unless also override for those states
+///
+/// @example
+/// %%include button() => creates a standard, default button
+///
+/// @example
+/// %%include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+
+@mixin button($overrides: ()) {
+    $accent: -control-accent($overrides, background, background-color);
+
+    // basic button css
+    $button: -button($accent);
+
+    // config
+    $config: get('controls:button', null, false);
+
+    // merge all the css
+    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+
+    // output the css
+    @include css-map($css, $map-states: (hover active disabled));
+
+    // add transitions
+    @include transition(background color box-shadow, get('controls:transition', 'fast'));
+
+    // add focus selector
+    @include -focus('shadow', rgba($accent, 0.33));
+}
+
+// ----------------------------------------------------------------------------
+// button-outline
+// ----------------------------------------------------------------------------
+
+@function -button-outline($accent) {
+    @return (
+        color: $accent,
+        border-color: currentColor,
+        border-width: 2px,
+        border-style: solid,
+        hover: (
+            color: shade($accent, 2),
+            background: rgba(shade($accent, 2), 0.05),
+            border-color: shade($accent, 2),
+        ),
+        active: (
+            color: shade($accent, -1),
+            background: rgba(shade($accent, -1), 0.1),
+            border-color: shade($accent, -1),
+        ),
+        disabled: (
+            background: gray(5),
+            color: gray(-2),
+            box-shadow: none,
+        )
+    );
+}
+
+@mixin button-outline($overrides: ()) {
+    $accent: -control-accent($overrides, color, border-color);
+
+    // button css
+    $button: -button-outline($accent);
+
+    // config
+    $config: get('controls:button', null, false);
+
+    // merge all the css
+    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+
+    // output the css
+    @include css-map($css, $map-states: (hover active disabled));
+
+    // add transitions
+    @include transition(background color, get('controls:transition', 'fast'));
+
+    // add focus selector
+    @include -focus('shadow');
+}
+
+// ----------------------------------------------------------------------------
+// textbox
+// ----------------------------------------------------------------------------
+
+@function -textbox-base() {
+    @return (
+        display: inline-flex,
+        border-radius: get('controls:border-radius'),
+        min-width: get('controls:min-width'),
+        min-height: get('controls:min-height'),
+        font-weight: get('controls:font-weight'),
+        font-family: get('controls:font-family'),
+        border: none,
+        background-color: rgba(gray(8), 0.66),
+        color: clr('page-fg'),
+        padding: 0 0.5em,
+        disabled: (
+            cursor: not-allowed,
+        )
+    );
+}
+@mixin textbox($overrides: ()) {
+    //$accent: -control-accent($overrides, background, background-color);
+
+    // // basic button css
+    // $button: -button($accent);
+
+    // // config
+    // $config: get('controls:button', null, false);
+
+    // // merge all the css
+    // $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+
+    // // output the css
+    // @include css-map($css, $map-states: (hover active disabled));
+
+    // // add transitions
+    // @include transition(background color box-shadow, get('controls:transition', 'fast'));
+
+    // // add focus selector
+    // @include -focus('shadow', rgba($accent, 0.33));
+
+    // textbox base css
+    $textbox: -textbox-base();
+
+    // config
+    $config: get('controls:textbox', null, false);
+
+    // merge all the css
+    $css: flat-merge(-control-base(), $textbox, $config, $overrides);
+
+    // // add placeholder styles
+    // $placeholder: flat-get($css, '-px-placeholder');
+    // @if ($placeholder) {
+    //     @include placeholder {
+    //         color: $placeholder;
+    //     }
+    // }
+
+    // output the css
+    @include css-map($css, $map-states: (hover active disabled));
+
+    // add focus selector
+    @include -focus('shadow');
+}
+
+// ----------------------------------------------------------------------------
+// helpers
+// ----------------------------------------------------------------------------
+
+@function -control-accent($overrides, $props...) {
+    $accent: get('controls:accent');
+    @each $prop in $props {
+        $accent: map-get-default($overrides, $prop, $accent);
+    }
+    @return $accent;
+}
+
+@mixin -focus-style($style, $color: null) {
+    @if ($style == 'shadow') {
+        $color: if-null($color, get('focus:shadow-color'));
+        $width: get('focus:shadow-width');
+        box-shadow: 0 0 0 $width $color;
+    }
+    @if ($style == 'outline') {
+        outline-offset: 0px;
+        outline: 1px dashed $color;
+    }
+}
+
+@mixin -focus($style, $color: null) {
+    @include focus() {
+        @include -focus-style($style, $color);
+    }
+}

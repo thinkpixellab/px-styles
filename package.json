@@ -1,14 +1,15 @@
 {
     "name": "pxstyles",
     "title": "pxstyles",
-    "version": "0.1",
+    "version": "0.1.0",
     "private": true,
     "author": {
         "name": "Pixel Lab",
         "url": "http://thinkpixellab.com/"
     },
     "scripts": {
-        "docs": "sassdoc ./styles/px"
+        "docs": "sass ./docs/styles.scss ./docs/styles.css & sassdoc ./src/**/*.scss",
+        "docs-watch": "sass --watch ./docs/styles.scss ./docs/styles.css"
     },
     "repository": {
         "type": "git",
@@ -20,9 +21,8 @@
     },
     "dependencies": {
         "fibers": "^5.0.0",
-        "gulp": "^4.0.2",
-        "gulp-sass": "^4.1.0",
-        "sass": "^1.32.6"
+        "lodash": "^4.17.21",
+        "sass": "^1.45.2"
     },
     "devDependencies": {}
 }

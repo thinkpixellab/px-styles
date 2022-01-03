@@ -1,0 +1,84 @@
+////
+/// @group site.shadows
+////
+
+@use 'sass:math';
+@use '../utils' as *;
+
+@function -shadow-from-ranges($depth, $color) {
+    $color: clamp-number($color, 0, 1);
+
+    $x: 60 ($depth, get('shadows:range-x'));
+    $y: intp($depth, get('shadows:range-y'));
+    $b: 0.5 ($depth, get('shadows:range-blur'));
+    $s: intp($depth, get('shadows:range-spread'));
+    $color-range: get('shadows:range-color');
+
+    $c: mix(nth-or-val($color-range, 1), nth-or-val($color-range, 2), (1-$color) * 100%);
+
+    @return #{$x} #{$y} #{$b} #{$s} #{$c};
+}
+
+/// Creates the syntax for a multi-level shadow
+/// @param {*} $depth
+/// @param {*} $level
+/// @param {*} $color
+
+@function depth-shadow($depth, $level, $color) {
+    $depth: math.div($depth, get('shadows:levels'));
+    $ease: false;
+    $round: 2;
+
+    $umbra-opacity: intp($depth, get('shadows:umbra:opacity'));
+    $penumbra-opacity: intp($depth, get('shadows:penumbra:opacity'));
+    $ambient-opacity: intp($depth, get('shadows:ambient:opacity'));
+
+    // level adjustments
+
+    @if ($level) {
+        @if ($level > 0) {
+            $umbra-opacity: $umbra-opacity + ((0.6 - $umbra-opacity) * math.div($level, 10));
+            $penumbra-opacity: $penumbra-opacity +
+                ((0.4 - $penumbra-opacity) * math.div($level, 10));
+            $ambient-opacity: $ambient-opacity + ((0.3 - $ambient-opacity) * math.div($level, 10));
+        }
+        @if ($level < 0) {
+            $umbra-opacity: $umbra-opacity + ($umbra-opacity * math.div($level, 10));
+            $penumbra-opacity: $penumbra-opacity + ($penumbra-opacity * math.div($level, 10));
+            $ambient-opacity: $ambient-opacity + ($ambient-opacity * math.div($level, 10));
+        }
+    }
+
+    $umbra: 0 intp($depth, get('shadows:umbra:y'), $ease, $round)
+        intp($depth, get('shadows:umbra:blur'), $ease, $round)
+        intp($depth, get('shadows:umbra:spread'), $ease, $round) rgba($color, $umbra-opacity);
+
+    $penumbra: 0 intp($depth, get('shadows:penumbra:y'), $ease, $round)
+        intp($depth, get('shadows:penumbra:blur'), $ease, $round)
+        intp($depth, get('shadows:penumbra:spread'), $ease, $round) rgba($color, $penumbra-opacity);
+
+    $ambient: 0 intp($depth, get('shadows:ambient:y'), $ease, $round)
+        intp($depth, get('shadows:ambient:blur'), $ease, $round)
+        intp($depth, get('shadows:ambient:spread'), $ease, $round) rgba($color, $ambient-opacity);
+
+    @return (#{$umbra}, #{$penumbra}, #{$ambient});
+}
+
+/// Returns a standardized box shadow
+@function shadow($depth, $level: 0, $color: black) {
+    @return depth-shadow($depth, $level, $color);
+    // $depth: math.div(if-null($depth, 2), get('shadows:levels'));
+    // $color: math.div(if-null($color, $depth), get('shadows:levels'));
+    // @return -shadow-from-ranges($depth, $color);
+}
+
+/// Create a standard box-shadow
+@mixin shadow($depth: 5, $color: null) {
+    box-shadow: shadow($depth);
+}
+
+/// Create a standard drop-shadow as a css filter effect (creates
+/// non-rectangular shadows on any content)
+@mixin shadow-effect($depth: null, $color: null) {
+    filter: drop-shadow(shadow($depth));
+}

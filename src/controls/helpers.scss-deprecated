@@ -1,0 +1,36 @@
+@use '../utils' as *;
+@use '../site' as *;
+
+@mixin control-focus-style($style, $color: null) {
+    @if ($style == 'shadow') {
+        $color: if-null($color, get('focus-shadow-color'));
+        $width: get('focus-shadow-width');
+        box-shadow: 0 0 0 $width $color;
+    }
+    @if ($style == 'outline') {
+        outline-offset: 0px;
+        outline: 1px dashed $color;
+    }
+}
+
+@mixin control-focus($style, $color: null) {
+    @include focus() {
+        @include control-focus-style($style, $color);
+    }
+}
+@function shade-if-number($value, $shade-base) {
+    @if (is-number($value)) {
+        @return shade($shade-base, $value);
+    }
+    @return $value;
+}
+
+@function shade-props($css, $flat-prop-list, $shade-base) {
+    @each $key in $flat-prop-list {
+        @if (flat-has-key($css, $key)) {
+            $val: flat-get($css, $key);
+            $css: flat-set($css, $key, shade-if-number($val, $shade-base));
+        }
+    }
+    @return $css;
+}

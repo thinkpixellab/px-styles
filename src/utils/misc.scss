@@ -1,0 +1,220 @@
+////
+/// @group utils.misc
+////
+
+@use 'collections.scss' as *;
+@use 'flatmap.scss' as *;
+@use 'strings.scss' as *;
+@use 'units.scss' as *;
+
+/// Completely resets the appearance of controls (input and button)
+
+@mixin control-reset {
+    appearance: none;
+    border: none;
+    outline: none;
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+/// Style the placeholder text for an text input element
+/// @example
+/// input {
+///     @include placeholder {
+///         /* styles for placeholder here */
+///     }
+/// }
+
+@mixin placeholder {
+    &::placeholder {
+        @content;
+    }
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+/// Disable text selection on an element
+
+@mixin no-select {
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+/// Use the (now broadly supported) line-clamp property to restrict the
+/// number of lines that are shown in a text element.
+///
+/// @param {number} $lines The maximum number of lines to be shown
+
+@mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/// Shortcut for the ::before pseudo element with common defaults for content
+/// and display.
+///
+/// @param {*} $content [''] The value for the content property.
+/// @param {*} $display [block] The value for the display property.
+
+@mixin before($content: '', $display: block) {
+    &:before {
+        content: '';
+        display: block;
+        @content;
+    }
+}
+
+/// Shortcut for the ::after pseudo element with common defaults for content
+/// and display.
+///
+/// @param {*} $content [''] The value for the content property.
+/// @param {*} $display [block] The value for the display property.
+
+@mixin after($content: '', $display: block) {
+    &:after {
+        content: '';
+        display: block;
+        @content;
+    }
+}
+
+/// Create a triangle element using the border properties
+///
+/// @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)
+/// @param {color} $color The fill color for the arrow
+/// @param {length} $height The height of the arrow
+/// @param {length} $width  The width of the arrow
+///
+/// @example TODO
+
+@mixin triangle($direction, $color, $height, $width) {
+    border-style: solid;
+    height: 0;
+    width: 0;
+
+    @if ($direction == 'up') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 ($width * 0.5) $height ($width * 0.5);
+    }
+    @if ($direction == 'down') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height ($width * 0.5) 0 ($width * 0.5);
+    }
+    @if ($direction == 'right') {
+        border-color: transparent transparent transparent $color;
+        border-width: ($height * 0.5) 0 ($height * 0.5) $width;
+    }
+    @if ($direction == 'left') {
+        border-color: transparent $color transparent transparent;
+        border-width: ($height * 0.5) $width ($height * 0.5) 0;
+    }
+    @if ($direction == 'up-left') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height $width 0 0;
+    }
+    @if ($direction == 'up-right') {
+        border-color: transparent $color transparent transparent;
+        border-width: 0 $width $height 0;
+    }
+    @if ($direction == 'down-left') {
+        border-color: transparent transparent transparent $color;
+        border-width: $height 0 0 $width;
+    }
+    @if ($direction == 'down-right') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 0 $height $width;
+    }
+}
+
+/// Finds and replaces keys in a map
+
+@function map-key-replace($map, $key-replacements) {
+    $remap: ();
+    @each $key, $val in $map {
+        $prop: map-get-default($key-replacements, $key, $key);
+        @if (not is-list($prop)) {
+            $prop: ($prop);
+        }
+        @each $propname in $prop {
+            $remap: map-merge(
+                $remap,
+                (
+                    $propname: $val,
+                )
+            );
+        }
+    }
+
+    @return $remap;
+}
+
+/// Generates css from a map of properties and values. Properties can be remapped with aliases or
+/// ignored with a start pattern.
+///
+/// @param {map} $map The property map used to generate the css
+/// @param {map} $aliases Property aliases map (e.g (-px-accent: background-color))
+/// @param {list} $map-states If provided, the specified map-type properties will be interpreted as
+/// sub states (e.g. (hover: (...)) becomes &:hover {...})
+/// @param {string} $ignore-start-pattern Properties that start with this will be ignored
+
+@mixin css-map(
+    $map,
+    $aliases: (),
+    $map-states: false,
+    $use-smart-aliases: true,
+    $ignore-start-pattern: '-'
+) {
+    @if ($use-smart-aliases) {
+        $smart-aliases: (
+            disabled: 'disabled, &:disabled:hover, &:disabled:active',
+            readonly: 'read-only, &:read-only:hover, &:read-only:active',
+            read-only: 'read-only, &:read-only:hover, &:read-only:active',
+        );
+        $aliases: flat-merge($smart-aliases, $aliases);
+    }
+
+    // walk through $map and replace any aliases with their counterparts
+    $remap: map-key-replace($map, $aliases);
+
+    // replace $map-states with their aliases
+    $map-states: list-replace($map-states, $aliases);
+
+    @each $key, $val in $remap {
+        @if not((starts-with($key, $ignore-start-pattern))) {
+            @if (is-map($val)) {
+                @if (is-list($map-states) and list-contains($map-states, $key)) {
+                    &:#{$key} {
+                        @include css-map($val, $aliases, $ignore-start-pattern);
+                    }
+                }
+            } @else if (is-list($val) and length($val) == 0) {
+                // do nothing (empty maps look like empty lists in scss)
+            } @else {
+                #{$key}: $val;
+            }
+        }
+    }
+}
+
+/// Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)
+///
+/// @param {*} $color1 [yellowgreen] The first color in the gradient
+/// @param {*} $color2 [gold] The second color in the gradient
+
+@mixin debug-zebra($color1: yellowgreen, $color2: gold) {
+    background-image: repeating-linear-gradient(-45deg, $color1 0 20px, $color2 20px 40px);
+}

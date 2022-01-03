@@ -1,0 +1,144 @@
+////
+/// @group utils.layout
+/// @todo Needs documentation
+////
+
+// Aspect
+@use 'sass:math';
+
+@mixin aspect($aspect) {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-bottom: 100% * math.div(1, $aspect);
+}
+
+@mixin aspect-after($aspect) {
+    &:after {
+        @include aspect($aspect);
+    }
+}
+
+@mixin aspect-before($aspect) {
+    &:before {
+        @include aspect($aspect);
+    }
+}
+
+// inherit the border radius of a parent for the first and last items
+
+@mixin first-last-radius {
+    border-radius: 0;
+    &:first-child {
+        border-radius: inherit;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    &:last-child {
+        border-radius: inherit;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    &:first-child:last-child {
+        border-radius: inherit;
+    }
+}
+
+@mixin pos($pos: null, $t: null, $r: null, $b: null, $l: null) {
+    position: $pos;
+
+    // no offsets
+    @if ($t == null and $r == null and $b == null and $l == null) {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    // one offset
+    @else if ($t != null and $r == null and $b == null and $l == null) {
+        top: $t;
+        right: $t;
+        bottom: $t;
+        left: $t;
+    }
+
+    // two offsets
+    @else if ($t != null and $r != null and $b == null and $l == null) {
+        top: $t;
+        right: $r;
+        bottom: $t;
+        left: $r;
+    }
+
+    // other
+    @else {
+        top: $t;
+        right: $r;
+        bottom: $b;
+        left: $l;
+    }
+}
+
+@mixin rel($t: null, $r: null, $b: null, $l: null) {
+    @include pos(relative, $t, $r, $b, $l);
+}
+
+@mixin abs($t: null, $r: null, $b: null, $l: null) {
+    @include pos(absolute, $t, $r, $b, $l);
+}
+
+@mixin fixed($t: null, $r: null, $b: null, $l: null) {
+    @include pos(fixed, $t, $r, $b, $l);
+}
+
+@mixin left-top($l: 0, $t: 0) {
+    position: absolute;
+    left: $l;
+    top: $t;
+}
+
+@mixin right-top($r: 0, $t: 0) {
+    position: absolute;
+    right: $l;
+    top: $t;
+}
+
+@mixin left-bottom($l: 0, $b: 0) {
+    position: absolute;
+    left: $l;
+    bottom: $t;
+}
+
+@mixin right-bottom($r: 0, $b: 0) {
+    position: absolute;
+    right: $l;
+    bottom: $t;
+}
+
+@mixin abs-fill() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin center($left: 50%, $top: 50%, $position: absolute) {
+    position: $position;
+    left: $left;
+    top: $top;
+    transform: translate(-$left, -$top);
+}
+
+@mixin center-x($left: 50%, $position: absolute) {
+    position: $position;
+    left: $left;
+    transform: translateX(-$left);
+}
+
+@mixin center-y($top: 50%, $position: absolute) {
+    position: $position;
+    top: $top;
+    transform: translateY(-$top);
+}

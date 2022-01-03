@@ -1,0 +1,41 @@
+
+
+## Documentation
+
+{{#each items}}
+#### {{@key}}
+{{#each .}}
+* [{{docName}}](#{{textToId group name}})
+{{/each}}
+{{/each}}
+
+
+{{!-- group (e.g. site.color) --}}
+{{#each items}}
+### {{@key}}
+
+{{!-- item (e.g. "clr()" ) --}}
+{{#each .}}
+---
+
+<h4 id="{{textToId group name}}">{{docName}} <small style="opacity: 0.5">{{type}}</small></h4>
+{{removeBreaks description}}
+
+{{#if parameter}}
+##### Parameters
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+{{#each parameter}}
+| {{name}} | {{type}} | {{default}} | {{removeBreaks description}} |
+{{/each}}
+{{/if}}
+
+{{#if example}}
+##### Example
+{{#each example}}
+{{codeSample code}}
+{{/each}}
+{{/if}}
+
+{{/each}}
+{{/each}}

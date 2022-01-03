@@ -1,0 +1,97 @@
+////
+/// @group modules.reading
+////
+
+@use '../utils' as *;
+@use '../site' as *;
+
+/// Generates classes for "readable" content, e.g. standard HTML that should be
+/// formatted to be read, rather than structured as ui.
+@mixin reading($overrides: ()) {
+    $config: flat-merge(get('reading'), $overrides);
+
+    // base styles
+    @include css-map(flat-get($config, 'base'));
+
+    // should we reevaluate this?
+    a,
+    span,
+    p {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+    }
+
+    strong {
+        font-weight: flat-get($config, 'font-weight-strong');
+    }
+
+    // block spacing
+
+    $blocks: join(flat-get($config, 'blocks'), ',');
+    #{$blocks} {
+        margin: 0 0 flat-get($config, 'block-spacing') 0;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // lists
+
+    ol,
+    ul {
+        padding-left: flat-get($config, 'list-padding');
+        li {
+            padding-left: flat-get($config, 'list-item-padding');
+            margin: 0 0 flat-get($config, 'list-item-spacing') 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        ol,
+        ul {
+            margin: 0;
+        }
+    }
+
+    ul {
+        list-style: disc outside none;
+    }
+    ol {
+        list-style: decimal outside none;
+    }
+
+    ol,
+    ul {
+        ol {
+            list-style-type: upper-alpha;
+        }
+        ol ol {
+            list-style-type: lower-roman;
+        }
+        ol ol ol {
+            list-style-type: lower-alpha;
+        }
+    }
+
+    // headings and other styles
+
+    // TODO
+    // $styles-base: get('type-bases:' + flat-get($config, 'styles-base'));
+    // $styles: flat-get($config, 'styles');
+    // @if ($styles) {
+    //     @include type-styles($styles, $styles-base);
+    // }
+
+    // link styles
+
+    $links: flat-get($config, 'links');
+    $link-selector: flat-get($config, 'links:-selector');
+    @if ($links) {
+        a,
+        #{$link-selector} {
+            @include css-map($links);
+        }
+    }
+}

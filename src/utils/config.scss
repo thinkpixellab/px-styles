@@ -1,0 +1,87 @@
+////
+/// @group site.config
+////
+
+@use 'strings.scss' as *;
+@use 'collections.scss' as *;
+@use 'flatmap.scss' as *;
+@use 'units.scss' as *;
+
+// Global map that contains all config settings for the site (private)
+$-config: ();
+
+// Global map that contains all default config settings for the site (private)
+$-defaults: ();
+
+@function get-config-map() {
+    @return $-config;
+}
+
+/// Retrieve a configuration setting.
+///
+/// @param {string or list} $paths The path (string) list of paths (list) where the setting should
+/// be found. Each path is one or more keys separated by colons (e.g. 'colors:accent' would find the
+/// value accent in the colors map). If a list of strings is provided, they will searched in order
+/// and the first non-null value will be returned.
+///
+/// @param {*} $fallback [null] The value to return if the path doesn't exist.
+
+@function get($paths, $fallback: null, $throw-not-found: true) {
+    // $paths is a list
+    @if (type-of($paths) == 'list') {
+        @each $path in $paths {
+            $result: get($path, null);
+            @if ($result != null) {
+                @return $result;
+            }
+        }
+    } @else {
+        $result: flat-get($-config, $paths, $fallback);
+        @if ($result != null) {
+            @return $result;
+        }
+    }
+
+    @if ($throw-not-found) {
+        $path-str: if(type-of($paths) == 'list', list-join($paths, ':'), $paths);
+        @error 'Could not find required config value for path "#{$path-str}".';
+    }
+
+    @return $fallback;
+}
+
+/// Add a configuration setting.
+///
+/// @param {*} $path The path of the setting with keys separated by colons (e.g.
+/// 'colors:accent' would set the value accent in the colors map).
+///
+/// @param {*} $val [null] The value to be added.
+
+@mixin config($path, $val) {
+    $-config: flat-set($-config, $path, $val) !global;
+}
+
+/// Add a default configuration setting (provides the same functionality as config, but will not
+/// overwrite an existing setting).
+///
+/// @param {*} $path The path of the setting with keys separated by colons (e.g. 'colors:accent'
+/// would set the value accent in the colors map).
+///
+/// @param {*} $val [null] The value to be added.
+
+@mixin default($path, $val) {
+    $current: get($path, $fallback: 'NOTFOUND');
+
+    // if the value is not found, then we can just write it
+    @if ($current == 'NOTFOUND') {
+        @include config($path, $val);
+    }
+
+    // if the value exists and is a map then we do deep merge
+    @else {
+        @if (is-map($current) and is-map($val)) {
+            $merge: flat-merge($val, $current);
+            @include config($path, flat-merge($val, $current));
+        }
+    }
+}

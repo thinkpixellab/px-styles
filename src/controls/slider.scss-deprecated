@@ -1,0 +1,95 @@
+@use '../utils' as *;
+@use '../site' as *;
+@use './base.scss' as *;
+@use './helpers.scss' as *;
+
+@mixin -thumb($op) {
+    $thumb-bg: flat-get($op, 'thumb-bg');
+    $thumb-border: flat-get($op, 'thumb-border');
+    $thumb-width: flat-get($op, 'thumb-width');
+    $thumb-height: flat-get($op, 'thumb-height');
+    $thumb-radius: flat-get($op, 'thumb-radius');
+    $thumb-shadow: flat-get($op, 'thumb-shadow');
+
+    box-shadow: $thumb-shadow;
+    background: $thumb-bg;
+    border: $thumb-border;
+    border-radius: $thumb-radius;
+    box-sizing: border-box;
+    cursor: default;
+    height: $thumb-height;
+    width: $thumb-width;
+}
+
+@mixin slider($overrides: ()) {
+    // merge global + overrides
+    $op: flat-merge(get('controls:base'), get('controls:slider'), $overrides);
+
+    // options
+    $track-height: flat-get($op, 'track-height');
+    $track-max-width: flat-get($op, 'track-max-width');
+    $track-radius: flat-get($op, 'track-radius');
+    $track-bg: flat-get($op, 'track-bg');
+    $track-border: flat-get($op, 'track-border');
+    $track-shadow: flat-get($op, 'track-shadow');
+
+    $thumb-bg: flat-get($op, 'thumb-bg');
+    $thumb-width: flat-get($op, 'thumb-width');
+    $thumb-height: flat-get($op, 'thumb-height');
+    $thumb-radius: flat-get($op, 'thumb-radius');
+    $thumb-shadow: flat-get($op, 'thumb-shadow');
+
+    // local vars
+    $track-border-width: get-border-width($track-border);
+
+    // base
+    @include control-base($op);
+
+    background: transparent;
+    margin: $thumb-height * 0.5 0;
+    max-width: $track-max-width;
+    width: 100%;
+
+    &::-moz-focus-outer {
+        border: 0;
+    }
+
+    &:focus {
+        outline: 0;
+        &::-webkit-slider-runnable-track {
+            background: $track-bg;
+        }
+    }
+
+    &::-webkit-slider-runnable-track {
+        height: $track-height;
+        width: 100%;
+        cursor: default;
+        box-shadow: $track-shadow;
+        background: $track-bg;
+        border: $track-border;
+        border-radius: $track-radius;
+    }
+
+    &::-webkit-slider-thumb {
+        @include -thumb($op);
+        -webkit-appearance: none;
+
+        margin-top: ((-$track-border-width * 2 + $track-height) * 0.5 - $thumb-height * 0.5);
+    }
+
+    &::-moz-range-track {
+        box-shadow: $track-shadow;
+        height: $track-height;
+        width: 100%;
+        cursor: default;
+        background: $track-bg;
+        border: $track-border;
+        border-radius: $track-radius;
+        height: $track-height;
+    }
+
+    &::-moz-range-thumb {
+        @include -thumb($op);
+    }
+}

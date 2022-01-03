@@ -1,0 +1,179 @@
+////
+/// @group utils.flatmap
+////
+
+@use 'json.scss' as *;
+@use 'strings.scss' as *;
+@use 'units.scss' as *;
+@use 'collections.scss' as *;
+
+/// A function that retrieves a "deep" value from a map using path syntax where key names are
+/// separated by colons
+///
+/// @param {map} $map An existing map that serves as the lookup source
+///
+/// @param {string} $path The path where the value is found, expressed as a list of keys separated
+/// by colons (e.g. 'colors:accent')
+///
+/// @param {*} $fallback [null] An optional fallback value that will be returned in the value isn't
+/// found
+///
+/// @example
+/// $color: flat-get((colors: (red: #F00)), 'colors:red')
+/// ==> #F00
+
+@function flat-get($map, $path, $fallback: null) {
+    $keys: str-split($path, ':');
+    @each $key in $keys {
+        @if (map-has-key($map, $key)) {
+            $map: map-get($map, $key);
+        } @else {
+            @return $fallback;
+        }
+    }
+    @if not $map and $fallback {
+        @return $fallback;
+    }
+    @return $map;
+}
+
+/// A function that allows you to set a "deep" value in a map using path syntax where key names are
+/// separated by colons
+///
+/// @param {map} $map An existing map that serves as the basis for the returned value
+///
+/// @param {string} $path The path where the value should be set, expressed as a list of keys
+/// separated by colons (e.g. 'colors:accent')
+///
+/// @param {*} $val The value to be set at the path
+///
+/// @return {map} A new map with the value set (all intermediate objects will be created and values
+/// overwritten as needed)
+///
+/// @example
+/// $map: flat-set((), 'colors:red', #F00) // ==> (colors: (red: #F00))
+///
+/// @example
+/// $map: flat-set((colors: (red: #F00)), 'colors:blue', #00F) // ==> {colors: {red: #F00, blue: #00F}}
+
+@function flat-set($map, $path, $val, $merge-maps: false) {
+    $keys: str-split($path, ':');
+    $key: nth($keys, 1);
+    $next-path: list-join(list-remove($keys, 1), ':');
+    $merge: ();
+
+    @if (map-has-key($map, $key)) {
+        $existing-value: map-get($map, $key);
+        $merge: if(is-map($existing-value), $existing-value, $merge);
+    }
+
+    @if (length($keys) > 1) {
+        $val: flat-set($merge, $next-path, $val);
+    }
+
+    @if ($merge-maps and is-map($merge) and is-map($val)) {
+        $val: map-merge($merge, $val);
+    }
+
+    @return map-merge(
+        $map,
+        (
+            $key: $val,
+        )
+    );
+}
+
+/// Same as flat-set, but will not overwrite a value if it already exists
+
+@function flat-default($map, $path, $val, $merge-maps: false) {
+    $current: flat-get($map, $path, $fallback: 'NOTFOUND');
+    @if ($current == 'NOTFOUND') {
+        @return flat-set($map, $path, $val, $merge-maps);
+    }
+}
+
+/// A function that flattens a map to it's "flat" equivalent where every key is replaced with a deep path
+/// (see examples) into the original map.
+///
+/// @param {map} $map The map to be flattened
+///
+/// @example
+/// flatten-map((colors: (red: #f00, blue: #00f)))
+/// ==> ("colors:red": #f00, "colors:blue": #00f)
+
+@function flatten-map($map) {
+    $flat: ();
+    @each $key, $value in $map {
+        @if (type-of($value) == 'map') {
+            $fmap: flatten-map($value);
+            @each $fkey, $fvalue in $fmap {
+                $flat: map-merge($flat, (#{$key + ':' + $fkey}: $fvalue));
+            }
+        } @else {
+            $flat: map-merge(
+                $flat,
+                (
+                    $key: $value,
+                )
+            );
+        }
+    }
+    @return $flat;
+}
+
+/// A function that restores a "flat" map (like one produced by the flatten-map function) to a
+/// normal deep map.
+///
+/// @param {map} $map The map to be unflattened
+///
+/// @example
+/// unflatten-map(("colors:red": #f00, "colors:blue": #00f))
+/// ==> (colors: (red: #f00, blue: #00f))
+
+@function unflatten-map($map) {
+    $unflat: ();
+    @each $key, $value in $map {
+        $unflat: flat-set($unflat, $key, $value);
+    }
+    @return $unflat;
+}
+
+/// A function which will flatten and then merge two maps. This is not the same as a deep merge
+/// because it allows for keys in one (or both) of the maps to be complete paths. If there are
+/// conflicts, last in list wins.
+///
+/// @example
+/// flatten-map-merge((colors: (red: #f00)), ('colors:blue': #00f))
+///     -> (colors: (red: #f00, blue: #00f))
+///
+/// @example
+/// flat-merge(('clr:main': blue),('clr:main': red));
+///     -> (clr: (main: red))
+
+@function flat-merge($maps...) {
+    $flat-maps: ();
+    @each $map in $maps {
+        @if ($map) {
+            $flat-maps: append($flat-maps, flatten-map($map));
+        }
+    }
+
+    $flat-collection: ();
+    @each $map in $flat-maps {
+        $flat-collection: map-merge($flat-collection, $map);
+    }
+
+    @return unflatten-map($flat-collection);
+}
+
+/// Returns true if the provided map, once flattened, contains the deep path $key;
+///
+/// @param {map} $map
+/// @param {string} $key
+///
+/// @example flat-has-key((colors: (red: #f00, blue: #00f)), 'colors:blue') => true
+
+@function flat-has-key($map, $key) {
+    $flat: flatten-map($map);
+    @return map-has-key($flat, $key);
+}

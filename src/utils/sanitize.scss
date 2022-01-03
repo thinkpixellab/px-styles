@@ -1,0 +1,324 @@
+////
+/// @group utils.sanitize
+////
+
+/// Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).
+
+@mixin sanitize() {
+    // add border box sizing in all browsers
+    *,
+    ::before,
+    ::after {
+        box-sizing: border-box;
+    }
+
+    ::before,
+    ::after {
+        // add text decoration inheritance in all browsers (opinionated).
+        text-decoration: inherit;
+
+        // add vertical alignment inheritance in all browsers (opinionated).
+        vertical-align: inherit;
+    }
+
+    html {
+        // use the default cursor in all browsers (opinionated).
+        cursor: default;
+
+        // change the line height in all browsers (opinionated).
+        line-height: 1.5;
+
+        // use a 4-space tab width in all browsers (opinionated).
+        -moz-tab-size: 4;
+        tab-size: 4;
+
+        // remove the grey highlight on links in iOS (opinionated).
+        -webkit-tap-highlight-color: transparent;
+
+        // prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+
+        // breaks words to prevent overflow in all browsers (opinionated).
+        word-break: break-word;
+    }
+
+    body {
+        // remove body margin in all browsers (opinionated).
+        margin: 0;
+    }
+
+    // ----------------------------------------------------------------------------
+    // Grouping content
+
+    // remove the margin on nested lists in Chrome, Edge, IE, and Safari.
+
+    dl dl,
+    dl ol,
+    dl ul,
+    ol dl,
+    ul dl {
+        margin: 0;
+    }
+
+    // remove the margin on nested lists in Edge 18- and IE.
+
+    ol ol,
+    ol ul,
+    ul ol,
+    ul ul {
+        margin: 0;
+    }
+
+    hr {
+        // add the correct sizing in Firefox.
+        height: 0;
+
+        // show the overflow in Edge 18- and IE.
+        overflow: visible;
+    }
+
+    // remove the list style on navigation lists in all browsers
+    nav ol,
+    nav ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    code,
+    kbd,
+    samp,
+    pre {
+        // correct the inheritance and scaling of font size in all browsers.
+        font-family: monospace, monospace;
+
+        // correct the odd `em` font sizing in all browsers.
+        font-size: 1em;
+    }
+
+    // add the correct text decoration in Edge 18-, IE, and Safari.
+    abbr[title] {
+        text-decoration: underline;
+        text-decoration: underline dotted;
+    }
+
+    // add the correct font weight in Chrome, Edge, and Safari.
+    b,
+    strong {
+        font-weight: 700;
+    }
+
+    // add the correct font size in all browsers.
+    small {
+        font-size: 80%;
+    }
+
+    // change the alignment on media elements in all browsers
+    audio,
+    canvas,
+    iframe,
+    img,
+    svg,
+    video {
+        vertical-align: middle;
+    }
+
+    // add the correct display in iOS 4-7.
+    audio:not([controls]) {
+        display: none;
+        height: 0;
+    }
+
+    // remove the border on iframes in all browsers (opinionated).
+    iframe {
+        border-style: none;
+    }
+
+    // collapse border spacing in all browsers (opinionated).
+    table {
+        border-collapse: collapse;
+    }
+
+    // remove the margin on controls in Safari.
+    button,
+    input,
+    select {
+        margin: 0;
+    }
+
+    button {
+        // remove the inheritance of text transform in Edge 18-, Firefox, and IE.
+        text-transform: none;
+    }
+
+    // correct the inability to style buttons in iOS and Safari.
+    button,
+    [type='button'],
+    [type='reset'],
+    [type='submit'] {
+        -webkit-appearance: button;
+    }
+
+    progress {
+        // add the correct display in Edge 18- and IE.
+        display: inline-block;
+
+        // add the correct vertical alignment in Chrome, Edge, and Firefox.
+        vertical-align: baseline;
+    }
+
+    select {
+        //remove the inheritance of text transform in Firefox.
+        text-transform: none;
+    }
+
+    textarea {
+        // remove the margin in Firefox and Safari.
+        margin: 0;
+
+        // remove the default vertical scrollbar in IE.
+        overflow: auto;
+
+        // change the resize direction in all browsers (opinionated).
+        resize: vertical;
+    }
+
+    [type='search'] {
+        // correct the odd appearance in Chrome, Edge, and Safari.
+        -webkit-appearance: textfield;
+
+        // correct the outline style in Safari.
+        outline-offset: -2px;
+    }
+
+    // correct the cursor style of increment and decrement buttons in Safari.
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+        height: auto;
+    }
+
+    // correct the text style of placeholders in Chrome, Edge, and Safari
+    ::-webkit-input-placeholder {
+        color: inherit;
+        opacity: 0.54;
+    }
+
+    // remove the inner padding in Chrome, Edge, and Safari on macOS.
+    ::-webkit-search-decoration {
+        -webkit-appearance: none;
+    }
+
+    ::-webkit-file-upload-button {
+        // correct the inability to style upload buttons in iOS and Safari.
+        -webkit-appearance: button;
+
+        // change font properties to `inherit` in Safari.
+        font: inherit;
+    }
+
+    // remove the inner border and padding of focus outlines in Firefox.
+    ::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+    }
+
+    // restore the focus outline styles unset by the previous rule in Firefox.
+    :-moz-focusring {
+        outline: 1px dotted ButtonText;
+    }
+
+    // remove the additional :invalid styles in Firefox.
+    :-moz-ui-invalid {
+        box-shadow: none;
+    }
+
+    // add the correct display in Edge 18- and IE.
+    details {
+        display: block;
+    }
+
+    // add the correct styles in Edge 18-, IE, and Safari.
+    dialog {
+        background-color: white;
+        border: solid;
+        color: black;
+        display: block;
+        height: -moz-fit-content;
+        height: -webkit-fit-content;
+        height: fit-content;
+        left: 0;
+        margin: auto;
+        padding: 1em;
+        position: absolute;
+        right: 0;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: fit-content;
+    }
+
+    dialog:not([open]) {
+        display: none;
+    }
+
+    // add the correct display in all browsers.
+    summary {
+        display: list-item;
+    }
+
+    // add the correct display in IE 9-.
+    canvas {
+        display: inline-block;
+    }
+
+    // add the correct display in IE.
+    template {
+        display: none;
+    }
+
+    area,
+    button,
+    input,
+    label,
+    select,
+    summary,
+    textarea,
+    [tabindex] {
+        // remove the tapping delay in IE 10.
+        -ms-touch-action: manipulation;
+
+        // remove the tapping delay on clickable elements
+        touch-action: manipulation;
+    }
+
+    // add the correct display in IE 10-.
+    [hidden] {
+        display: none;
+    }
+
+    // change the cursor on busy elements in all browsers (opinionated).
+    [aria-busy='true'] {
+        cursor: progress;
+    }
+
+    // change the cursor on control elements in all browsers (opinionated).
+    [aria-controls] {
+        cursor: pointer;
+    }
+
+    // change the cursor on disabled, not-editable, or otherwise
+    // inoperable elements in all browsers (opinionated).
+    [aria-disabled='true'],
+    [disabled] {
+        cursor: not-allowed;
+    }
+
+    // change the display on visually hidden accessible elements
+    // in all browsers (opinionated).
+    [aria-hidden='false'][hidden] {
+        display: initial;
+    }
+    [aria-hidden='false'][hidden]:not(:focus) {
+        clip: rect(0, 0, 0, 0);
+        position: absolute;
+    }
+}
