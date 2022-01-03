@@ -4,9 +4,79 @@ This is a simple SCSS framework that provides basic site setup and some common f
 projects. The goal is to create a simple to understand boilerplate coupled with a consistent
 approach to styling that encourages reuse and best practices while maintaing flexibility.
 
+## Install
+
+##### Install the package
+
+First, add the package to the project using npm.
+
+```
+npm install @thinkpixellab/pxstyles --save
+```
+
+##### Create a Shared Loader / Configuration File
+
+You could import the package directly using @import or @use but in most cases you will want to
+create a file that forwards the library after first configuring it. Other files in the project can
+then @use that file knowing pxstyles has been properly configured. Here's a sample file:
+
+```scss
+/*
+    px.scss
+*/
+
+// forward the library (this has to come first per scss)
+@forward '~@thinkpixellab/pxstyles';
+
+// import the library (so we can configure it)
+@use '~@thinkpixellab/pxstyles' as px;
+
+// site config
+
+@include px.config('colors:primary', #00dc82);
+@include px.config('colors:page-bg', #011e26);
+@include px.config('colors:page-fg', white);
+
+// load defaults (required)
+
+@include px.defaults();
+```
+
+That file can then be imported by other .scss files and components.
+
+```scss
+/*
+    component.scss
+*/
+
+@use '~/styles/px.scss' as px;
+
+.my-button {
+    @include px.button();
+}
+```
+
+##### Site / Global CSS
+
+There are a handful of mixins that generally need only be called once per site to create boilerplate
+global css. Typically these would be in a separate file that only gets loaded once.
+
+```scss
+/*
+    site.scss
+*/
+
+@use '~/styles/px.scss' as px;
+
+@include sanitize();
+@include basics();
+```
+
 ## API Documentation
 
-API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should run fine from the local file system). All of the documentation is generated dynamically using sassdoc and output to a json file (which the page uses as a data source).
+API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should
+run fine from the local file system). All of the documentation is generated dynamically using
+sassdoc and output to a json file (which the page uses as a data source).
 
 Learn more about sassdoc annotations here: [SassDoc Annotations](http://sassdoc.com/annotations/).
 
@@ -58,8 +128,8 @@ Domain specific functions include:
 -   `fs($name)` - gets a font-size from the type ramp
 -   `sp($n)` - gets a spacing value derived from the common spacer value
 -   `rems($px)` - convert px value to rems based on the sites base font-size
--   `clr($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of that
-    color
+-   `clr($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of
+    that color
 -   `gray($scaler)` // gets a derived a gray value
 -   `shadow($level)` // creates a box shadow
 -   `@include transition($props)` // mixin that emits a transition with common defaults for dur/ease

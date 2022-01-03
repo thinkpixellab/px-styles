@@ -1,14 +1,14 @@
 // Reusuable utils (functions, mixins) that have no dependency on site configuration settings
-@forward 'utils';
+@forward 'src/utils';
 
 // Mixins / functions that have configuration settings / site awareness
-@forward 'site';
+@forward 'src/site';
 
 // Standalone modules (depends on both utils and site)
-@forward 'modules';
+@forward 'src/modules';
 
 // Standalone modules for generating controls (depends on both utils and site)
 // @forward 'controls';
 
 // All defaults
-@forward 'defaults';
+@forward 'src/defaults';
