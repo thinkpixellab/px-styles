@@ -114,16 +114,17 @@
     }
 }
 
-/// Creates a media query that applies for all browser widths between the two
-/// provided breakpoints.
+/// Creates a media query that applies for all browser widths between the $break-from and $break-to
+/// breakpoints.
 ///
-/// @param {String | Length} $break-from The lower limit breakpoint for the
-/// generated media query. Use a string for a named site breakpoint or a length.
+/// @param {String | Length} $break-from The lower limit breakpoint for the generated media query.
+/// Use a string for a named site breakpoint or a length.
 ///
-/// @param {String | Length} $break-to The upper limit breakpoint for the
-/// generated media query. Use a string for a named site breakpoint or a length.
+/// @param {String | Length} $break-to The upper limit breakpoint for the generated media query. Use
+/// a string for a named site breakpoint or a length.
 ///
-/// @example @include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and (max-width: 1024px) { ... }
+/// @example @include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and
+/// (max-width: 1024px) { ... }
 
 @mixin media-between($break-from, $break-to) {
     $breakpoint-from: get-breakpoint($break-from);
@@ -139,7 +140,7 @@
 /// @param {Length} $size The size for the generated media query.
 ///
 /// @example
-/// media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }
+/// %%include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }
 
 @mixin media-until-height($size) {
     @media screen and (max-height: $size) {
@@ -152,7 +153,7 @@
 /// @param {Length} $size The size for the generated media query.
 ///
 /// @example
-/// media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }
+/// %%include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }
 
 @mixin media-after-height($size) {
     @media screen and (min-height: $size) {
@@ -160,17 +161,14 @@
     }
 }
 
-/// Creates a media query that applies for all browser heights between the two
-/// provided sizes.
+/// Creates a media query that applies for all browser heights between the two provided sizes.
 ///
-/// @param {Length} $size-from The lower limit size for the generated media
-/// query.
+/// @param {Length} $size-from The lower limit size for the generated media query.
 ///
 /// @param {Length} $size-to The upper limit size for the generated media query.
 ///
 /// @example
-/// media-between(sm, md) { ... } // => @media screen and (min-height:
-/// 768px) and (max-height: 1024px) { ... }
+/// %%include media-between-height(sm, md) { ... } // => @media screen and (min-height: 768px) and (max-height: 1024px) { ... }
 ///
 @mixin media-between-height($size-from, $size-to) {
     @media screen and (min-height: $size-from) and (min-height: $size-to) {

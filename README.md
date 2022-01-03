@@ -4,9 +4,11 @@ This is a simple SCSS framework that provides basic site setup and some common f
 projects. The goal is to create a simple to understand boilerplate coupled with a consistent
 approach to styling that encourages reuse and best practices while maintaing flexibility.
 
-## API
+## API Documentation
 
 API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should run fine from the local file system). All of the documentation is generated dynamically using sassdoc and output to a json file (which the page uses as a data source).
+
+Learn more about sassdoc annotations here: [SassDoc Annotations](http://sassdoc.com/annotations/).
 
 ## Goals / Guiding Principles
 

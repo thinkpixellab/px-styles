@@ -16,7 +16,9 @@
 }
 
 /// Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)
-/// and fills the entire row
+/// and fills the entire row. Use this, for example, to create a grid of cards or someting along
+/// those lines.
+///
 /// @param {*} $item-min-width Minimum width of the item
 /// @param {*} $item-max-width Maximum width of the item
 /// @param {*} $item-height [auto] The item height

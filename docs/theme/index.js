@@ -65,7 +65,6 @@ module.exports = function (dest, ctx) {
                         path: item.file.path,
                     };
                 })
-                .orderBy(['group'])
                 .groupBy('group')
                 .value();
 

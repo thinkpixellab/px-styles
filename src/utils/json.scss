@@ -2,9 +2,9 @@
 /// @group utils.json
 ////
 
-/// Encode any Sass value as a JSON-ready string.
+/// Encode any sass value as a JSON-ready string.
 ///
-/// @param {*} $value Data to be encoded for JSON exporting
+/// @param {*} $value The scss data to be encoded for JSON exporting
 
 @function encode($value) {
     $type: type-of($value);

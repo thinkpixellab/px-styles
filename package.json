@@ -8,8 +8,8 @@
         "url": "http://thinkpixellab.com/"
     },
     "scripts": {
-        "docs": "sass ./docs/styles.scss ./docs/styles.css & sassdoc ./src/**/*.scss",
-        "docs-watch": "sass --watch ./docs/styles.scss ./docs/styles.css"
+        "docs": "sassdoc ./src/**/*.scss & sass ./docs/styles.scss ./docs/styles.css",
+        "docs-watch": "sass --no-source-map --watch ./docs/styles.scss ./docs/styles.css"
     },
     "repository": {
         "type": "git",
@@ -21,8 +21,13 @@
     },
     "dependencies": {
         "fibers": "^5.0.0",
-        "lodash": "^4.17.21",
-        "sass": "^1.45.2"
+        "lodash": "^4.17.21"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-sass": "^5.1.0",
+        "gulp-watch": "^5.0.1",
+        "sass": "^1.45.2",
+        "sassdoc": "^2.7.3"
+    }
 }

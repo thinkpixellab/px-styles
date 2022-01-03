@@ -1,12 +1,12 @@
-@use '../src/index.scss' as *;
+@use '.../../src/index.scss' as *;
 
 @include config(
     'fonts',
     (
         'Inter': (
             (googleFont: true, weight: 400, style: normal),
-            (googleFont: true, weight: 600, style: normal)
-        )
+            (googleFont: true, weight: 600, style: normal),
+        ),
     )
 );
 

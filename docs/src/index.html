@@ -69,7 +69,7 @@
                             >
                                 <!--prettier-ignore -->
                                 <code>
-<pre :class="example.type">
+<pre :class="example.type || 'scss'">
 {{example.code}}
 </pre>
                                 </code>
@@ -87,7 +87,7 @@
 
         <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-        <script src="data/docs.js"></script>
+        <script src="docs.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 new Vue({

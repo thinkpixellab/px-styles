@@ -8,7 +8,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.",
             "access": "public",
-            "path": "reading.scss"
+            "path": "modules/reading.scss"
         }
     ],
     "site.color": [
@@ -40,7 +40,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         },
         {
             "namespace": "site",
@@ -64,7 +64,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         },
         {
             "namespace": "site",
@@ -88,7 +88,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         },
         {
             "namespace": "site",
@@ -118,7 +118,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         },
         {
             "namespace": "site",
@@ -128,7 +128,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Computes the the luminance (grayscale value) of a color in the yiq color space",
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         },
         {
             "namespace": "site",
@@ -138,7 +138,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Choose a contrasting foreground based on a background color",
             "access": "public",
-            "path": "color.scss"
+            "path": "site/color.scss"
         }
     ],
     "site.config": [
@@ -163,7 +163,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "config.scss"
+            "path": "utils/config.scss"
         },
         {
             "namespace": "site",
@@ -186,7 +186,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "config.scss"
+            "path": "utils/config.scss"
         },
         {
             "namespace": "site",
@@ -209,7 +209,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "config.scss"
+            "path": "utils/config.scss"
         }
     ],
     "site.controls": [
@@ -239,7 +239,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "controls.scss"
+            "path": "modules/controls.scss"
         }
     ],
     "site.grid": [
@@ -270,7 +270,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "grids.scss"
+            "path": "site/grids.scss"
         },
         {
             "namespace": "site",
@@ -278,7 +278,7 @@ window.pxstyles = {
             "name": "item-grid",
             "docName": "item-grid()",
             "type": "mixin",
-            "description": "Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)\nand fills the entire row",
+            "description": "Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)\nand fills the entire row. Use this, for example, to create a grid of cards or someting along\nthose lines.",
             "parameter": [
                 {
                     "type": "*",
@@ -304,7 +304,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "grids.scss"
+            "path": "site/grids.scss"
         }
     ],
     "site.mediaquery": [
@@ -323,7 +323,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -346,7 +346,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -369,7 +369,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -377,27 +377,28 @@ window.pxstyles = {
             "name": "media-between",
             "docName": "media-between()",
             "type": "mixin",
-            "description": "Creates a media query that applies for all browser widths between the two\nprovided breakpoints.",
+            "description": "Creates a media query that applies for all browser widths between the $break-from and $break-to\nbreakpoints.",
             "example": [
                 {
-                    "type": "scss",
-                    "code": "@include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and (max-width: 1024px) { ... }"
+                    "type": "include",
+                    "code": "(max-width: 1024px) { ... }",
+                    "description": "media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and"
                 }
             ],
             "parameter": [
                 {
                     "type": "String | Length",
                     "name": "break-from",
-                    "description": "The lower limit breakpoint for the\ngenerated media query. Use a string for a named site breakpoint or a length.\n"
+                    "description": "The lower limit breakpoint for the generated media query.\nUse a string for a named site breakpoint or a length.\n"
                 },
                 {
                     "type": "String | Length",
                     "name": "break-to",
-                    "description": "The upper limit breakpoint for the\ngenerated media query. Use a string for a named site breakpoint or a length.\n"
+                    "description": "The upper limit breakpoint for the generated media query. Use\na string for a named site breakpoint or a length.\n"
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -409,7 +410,7 @@ window.pxstyles = {
             "example": [
                 {
                     "type": "scss",
-                    "code": "media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }"
+                    "code": "@include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }"
                 }
             ],
             "parameter": [
@@ -420,7 +421,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -432,7 +433,7 @@ window.pxstyles = {
             "example": [
                 {
                     "type": "scss",
-                    "code": "media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
+                    "code": "@include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
                 }
             ],
             "parameter": [
@@ -443,7 +444,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -451,18 +452,18 @@ window.pxstyles = {
             "name": "media-between-height",
             "docName": "media-between-height()",
             "type": "mixin",
-            "description": "Creates a media query that applies for all browser heights between the two\nprovided sizes.",
+            "description": "Creates a media query that applies for all browser heights between the two provided sizes.",
             "example": [
                 {
                     "type": "scss",
-                    "code": "media-between(sm, md) { ... } // => @media screen and (min-height:\n768px) and (max-height: 1024px) { ... }"
+                    "code": "@include media-between-height(sm, md) { ... } // => @media screen and (min-height: 768px) and (max-height: 1024px) { ... }"
                 }
             ],
             "parameter": [
                 {
                     "type": "Length",
                     "name": "size-from",
-                    "description": "The lower limit size for the generated media\nquery.\n"
+                    "description": "The lower limit size for the generated media query.\n"
                 },
                 {
                     "type": "Length",
@@ -471,7 +472,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -481,7 +482,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "A convenience mixin that is equivalent to media-until($mobile-breakpoint).",
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         },
         {
             "namespace": "site",
@@ -491,7 +492,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest",
             "access": "public",
-            "path": "mediaquery.scss"
+            "path": "site/mediaquery.scss"
         }
     ],
     "site.misc": [
@@ -509,7 +510,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "site/misc.scss"
         }
     ],
     "site.rems": [
@@ -521,7 +522,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Convert px to rem for a given base font size (the font size of the document root element)",
             "access": "public",
-            "path": "rems.scss"
+            "path": "site/rems.scss"
         },
         {
             "namespace": "site",
@@ -531,7 +532,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Convert rem to px for a given base font size (the font size of the document root element)",
             "access": "public",
-            "path": "rems.scss"
+            "path": "site/rems.scss"
         }
     ],
     "site.shadows": [
@@ -557,7 +558,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "shadows.scss"
+            "path": "site/shadows.scss"
         },
         {
             "namespace": "site",
@@ -567,7 +568,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Returns a standardized box shadow",
             "access": "public",
-            "path": "shadows.scss"
+            "path": "site/shadows.scss"
         },
         {
             "namespace": "site",
@@ -577,7 +578,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Create a standard box-shadow",
             "access": "public",
-            "path": "shadows.scss"
+            "path": "site/shadows.scss"
         },
         {
             "namespace": "site",
@@ -587,7 +588,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Create a standard drop-shadow as a css filter effect (creates\nnon-rectangular shadows on any content)",
             "access": "public",
-            "path": "shadows.scss"
+            "path": "site/shadows.scss"
         }
     ],
     "site.transitions": [
@@ -638,7 +639,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -648,7 +649,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in cubic",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -658,7 +659,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in cubic",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -668,7 +669,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in cubic",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -678,7 +679,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in circ",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -688,7 +689,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out circ",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -698,7 +699,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out circ",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -708,7 +709,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in expo",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -718,7 +719,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out expo",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -728,7 +729,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out expo",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -738,7 +739,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in quad",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -748,7 +749,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out quad",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -758,7 +759,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out quad",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -768,7 +769,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in quart",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -778,7 +779,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out quart",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -788,7 +789,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out quart",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -798,7 +799,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in quint",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -808,7 +809,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out quint",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -818,7 +819,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out quint",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -828,7 +829,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in sine",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -838,7 +839,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out sine",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -848,7 +849,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out sine",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -858,7 +859,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in back",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -868,7 +869,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease out back",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -878,7 +879,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for Penner ease in-out back",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         },
         {
             "namespace": "site",
@@ -888,7 +889,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Cubic-bezier for custopm ease with a small bounce",
             "access": "public",
-            "path": "transitions.scss"
+            "path": "site/transitions.scss"
         }
     ],
     "site.typography": [
@@ -913,7 +914,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "typography.scss"
+            "path": "site/typography.scss"
         },
         {
             "namespace": "site",
@@ -923,7 +924,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Generate type style based on a site base style (as defined in type-bases)",
             "access": "public",
-            "path": "typography.scss"
+            "path": "site/typography.scss"
         }
     ],
     "utils.atoms": [
@@ -943,7 +944,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "atoms.scss"
+            "path": "utils/atoms.scss"
         }
     ],
     "utils.collections": [
@@ -965,7 +966,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -987,7 +988,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1011,7 +1012,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1021,7 +1022,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Return a copy of a list with the nth value removed",
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1043,7 +1044,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1053,7 +1054,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Returns true if the list contains a value, otherwise false",
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1063,7 +1064,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Return a copy of a list sorted numerically",
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1073,7 +1074,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Return a copy of a list sorted alphabetically",
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1083,7 +1084,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Return a copy of a map sorted by the value of each entry",
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1111,7 +1112,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1139,7 +1140,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         },
         {
             "namespace": "utils",
@@ -1156,7 +1157,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "collections.scss"
+            "path": "utils/collections.scss"
         }
     ],
     "utils.flatmap": [
@@ -1192,7 +1193,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1233,7 +1234,7 @@ window.pxstyles = {
                 "description": "A new map with the value set (all intermediate objects will be created and values\noverwritten as needed)\n"
             },
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1243,7 +1244,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Same as flat-set, but will not overwrite a value if it already exists",
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1266,7 +1267,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1289,7 +1290,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1309,7 +1310,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         },
         {
             "namespace": "utils",
@@ -1335,7 +1336,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "flatmap.scss"
+            "path": "utils/flatmap.scss"
         }
     ],
     "utils.json": [
@@ -1345,16 +1346,16 @@ window.pxstyles = {
             "name": "encode",
             "docName": "encode()",
             "type": "function",
-            "description": "Encode any Sass value as a JSON-ready string.",
+            "description": "Encode any sass value as a JSON-ready string.",
             "parameter": [
                 {
                     "type": "*",
                     "name": "value",
-                    "description": "Data to be encoded for JSON exporting"
+                    "description": "The scss data to be encoded for JSON exporting"
                 }
             ],
             "access": "public",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1371,7 +1372,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1388,7 +1389,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1405,7 +1406,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1422,7 +1423,7 @@ window.pxstyles = {
                 }
             ],
             "access": "private",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1439,7 +1440,7 @@ window.pxstyles = {
                 }
             ],
             "access": "private",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         },
         {
             "namespace": "utils",
@@ -1456,7 +1457,7 @@ window.pxstyles = {
                 }
             ],
             "access": "private",
-            "path": "json.scss"
+            "path": "utils/json.scss"
         }
     ],
     "utils.math": [
@@ -1480,7 +1481,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1503,7 +1504,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1526,7 +1527,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1536,7 +1537,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 2)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1546,7 +1547,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 3)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1556,7 +1557,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 4)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1566,7 +1567,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 5)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1576,7 +1577,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 8)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1586,7 +1587,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 10)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1596,7 +1597,7 @@ window.pxstyles = {
             "type": "function",
             "description": "A shortcute for round-f($n, 20)",
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1628,7 +1629,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1654,7 +1655,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1675,7 +1676,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1696,7 +1697,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1717,7 +1718,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1738,7 +1739,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1759,7 +1760,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1780,7 +1781,7 @@ window.pxstyles = {
                 "description": "The eased equivalent of the input (also between 0 and 1)."
             },
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1807,7 +1808,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         },
         {
             "namespace": "utils",
@@ -1829,7 +1830,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "math.scss"
+            "path": "utils/math.scss"
         }
     ],
     "utils.misc": [
@@ -1841,7 +1842,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Completely resets the appearance of controls (input and button)",
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1857,7 +1858,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1867,7 +1868,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Disable text selection on an element",
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1884,7 +1885,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1908,7 +1909,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1932,7 +1933,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1970,7 +1971,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -1980,7 +1981,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Finds and replaces keys in a map",
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -2012,7 +2013,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         },
         {
             "namespace": "utils",
@@ -2036,7 +2037,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "misc.scss"
+            "path": "utils/misc.scss"
         }
     ],
     "utils.sanitize": [
@@ -2048,7 +2049,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).",
             "access": "public",
-            "path": "sanitize.scss"
+            "path": "utils/sanitize.scss"
         }
     ],
     "utils.strings": [
@@ -2066,7 +2067,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "strings.scss"
+            "path": "utils/strings.scss"
         },
         {
             "namespace": "utils",
@@ -2076,7 +2077,7 @@ window.pxstyles = {
             "type": "function",
             "description": "Url encode a string (used primarily for encoding inline svg)",
             "access": "public",
-            "path": "strings.scss"
+            "path": "utils/strings.scss"
         },
         {
             "namespace": "utils",
@@ -2092,7 +2093,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "strings.scss"
+            "path": "utils/strings.scss"
         },
         {
             "namespace": "utils",
@@ -2120,7 +2121,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "strings.scss"
+            "path": "utils/strings.scss"
         },
         {
             "namespace": "utils",
@@ -2148,7 +2149,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "strings.scss"
+            "path": "utils/strings.scss"
         }
     ],
     "utils.typography": [
@@ -2160,7 +2161,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "The font subset to loaded. Note that the latin subset is always included if\navailable and need not be specified. Also, if a client browser supports\nsupports unicode-range then this subset parameter is igored and the browser\nwill select from the subsets supported by the font to get what it needs to\nrender the text.",
             "access": "public",
-            "path": "googlefont.scss"
+            "path": "utils/googlefont.scss"
         },
         {
             "namespace": "utils",
@@ -2214,7 +2215,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "googlefont.scss"
+            "path": "utils/googlefont.scss"
         },
         {
             "namespace": "utils",
@@ -2224,7 +2225,7 @@ window.pxstyles = {
             "type": "variable",
             "description": "Some predefined ratios that could be helpful when generating modular type\nscales.",
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         },
         {
             "namespace": "utils",
@@ -2255,7 +2256,7 @@ window.pxstyles = {
                 "description": "A single value (in px or rem) that represents a font-size\nfor the given parameters\n"
             },
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         },
         {
             "namespace": "utils",
@@ -2304,7 +2305,7 @@ window.pxstyles = {
                 "description": "A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem,\nlarge: 1.33rem)`\n"
             },
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         },
         {
             "namespace": "utils",
@@ -2348,7 +2349,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         },
         {
             "namespace": "utils",
@@ -2358,7 +2359,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Turn font smoothing on (makes type appear thinner and lighter on Mac and more closely\nresembles type rendering on Windows)",
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         },
         {
             "namespace": "utils",
@@ -2368,7 +2369,7 @@ window.pxstyles = {
             "type": "mixin",
             "description": "Restore font-smoothing to it's default value.",
             "access": "public",
-            "path": "typography.scss"
+            "path": "utils/typography.scss"
         }
     ],
     "utils.units": [
@@ -2386,7 +2387,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2402,7 +2403,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2418,7 +2419,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2434,7 +2435,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2450,7 +2451,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2466,7 +2467,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2482,7 +2483,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2498,7 +2499,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2514,7 +2515,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2530,7 +2531,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2546,7 +2547,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2562,7 +2563,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2578,7 +2579,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2594,7 +2595,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2610,7 +2611,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2626,7 +2627,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2646,7 +2647,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2670,7 +2671,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2694,7 +2695,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2718,7 +2719,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2742,7 +2743,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2766,7 +2767,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2791,7 +2792,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2825,7 +2826,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2841,7 +2842,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2857,7 +2858,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2873,7 +2874,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2889,7 +2890,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2911,7 +2912,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2933,7 +2934,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         },
         {
             "namespace": "utils",
@@ -2955,7 +2956,7 @@ window.pxstyles = {
                 }
             ],
             "access": "public",
-            "path": "units.scss"
+            "path": "utils/units.scss"
         }
     ]
 };
