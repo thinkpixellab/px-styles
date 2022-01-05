@@ -130,8 +130,8 @@
 
 @function contrast-color(
     $bg,
-    $light-fg: get(contrast-light),
-    $dark-fg: get(contrast-dark),
+    $light-fg: get('colors:contrast-light'),
+    $dark-fg: get('colors:contrast-dark'),
     $contrast-threshold: 128
 ) {
     @if (not(is-color($bg))) {

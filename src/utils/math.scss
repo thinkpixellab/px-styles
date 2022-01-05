@@ -41,37 +41,37 @@
     }
 }
 
-/// A shortcute for round-f($n, 2)
+/// A shortcut for round-f($n, 2)
 @function round-2($n) {
     @return round-f($n, 2);
 }
 
-/// A shortcute for round-f($n, 3)
+/// A shortcut for round-f($n, 3)
 @function round-3($n) {
     @return round-f($n, 3);
 }
 
-/// A shortcute for round-f($n, 4)
+/// A shortcut for round-f($n, 4)
 @function round-4($n) {
     @return round-f($n, 4);
 }
 
-/// A shortcute for round-f($n, 5)
+/// A shortcut for round-f($n, 5)
 @function round-5($n) {
     @return round-f($n, 5);
 }
 
-/// A shortcute for round-f($n, 8)
+/// A shortcut for round-f($n, 8)
 @function round-8($n) {
     @return round-f($n, 8);
 }
 
-/// A shortcute for round-f($n, 10)
+/// A shortcut for round-f($n, 10)
 @function round-10($n) {
     @return round-f($n, 10);
 }
 
-/// A shortcute for round-f($n, 20)
+/// A shortcut for round-f($n, 20)
 @function round-20($n) {
     @return round-f($n, 20);
 }

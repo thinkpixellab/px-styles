@@ -25,6 +25,9 @@ $-defaults: ();
 /// and the first non-null value will be returned.
 ///
 /// @param {*} $fallback [null] The value to return if the path doesn't exist.
+///
+/// @example
+/// $value: get('colors:mycolor', red);
 
 @function get($paths, $fallback: null, $throw-not-found: true) {
     // $paths is a list

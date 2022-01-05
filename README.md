@@ -185,3 +185,4 @@ Sample code that retrieves a bunch of common values:
     -   Simple animations? (like animate.css)
     -   Create a vscode snippets library for common things?
     -   Add a list of good third party libs
+    -   Refinements to the reading mixin / config

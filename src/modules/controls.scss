@@ -131,7 +131,53 @@
     );
 }
 
+/// Generates a (somewhat opinionated) outlined button style based on the site's button settings.
+/// Behaves a lot like the `button` mixin so see that for more detail.
+///
+/// @param {map} $overrides [()] CSS map. Just about any css is valid (currently transitions can't
+/// be overriden) including supported state specific values: hover, active, disabled. The outline
+/// color is derived from the border color. The properties border-color and color can be specified as
+/// shades (numbers relative to the border-color or primary accent color).
+///
+///
+/// @example
+/// %%include button-outline(); // => creates a standard outline button
+///
+/// @example
+/// %%include button-outline({border-color: blue}); // => creates a blue outline button
+
 @mixin button-outline($overrides: ()) {
+    $accent: -control-accent($overrides, color, border-color);
+
+    // button css
+    $button: -button-outline($accent);
+
+    // config
+    $config: get('controls:button', null, false);
+
+    // merge all the css
+    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+
+    // output the css
+    @include css-map($css, $map-states: (hover active disabled));
+
+    // add transitions
+    @include transition(background color, get('controls:transition', 'fast'));
+
+    // add focus selector
+    @include -focus('shadow');
+}
+
+/// Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.
+///
+/// @param {map} $overrides [()] CSS map. Just about any css is valid.
+///
+/// @example
+/// %%include button() => creates a standard, default button
+///
+/// @example
+/// %%include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+@mixin button-icon($overrides: ()) {
     $accent: -control-accent($overrides, color, border-color);
 
     // button css

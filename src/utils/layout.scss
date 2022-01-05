@@ -100,7 +100,7 @@
 
 @mixin right-top($r: 0, $t: 0) {
     position: absolute;
-    right: $l;
+    right: $r;
     top: $t;
 }
 

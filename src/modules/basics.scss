@@ -67,8 +67,8 @@
 
     // customize the text selection color
     ::selection {
-        background: get('selection-bg');
-        color: get('selection-fg');
+        background: get('colors:selection-bg');
+        color: get('colors:selection-fg');
     }
 
     // reset links

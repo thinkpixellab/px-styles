@@ -7,37 +7,45 @@ const sassdoc = require('sassdoc');
 // sassdoc
 // ================================================================================
 
-// http://sassdoc.com/gulp/
-gulp.task('sassdoc', function () {
-    return gulp.src('./src/**/*.scss').pipe(sassdoc());
-});
+const runSassDoc = function () {
+    gulp.src('./src/**/*.scss').pipe(sassdoc());
+    //gulp.src('./src/defaults.scss').pipe(sassdoc());
+};
 
-// ================================================================================
-// docs
-// ================================================================================
+const copyDocFiles = function () {
+    gulp.src(['./docs/src/index.html', './docs/data/docs.js']).pipe(gulp.dest('./docs/dist/'));
+};
 
-// build the styles for the docs
-gulp.task('doc-styles', function () {
-    return gulp
-        .src('./docs/src/styles.scss')
+const buildStyles = function () {
+    gulp.src('./docs/src/styles.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./docs/dist'));
+};
+
+gulp.task('sassdoc', function (cb) {
+    runSassDoc();
 });
 
-gulp.task('doc-html', function () {
-    return gulp.src('./docs/src/index.html').pipe(gulp.dest('./docs/dist/'));
+gulp.task('styles', function (cb) {
+    buildStyles();
+    cb();
 });
 
-gulp.task('doc-data', function () {
-    return gulp.src('./docs/data/docs.js').pipe(gulp.dest('./docs/dist/'));
+gulp.task('docs', function (cb) {
+    runSassDoc();
+    setTimeout(() => {
+        buildStyles();
+        copyDocFiles();
+        cb();
+    }, 1000);
 });
 
 // ================================================================================
 // watch
 // ================================================================================
 gulp.task('watch', function () {
-    gulp.watch(['./theme/**/*.*', './**/*.scss'], gulp.series('sassdoc', 'doc-styles'));
-    gulp.watch('./docs/src/styles.scss', gulp.series('doc-styles'));
-    gulp.watch('./docs/src/index.html', gulp.series('doc-html'));
-    gulp.watch('./docs/data/docs.js', gulp.series('doc-data'));
+    gulp.watch(
+        ['./docs/src/styles.scss', './docs/theme/*.*', './docs/src/*.*', './**/*.scss'],
+        gulp.series(['docs', 'styles'])
+    );
 });

@@ -1,4 +1,4 @@
-<html>
+<html class="no-js" lang="">
     <head>
         <meta charset="utf-8" />
         <title>pxstyles</title>
@@ -8,17 +8,15 @@
 
     <body>
         <div id="app">
-            <!-- navigation -->
-
             <nav class="nav">
                 <div class="nav-filter">
                     <input class="textbox" placeholder="filter" type="textbox" />
                 </div>
                 <ul>
-                    <li v-for="group in groups" :key="group.name" class="nav-group">
-                        <strong class="nav-header">{{group.name}}</strong>
+                    <li v-for="(group, name) in docs" :key="name" class="nav-group">
+                        <strong class="nav-header">{{name}}</strong>
                         <ul>
-                            <li v-for="item in group.items" :key="item.name">
+                            <li v-for="item in group" :key="item.name">
                                 <a class="nav-item" :href="`#${itemToId(item)}`">
                                     {{item.docName}}
                                 </a>
@@ -27,25 +25,13 @@
                     </li>
                 </ul>
             </nav>
-
-            <!-- content -->
-
             <main class="main">
-                <section class="container">
-                    <h1 class="h1">pxstyles</h1>
-                </section>
-                <section v-for="group in groups" :key="group.name" class="group container">
-                    <div class="group-header">
-                        <h2>{{group.name}}</h2>
-                        <div class="markdown" v-html="toMarkdown(group.description)"></div>
-                    </div>
-
-                    <!-- items -->
-
+                <section v-for="(group, name) in docs" :key="name" class="group container">
+                    <h2 class="group-header">{{name}}</h2>
                     <div
                         :id="itemToId(item)"
-                        :class="['item', 'item-' + item.type]"
-                        v-for="item in group.items"
+                        :class="['item', 'item-' + type]"
+                        v-for="item in group"
                         :key="item.name"
                     >
                         <!-- item name -->
@@ -57,35 +43,7 @@
                         </h3>
 
                         <!-- item description -->
-
-                        <p class="item-description" v-html="toMarkdown(item.description)" />
-
-                        <!-- item configuration defaults -->
-
-                        <div class="item-defaults" v-if="item.defaults">
-                            <div class="item-defaults-heading">
-                                <span>Config Key</span>
-                                <span>Description / Default</span>
-                            </div>
-                            <div
-                                class="item-default"
-                                v-for="(config,index) in item.defaults"
-                                :key="index"
-                                @click="configItemClick(config)"
-                            >
-                                <div class="item-default-name">{{config.name}}</div>
-                                <div class="item-default-desc">
-                                    <div
-                                        class="markdown"
-                                        v-html="toMarkdown(config.description)"
-                                    ></div>
-                                    <div class="item-default-default">
-                                        <h5>Default</h5>
-                                        <pre>{{config.value}}</pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <p class="item-description" v-html="item.description" />
 
                         <!-- item parameters -->
                         <div class="item-params" v-if="item.parameter && item.parameter.length">
@@ -115,7 +73,9 @@
                                 v-for="(example, index) in item.example"
                                 :key="index"
                             >
-                                <pre :class="example.type"><code>{{example.code}}</code></pre>
+<pre :class="example.type"><code>
+{{example.code}}
+</code></pre>
                             </div>
                         </div>
                     </div>
@@ -129,35 +89,32 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.0/dist/markdown-it.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-        <script src="docs.js"></script>
+        <script src="data/docs.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 new Vue({
                     el: '#app',
                     data() {
                         return {
-                            groups: window.pxstyles.groups,
+                            docs: window.pxstyles,
                         };
                     },
                     mounted() {
-                        hljs.configure({ ignoreUnescapedHTML: true });
-                        document
-                            .querySelectorAll('.item-example pre, .group-header pre')
-                            .forEach(el => {
-                                hljs.highlightElement(el);
-                            });
+                        // first, find all the div.code blocks
+                        document.querySelectorAll('.item-example code pre').forEach(el => {
+                            // then highlight each
+                            hljs.highlightElement(el);
+                        });
                     },
                     computed: {
-                        groups() {},
+                        groups() {
+                            return this.docs.
+                        },
                     },
                     methods: {
                         itemToId(item) {
-                            if (item && item.group && item.name) {
-                                return this.toSlug(item.group) + '-' + this.toSlug(item.name);
-                            }
-                            return '';
+                            return this.toSlug(item.group) + '-' + this.toSlug(item.name);
                         },
 
                         itemParamString(item) {
@@ -188,48 +145,6 @@
                                 .replace(/-+/g, '-'); // collapse dashes
 
                             return str;
-                        },
-
-                        isMultiline(str) {
-                            return str.indexOf('\n') > -1;
-                        },
-
-                        unindent(str, skipLineCount = 1) {
-                            let lines = str.split(/\n/).slice(skipLineCount);
-                            let prelines =
-                                skipLineCount > 0
-                                    ? str.split(/\n/).slice(0, skipLineCount).join('\n') + '\n'
-                                    : '';
-                            let indent = lines.reduce((acc, val) => {
-                                if (val.trim().length) {
-                                    let spaces = Math.max(0, val.search(/\S/));
-                                    // console.log(spaces + ' => "' + val + '"');
-                                    return Math.min(spaces, acc);
-                                }
-                                return acc;
-                            }, 100);
-                            if (indent > 0) {
-                                lines = lines.map(l => l.slice(indent));
-                            }
-
-                            return prelines + lines.join('\n');
-                        },
-
-                        toMarkdown(str) {
-                            if (str) {
-                                const md = window.markdownit();
-                                return md.render(this.unindent(str));
-                            }
-                            return str;
-                        },
-
-                        copyText(str) {
-                            navigator.clipboard.writeText(str);
-                        },
-
-                        configItemClick(item) {
-                            this.copyText(`@include config(${item.name}, ${item.value});`);
-                            console.log('copied');
                         },
                     },
                 });

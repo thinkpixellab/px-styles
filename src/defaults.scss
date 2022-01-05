@@ -1,9 +1,19 @@
+////
+/// @group defaults
+///
+/// All defaults for all built-in modules are defined in this mixin. This fixes a
+/// generalized loading provides a single place to document all possible defaults in a single
+/// location.
+///
+/// ```
+/// in this case we have code
+/// ```
+////
+
 @use 'utils' as *;
 @use 'site' as *;
 
-// All defaults for all modules must be defined in this mixin. In addition to fixing a generalized
-// loading issue (defined below) this also allows us to document all possible defaults in a single
-// location. The problem with defaults in a nutshell
+// The problem with defaults in a nutshell
 
 //     // set a primary color as a default
 //     $primary: red !default;
@@ -31,96 +41,113 @@
 
 // Config library fix
 
+/// Sets all defaults for the library. Must be called at least once before using other functions or
+/// mixins that require configuration (anything in a `site.*` group).
+///
+/// @defaults
+
 @mixin defaults() {
     // ----------------------------------------------------------------------------
     // Site
     // ----------------------------------------------------------------------------
 
-    // base font size (set on the body, used for rems calculations)
+    /// Base font size (set on the body, used for rems calculations)
     @include default('font-size-base', 15px);
 
     /// Global default value for spacing functions
     @include default('spacer', rems(12px));
 
-    // the total number of available shades in the shade and color functions
-    // (value of 20 produces a range of shades from -10, 10)
+    /// The total number of available shades in the shade and color functions (value of 20 produces a range of shades from -10, 10)
     @include default('shade-steps', 20);
 
-    // the default range for color shading
+    /// The default range for color shading
     @include default('shade-range', (black, white));
 
-    // global default primary color
+    /// Global default primary color
     @include default('colors:primary', #0099fd);
 
-    // default base gray color
+    /// Default base gray color
     @include default('colors:gray', (mix(#a0a0a0, primary(), 95%), primary(-9), white));
 
-    // global default selection color
-    @include config('colors:select', primary(-4));
+    /// Default text selection color
+    @include default('colors:select', primary(-4));
 
-    // global default page background color
+    /// Default page background color
     @include default('colors:page-bg', white);
 
-    // global default page foreground
+    /// Default page foreground
     @include default('colors:page-fg', gray(-7));
 
-    // defaults for computing contrast colors
-    @include default('contrast-light', clr(page-bg));
+    /// Default light color used when computing contrast colors
+    @include default('colors:contrast-light', clr(page-bg));
 
-    // defaults for computing contrast colors
-    @include default('contrast-dark', clr(page-fg));
+    /// Default light color used when computing contrast colors
+    @include default('colors:contrast-dark', clr(page-fg));
 
-    // background for selected text
-    @include default('selection-bg', clr(select));
+    /// Default background color for selected text
+    @include default('colors:selection-bg', clr(select));
 
-    // foreground/color for selected text
-    @include default('selection-fg', contrast-color(clr(select)));
+    /// Default foreground color for selected text
+    @include default('colors:selection-fg', contrast-color(clr(select)));
 
     // ----------------------------------------------------------------------
     // Typography
     // ----------------------------------------------------------------------
 
-    // additional font faces (and where to find them)
+    /// _basics_ A list of font faces that should be loaded by the `basics` mixin. Example of the
+    /// syntax for this map:
+    /// ```
+    /// @include config('fonts', (
+    ///
+    ///     // google font
+    ///     Inter: (googleFont: true, weight: 500, style: normal),
+    ///
+    ///     // local font
+    ///     Circular: (src: '../assets/fonts/circular', weight: 500, style: normal)
+    /// ));
+    /// ```
+    @include default('fonts', ());
 
+    /// _basics_ Default / fallback font family for the site
+    @include default('font-family', sans-serif);
+
+    /// _basics_ Default / fallback font-weight for the site
+    @include default('font-weight', 400);
+
+    /// _basics_ Whether to enable font-smoothing
+    @include default('font-smoothing', true);
+
+    /// _basics_ Default code / mono font family (used as the default font for pre and code elements)
+    @include default('code-font-family', (Menlo, Monaco, Consolas, monospace));
+
+    /// _basics_ Default code / mono font size (used as the default font for pre and code elements)
+    @include default('code-font-size', rems(13px));
+
+    /// _basics_ Default / fallback line-height for standard text
+    @include default('line-height', normal);
+
+    /// _basics_ Default / fallback letter spacing for the site
+    @include default('letter-spacing', normal);
+
+    /// _basics_ Use this to automatically adjust font size on the body (and therefore also as the
+    /// basis for rems units) based on media queries. The value is a map that contains media query
+    /// breaks and inputs into the `fs()` function for retrieving a font-size. prettier-ignore
     @include default(
-        'fonts',
+        'font-size-breaks',
         (
-            // 'Inter': (
-            //     (googleFont: true, weight: 400, style: normal),
-            // ),
-            // 'circular': (
-            //     (src: '../assets/fonts/circular', weight: 300, ext: woff2)
-            // ),
+            md: -1,
         )
     );
 
-    // basics: default / fallback font family for the site
-    @include default('font-family', sans-serif);
-
-    // basics: default / standard font-weight for the site
-    @include default('font-weight', 400);
-
-    // basics: whether to enable font-smoothing
-    @include default('font-smoothing', true);
-
-    // basics: default / fallback line-height for standard text
-    @include default('line-height', 1.5);
-
-    // basics: default / fallback letter spacing for the site
-    @include default('letter-spacing', normal);
-
-    // basics: responsive base font size adjustments
-    // prettier-ignore
-    @include default('font-size-breaks', (md: -1));
-
-    // site: map of standard named font sizes; at least one size must be named 'base' which should
-    // correspond to base-font-size
+    /// A map of standard named font sizes. At least one size must be named 'base' which should
+    /// correspond to base-font-size.
     @include default(
         'type-scale',
         (
             'xxs': 11px,
             'xs': 13px,
             'sm': 14px,
+            // will throw an error if not defined
             'base': get('font-size-base'),
             'md': 18px,
             'lg': 20px,
@@ -134,12 +161,9 @@
         )
     );
 
-    // basics: code
-    @include default('code-font-family', (Menlo, Monaco, Consolas, monospace));
-    @include default('code-font-size', rems(13px));
-
-    // site: base type styles (type-styles will be derived from these)
-    // can customize individual settings like config('type-bases:headings:font-weight', 500)
+    /// A set of type style base styles. These styles are never actually generated, but other type
+    /// styles can be derived from them with `type-style` mixin (which takes a map of additional css
+    /// properties or overrides). Note: individual settings can be configured using flat map syntax.
     @include default(
         'type-bases',
         (
@@ -149,7 +173,7 @@
                 line-height: 1,
                 letter-spacing: null,
                 color: null,
-                margin-top: 1.75em,
+                margin-top: 0.75em,
                 margin-bottom: 0.75em,
             ),
             sub-headings: (
@@ -169,7 +193,8 @@
         )
     );
 
-    // basics: set of type styles that will be generated based on type bases
+    /// _basics_ Full set of type styles that should be generated based. Each entry requires a
+    /// `base` property which is a lookup into `type-bases`.
     @include default(
         'type-styles',
         (
@@ -220,6 +245,8 @@
     // Media Queries
     // ----------------------------------------------------------------------
 
+    /// Named breakpoints that can be used by the standard mediaquery mixins
+    /// (e.g. `media-until(md) {...}`).
     @include default(
         'breakpoints',
         (
@@ -232,65 +259,88 @@
         )
     );
 
-    $variable: true;
-
-    /// @config {String | Number} mobile-breakpoint - The standardized breakpoint where a mobile version of the design begins
+    /// The standardized breakpoint where a mobile version of the design begins. Used by the mixin
+    /// `@media-until-mobile() {...}`.
     @include default('mobile-breakpoint', 'mobile');
 
     // ----------------------------------------------------------------------
-    // site (update): Transitions
+    // Transitions
     // ----------------------------------------------------------------------
 
+    /// Collection of named transitions. The keys in this map can be used as the second argument in
+    /// the `transition` mixin to help create consistent css transitions.  Note: individual settings
+    /// can be configured using flat map syntax.
     @include default(
         'transitions',
         (
             default: (
-                dur: 200ms,
-                ease: ease-out,
+                dur: 150ms,
+                ease: $ease-out-quart,
             ),
             fast: (
-                dur: 100ms,
+                dur: 75ms,
+                ease: $ease-out-quart,
+            ),
+            slow: (
+                dur: 300ms,
                 ease: $ease-out-quart,
             ),
             none: (
                 dur: 0,
                 ease: null,
             ),
-            slow: (
-                dur: 400ms,
-                ease: ease-out,
-            ),
         )
     );
 
     // ----------------------------------------------------------------------
-    // site (update): Shadows
+    // Shadows
     // ----------------------------------------------------------------------
 
-    // number of distinct levels for both parameters ($depth, $color) of the
-    // standardized shadow function/mixin
+    /// _shadows_ Number of distinct levels for both parameters ($depth, $color) of the
+    /// standardized shadow function / mixin.
     @include default('shadows:levels', 20);
 
-    // color range for the standardized shadow
+    /// _shadows_ Color or range for the standardized shadow.
     @include default('shadows:color', black);
 
-    // darkest portion of the key shadow
-    @include default('shadows:umbra:y', (0px 12px));
-    @include default('shadows:umbra:blur', (0px 20px));
-    @include default('shadows:umbra:spread', (0px -7px));
-    @include default('shadows:umbra:opacity', (0.2 0.3));
+    /// _shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can
+    /// be configured using flat-map syntax.
+    // prettier-ignore
+    @include default(
+        'shadows:umbra',
+        (
+            y: ( 0px, 12px ),
+            blur: (0px, 20px),
+            spread: (0px, -7px),
+            opacity: (0.2, 0.3),
+        )
+    );
 
-    // soft portion of the key shadow
-    @include default('shadows:penumbra:y', (1px 24px));
-    @include default('shadows:penumbra:blur', (0px 38px));
-    @include default('shadows:penumbra:spread', (0px 0px));
-    @include default('shadows:penumbra:opacity', (0 0.15));
+    /// _shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can
+    /// be configured using flat-map syntax.
+    // prettier-ignore
+    @include default(
+        'shadows:penumbra',
+        (
+            y: (1px, 24px),
+            blur: (0px, 38px),
+            spread: (0px, 0px),
+            opacity: (0, 0.15),
+        )
+    );
 
-    // ambient light portion of the shadow
-    @include default('shadows:ambient:y', (0px 9px));
-    @include default('shadows:ambient:blur', (0px 50px));
-    @include default('shadows:ambient:spread', (0px 8px));
-    @include default('shadows:ambient:opacity', (0.05 0.15));
+    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties
+    /// can be configured using flat-map syntax.
+    // prettier-ignore
+    @include default(
+        'shadows:ambient',
+        (
+            y: (0px, 9px ),
+            blur: (0px, 50px),
+            spread: (0px, 8px),
+            opacity: (0.05, 0.15),
+        )
+    );
 
     // ----------------------------------------------------------------------
     // Site Basics
@@ -298,6 +348,8 @@
 
     // container
 
+    /// _basics_ Settings related to the default outer content container. Note: individual settings
+    /// can be configured using flat map syntax.
     @include default(
         'container',
         (
@@ -309,9 +361,12 @@
 
     //  resets
 
+    /// _basics_ Settings related to the default outer content container. Note: individual settings
+    /// can be configured using flat map syntax.
     @include default(
         'reset',
         (
+            sanitize: true,
             link: true,
             button: true,
             lists: true,
@@ -322,6 +377,7 @@
 
     // links
 
+    /// _basics_ Setings related to the default rendering of hyperlinks.
     @include default(
         'links',
         (
@@ -343,17 +399,17 @@
     // ----------------------------------------------------------------------
 
     // reading: default styles (css map)
-    @include default(
-        'reading',
-        (
-            base: (
-                font-family: get('font-family'),
-                font-size: fs(base),
-                line-height: 1.75,
-                font-weight: 400,
-            ),
-        )
-    );
+    // @include default(
+    //     'reading',
+    //     (
+    //         base: (
+    //             font-family: get('font-family'),
+    //             font-size: fs(base),
+    //             line-height: normal,
+    //             font-weight: 400,
+    //         ),
+    //     )
+    // );
 
     // reading: font weight for <strong> text
     @include default('reading:font-weight-strong', 600);
