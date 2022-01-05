@@ -1,48 +1,46 @@
 ////
 /// @group defaults
 ///
-/// All defaults for all built-in modules are defined in this mixin. This fixes a
-/// generalized loading provides a single place to document all possible defaults in a single
-/// location.
-///
-/// ```
-/// in this case we have code
-/// ```
-////
 
-@use 'utils' as *;
-@use 'site' as *;
-
-// The problem with defaults in a nutshell
-
+// Here is the loading problem in a nutshell:
+//
 //     // set a primary color as a default
 //     $primary: red !default;
-
+//
 //     // derive another value from it
 //     $link: $primary !default;
-
+//
 //     // now update the primary color
 //     $primary: blue;
-
+//
 //     // result => $link is red (but it should be blue)
-
-// Brute force fix:
-
+//
+// The fix:
+//
 //     // create a mixin that allows us to defer setting global defaults
 //     @mixin defaults() {
 //         $primary: red !default !global;
 //         $link: darken($primary, 10%) !default !global;
 //     }
-
+//
 //     $primary: blue;
 //     @include defaults();
+//
+//    // result ==> $link is correctly derived from blue
 
-//     result ==> $link is correctly derived from blue
+@use 'utils' as *;
+@use 'site' as *;
 
-// Config library fix
-
-/// Sets all defaults for the library. Must be called at least once before using other functions or
-/// mixins that require configuration (anything in a `site.*` group).
+/// All defaults for all built-in modules are defined in this mixin. This fixes a
+/// generalized loading problem and provides a single place to document all possible defaults in a single
+/// location. See the source for details.
+///
+/// @example
+/// // To initalize pxstyles, first add any required configuration"
+/// %%include px.config('colors:primary', #00dc82);
+///
+/// // then load the defaults by calling this mixin
+/// %%include defaults();
 ///
 /// @defaults
 
@@ -63,11 +61,11 @@
     /// The default range for color shading
     @include default('shade-range', (black, white));
 
-    /// Global default primary color
+    /// Global default primary color. Optionally include a list of three values to override shading.
     @include default('colors:primary', #0099fd);
 
-    /// Default base gray color
-    @include default('colors:gray', (mix(#a0a0a0, primary(), 95%), primary(-9), white));
+    /// Default base gray color. Optionally include a list of three values to override shading.
+    @include default('colors:gray', (mix(#a0a0a0, primary(), 90%), primary(-9), white));
 
     /// Default text selection color
     @include default('colors:select', primary(-4));
@@ -415,7 +413,7 @@
     @include default('reading:font-weight-strong', 600);
 
     // reading: default vertical spacing between block elements (set as a margin-bottom)
-    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table));
+    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));
     @include default('reading:block-spacing', 1em);
 
     // reading: list / list item (li) customization

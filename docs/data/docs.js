@@ -2,7 +2,7 @@ window.pxstyles = {
     "groups": [
         {
             "name": "defaults",
-            "description": "All defaults for all built-in modules are defined in this mixin. This fixes a\ngeneralized loading provides a single place to document all possible defaults in a single\nlocation.\n\n```\nin this case we have code\n```",
+            "description": "",
             "variables": [],
             "items": [
                 {
@@ -11,7 +11,13 @@ window.pxstyles = {
                     "name": "defaults",
                     "docName": "defaults()",
                     "type": "mixin",
-                    "description": "Sets all defaults for the library. Must be called at least once before using other functions or\nmixins that require configuration (anything in a `site.*` group).\n\n",
+                    "description": "All defaults for all built-in modules are defined in this mixin. This fixes a\ngeneralized loading problem and provides a single place to document all possible defaults in a single\nlocation. See the source for details.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "// To initalize pxstyles, first add any required configuration\"\n@include px.config('colors:primary', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
+                        }
+                    ],
                     "access": "public",
                     "path": "defaults.scss",
                     "defaults": [
@@ -38,12 +44,12 @@ window.pxstyles = {
                         {
                             "name": "'colors:primary'",
                             "value": "#0099fd",
-                            "description": "Global default primary color\n"
+                            "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
                         },
                         {
                             "name": "'colors:gray'",
-                            "value": "(mix(#a0a0a0, primary(), 95%), primary(-9), white)",
-                            "description": "Default base gray color\n"
+                            "value": "(mix(#a0a0a0, primary(), 90%), primary(-9), white)",
+                            "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
                         },
                         {
                             "name": "'colors:select'",
