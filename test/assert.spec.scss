@@ -1,0 +1,47 @@
+@use 'px' as *;
+@use 'true' as *;
+
+$terminal-output: true !default;
+
+// Test CSS output from mixins
+@include test-module('aspect related mixins and fucntions') {
+    @include test('function aspect-to-number()(string)') {
+        @include assert-equal(aspect-to-number('5:2'), 2.5);
+    }
+
+    @include test('function aspect-to-number()=') {
+        @include assert-equal(aspect-to-number(2.5), 2.5);
+    }
+
+    @include test('mixin aspect(2)') {
+        @include assert {
+            // test
+            @include output {
+                @include aspect(2);
+            }
+            // output
+            @include expect {
+                display: block;
+                content: '';
+                width: 100%;
+                padding-bottom: 50%;
+            }
+        }
+    }
+
+    @include test('mixin aspect("16:9")') {
+        @include assert {
+            // test
+            @include output {
+                @include aspect('16:9');
+            }
+            // output
+            @include expect {
+                display: block;
+                content: '';
+                width: 100%;
+                padding-bottom: 56.25%;
+            }
+        }
+    }
+}
