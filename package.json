@@ -1,6 +1,6 @@
 {
     "name": "@thinkpixellab/pxstyles",
-    "version": "0.9.6",
+    "version": "0.9.7",
     "description": "Shared scss library",
     "main": "index.scss",
     "public": true,
@@ -8,7 +8,8 @@
     "directories": {
         "doc": "docs"
     },
-    "dependencies": {
+    "dependencies": {},
+    "devDependencies": {
         "glob": "^7.2.0",
         "gulp": "^4.0.2",
         "gulp-sass": "^5.1.0",
@@ -19,7 +20,6 @@
         "sass-true": "^6.0.1",
         "sassdoc": "^2.7.3"
     },
-    "devDependencies": {},
     "scripts": {
         "test": "jest"
     },
