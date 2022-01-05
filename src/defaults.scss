@@ -2,7 +2,7 @@
 /// @group defaults
 ///
 
-// Here is the loading problem in a nutshell:
+// Here is the loading problem in a nutshell (and the reason to use a mixin for defaults):
 //
 //     // set a primary color as a default
 //     $primary: red !default;
@@ -31,12 +31,12 @@
 @use 'utils' as *;
 @use 'site' as *;
 
-/// All defaults for all built-in modules are defined in this mixin. This fixes a
-/// generalized loading problem and provides a single place to document all possible defaults in a single
+/// All defaults for all built-in modules are defined in this mixin. This fixes a generalized
+/// loading problem and provides a single place to document all possible defaults in a single
 /// location. See the source for details.
 ///
 /// @example
-/// // To initalize pxstyles, first add any required configuration"
+/// // To initalize pxstyles, first add any required configuration
 /// %%include px.config('colors:accent', #00dc82);
 ///
 /// // then load the defaults by calling this mixin

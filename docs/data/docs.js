@@ -11,11 +11,11 @@ window.pxstyles = {
                     "name": "defaults",
                     "docName": "defaults()",
                     "type": "mixin",
-                    "description": "All defaults for all built-in modules are defined in this mixin. This fixes a\ngeneralized loading problem and provides a single place to document all possible defaults in a single\nlocation. See the source for details.\n\n",
+                    "description": "All defaults for all built-in modules are defined in this mixin. This fixes a generalized\nloading problem and provides a single place to document all possible defaults in a single\nlocation. See the source for details.\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\"\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
+                            "code": "// To initalize pxstyles, first add any required configuration\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
                         }
                     ],
                     "access": "public",
