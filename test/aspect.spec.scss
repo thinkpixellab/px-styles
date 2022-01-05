@@ -1,8 +1,6 @@
 @use 'px' as *;
 @use 'true' as *;
 
-$terminal-output: true !default;
-
 // Test CSS output from mixins
 @include test-module('aspect related mixins and fucntions') {
     @include test('function aspect-to-number()(string)') {

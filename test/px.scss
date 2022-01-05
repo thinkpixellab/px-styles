@@ -1,4 +1,8 @@
 @forward '../index.scss';
 @use '../index.scss' as *;
 
+// load pxstyles defaults
 @include defaults();
+
+// enable terminal output for true
+$terminal-output: true !default;

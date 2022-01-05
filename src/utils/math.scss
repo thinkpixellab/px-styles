@@ -206,9 +206,19 @@
 /// Provides a wrapper for the standard sass divide function (math.div) to make imports a little
 /// simpler. Returns the result of dividing $num1 by $num2.
 ///
-/// @param {*} $num1 The first number in the division operation (the numerator)
-/// @param {*} $num2 The first number in the division operation (the numerator)
+/// @param {number} $num1 The first number in the division operation (the numerator)
+/// @param {number} $num2 The first number in the division operation (the numerator)
 
 @function divide($num1, $num2) {
     @return math.div($num1, $num2);
+}
+
+/// Convience function that divides two numbers and the multiples the result by 100%
+///
+/// @param {number} $num1 The first number in the division operation (the numerator)
+/// @param {number} $num2 The first number in the division operation (the numerator)
+/// @param {number} $round The number of digits to use when rounding the output
+
+@function percent($num1, $num2, $round: 3) {
+    @return round-d(math.div($num1, $num2) * 100%, $round);
 }

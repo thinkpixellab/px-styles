@@ -1,0 +1,8 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.math') {
+    @include test('function percent') {
+        @include assert-equal(percent(1, 3), 33.333%);
+    }
+}
