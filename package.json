@@ -4,6 +4,7 @@
     "description": "Shared scss library",
     "main": "index.scss",
     "public": true,
+    "license": "MIT",
     "directories": {
         "doc": "docs"
     },
