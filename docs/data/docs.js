@@ -341,7 +341,7 @@ window.pxstyles = {
                     "name": "yiq",
                     "docName": "yiq()",
                     "type": "function",
-                    "description": "Computes the the luminance (grayscale value) of a color in the yiq color space\n",
+                    "description": "Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used\nfor determining the relative contrast between two colors.\n",
                     "access": "public",
                     "path": "site/color.scss"
                 },
@@ -351,7 +351,7 @@ window.pxstyles = {
                     "name": "contrast-color",
                     "docName": "contrast-color()",
                     "type": "function",
-                    "description": "Choose a contrasting foreground based on a background color\n",
+                    "description": "Choose a contrasting foreground based on the contrast between a background and two foreground\noptions (a light and dark).\n",
                     "access": "public",
                     "path": "site/color.scss"
                 }
@@ -1880,76 +1880,6 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.math",
-                    "name": "round-2",
-                    "docName": "round-2()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 2)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-3",
-                    "docName": "round-3()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 3)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-4",
-                    "docName": "round-4()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 4)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-5",
-                    "docName": "round-5()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 5)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-8",
-                    "docName": "round-8()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 8)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-10",
-                    "docName": "round-10()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 10)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-20",
-                    "docName": "round-20()",
-                    "type": "function",
-                    "description": "A shortcut for round-f($n, 20)\n",
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
                     "name": "intp",
                     "docName": "intp()",
                     "type": "function",
@@ -2343,6 +2273,12 @@ window.pxstyles = {
                     "docName": "css-map()",
                     "type": "mixin",
                     "description": "Generates css from a map of properties and values. Properties can be remapped with aliases or\nignored with a start pattern.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "TODO"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "map",
@@ -2362,7 +2298,7 @@ window.pxstyles = {
                         {
                             "type": "string",
                             "name": "ignore-start-pattern",
-                            "description": "Properties that start with this will be ignored"
+                            "description": "Properties that start with this will be ignored\n"
                         }
                     ],
                     "access": "public",

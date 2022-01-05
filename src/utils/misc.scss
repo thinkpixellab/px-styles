@@ -170,6 +170,8 @@
 /// @param {list} $map-states If provided, the specified map-type properties will be interpreted as
 /// sub states (e.g. (hover: (...)) becomes &:hover {...})
 /// @param {string} $ignore-start-pattern Properties that start with this will be ignored
+///
+/// @example TODO
 
 @mixin css-map(
     $map,

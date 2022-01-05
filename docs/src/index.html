@@ -157,7 +157,31 @@
                     computed: {
                         filteredGroups() {
                             if (this.filter) {
-                                return [];
+                                let filteredGroups = [];
+                                this.groups.forEach(group => {
+                                    filteredItems = [];
+                                    group.items.forEach(item => {
+                                        let include =
+                                            [
+                                                item.namespace,
+                                                item.group,
+                                                item.name,
+                                                item.description,
+                                            ]
+                                                .join(' ')
+                                                .indexOf(this.filter) > -1;
+                                        if (include) {
+                                            filteredItems.push(item);
+                                        }
+                                    });
+                                    if (filteredItems.length) {
+                                        filteredGroups.push({
+                                            name: group.name,
+                                            items: filteredItems,
+                                        });
+                                    }
+                                });
+                                return filteredGroups;
                             } else {
                                 return this.groups;
                             }

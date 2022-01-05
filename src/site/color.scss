@@ -114,7 +114,8 @@
     @return rgba($shade, $alpha);
 }
 
-/// Computes the the luminance (grayscale value) of a color in the yiq color space
+/// Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used
+/// for determining the relative contrast between two colors.
 
 @function yiq($color) {
     $r: red($color);
@@ -126,7 +127,8 @@
     @return $yiq;
 }
 
-/// Choose a contrasting foreground based on a background color
+/// Choose a contrasting foreground based on the contrast between a background and two foreground
+/// options (a light and dark).
 
 @function contrast-color(
     $bg,
