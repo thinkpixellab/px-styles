@@ -18,6 +18,11 @@
 @include sanitize();
 @include basics();
 
+html,
+body {
+    scroll-behavior: smooth;
+}
+
 #app {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -69,7 +74,6 @@
 
 .main {
     grid-area: main;
-    scroll-behavior: smooth;
 }
 
 .nav-heading {
@@ -98,7 +102,7 @@
 }
 
 .item {
-    margin-bottom: sp(4);
+    padding: sp(2 0);
 }
 
 .item-header {
@@ -145,7 +149,7 @@
     > span,
     > div {
         padding: sp(0.5 1);
-        border-bottom: 1px solid gray(-4);
+        border-bottom: 1px solid gray(4);
         &:first-child {
             padding-left: 0;
         }
@@ -283,8 +287,8 @@ strong {
 .item-default-desc {
     p em {
         display: inline-flex;
-        background-color: primary(-3, $alpha: 0.2);
-        color: primary(-5);
+        background-color: accent(-3, $alpha: 0.2);
+        color: accent(-5);
         font-size: rems(9px);
         font-weight: 700;
         text-transform: uppercase;

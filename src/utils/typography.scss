@@ -28,15 +28,15 @@ $typescale-ratios: (
 
 /// Generate a modular type size
 ///
-/// @param {Number} $base The base size used to generate the type scale (always
+/// @param {number} $base The base size used to generate the type scale (always
 /// expressed in px).
 ///
-/// @param {Number} $ratio The ratio to use for generating the modular type
+/// @param {number} $ratio The ratio to use for generating the modular type
 /// scale (e.g. 1.25 or 4/3)
 ///
-/// @param {Number} $step The number of steps away from the base (pos/neg)
+/// @param {number} $step The number of steps away from the base (pos/neg)
 ///
-/// @return {Number} A single value (in px or rem) that represents a font-size
+/// @return {number} A single value (in px or rem) that represents a font-size
 /// for the given parameters
 ///
 /// @link  https://www.modularscale.com/
@@ -59,7 +59,7 @@ $typescale-ratios: (
 /// @param {Number | List} $bases The base size or sizes used to generate the
 /// typescale
 ///
-/// @param {Number} $ratio The ratio used to generate the typescale
+/// @param {number} $ratio The ratio used to generate the typescale
 ///
 /// @param {List} $names The names for the generated sizes (these will be the
 /// keys in the map that gets returned)
@@ -67,7 +67,7 @@ $typescale-ratios: (
 /// @param {Bool} $rems [true] Whether or not to convert to rems. Note that rems
 /// will be based on the first (or only) value in $bases
 ///
-/// @param {Number} $round [4] The fractional rounding amount (e.g. value of 4
+/// @param {number} $round [4] The fractional rounding amount (e.g. value of 4
 /// means 1/4 so round to 0.25, 0.50, etc.)
 ///
 /// @link  https://www.modularscale.com/

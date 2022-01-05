@@ -12,10 +12,10 @@
 
             <nav class="nav">
                 <div class="nav-filter">
-                    <input class="textbox" placeholder="filter" type="textbox" />
+                    <input class="textbox" placeholder="filter" type="textbox" v-model="filter" />
                 </div>
                 <ul>
-                    <li v-for="group in groups" :key="group.name" class="nav-group">
+                    <li v-for="group in filteredGroups" :key="group.name" class="nav-group">
                         <strong class="nav-header">{{group.name}}</strong>
                         <ul>
                             <li v-for="item in group.items" :key="item.name">
@@ -143,6 +143,7 @@
                     data() {
                         return {
                             groups: window.pxstyles.groups,
+                            filter: null,
                         };
                     },
                     mounted() {
@@ -154,7 +155,13 @@
                             });
                     },
                     computed: {
-                        groups() {},
+                        filteredGroups() {
+                            if (this.filter) {
+                                return [];
+                            } else {
+                                return this.groups;
+                            }
+                        },
                     },
                     methods: {
                         itemToId(item) {

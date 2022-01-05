@@ -33,7 +33,7 @@ then @use that file knowing pxstyles has been properly configured. Here's a samp
 
 // site config
 
-@include px.config('colors:primary', #00dc82);
+@include px.config('colors:accent', #00dc82);
 @include px.config('colors:page-bg', #011e26);
 @include px.config('colors:page-fg', white);
 
@@ -180,7 +180,7 @@ Sample code that retrieves a bunch of common values:
     -   Helpers for CSS vars?
     -   Fix shadow() - hard to remember how it works, and need a simple box-shadow version
     -   Transforms mixins?
-    -   Rename "primary" as "accent"?
+    -   ~~Rename "primary" as "accent"?~~
     -   Make use of interesting css units (beyond viewport)
     -   Simple animations? (like animate.css)
     -   Create a vscode snippets library for common things?

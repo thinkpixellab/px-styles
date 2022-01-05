@@ -10,14 +10,14 @@
 /// Produce a shade (a lighter or darker version) of a color based on the value
 /// of $shade and an optional darkest to lightest shade range.
 ///
-/// @param {*} $color [null] The color to be shaded. If not provided, it will be
+/// @param {color} $color [null] The color to be shaded. If not provided, it will be
 /// calculated as the middle value within $shade-range.
 ///
-/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
+/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
 /// (can be overriden with config(shade-steps)). 0 returns the color itself.
 /// Negative values make the color darker, postive values make it lighter.
 ///
-/// @param {*} $shade-range [(black,white)] The range of colors will be produced
+/// @param {(color, color)} $shade-range [null] The range of colors will be produced
 /// as a list (darkest, lightest).
 
 @function shade($color: null, $shade: 0, $shade-range: null) {
@@ -54,17 +54,17 @@
     //@return shade($color: get('colors:gray'), $shade: $shade, $shade-range: get(('gray-range')));
 }
 
-/// Get a standardized shade of the site's primary color
+/// Get a standardized shade of the site's primary accent color
 ///
 /// @param {*} $shade [0] The shading to be applied, as a value between -10, 10 (can be overriden
 /// with config(shade-steps)). 0 returns the color itself. Negative values make the color darker,
 /// postive values make it lighter.
 ///
-/// @param {Number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
+/// @param {number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
 /// is provided, the ooutput will be in rgba format.
 
-@function primary($shade: 0, $alpha: 1) {
-    @return clr(primary, $shade, $alpha);
+@function accent($shade: 0, $alpha: 1) {
+    @return clr(accent, $shade, $alpha);
 }
 
 /// Lookup a color by name and optionally get a shade of it
@@ -73,7 +73,7 @@
 /// (can be overriden with config(shade-steps)). 0 returns the color itself.
 /// Negative values make the color darker, postive values make it lighter.
 ///
-/// @param {Number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
+/// @param {number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
 /// is provided, the ooutput will be in rgba format.
 ///
 /// @example

@@ -37,7 +37,7 @@
 ///
 /// @example
 /// // To initalize pxstyles, first add any required configuration"
-/// %%include px.config('colors:primary', #00dc82);
+/// %%include px.config('colors:accent', #00dc82);
 ///
 /// // then load the defaults by calling this mixin
 /// %%include defaults();
@@ -62,13 +62,13 @@
     @include default('shade-range', (black, white));
 
     /// Global default primary color. Optionally include a list of three values to override shading.
-    @include default('colors:primary', #0099fd);
+    @include default('colors:accent', #0099fd);
 
     /// Default base gray color. Optionally include a list of three values to override shading.
-    @include default('colors:gray', (mix(#a0a0a0, primary(), 90%), primary(-9), white));
+    @include default('colors:gray', (mix(#a0a0a0, accent(), 90%), accent(-9), white));
 
     /// Default text selection color
-    @include default('colors:select', primary(-4));
+    @include default('colors:select', accent(-4));
 
     /// Default page background color
     @include default('colors:page-bg', white);
@@ -380,12 +380,12 @@
         'links',
         (
             -selector: '.link',
-            color: adjust-color(primary(), $saturation: 40%),
+            color: adjust-color(accent(), $saturation: 40%),
             text-decoration: none,
             text-decoration-color: null,
             hover: (
                 color: null,
-                background-color: rgba(primary(), 0.1),
+                background-color: rgba(accent(), 0.1),
                 text-decoration: underline,
                 text-decoration-color: null
             )
@@ -462,7 +462,7 @@
     @include default(
         'controls',
         (
-            accent: primary(),
+            accent: accent(),
             border-radius: 3px,
             font-family: get(font-family),
             font-size: fs(base),
@@ -476,7 +476,7 @@
         'focus',
         (
             selector: ':focus-visible',
-            shadow-color: primary($alpha: 0.33),
+            shadow-color: accent($alpha: 0.33),
             shadow-width: 3px,
         )
     );
@@ -484,7 +484,7 @@
     // @include default(
     //     'controls:base',
     //     (
-    //         -px-accent: primary(),
+    //         -px-accent: accent(),
     //         -px-radius: 3px,
     //         -px-focus-style: 'shadow',
     //         -px-transition: 'fast',
@@ -501,7 +501,7 @@
     // @include default(
     //     'controls:textbox',
     //     (
-    //         -px-accent: primary(),
+    //         -px-accent: accent(),
     //         -px-placeholder: rgba(clr('page-fg'), 0.5),
     //         border: none,
     //         background-color: rgba(gray(7), 0.66),
@@ -524,7 +524,7 @@
             track-bg: gray(5),
             track-border: none,
             track-shadow: null,
-            thumb-bg: primary(),
+            thumb-bg: accent(),
             thumb-border: none,
             thumb-width: 12px,
             thumb-height: 12px,
@@ -580,9 +580,9 @@
             // toggle-off-background: gray(4),
             // toggle-off-background-hover:null,
             // toggle-off-background-active: gray(2),
-            // toggle-on-background: primary(),
+            // toggle-on-background: accent(),
             // toggle-on-background-hover: null,
-            // toggle-on-background-active: primary(-1),
+            // toggle-on-background-active: accent(-1),
             // indicator-gap: 2px,
             // indicator-aspect: 1,
             // indicator-off-background: gray(8),
@@ -655,7 +655,7 @@
 //         padding: 0 0.5em,
 //         icon:
 //             '<svg width="8" height="5" xmlns="http://www.w3.org/2000/svg"><path fill="#fill" d="M0 0h8L4 5z" fill-rule="evenodd"/></svg>',
-//         icon-fill: 3 // accent: primary(),
+//         icon-fill: 3 // accent: accent(),
 //             // bg: gray(6),
 //             // fg: null,
 //             // placeholder: null,

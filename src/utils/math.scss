@@ -116,9 +116,9 @@
 // https://github.com/CharlotteGore/functional-easing/blob/master/penner-easing.js
 
 /// Interpolate a value between 0 and 1 using the easing function with the given name
-/// @param {Number} $t The input value between 0 and 1
+/// @param {number} $t The input value between 0 and 1
 /// @param {String} $easing The name of the easing function that should be used for interpolation
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease($t, $easing: 'out-quad') {
     @if $easing == 'in-quad' {
@@ -143,32 +143,32 @@
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-in quad function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-in-quad($t) {
     @return $t * $t;
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-out quad function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-out-quad($t) {
     @return -1 * $t * ($t - 2);
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-in cubic function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-in-cubic($t) {
     @return $t * $t * $t;
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-out cubic function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-out-cubic($t) {
     $t: $t - 1;
@@ -176,16 +176,16 @@
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-in quart function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-in-quart($t) {
     @return $t * $t * $t * $t;
 }
 
 /// Interpolate a value between 0 and 1 using the Penner ease-out quart function.
-/// @param {Number} $t The input value between 0 and 1
-/// @return {Number} The eased equivalent of the input (also between 0 and 1).
+/// @param {number} $t The input value between 0 and 1
+/// @return {number} The eased equivalent of the input (also between 0 and 1).
 
 @function ease-out-quart($t) {
     $t: $t - 1;

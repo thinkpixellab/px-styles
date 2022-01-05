@@ -15,7 +15,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\"\n@include px.config('colors:primary', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
+                            "code": "// To initalize pxstyles, first add any required configuration\"\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
                         }
                     ],
                     "access": "public",
@@ -42,18 +42,18 @@ window.pxstyles = {
                             "description": "The default range for color shading\n"
                         },
                         {
-                            "name": "'colors:primary'",
+                            "name": "'colors:accent'",
                             "value": "#0099fd",
                             "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
                         },
                         {
                             "name": "'colors:gray'",
-                            "value": "(mix(#a0a0a0, primary(), 90%), primary(-9), white)",
+                            "value": "(mix(#a0a0a0, accent(), 90%), accent(-9), white)",
                             "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
                         },
                         {
                             "name": "'colors:select'",
-                            "value": "primary(-4)",
+                            "value": "accent(-4)",
                             "description": "Default text selection color\n"
                         },
                         {
@@ -198,7 +198,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'links'",
-                            "value": "(\n    -selector: '.link',\n    color: adjust-color(primary(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(primary(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null\n    )\n)",
+                            "value": "(\n    -selector: '.link',\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null\n    )\n)",
                             "description": "_basics_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
@@ -236,21 +236,21 @@ window.pxstyles = {
                     "description": "Produce a shade (a lighter or darker version) of a color based on the value\nof $shade and an optional darkest to lightest shade range.\n\n",
                     "parameter": [
                         {
-                            "type": "*",
+                            "type": "color",
                             "name": "color",
                             "default": "null",
                             "description": "The color to be shaded. If not provided, it will be\ncalculated as the middle value within $shade-range.\n"
                         },
                         {
-                            "type": "*",
+                            "type": "number",
                             "name": "shade",
                             "default": "0",
                             "description": "The shading to be applied, as a value between -10, 10\n(can be overriden with config(shade-steps)). 0 returns the color itself.\nNegative values make the color darker, postive values make it lighter.\n"
                         },
                         {
-                            "type": "*",
+                            "type": "(color, color)",
                             "name": "shade-range",
-                            "default": "(black,white)",
+                            "default": "null",
                             "description": "The range of colors will be produced\nas a list (darkest, lightest)."
                         }
                     ],
@@ -284,10 +284,10 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.color",
-                    "name": "primary",
-                    "docName": "primary()",
+                    "name": "accent",
+                    "docName": "accent()",
                     "type": "function",
-                    "description": "Get a standardized shade of the site's primary color\n\n",
+                    "description": "Get a standardized shade of the site's primary accent color\n\n",
                     "parameter": [
                         {
                             "type": "*",
@@ -296,7 +296,7 @@ window.pxstyles = {
                             "description": "The shading to be applied, as a value between -10, 10 (can be overriden\nwith config(shade-steps)). 0 returns the color itself. Negative values make the color darker,\npostive values make it lighter.\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "alpha",
                             "default": "1",
                             "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the ooutput will be in rgba format."
@@ -326,7 +326,7 @@ window.pxstyles = {
                             "description": "The shading to be applied, as a value between -10, 10\n(can be overriden with config(shade-steps)). 0 returns the color itself.\nNegative values make the color darker, postive values make it lighter.\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "alpha",
                             "default": "1",
                             "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the ooutput will be in rgba format.\n"
@@ -1988,7 +1988,7 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the easing function with the given name\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         },
@@ -1999,7 +1999,7 @@ window.pxstyles = {
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2014,13 +2014,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-in quad function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2035,13 +2035,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-out quad function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2056,13 +2056,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-in cubic function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2077,13 +2077,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-out cubic function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2098,13 +2098,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-in quart function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2119,13 +2119,13 @@ window.pxstyles = {
                     "description": "Interpolate a value between 0 and 1 using the Penner ease-out quart function.\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "t",
                             "description": "The input value between 0 and 1"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "The eased equivalent of the input (also between 0 and 1)."
                     },
                     "access": "public",
@@ -2605,23 +2605,23 @@ window.pxstyles = {
                     "description": "Generate a modular type size\n\n",
                     "parameter": [
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "base",
                             "description": "The base size used to generate the type scale (always\nexpressed in px).\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "ratio",
                             "description": "The ratio to use for generating the modular type\nscale (e.g. 1.25 or 4/3)\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "step",
                             "description": "The number of steps away from the base (pos/neg)\n"
                         }
                     ],
                     "return": {
-                        "type": "Number",
+                        "type": "number",
                         "description": "A single value (in px or rem) that represents a font-size\nfor the given parameters\n"
                     },
                     "access": "public",
@@ -2647,7 +2647,7 @@ window.pxstyles = {
                             "description": "The base size or sizes used to generate the\ntypescale\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "ratio",
                             "description": "The ratio used to generate the typescale\n"
                         },
@@ -2663,7 +2663,7 @@ window.pxstyles = {
                             "description": "Whether or not to convert to rems. Note that rems\nwill be based on the first (or only) value in $bases\n"
                         },
                         {
-                            "type": "Number",
+                            "type": "number",
                             "name": "round",
                             "default": "4",
                             "description": "The fractional rounding amount (e.g. value of 4\nmeans 1/4 so round to 0.25, 0.50, etc.)\n"
