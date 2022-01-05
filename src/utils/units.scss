@@ -3,8 +3,8 @@
 ////
 
 @use 'sass:math' as sass-math;
-
 @use 'math.scss' as math;
+@use 'strings.scss' as strings;
 
 /// Strip the unit from a number
 ///
@@ -376,4 +376,24 @@
         }
     }
     @return null;
+}
+
+/// Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)
+///
+/// @param {string | number} The string representation of the aspect (should be two numbers
+/// separated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be
+/// returned directly. This makes it possible to use the function as a safety where a number is
+/// expected but a string could be used for convenience.
+///
+/// @example $aspect: aspect-to-number('16:9') // => 1.77778
+/// @example $aspect: aspect-to-number(1.77778) // => 1.77778
+
+@function aspect-to-number($aspect) {
+    @if (is-number($aspect)) {
+        @return $aspect;
+    }
+    $split: strings.str-split($aspect, ':');
+    $w: to-number(nth($split, 1));
+    $h: to-number(nth($split, 2));
+    @return sass-math.div($w, $h);
 }

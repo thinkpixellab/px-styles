@@ -1805,6 +1805,30 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "utils.layout",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "aspect",
+                    "docName": "aspect()",
+                    "type": "mixin",
+                    "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "aspect",
+                            "description": "A number (like 1.333) or string (like '16:9') that represents the aspect ratio"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                }
+            ]
+        },
+        {
             "name": "utils.math",
             "description": "",
             "variables": [],
@@ -3263,6 +3287,33 @@ window.pxstyles = {
                         {
                             "type": "*",
                             "name": "input"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
+                    "name": "aspect-to-number",
+                    "docName": "aspect-to-number()",
+                    "type": "function",
+                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$aspect: aspect-to-number('16:9') // => 1.77778"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "$aspect: aspect-to-number(1.77778) // => 1.77778"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string | number",
+                            "name": "The",
+                            "description": "string representation of the aspect (should be two numbers\nseparated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be\nreturned directly. This makes it possible to use the function as a safety where a number is\nexpected but a string could be used for convenience.\n"
                         }
                     ],
                     "access": "public",

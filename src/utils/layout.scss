@@ -3,10 +3,16 @@
 /// @todo Needs documentation
 ////
 
-// Aspect
 @use 'sass:math';
+@use 'units.scss' as units;
+
+/// Creates css to force an element to maintain a particular aspect (based on width) using the
+/// padding bottom trick.
+///
+/// @param {*} $aspect A number (like 1.333) or string (like '16:9') that represents the aspect ratio
 
 @mixin aspect($aspect) {
+    $aspect: units.aspect-to-number($aspect);
     display: block;
     content: '';
     width: 100%;
