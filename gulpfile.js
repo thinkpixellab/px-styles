@@ -23,9 +23,16 @@ function copyDocFiles(done) {
     done();
 }
 
+// build a file called scratch.scss in the root and output as scratch.css
+function scratch(done) {
+    gulp.src('./scratch.scss').pipe(sass().on('error', sass.logError)).pipe(gulp.dest('./'));
+    done();
+}
+
 exports.sassDoc = sassDoc;
 exports.docStyles = docStyles;
 exports.copyDocFiles = copyDocFiles;
+exports.scratch = scratch;
 exports.docs = gulp.series(sassDoc, docStyles, copyDocFiles);
 
 exports.default = function () {
@@ -33,7 +40,10 @@ exports.default = function () {
         './docs-src/src/styles.scss',
         './docs-src/theme/*.*',
         './docs-src/src/*.*',
-        './**/*.scss',
+        './src/**/*.scss',
+        './init.scss',
     ];
     gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles));
+
+    gulp.watch(['./scratch.scss'], gulp.series(scratch));
 };

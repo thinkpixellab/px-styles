@@ -102,3 +102,8 @@ output/
 # sass
 .sass-cache/*
 docs/styles.css.map
+
+# scratch / testing sass files
+scratch.scss
+scratch.css
+

@@ -173,8 +173,28 @@ Sample code that retrieves a bunch of common values:
 
 ### Docs
 
-    npm install sassdoc -g
-    npm run sassdoc
+API documentation is generated using sassdoc. The full build process is run using gulp and output to the /docs folder. The resulting output can be browsed directly from the file system (no server required) by loading ./docs/index.html
+
+To kickoff a docs build just run `gulp docs`
+
+### Playground
+
+The project is setup so that you can play with the library from a file in the root called `scratch.scss`. Run `gulp scratch` to build this file (the output will be available as `scratch.css` (note the prefix of 'css' instead of 'scss`)). These files have also been added to .gitignore so you should be able to play with them freely.
+
+Here is a sample scratch file that will load pxstyles from local source:
+
+```scss
+// load px
+@use 'index.scss' as *;
+
+// initialize px
+@include init();
+
+// write css
+.button {
+    @include button();
+}
+```
 
 ## Notes
 
