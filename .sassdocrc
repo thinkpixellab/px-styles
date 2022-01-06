@@ -1,4 +1,4 @@
 {
-    dest: './docs/data',
-    theme: './docs/theme'
+    dest: './docs-src/data',
+    theme: './docs-src/theme'
 }

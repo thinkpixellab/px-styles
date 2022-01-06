@@ -1,5 +1,3 @@
-const watch = require('gulp-watch');
-
 const sassdoc = require('sassdoc');
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
@@ -13,15 +11,15 @@ function sassDoc(done) {
 
 // build documentation styles
 function docStyles(done) {
-    gulp.src('./docs/src/styles.scss')
+    gulp.src('./docs-src/src/styles.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./pages'));
+        .pipe(gulp.dest('./docs'));
     done();
 }
 
-// copy documentation files to the pages folder
+// copy documentation files to the docs folder
 function copyDocFiles(done) {
-    gulp.src(['./docs/src/index.html', './docs/data/docs.js']).pipe(gulp.dest('./pages/'));
+    gulp.src(['./docs-src/src/index.html', './docs-src/data/docs.js']).pipe(gulp.dest('./docs/'));
     done();
 }
 
@@ -31,6 +29,11 @@ exports.copyDocFiles = copyDocFiles;
 exports.docs = gulp.series(sassDoc, docStyles, copyDocFiles);
 
 exports.default = function () {
-    let docWatch = ['./docs/src/styles.scss', './docs/theme/*.*', './docs/src/*.*', './**/*.scss'];
+    let docWatch = [
+        './docs-src/src/styles.scss',
+        './docs-src/theme/*.*',
+        './docs-src/src/*.*',
+        './**/*.scss',
+    ];
     gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles));
 };
