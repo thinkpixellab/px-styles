@@ -43,7 +43,7 @@
 /// // then load the defaults by calling this mixin
 /// %%include init();
 ///
-/// @defaults (this annotation will tell sassdoc to find and publish all calls to default)
+/// @defaults
 
 @mixin init() {
     // ----------------------------------------------------------------------------
@@ -93,7 +93,7 @@
     // Typography
     // ----------------------------------------------------------------------
 
-    /// _basics_ A list of font faces that should be loaded by the `basics` mixin. Example of the
+    /// _boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the
     /// syntax for this map:
     /// ```
     /// @include config('fonts', (
@@ -107,28 +107,28 @@
     /// ```
     @include default('fonts', ());
 
-    /// _basics_ Default / fallback font family for the site
+    /// _boilerplate_ Default / fallback font family for the site
     @include default('font-family', sans-serif);
 
-    /// _basics_ Default / fallback font-weight for the site
+    /// _boilerplate_ Default / fallback font-weight for the site
     @include default('font-weight', 400);
 
-    /// _basics_ Whether to enable font-smoothing
+    /// _boilerplate_ Whether to enable font-smoothing
     @include default('font-smoothing', true);
 
-    /// _basics_ Default code / mono font family (used as the default font for pre and code elements)
+    /// _boilerplate_ Default code / mono font family (used as the default font for pre and code elements)
     @include default('code-font-family', (Menlo, Monaco, Consolas, monospace));
 
-    /// _basics_ Default code / mono font size (used as the default font for pre and code elements)
+    /// _boilerplate_ Default code / mono font size (used as the default font for pre and code elements)
     @include default('code-font-size', rems(13px));
 
-    /// _basics_ Default / fallback line-height for standard text
+    /// _boilerplate_ Default / fallback line-height for standard text
     @include default('line-height', normal);
 
-    /// _basics_ Default / fallback letter spacing for the site
+    /// _boilerplate_ Default / fallback letter spacing for the site
     @include default('letter-spacing', normal);
 
-    /// _basics_ Use this to automatically adjust font size on the body (and therefore also as the
+    /// _boilerplate_ Use this to automatically adjust font size on the body (and therefore also as the
     /// basis for rems units) based on media queries. The value is a map that contains media query
     /// breaks and inputs into the `fs()` function for retrieving a font-size. prettier-ignore
     @include default(
@@ -192,7 +192,7 @@
         )
     );
 
-    /// _basics_ Full set of type styles that should be generated based. Each entry requires a
+    /// _boilerplate_ Full set of type styles that should be generated based. Each entry requires a
     /// `base` property which is a lookup into `type-bases`.
     @include default(
         'type-styles',
@@ -347,7 +347,7 @@
 
     // container
 
-    /// _basics_ Settings related to the default outer content container. Note: individual settings
+    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings
     /// can be configured using flat map syntax.
     @include default(
         'container',
@@ -360,7 +360,7 @@
 
     //  resets
 
-    /// _basics_ Settings related to the default outer content container. Note: individual settings
+    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings
     /// can be configured using flat map syntax.
     @include default(
         'reset',
@@ -376,7 +376,7 @@
 
     // links
 
-    /// _basics_ Setings related to the default rendering of hyperlinks.
+    /// _boilerplate_ Setings related to the default rendering of hyperlinks.
     @include default(
         'links',
         (

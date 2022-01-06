@@ -1,6 +1,6 @@
 {
     "name": "@thinkpixellab/pxstyles",
-    "version": "0.9.9",
+    "version": "0.9.10",
     "description": "Shared scss library",
     "main": "index.scss",
     "license": "MIT",

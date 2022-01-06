@@ -19,7 +19,214 @@ window.pxstyles = {
                         }
                     ],
                     "access": "public",
-                    "path": "init.scss"
+                    "path": "init.scss",
+                    "defaults": [
+                        {
+                            "name": "'font-size-base'",
+                            "value": "15px",
+                            "description": "Base font size (set on the body, used for rems calculations)\n"
+                        },
+                        {
+                            "name": "'spacer'",
+                            "value": "rems(12px)",
+                            "description": "Global default value for spacing functions\n"
+                        },
+                        {
+                            "name": "'shade-steps'",
+                            "value": "20",
+                            "description": "The total number of available shades in the shade and color functions (value of 20 produces a range of shades from -10, 10)\n"
+                        },
+                        {
+                            "name": "'shade-range'",
+                            "value": "(black, white)",
+                            "description": "The default range for color shading\n"
+                        },
+                        {
+                            "name": "'colors:accent'",
+                            "value": "#0099fd",
+                            "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
+                        },
+                        {
+                            "name": "'colors:gray'",
+                            "value": "(mix(#a0a0a0, accent(), 90%), accent(-9), white)",
+                            "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
+                        },
+                        {
+                            "name": "'colors:select'",
+                            "value": "accent(-4)",
+                            "description": "Default text selection color\n"
+                        },
+                        {
+                            "name": "'colors:page-bg'",
+                            "value": "white",
+                            "description": "Default page background color\n"
+                        },
+                        {
+                            "name": "'colors:page-fg'",
+                            "value": "gray(-7)",
+                            "description": "Default page foreground\n"
+                        },
+                        {
+                            "name": "'colors:contrast-light'",
+                            "value": "clr(page-bg)",
+                            "description": "Default light color used when computing contrast colors\n"
+                        },
+                        {
+                            "name": "'colors:contrast-dark'",
+                            "value": "clr(page-fg)",
+                            "description": "Default light color used when computing contrast colors\n"
+                        },
+                        {
+                            "name": "'colors:selection-bg'",
+                            "value": "clr(select)",
+                            "description": "Default background color for selected text\n"
+                        },
+                        {
+                            "name": "'colors:selection-fg'",
+                            "value": "contrast-color(clr(select))",
+                            "description": "Default foreground color for selected text\n"
+                        },
+                        {
+                            "name": "'fonts'",
+                            "value": "()",
+                            "description": "_boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    Circular: (src: '../assets/fonts/circular', weight: 500, style: normal)\n));\n```\n"
+                        },
+                        {
+                            "name": "'font-family'",
+                            "value": "sans-serif",
+                            "description": "_boilerplate_ Default / fallback font family for the site\n"
+                        },
+                        {
+                            "name": "'font-weight'",
+                            "value": "400",
+                            "description": "_boilerplate_ Default / fallback font-weight for the site\n"
+                        },
+                        {
+                            "name": "'font-smoothing'",
+                            "value": "true",
+                            "description": "_boilerplate_ Whether to enable font-smoothing\n"
+                        },
+                        {
+                            "name": "'code-font-family'",
+                            "value": "(Menlo, Monaco, Consolas, monospace)",
+                            "description": "_boilerplate_ Default code / mono font family (used as the default font for pre and code elements)\n"
+                        },
+                        {
+                            "name": "'code-font-size'",
+                            "value": "rems(13px)",
+                            "description": "_boilerplate_ Default code / mono font size (used as the default font for pre and code elements)\n"
+                        },
+                        {
+                            "name": "'line-height'",
+                            "value": "normal",
+                            "description": "_boilerplate_ Default / fallback line-height for standard text\n"
+                        },
+                        {
+                            "name": "'letter-spacing'",
+                            "value": "normal",
+                            "description": "_boilerplate_ Default / fallback letter spacing for the site\n"
+                        },
+                        {
+                            "name": "'font-size-breaks'",
+                            "value": "(\n    md: -1,\n)",
+                            "description": "_boilerplate_ Use this to automatically adjust font size on the body (and therefore also as the\nbasis for rems units) based on media queries. The value is a map that contains media query\nbreaks and inputs into the `fs()` function for retrieving a font-size. prettier-ignore\n"
+                        },
+                        {
+                            "name": "'type-scale'",
+                            "value": "(\n    'xxs': 11px,\n    'xs': 13px,\n    'sm': 14px,\n    'base': get('font-size-base'),\n    'md': 18px,\n    'lg': 20px,\n    'xl': 24px,\n    'h4': 28px,\n    'h3': 36px,\n    'h2': 42px,\n    'h1': 54px,\n    'd2': 60px,\n    'd1': 72px,\n)",
+                            "description": "A map of standard named font sizes. At least one size must be named 'base' which should\ncorrespond to base-font-size.\n"
+                        },
+                        {
+                            "name": "'type-bases'",
+                            "value": "(\n    headings: (\n        font-family: null,\n        font-weight: 700,\n        line-height: 1,\n        letter-spacing: null,\n        color: null,\n        margin-top: 0.75em,\n        margin-bottom: 0.75em,\n    ),\n    sub-headings: (\n        font-family: null,\n        font-weight: null,\n        line-height: 1.15,\n        letter-spacing: null,\n        color: null,\n        margin-bottom: 0.5em,\n    ),\n    code: (\n        font-family: get('code-font-family'),\n        font-size: get('code-font-size'),\n        font-weight: 400,\n        line-height: 1.4,\n    ),\n)",
+                            "description": "A set of type style base styles. These styles are never actually generated, but other type\nstyles can be derived from them with `type-style` mixin (which takes a map of additional css\nproperties or overrides). Note: individual settings can be configured using flat map syntax.\n"
+                        },
+                        {
+                            "name": "'type-styles'",
+                            "value": "(\n    '.display1': (\n        font-size: fs(7),\n        -base: 'headings',\n    ),\n    '.display2': (\n        font-size: fs(6),\n        -base: 'headings',\n    ),\n    '.h1': (\n        font-size: fs(5),\n        -base: 'headings',\n    ),\n    '.h2': (\n        font-size: fs(4),\n        -base: 'headings',\n    ),\n    '.h3': (\n        font-size: fs(3),\n        -base: 'headings',\n    ),\n    '.h4': (\n        font-size: fs(2),\n        -base: 'headings',\n    ),\n    '.h5': (\n        font-size: fs(1),\n        -base: 'headings',\n    ),\n    '.sh1': (\n        font-size: fs(2),\n        -base: 'sub-headings',\n    ),\n    '.sh2': (\n        font-size: fs(1),\n        -base: 'sub-headings',\n    ),\n    '.sh3': (\n        font-size: fs(0),\n        -base: 'sub-headings',\n    ),\n)",
+                            "description": "_boilerplate_ Full set of type styles that should be generated based. Each entry requires a\n`base` property which is a lookup into `type-bases`.\n"
+                        },
+                        {
+                            "name": "'breakpoints'",
+                            "value": "(\n    xs: 640px,\n    mobile: 768px,\n    sm: 1024px,\n    md: 1366px,\n    lg: 1600px,\n    xl: 1920px,\n)",
+                            "description": "Named breakpoints that can be used by the standard mediaquery mixins\n(e.g. `media-until(md) {...}`).\n"
+                        },
+                        {
+                            "name": "'mobile-breakpoint'",
+                            "value": "'mobile'",
+                            "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin\n`@media-until-mobile() {...}`.\n"
+                        },
+                        {
+                            "name": "'transitions'",
+                            "value": "(\n    default: (\n        dur: 150ms,\n        ease: $ease-out-quart,\n    ),\n    fast: (\n        dur: 75ms,\n        ease: $ease-out-quart,\n    ),\n    slow: (\n        dur: 300ms,\n        ease: $ease-out-quart,\n    ),\n    none: (\n        dur: 0,\n        ease: null,\n    ),\n)",
+                            "description": "Collection of named transitions. The keys in this map can be used as the second argument in\nthe `transition` mixin to help create consistent css transitions.  Note: individual settings\ncan be configured using flat map syntax.\n"
+                        },
+                        {
+                            "name": "'shadows:levels'",
+                            "value": "20",
+                            "description": "_shadows_ Number of distinct levels for both parameters ($depth, $color) of the\nstandardized shadow function / mixin.\n"
+                        },
+                        {
+                            "name": "'shadows:color'",
+                            "value": "black",
+                            "description": "_shadows_ Color or range for the standardized shadow.\n"
+                        },
+                        {
+                            "name": "'shadows:umbra'",
+                            "value": "(\n    y: ( 0px, 12px ),\n    blur: (0px, 20px),\n    spread: (0px, -7px),\n    opacity: (0.2, 0.3),\n)",
+                            "description": "_shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
+                        },
+                        {
+                            "name": "'shadows:penumbra'",
+                            "value": "(\n    y: (1px, 24px),\n    blur: (0px, 38px),\n    spread: (0px, 0px),\n    opacity: (0, 0.15),\n)",
+                            "description": "_shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
+                        },
+                        {
+                            "name": "'shadows:ambient'",
+                            "value": "(\n    y: (0px, 9px ),\n    blur: (0px, 50px),\n    spread: (0px, 8px),\n    opacity: (0.05, 0.15),\n)",
+                            "description": "_shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\ncan be configured using flat-map syntax.\n"
+                        },
+                        {
+                            "name": "'container'",
+                            "value": "(\n    width: 1200px,\n    gutter: sp(3),\n    selector: '.container',\n)",
+                            "description": "_boilerplate_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
+                        },
+                        {
+                            "name": "'reset'",
+                            "value": "(\n    sanitize: true,\n    link: true,\n    button: true,\n    lists: true,\n    headings: true,\n    paragraph: true,\n)",
+                            "description": "_boilerplate_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
+                        },
+                        {
+                            "name": "'links'",
+                            "value": "(\n    -selector: '.link',\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null\n    )\n)",
+                            "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "modules.atoms",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "modules",
+                    "group": "modules.atoms",
+                    "name": "atoms-flex",
+                    "docName": "atoms-flex()",
+                    "type": "mixin",
+                    "description": "Generate flex-box atoms.\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "prefix",
+                            "default": "''",
+                            "description": "A prefix that can be applied to each of the classes\ngenerated by the mixin."
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/atoms.scss"
                 }
             ]
         },
@@ -37,6 +244,23 @@ window.pxstyles = {
                     "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.\n",
                     "access": "public",
                     "path": "modules/reading.scss"
+                }
+            ]
+        },
+        {
+            "name": "modules.sanitize",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "modules",
+                    "group": "modules.sanitize",
+                    "name": "sanitize",
+                    "docName": "sanitize()",
+                    "type": "mixin",
+                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n",
+                    "access": "public",
+                    "path": "modules/sanitize.scss"
                 }
             ]
         },
@@ -1066,31 +1290,6 @@ window.pxstyles = {
                     "description": "Generate type style based on a site base style (as defined in type-bases)\n",
                     "access": "public",
                     "path": "site/typography.scss"
-                }
-            ]
-        },
-        {
-            "name": "utils.atoms",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "utils",
-                    "group": "utils.atoms",
-                    "name": "atoms-flex",
-                    "docName": "atoms-flex()",
-                    "type": "mixin",
-                    "description": "Generate flex-box atoms.\n\n",
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "prefix",
-                            "default": "''",
-                            "description": "A prefix that can be applied to each of the classes\ngenerated by the mixin."
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/atoms.scss"
                 }
             ]
         },
@@ -2301,23 +2500,6 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/misc.scss"
-                }
-            ]
-        },
-        {
-            "name": "utils.sanitize",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "utils",
-                    "group": "utils.sanitize",
-                    "name": "sanitize",
-                    "docName": "sanitize()",
-                    "type": "mixin",
-                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n",
-                    "access": "public",
-                    "path": "utils/sanitize.scss"
                 }
             ]
         },

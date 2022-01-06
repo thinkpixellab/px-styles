@@ -1,5 +1,8 @@
+/* url(https://fonts.googleapis.com/css?family=+Inter++) */
 @import url("https://fonts.googleapis.com/css?family=Inter");
+/* url(https://fonts.googleapis.com/css?family=+Inter:700++) */
 @import url("https://fonts.googleapis.com/css?family=Inter:700");
+/* url(https://fonts.googleapis.com/css?family=+Inter:900++) */
 @import url("https://fonts.googleapis.com/css?family=Inter:900");
 *,
 ::before,
@@ -243,9 +246,6 @@ textarea,
   position: absolute;
 }
 
-/* url(https://fonts.googleapis.com/css?family=+Inter++) */
-/* url(https://fonts.googleapis.com/css?family=+Inter:700++) */
-/* url(https://fonts.googleapis.com/css?family=+Inter:900++) */
 html {
   font-size: 15px;
 }

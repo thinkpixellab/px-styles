@@ -87,7 +87,7 @@ module.exports.annotations.push(function () {
         parse: function (text, info, id) {},
         resolve: function (items) {
             items.forEach(item => {
-                if (item.context.name == 'defaults') {
+                if (item.context.name == 'init') {
                     let defaults = findDefaults(item.context.code);
                     item.defaults = defaults;
                 }

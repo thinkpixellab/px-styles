@@ -1,7 +1,13 @@
+////
+/// @group modules.boilerplate
+/// Generated boilerplate classes for a site based on global configuration settings.
+////
+
 @use '../utils' as *;
 @use '../site' as *;
+@use 'sanitize' as *;
 
-@mixin basics() {
+@mixin boilerplate() {
     @if (get('fonts')) {
         // local fonts
         @each $font-name, $variants in get('fonts') {
@@ -30,6 +36,11 @@
                 }
             }
         }
+    }
+
+    // run sanitize (general page reset)
+    @if (get('reset:sanitize')) {
+        @include sanitize();
     }
 
     html {

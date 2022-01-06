@@ -15,8 +15,7 @@
 @include config('type-styles:.h1:font-weight', 900);
 
 @include init();
-@include sanitize();
-@include basics();
+@include boilerplate();
 
 html,
 body {

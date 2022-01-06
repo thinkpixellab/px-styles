@@ -1,9 +1,8 @@
 ////
-/// @group utils.atoms
+/// @group modules.atoms
 ////
 
-@use 'strings.scss' as *;
-@use 'units.scss' as *;
+@use '../utils' as *;
 
 // ----------------------------------------------------------------------------
 // flex-box
@@ -240,9 +239,11 @@
 // spacers
 // ----------------------------------------------------------------------------
 
+// TODO: move to config?
 // prettier-ignore
 $-spacer-props: ( p: padding, m: margin);
 
+// TODO: move to config?
 // prettier-ignore
 $-spacer-variants: (
     all: ( top, bottom, left, right ),
@@ -254,6 +255,7 @@ $-spacer-variants: (
     r: ( right ),
 );
 
+// TODO: move to config?
 // prettier-ignore
 $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
 

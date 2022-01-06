@@ -74,8 +74,13 @@ global css. Typically these would be in a separate file that only gets loaded on
 
 @use '~/styles/px.scss' as px;
 
-@include sanitize();
-@include basics();
+// initialize the site
+@include px.boilerplate();
+
+// other global css
+.button {
+    @include px.button();
+}
 ```
 
 ## API Documentation
@@ -175,24 +180,22 @@ Sample code that retrieves a bunch of common values:
 
 #### Possible Enhancements (not ordered)
 
--   Are we actually done with flexgrid? Should we add that back?
--   Rename basics() => boilerplate()
+-   Are we actually done with old school 12x column based grids? Should we add that back?
+-   Make easing variables available via function or else cleanup the docs to filter them somehow
+-   Better CSS Grid helpers
+-   Mixin for cover(url, centerx, centery)
+-   Mixin for contain(url, centerx, centery)
+-   Helpers for CSS vars?
+-   Fix shadow() - hard to remember how it works, and need a simple box-shadow version
+-   Transforms mixins?
+-   Make use of interesting css units (beyond viewport)
+-   Simple animations? (like animate.css)
+-   Create a vscode snippets library for common things?
+-   Add a list of good third party libs
+-   Refinements to the reading mixin / config
+-   z-order management
+-   ~~Rename "primary" as "accent"?~~
+-   ~~Rename basics() => boilerplate()~~
 -   ~~Rename defaults() => init()~~
--   Make sanitize a module and optionally called by the boilerplate mixin
--   Cleanup docs.
--   Possible enhancements:
-    -   ~~Bem helpers?~~
-    -   Make easing variables available via function or else cleanup the docs to filter them somehow
-    -   Better CSS Grid helpers
-    -   Mixin for cover(url, centerx, centery)
-    -   Mixin for contain(url, centerx, centery)
-    -   Helpers for CSS vars?
-    -   Fix shadow() - hard to remember how it works, and need a simple box-shadow version
-    -   Transforms mixins?
-    -   ~~Rename "primary" as "accent"?~~
-    -   Make use of interesting css units (beyond viewport)
-    -   Simple animations? (like animate.css)
-    -   Create a vscode snippets library for common things?
-    -   Add a list of good third party libs
-    -   Refinements to the reading mixin / config
-    -   z-order management
+-   ~~Make sanitize a module and optionally called by the boilerplate mixin~~
+-   ~~Bem helpers?~~
