@@ -15,7 +15,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
+                            "code": "// To initalize pxstyles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
                         }
                     ],
                     "access": "public",
@@ -216,7 +216,7 @@ window.pxstyles = {
                     "name": "atoms-flex",
                     "docName": "atoms-flex()",
                     "type": "mixin",
-                    "description": "Generate flex-box atoms.\n\n",
+                    "description": "Generate atomic classes for flexbox. Full list of classes:\n\n| Class | Equivalent Css |\n| ----- | -------------- |\n| .flex | display: flex; |\n| .flex-inline | display: inline-flex; |\n| .flex-row | flex-direction: row; |\n| .flex-row-reverse | flex-direction: row-reverse; |\n| .flex-column | flex-direction: column; |\n| .flex-column-reverse | flex-direction: column-reverse; |\n| .flex-wrap | flex-wrap: wrap; |\n| .flex-wrap-column | flex-wrap: wrap; flex-direction: column; |\n| .flex-wrap-reverse | flex-wrap: wrap-reverse; |\n| .flex-nowrap | flex-wrap: nowrap; |\n| .flex-auto | flex: 1 1 auto; |\n| .flex-none | flex: none; |\n| .flex-grow-[0...4] | flex-grow: [0...4] |\n| .flex-shrink-[0...4] | flex-shrink: [0...4]; |\n| .items-start | align-items: flex-start; |\n| .items-end | align-items: flex-end; |\n| .items-center | align-items: center; |\n| .items-baseline | align-items: baseline; |\n| .items-stretch | align-items: stretch; |\n| .justify-start | justify-content: flex-start; |\n| .justify-end | justify-content: flex-end; |\n| .justify-center | justify-content: center; |\n| .justify-between | justify-content: space-between; |\n| .justify-around | justify-content: space-around; |\n| .justify-stretch | justify-content: stretch; |\n| .self-start | align-self: flex-start; |\n| .self-end | align-self: flex-end; |\n| .self-center | align-self: center; |\n| .self-baseline | align-self: baseline; |\n| .self-stretch | align-self: stretch; |\n| .order-[0...9] | order: [0...9]; |\n| .order-first | order: -99999; |\n| .order-last | order: 99999; |\n| .flex-center | display: flex; align-items: center; |\n\n",
                     "parameter": [
                         {
                             "type": "*",
@@ -428,6 +428,50 @@ window.pxstyles = {
                             "name": "fallback",
                             "default": "null",
                             "description": "The value to return if the path doesn't exist.\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "throw-not-found",
+                            "default": "null",
+                            "description": "Whether to throw an errow if the value can't be retrieved\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/config.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.config",
+                    "name": "if-null-get",
+                    "docName": "if-null-get()",
+                    "type": "function",
+                    "description": "Retrieve a configuration setting if and only if the provided $value is null.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$value: if-null-get(null, 'colors:mycolor'); // => the config value for 'colors:mycolor'"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "$value: if-null-get(red, 'colors:mycolor'); // => red"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string or list",
+                            "name": "paths",
+                            "description": "The value to check for null"
+                        },
+                        {
+                            "type": "string or list",
+                            "name": "paths",
+                            "description": "Path for the value to retrieve if $value is null (see details for get())"
+                        },
+                        {
+                            "type": "*",
+                            "name": "throw-not-found",
+                            "default": "null",
+                            "description": "Whether to throw an errow if the value can't be retrieved\n"
                         }
                     ],
                     "access": "public",

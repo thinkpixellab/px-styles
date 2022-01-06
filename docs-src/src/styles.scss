@@ -247,6 +247,27 @@ strong {
 
 .markdown {
     @include reading();
+
+    table {
+        font-size: fs(sm);
+        text-align: left;
+        width: 100%;
+        tr,
+        td,
+        th {
+            text-align: left;
+        }
+        th {
+            border-bottom: 1px solid gray(-4);
+        }
+        td,
+        th {
+            padding: sp(0.25);
+        }
+        tr:nth-child(even) td {
+            background-color: gray(8);
+        }
+    }
 }
 
 // copy icon

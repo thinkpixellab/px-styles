@@ -38,7 +38,7 @@
 ///
 /// @example
 /// // To initalize pxstyles, first add any required configuration
-/// %%include px.config('colors:accent', #00dc82);
+/// %%include config('colors:accent', #00dc82);
 ///
 /// // then load the defaults by calling this mixin
 /// %%include init();

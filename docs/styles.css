@@ -767,6 +767,26 @@ strong {
   color: #0099fd;
   text-decoration: underline;
 }
+.markdown table {
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+}
+.markdown table tr,
+.markdown table td,
+.markdown table th {
+  text-align: left;
+}
+.markdown table th {
+  border-bottom: 1px solid #56656f;
+}
+.markdown table td,
+.markdown table th {
+  padding: 0.2rem;
+}
+.markdown table tr:nth-child(even) td {
+  background-color: #e9ecee;
+}
 
 .hljs,
 .item-default-name {

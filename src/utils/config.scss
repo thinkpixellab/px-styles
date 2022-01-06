@@ -26,6 +26,8 @@ $-defaults: ();
 ///
 /// @param {*} $fallback [null] The value to return if the path doesn't exist.
 ///
+/// @param {*} $throw-not-found [null] Whether to throw an errow if the value can't be retrieved
+///
 /// @example
 /// $value: get('colors:mycolor', red);
 
@@ -51,6 +53,22 @@ $-defaults: ();
     }
 
     @return $fallback;
+}
+
+/// Retrieve a configuration setting if and only if the provided $value is null.
+///
+/// @param {string or list} $paths The value to check for null
+/// @param {string or list} $paths Path for the value to retrieve if $value is null (see details for get())
+/// @param {*} $throw-not-found [null] Whether to throw an errow if the value can't be retrieved
+///
+/// @example
+/// $value: if-null-get(null, 'colors:mycolor'); // => the config value for 'colors:mycolor'
+///
+/// @example
+/// $value: if-null-get(red, 'colors:mycolor'); // => red
+
+@function if-null-get($value, $paths, $throw-not-found: true) {
+    @return if-null($value, get($paths, $throw-not-found: $throw-not));
 }
 
 /// Add a configuration setting.
