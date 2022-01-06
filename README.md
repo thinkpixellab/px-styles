@@ -7,7 +7,7 @@ approach to styling that encourages reuse and best practices while maintaing fle
 ## Useful Links
 
 -   Repository: [https://github.com/thinkpixellab/pxstyles](https://github.com/thinkpixellab/pxstyles)
--   API Documentation: [https://thinkpixellab.github.io/pxstyles/](https://thinkpixellab.github.io/pxstyles/#sitecolor-accent)
+-   API Documentation: [https://thinkpixellab.github.io/pxstyles](https://thinkpixellab.github.io/pxstyles)
 -   NPM Package: [https://www.npmjs.com/package/@thinkpixellab/pxstyles](https://www.npmjs.com/package/@thinkpixellab/pxstyles)
 
 ## Install
