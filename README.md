@@ -179,7 +179,7 @@ To kickoff a docs build just run `gulp docs`
 
 ### Playground
 
-The project is setup so that you can play with the library from a file in the root called `scratch.scss`. Run `gulp scratch` to build this file (the output will be available as `scratch.css` (note the prefix of 'css' instead of 'scss`)). These files have also been added to .gitignore so you should be able to play with them freely.
+The project is setup so that you can play with the library from a file in the root called `scratch.scss`. Run `gulp scratch` to build this file once you've created it. After building, the output will be available as `scratch.css` (note the prefix of 'css' instead of 'scss`). These files have also been added to .gitignore so you should be able to play with them freely.
 
 Here is a sample scratch file that will load pxstyles from local source:
 
