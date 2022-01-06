@@ -1,13 +1,12 @@
 @use 'px' as *;
 @use 'true' as *;
 
-// Test CSS output from mixins
-@include test-module('aspect related mixins and fucntions') {
-    @include test('function aspect-to-number()(string)') {
+@include test-module('utils.layout') {
+    @include test('function aspect-to-number (with string)') {
         @include assert-equal(aspect-to-number('5:2'), 2.5);
     }
 
-    @include test('function aspect-to-number()=') {
+    @include test('function aspect-to-number (with number)') {
         @include assert-equal(aspect-to-number(2.5), 2.5);
     }
 
