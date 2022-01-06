@@ -1,0 +1,44 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.bem') {
+    @include test('get-block-name') {
+        @include assert-equal(get-block-name('.block__element--modifier'), 'block');
+    }
+
+    @include test('bem mixin') {
+        @include assert {
+            // test
+            @include output {
+                @include bem(element) {
+                    color: red;
+                }
+            }
+            // expect output
+            @include expect {
+                .test-output__element {
+                    color: red;
+                }
+            }
+        }
+    }
+
+    @include test('bem mixin with modifier and child') {
+        @include assert {
+            // test
+            @include output {
+                @include bem(element, modifier) {
+                    @include bem(child) {
+                        color: red;
+                    }
+                }
+            }
+            // expect output
+            @include expect {
+                .test-output__element--modifier .test-output__child {
+                    color: red;
+                }
+            }
+        }
+    }
+}

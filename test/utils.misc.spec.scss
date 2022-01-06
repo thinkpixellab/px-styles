@@ -1,0 +1,18 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.misc') {
+    @include test('mixin no-select') {
+        @include assert {
+            // test
+            @include output {
+                @include no-select;
+            }
+            // output
+            @include expect {
+                -webkit-touch-callout: none;
+                user-select: none;
+            }
+        }
+    }
+}
