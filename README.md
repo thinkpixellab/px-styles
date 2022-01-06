@@ -4,6 +4,12 @@ This is a simple SCSS framework that provides basic site setup and some common f
 projects. The goal is to create a simple to understand boilerplate coupled with a consistent
 approach to styling that encourages reuse and best practices while maintaing flexibility.
 
+## Useful Links
+
+-   Repository: [https://github.com/thinkpixellab/pxstyles](https://github.com/thinkpixellab/pxstyles)
+-   API Documentation: [https://thinkpixellab.github.io/pxstyles/#sitecolor-accent](https://thinkpixellab.github.io/pxstyles/#sitecolor-accent)
+-   NPM Package: [https://www.npmjs.com/package/@thinkpixellab/pxstyles](https://www.npmjs.com/package/@thinkpixellab/pxstyles)
+
 ## Install
 
 ##### Install the package
@@ -37,9 +43,9 @@ then @use that file knowing pxstyles has been properly configured. Here's a samp
 @include px.config('colors:page-bg', #011e26);
 @include px.config('colors:page-fg', white);
 
-// load defaults (required)
+// initialize and load defaults (required)
 
-@include px.defaults();
+@include px.init();
 ```
 
 That file can then be imported by other .scss files and components.
@@ -170,9 +176,12 @@ Sample code that retrieves a bunch of common values:
 #### Possible Enhancements (not ordered)
 
 -   Are we actually done with flexgrid? Should we add that back?
+-   Rename basics() => boilerplate()
+-   ~~Rename defaults() => init()~~
+-   Make sanitize a module and optionally called by the boilerplate mixin
 -   Cleanup docs.
 -   Possible enhancements:
-    -   Bem helpers?
+    -   ~~Bem helpers?~~
     -   Make easing variables available via function or else cleanup the docs to filter them somehow
     -   Better CSS Grid helpers
     -   Mixin for cover(url, centerx, centery)
@@ -186,3 +195,4 @@ Sample code that retrieves a bunch of common values:
     -   Create a vscode snippets library for common things?
     -   Add a list of good third party libs
     -   Refinements to the reading mixin / config
+    -   z-order management
