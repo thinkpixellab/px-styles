@@ -1,5 +1,5 @@
 ////
-/// @group defaults
+/// @group init
 ///
 
 // Here is the loading problem in a nutshell (and the reason to use a mixin for defaults):
@@ -18,33 +18,34 @@
 // The fix:
 //
 //     // create a mixin that allows us to defer setting global defaults
-//     @mixin defaults() {
+//     @mixin init() {
 //         $primary: red !default !global;
 //         $link: darken($primary, 10%) !default !global;
 //     }
 //
 //     $primary: blue;
-//     @include defaults();
+//     @include init();
 //
 //    // result ==> $link is correctly derived from blue
 
 @use 'utils' as *;
 @use 'site' as *;
 
-/// All defaults for all built-in modules are defined in this mixin. This fixes a generalized
-/// loading problem and provides a single place to document all possible defaults in a single
-/// location. See the source for details.
+/// Initialize the library by filling in default values for all config values that haven't been
+/// previously set using the `config` command. All defaults for all built-in modules are defined in
+/// this mixin. This fixes a generalized loading problem and provides a single place to document all
+/// possible defaults in a single location. See the source for details.
 ///
 /// @example
 /// // To initalize pxstyles, first add any required configuration
 /// %%include px.config('colors:accent', #00dc82);
 ///
 /// // then load the defaults by calling this mixin
-/// %%include defaults();
+/// %%include init();
 ///
-/// @defaults
+/// @defaults (this annotation will tell sassdoc to find and publish all calls to default)
 
-@mixin defaults() {
+@mixin init() {
     // ----------------------------------------------------------------------------
     // Site
     // ----------------------------------------------------------------------------

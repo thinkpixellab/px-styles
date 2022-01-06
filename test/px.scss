@@ -2,7 +2,7 @@
 @use '../index.scss' as *;
 
 // load pxstyles defaults
-@include defaults();
+@include init();
 
 // enable terminal output for true
 $terminal-output: true !default;

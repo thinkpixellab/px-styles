@@ -1,207 +1,25 @@
 window.pxstyles = {
     "groups": [
         {
-            "name": "defaults",
+            "name": "init",
             "description": "",
             "variables": [],
             "items": [
                 {
                     "namespace": "other",
-                    "group": "defaults",
-                    "name": "defaults",
-                    "docName": "defaults()",
+                    "group": "init",
+                    "name": "init",
+                    "docName": "init()",
                     "type": "mixin",
-                    "description": "All defaults for all built-in modules are defined in this mixin. This fixes a generalized\nloading problem and provides a single place to document all possible defaults in a single\nlocation. See the source for details.\n\n",
+                    "description": "Initialize the library by filling in default values for all config values that haven't been\npreviously set using the `config` command. All defaults for all built-in modules are defined in\nthis mixin. This fixes a generalized loading problem and provides a single place to document all\npossible defaults in a single location. See the source for details.\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include defaults();"
+                            "code": "// To initalize pxstyles, first add any required configuration\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
                         }
                     ],
                     "access": "public",
-                    "path": "defaults.scss",
-                    "defaults": [
-                        {
-                            "name": "'font-size-base'",
-                            "value": "15px",
-                            "description": "Base font size (set on the body, used for rems calculations)\n"
-                        },
-                        {
-                            "name": "'spacer'",
-                            "value": "rems(12px)",
-                            "description": "Global default value for spacing functions\n"
-                        },
-                        {
-                            "name": "'shade-steps'",
-                            "value": "20",
-                            "description": "The total number of available shades in the shade and color functions (value of 20 produces a range of shades from -10, 10)\n"
-                        },
-                        {
-                            "name": "'shade-range'",
-                            "value": "(black, white)",
-                            "description": "The default range for color shading\n"
-                        },
-                        {
-                            "name": "'colors:accent'",
-                            "value": "#0099fd",
-                            "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
-                        },
-                        {
-                            "name": "'colors:gray'",
-                            "value": "(mix(#a0a0a0, accent(), 90%), accent(-9), white)",
-                            "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
-                        },
-                        {
-                            "name": "'colors:select'",
-                            "value": "accent(-4)",
-                            "description": "Default text selection color\n"
-                        },
-                        {
-                            "name": "'colors:page-bg'",
-                            "value": "white",
-                            "description": "Default page background color\n"
-                        },
-                        {
-                            "name": "'colors:page-fg'",
-                            "value": "gray(-7)",
-                            "description": "Default page foreground\n"
-                        },
-                        {
-                            "name": "'colors:contrast-light'",
-                            "value": "clr(page-bg)",
-                            "description": "Default light color used when computing contrast colors\n"
-                        },
-                        {
-                            "name": "'colors:contrast-dark'",
-                            "value": "clr(page-fg)",
-                            "description": "Default light color used when computing contrast colors\n"
-                        },
-                        {
-                            "name": "'colors:selection-bg'",
-                            "value": "clr(select)",
-                            "description": "Default background color for selected text\n"
-                        },
-                        {
-                            "name": "'colors:selection-fg'",
-                            "value": "contrast-color(clr(select))",
-                            "description": "Default foreground color for selected text\n"
-                        },
-                        {
-                            "name": "'fonts'",
-                            "value": "()",
-                            "description": "_basics_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    Circular: (src: '../assets/fonts/circular', weight: 500, style: normal)\n));\n```\n"
-                        },
-                        {
-                            "name": "'font-family'",
-                            "value": "sans-serif",
-                            "description": "_basics_ Default / fallback font family for the site\n"
-                        },
-                        {
-                            "name": "'font-weight'",
-                            "value": "400",
-                            "description": "_basics_ Default / fallback font-weight for the site\n"
-                        },
-                        {
-                            "name": "'font-smoothing'",
-                            "value": "true",
-                            "description": "_basics_ Whether to enable font-smoothing\n"
-                        },
-                        {
-                            "name": "'code-font-family'",
-                            "value": "(Menlo, Monaco, Consolas, monospace)",
-                            "description": "_basics_ Default code / mono font family (used as the default font for pre and code elements)\n"
-                        },
-                        {
-                            "name": "'code-font-size'",
-                            "value": "rems(13px)",
-                            "description": "_basics_ Default code / mono font size (used as the default font for pre and code elements)\n"
-                        },
-                        {
-                            "name": "'line-height'",
-                            "value": "normal",
-                            "description": "_basics_ Default / fallback line-height for standard text\n"
-                        },
-                        {
-                            "name": "'letter-spacing'",
-                            "value": "normal",
-                            "description": "_basics_ Default / fallback letter spacing for the site\n"
-                        },
-                        {
-                            "name": "'font-size-breaks'",
-                            "value": "(\n    md: -1,\n)",
-                            "description": "_basics_ Use this to automatically adjust font size on the body (and therefore also as the\nbasis for rems units) based on media queries. The value is a map that contains media query\nbreaks and inputs into the `fs()` function for retrieving a font-size. prettier-ignore\n"
-                        },
-                        {
-                            "name": "'type-scale'",
-                            "value": "(\n    'xxs': 11px,\n    'xs': 13px,\n    'sm': 14px,\n    'base': get('font-size-base'),\n    'md': 18px,\n    'lg': 20px,\n    'xl': 24px,\n    'h4': 28px,\n    'h3': 36px,\n    'h2': 42px,\n    'h1': 54px,\n    'd2': 60px,\n    'd1': 72px,\n)",
-                            "description": "A map of standard named font sizes. At least one size must be named 'base' which should\ncorrespond to base-font-size.\n"
-                        },
-                        {
-                            "name": "'type-bases'",
-                            "value": "(\n    headings: (\n        font-family: null,\n        font-weight: 700,\n        line-height: 1,\n        letter-spacing: null,\n        color: null,\n        margin-top: 0.75em,\n        margin-bottom: 0.75em,\n    ),\n    sub-headings: (\n        font-family: null,\n        font-weight: null,\n        line-height: 1.15,\n        letter-spacing: null,\n        color: null,\n        margin-bottom: 0.5em,\n    ),\n    code: (\n        font-family: get('code-font-family'),\n        font-size: get('code-font-size'),\n        font-weight: 400,\n        line-height: 1.4,\n    ),\n)",
-                            "description": "A set of type style base styles. These styles are never actually generated, but other type\nstyles can be derived from them with `type-style` mixin (which takes a map of additional css\nproperties or overrides). Note: individual settings can be configured using flat map syntax.\n"
-                        },
-                        {
-                            "name": "'type-styles'",
-                            "value": "(\n    '.display1': (\n        font-size: fs(7),\n        -base: 'headings',\n    ),\n    '.display2': (\n        font-size: fs(6),\n        -base: 'headings',\n    ),\n    '.h1': (\n        font-size: fs(5),\n        -base: 'headings',\n    ),\n    '.h2': (\n        font-size: fs(4),\n        -base: 'headings',\n    ),\n    '.h3': (\n        font-size: fs(3),\n        -base: 'headings',\n    ),\n    '.h4': (\n        font-size: fs(2),\n        -base: 'headings',\n    ),\n    '.h5': (\n        font-size: fs(1),\n        -base: 'headings',\n    ),\n    '.sh1': (\n        font-size: fs(2),\n        -base: 'sub-headings',\n    ),\n    '.sh2': (\n        font-size: fs(1),\n        -base: 'sub-headings',\n    ),\n    '.sh3': (\n        font-size: fs(0),\n        -base: 'sub-headings',\n    ),\n)",
-                            "description": "_basics_ Full set of type styles that should be generated based. Each entry requires a\n`base` property which is a lookup into `type-bases`.\n"
-                        },
-                        {
-                            "name": "'breakpoints'",
-                            "value": "(\n    xs: 640px,\n    mobile: 768px,\n    sm: 1024px,\n    md: 1366px,\n    lg: 1600px,\n    xl: 1920px,\n)",
-                            "description": "Named breakpoints that can be used by the standard mediaquery mixins\n(e.g. `media-until(md) {...}`).\n"
-                        },
-                        {
-                            "name": "'mobile-breakpoint'",
-                            "value": "'mobile'",
-                            "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin\n`@media-until-mobile() {...}`.\n"
-                        },
-                        {
-                            "name": "'transitions'",
-                            "value": "(\n    default: (\n        dur: 150ms,\n        ease: $ease-out-quart,\n    ),\n    fast: (\n        dur: 75ms,\n        ease: $ease-out-quart,\n    ),\n    slow: (\n        dur: 300ms,\n        ease: $ease-out-quart,\n    ),\n    none: (\n        dur: 0,\n        ease: null,\n    ),\n)",
-                            "description": "Collection of named transitions. The keys in this map can be used as the second argument in\nthe `transition` mixin to help create consistent css transitions.  Note: individual settings\ncan be configured using flat map syntax.\n"
-                        },
-                        {
-                            "name": "'shadows:levels'",
-                            "value": "20",
-                            "description": "_shadows_ Number of distinct levels for both parameters ($depth, $color) of the\nstandardized shadow function / mixin.\n"
-                        },
-                        {
-                            "name": "'shadows:color'",
-                            "value": "black",
-                            "description": "_shadows_ Color or range for the standardized shadow.\n"
-                        },
-                        {
-                            "name": "'shadows:umbra'",
-                            "value": "(\n    y: ( 0px, 12px ),\n    blur: (0px, 20px),\n    spread: (0px, -7px),\n    opacity: (0.2, 0.3),\n)",
-                            "description": "_shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
-                        },
-                        {
-                            "name": "'shadows:penumbra'",
-                            "value": "(\n    y: (1px, 24px),\n    blur: (0px, 38px),\n    spread: (0px, 0px),\n    opacity: (0, 0.15),\n)",
-                            "description": "_shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
-                        },
-                        {
-                            "name": "'shadows:ambient'",
-                            "value": "(\n    y: (0px, 9px ),\n    blur: (0px, 50px),\n    spread: (0px, 8px),\n    opacity: (0.05, 0.15),\n)",
-                            "description": "_shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\ncan be configured using flat-map syntax.\n"
-                        },
-                        {
-                            "name": "'container'",
-                            "value": "(\n    width: 1200px,\n    gutter: sp(3),\n    selector: '.container',\n)",
-                            "description": "_basics_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
-                        },
-                        {
-                            "name": "'reset'",
-                            "value": "(\n    sanitize: true,\n    link: true,\n    button: true,\n    lists: true,\n    headings: true,\n    paragraph: true,\n)",
-                            "description": "_basics_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
-                        },
-                        {
-                            "name": "'links'",
-                            "value": "(\n    -selector: '.link',\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null\n    )\n)",
-                            "description": "_basics_ Setings related to the default rendering of hyperlinks.\n"
-                        }
-                    ]
+                    "path": "init.scss"
                 }
             ]
         },
@@ -1273,6 +1091,111 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/atoms.scss"
+                }
+            ]
+        },
+        {
+            "name": "utils.bem",
+            "description": "Provides a series of functions and mixins that make it easier to generate\n[bem](http://getbem.com/) style class names. Modified from the great thinking done\n[here](https://codepen.io/gionkunz/pen/rkswl?editors=010).\n\nUnlike many bem mixins, there is no specific mixin for creating modifier classes. Instead,\nmodifiers and pseudo classes can be included directly in the call to the block or element mixin.",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
+                    "name": "get-block-name",
+                    "docName": "get-block-name()",
+                    "type": "function",
+                    "description": "Extracts the block name form a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "selector"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/bem.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
+                    "name": "block",
+                    "docName": "block()",
+                    "type": "mixin",
+                    "description": "Creates a block class selector using the bem approach to class naming. This is often unecessary\nsince elements can be nested under the block class using a normal declation.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "name",
+                            "description": "The block name string"
+                        },
+                        {
+                            "type": "string",
+                            "name": "modifier",
+                            "default": "''",
+                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected)."
+                        },
+                        {
+                            "type": "string",
+                            "name": "pseudo",
+                            "default": "''",
+                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/bem.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
+                    "name": "bem",
+                    "docName": "bem()",
+                    "type": "mixin",
+                    "description": "Creates a element--modifier class name using the bem approach to class naming. Can be used\ninside of the block mixin or just within a class declartion. Should also work with media media\nqueries and other complex scnearios.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ".block { @include bem(element) { ... } }\n// => block__element { ... }"
+                        },
+                        {
+                            "type": "scss",
+                            "code": ".block { @include bem,(element, modifier) { ... } }\n// => block__element--modifier { ... }"
+                        },
+                        {
+                            "type": "scss",
+                            "code": ".block { @include bem(element, $pseudo:after) { ... } }\n// => block__element:after { ... }"
+                        },
+                        {
+                            "type": "scss",
+                            "code": ".block { @include bem,(element, modifier) { @include bem(child) { ... } } }\n// => .block__element--modifier { .block__child { ... } }"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "name",
+                            "description": "The element name string"
+                        },
+                        {
+                            "type": "string",
+                            "name": "modifier",
+                            "default": "''",
+                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected)."
+                        },
+                        {
+                            "type": "string",
+                            "name": "pseudo",
+                            "default": "''",
+                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/bem.scss"
                 }
             ]
         },

@@ -47,7 +47,7 @@ $-defaults: ();
 
     @if ($throw-not-found) {
         $path-str: if(type-of($paths) == 'list', list-join($paths, ':'), $paths);
-        @error 'Could not find required config value for path "#{$path-str}". This could mean that pxstyles wasn\'t properly configured using the defaults() mixin. If you are seeing this error during a call to config, then you are likely using a function that requires configuration. You can fix this by also configuring the missing value.';
+        @error 'Could not find required config value for path "#{$path-str}". This could mean that pxstyles wasn\'t properly configured using the init() mixin. If you are seeing this error during a call to config, then you are likely using a function that requires configuration. You can fix this by also configuring the missing value.';
     }
 
     @return $fallback;
