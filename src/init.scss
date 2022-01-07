@@ -33,6 +33,14 @@
 
 $-px-is-init: false;
 
+/// Throws an error if the init mixin hasn't been called / included. Librares with dependencies on
+/// pxstyless can use this to ensure that init has been called.
+@mixin ensure-init() {
+    @if not $-px-is-init {
+        @error 'Error: pxstyles has not been initialized. You may need to modify the pxstyles is loaded and make sure that the init() mixin has been called.';
+    }
+}
+
 /// Initialize the library by filling in default values for all config values that haven't been
 /// previously set using the `config` command. All defaults for all built-in modules are defined in
 /// this mixin. This fixes a generalized loading problem and provides a single place to document all
@@ -652,14 +660,6 @@ $-px-is-init: false;
 
     // flag as initialized
     $-px-is-init: true !global;
-}
-
-/// Throws an error if the init mixin hasn't been called / included. Librares with dependencies on
-/// pxstyless can use this to ensure that init has been called.
-@mixin ensure-init() {
-    @if not $-px-is-init {
-        @error 'Error: pxstyles has not been initialized. You may need to modify the pxstyles is loaded and make sure that the init() mixin has been called.';
-    }
 }
 
 // @include default(

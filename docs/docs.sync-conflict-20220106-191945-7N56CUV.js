@@ -8,16 +8,6 @@ window.pxstyles = {
                 {
                     "namespace": "other",
                     "group": "init",
-                    "name": "ensure-init",
-                    "docName": "ensure-init()",
-                    "type": "mixin",
-                    "description": "Throws an error if the init mixin hasn't been called / included. Librares with dependencies on\npxstyless can use this to ensure that init has been called.\n",
-                    "access": "public",
-                    "path": "init.scss"
-                },
-                {
-                    "namespace": "other",
-                    "group": "init",
                     "name": "init",
                     "docName": "init()",
                     "type": "mixin",
