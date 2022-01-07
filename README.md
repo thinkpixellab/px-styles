@@ -200,6 +200,9 @@ Here is a sample scratch file that will load pxstyles from local source:
 
 #### Possible Enhancements (not ordered)
 
+-   Better version management. It would be great to inlude a mixin like ensure-version($version)
+    that would make sure that you're using a compatible version of pxstyles. Maybe package
+    versioning is enough but it seems like we could do a little more to prevent breaks.
 -   Are we actually done with old school 12x column based grids? Should we add that back?
 -   Make easing variables available via function or else cleanup the docs to filter them somehow
 -   Better CSS Grid helpers
