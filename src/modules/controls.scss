@@ -1,5 +1,5 @@
 ////
-/// @group site.controls
+/// @group modules.controls
 ////
 
 @use '../utils' as *;
@@ -71,7 +71,7 @@
 /// opinionated. All sizing is in ems (so setting the font size will scale the button). See the
 /// source for more details.
 ///
-/// @param {map} $overrides [()] CSS map. Just about any css is valid (currently transitions can't
+/// @param {map} $overrides [()] A map containing css key / value pairs. Just about any css is valid (currently transitions can't
 /// be override) including supported state specific values: hover, active, disabled. If background
 /// or color are set, they will be adapted for other states unless also override for those states
 ///
@@ -134,7 +134,7 @@
 /// Generates a (somewhat opinionated) outlined button style based on the site's button settings.
 /// Behaves a lot like the `button` mixin so see that for more detail.
 ///
-/// @param {map} $overrides [()] CSS map. Just about any css is valid (currently transitions can't
+/// @param {map} $overrides [()] A map containing css key/value paairs. Just about any css is valid (currently transitions can't
 /// be overriden) including supported state specific values: hover, active, disabled. The outline
 /// color is derived from the border color. The properties border-color and color can be specified as
 /// shades (numbers relative to the border-color or primary accent color).
@@ -170,7 +170,7 @@
 
 /// Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.
 ///
-/// @param {map} $overrides [()] CSS map. Just about any css is valid.
+/// @param {map} $overrides [()]  A map containing css key/value paairs. Just about any css is valid.
 ///
 /// @example
 /// %%include button() => creates a standard, default button
@@ -212,7 +212,7 @@
         font-weight: get('controls:font-weight'),
         font-family: get('controls:font-family'),
         border: none,
-        background-color: rgba(gray(8), 0.66),
+        background-color: rgba(gray(6), 0.33),
         color: clr('page-fg'),
         padding: 0 0.5em,
         disabled: (
@@ -292,5 +292,56 @@
 @mixin -focus($style, $color: null) {
     @include focus() {
         @include -focus-style($style, $color);
+    }
+}
+
+// ----------------------------------------------------------------------------
+// scrollbar
+// ----------------------------------------------------------------------------
+
+/// Customize the appearance of a scrollbar. Good support in modern webkit and chromium based
+/// browsers. Has the effect of making scrollbars always visible even if the operating system would
+/// normally hide them. There is no way to make the track full transparent. Set $nested to false if
+/// apply to all scrollbars (this will remove the parent join).
+///
+/// @param {*} $size The overall width of the scrollbar
+///
+/// @param {*} $color The color of the scrollbar thumb (and background is derived from this if not
+/// provided)
+///
+/// @param {*} $radius [0] The border radius of the scrollbar thumb
+///
+/// @param {*} $background [null] The color of the scrollbar track area (defaults to $color mixed
+/// with 50% white if not provided)
+///
+/// @param {*} $padding [null] Padding around the scrollbar thumb (created artificially with a hack
+/// since this isn't supported by the css)
+///
+/// @param {true} $nested [null] Set to false if this is using outside of a parent selector (to
+/// apply to all scrollbars).
+
+@mixin scrollbar($size, $color, $radius: null, $background: null, $padding: null, $nested: true) {
+    $background: if-null($background, mix($color, white));
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-thumb {
+        border-radius: $radius;
+
+        // if $padding is defined, we use a shadow to create the background and
+        // a transparent border to create the padding
+        @if ($padding) {
+            box-shadow: inset 0 0 $size $size $color;
+            border: solid $padding transparent;
+        } @else {
+            background: $color;
+        }
+    }
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-track {
+        background: $background;
     }
 }

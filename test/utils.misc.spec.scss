@@ -15,4 +15,24 @@
             }
         }
     }
+
+    @include test('mixin line-clamp') {
+        @include assert {
+            // test
+            @include output {
+                .multiline-button {
+                    @include line-clamp(3);
+                }
+            }
+            // output
+            @include expect {
+                .multiline-button {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
 }

@@ -22,6 +22,8 @@ body {
     scroll-behavior: smooth;
 }
 
+@include scrollbar(6px, gray(6), 0, gray(9), $nested: false);
+
 #app {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -33,24 +35,28 @@ body {
 }
 
 .textbox {
-    @include textbox();
+    @include textbox(
+        (
+            border-radius: 9999px,
+            padding: 0 1.25em,
+        )
+    );
 }
 
 .nav {
     position: sticky;
     top: 0;
-    background-color: gray(-8);
-    color: white;
+    background-color: white;
     padding: sp(1);
-    min-width: 240px;
+    min-width: 320px;
     grid-area: nav;
     overflow-y: scroll;
+    border-right: 1px solid gray(5);
 }
 
 .nav-filter {
     > input {
         width: 100%;
-        background-color: white;
     }
     // position: sticky;
     // top: 0;
@@ -66,8 +72,10 @@ body {
 
 .nav-item {
     opacity: 0.66;
+    padding: 0.25em;
     &:hover {
         opacity: 1;
+        color: accent();
     }
 }
 

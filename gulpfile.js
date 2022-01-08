@@ -1,6 +1,17 @@
 const sassdoc = require('sassdoc');
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
+const fs = require('fs');
+const pckg = require('./package.json');
+
+// write the package version to a scss file
+function verToSass(done) {
+    fs.writeFileSync(
+        './src/version.scss',
+        `@function get-version() { @return '${pckg.version}'; }`
+    );
+    done();
+}
 
 // compile documentation with sassdoc
 function sassDoc(done) {
@@ -29,6 +40,7 @@ function scratch(done) {
     done();
 }
 
+exports.verToSass = verToSass;
 exports.sassDoc = sassDoc;
 exports.docStyles = docStyles;
 exports.copyDocFiles = copyDocFiles;

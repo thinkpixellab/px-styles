@@ -30,14 +30,64 @@
 
 @use 'utils' as *;
 @use 'site' as *;
+@use 'version' as *;
 
 $-px-is-init: false;
+$-px-version: str-split(get-version(), '.');
+$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));
+$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));
+$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
 
-/// Throws an error if the init mixin hasn't been called / included. Librares with dependencies on
-/// pxstyless can use this to ensure that init has been called.
-@mixin ensure-init() {
-    @if not $-px-is-init {
-        @error 'Error: pxstyles has not been initialized. You may need to modify the pxstyles is loaded and make sure that the init() mixin has been called.';
+/// Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been
+/// called / included. Checks are also provided for an optional minimum required version and an
+/// optional configuration key that must be present.
+///
+/// This mixin is generally not required but there may be cases where components from different
+/// libraries are each loading px-styles and this help to ensure that it has been initalized and
+/// initialized with a compatible configuration.
+///
+/// @param {string} $require-min-version [null] A version number string consisting of three parts
+/// separated by periods (e.g. 1.0.15) that represents the minimum required initialization version.
+///
+/// @param {string} $require-config-key [null] A configuration key (e.g. 'theme-projectname') that
+/// must be set to a truthy value in the the config registry.
+///
+/// @example
+/// %%include ensure-init($require-min-version: 1.0.0); // throws an error if initialized with verion 0.9.9
+///
+/// @example
+/// %%include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy
+
+@mixin ensure-init($require-min-version: null, $require-config-key: null) {
+    $is-init: $-px-is-init;
+
+    @if not $is-init {
+        @error 'Error: px-styles has not been correctly initialized. Make sure that the init() mixin has been called.';
+    }
+
+    // if provided, compare against the required version
+    @if ($require-min-version) {
+        $min-version: str-split($require-min-version, '.');
+        $min-version-major: to-number(nth-if-length($min-version, 1, 0));
+        $min-version-minor: to-number(nth-if-length($min-version, 2, 0));
+        $min-version-patch: to-number(nth-if-length($min-version, 3, 0));
+
+        $is-correct-version: true;
+        $is-correct-version: $is-correct-version and ($-px-version-major >= $min-version-major);
+        $is-correct-version: $is-correct-version and ($-px-version-minor >= $min-version-minor);
+        $is-correct-version: $is-correct-version and ($-px-version-patch >= $min-version-patch);
+
+        @if not $is-correct-version {
+            @error 'Error: px-styles has not been initialized with a compatible version. Required minimum version is #{$require-min-version}. Initialized version is #{$-px-version}.';
+        }
+    }
+
+    // if provided, ensure that the required config key has been defined
+    @if ($require-config-key) {
+        $config-key: get($require-config-key, 'NOTFOUND', false);
+        @if $config-key == 'NOTFOUND' {
+            @error 'Error: px-styles has not been initialized with the required configuration value for #{$require-config-key}.';
+        }
     }
 }
 

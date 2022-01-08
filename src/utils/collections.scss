@@ -52,6 +52,14 @@
 //     @return $vals;
 // }
 
+/// If $list has an $nth element, return that element. Otherwise return $fallback.
+@function nth-if-length($list, $n, $fallback: null) {
+    @if ($n <= length($list)) {
+        @return nth($list, $n);
+    }
+    @return $fallback;
+}
+
 /// If $list-or-val is a list, return the nth value; if the item is a value
 /// return the value; if the value is null return the default
 ///
@@ -185,7 +193,7 @@
         $sortedMap: map-merge(
             $sortedMap,
             (
-                $key: $value
+                $key: $value,
             )
         );
 

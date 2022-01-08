@@ -9,4 +9,8 @@
     @include test('function percent with rounding of 1') {
         @include assert-equal(percent(1, 3, 1), 33.3%);
     }
+
+    @include test('clamp') {
+        @include assert-equal(clamp(2, 3, 10), 3);
+    }
 }

@@ -11,7 +11,31 @@ window.pxstyles = {
                     "name": "ensure-init",
                     "docName": "ensure-init()",
                     "type": "mixin",
-                    "description": "Throws an error if the init mixin hasn't been called / included. Librares with dependencies on\npxstyless can use this to ensure that init has been called.\n",
+                    "description": "Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been\ncalled / included. Checks are also provided for an optional minimum required version and an\noptional configuration key that must be present.\n\nThis mixin is generally not required but there may be cases where components from different\nlibraries are each loading px-styles and this help to ensure that it has been initalized and\ninitialized with a compatible configuration.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include ensure-init($require-min-version: 1.0.0); // throws an error if initialized with verion 0.9.9"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "require-min-version",
+                            "default": "null",
+                            "description": "A version number string consisting of three parts\nseparated by periods (e.g. 1.0.15) that represents the minimum required initialization version.\n"
+                        },
+                        {
+                            "type": "string",
+                            "name": "require-config-key",
+                            "default": "null",
+                            "description": "A configuration key (e.g. 'theme-projectname') that\nmust be set to a truthy value in the the config registry.\n"
+                        }
+                    ],
                     "access": "public",
                     "path": "init.scss"
                 },
@@ -237,6 +261,143 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "modules/atoms.scss"
+                }
+            ]
+        },
+        {
+            "name": "modules.controls",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "button",
+                    "docName": "button()",
+                    "type": "mixin",
+                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button() => creates a standard, default button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "A map containing css key / value pairs. Just about any css is valid (currently transitions can't\nbe override) including supported state specific values: hover, active, disabled. If background\nor color are set, they will be adapted for other states unless also override for those states\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "button-outline",
+                    "docName": "button-outline()",
+                    "type": "mixin",
+                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's button settings.\nBehaves a lot like the `button` mixin so see that for more detail.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button-outline(); // => creates a standard outline button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button-outline({border-color: blue}); // => creates a blue outline button"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "A map containing css key/value paairs. Just about any css is valid (currently transitions can't\nbe overriden) including supported state specific values: hover, active, disabled. The outline\ncolor is derived from the border color. The properties border-color and color can be specified as\nshades (numbers relative to the border-color or primary accent color).\n\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "button-icon",
+                    "docName": "button-icon()",
+                    "type": "mixin",
+                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button() => creates a standard, default button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "A map containing css key/value paairs. Just about any css is valid.\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "scrollbar",
+                    "docName": "scrollbar()",
+                    "type": "mixin",
+                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "size",
+                            "description": "The overall width of the scrollbar\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "color",
+                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "radius",
+                            "default": "0",
+                            "description": "The border radius of the scrollbar thumb\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "background",
+                            "default": "null",
+                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "padding",
+                            "default": "null",
+                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)\n"
+                        },
+                        {
+                            "type": "true",
+                            "name": "nested",
+                            "default": "null",
+                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
                 }
             ]
         },
@@ -532,97 +693,6 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/config.scss"
-                }
-            ]
-        },
-        {
-            "name": "site.controls",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "site",
-                    "group": "site.controls",
-                    "name": "button",
-                    "docName": "button()",
-                    "type": "mixin",
-                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button() => creates a standard, default button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "CSS map. Just about any css is valid (currently transitions can't\nbe override) including supported state specific values: hover, active, disabled. If background\nor color are set, they will be adapted for other states unless also override for those states\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "site",
-                    "group": "site.controls",
-                    "name": "button-outline",
-                    "docName": "button-outline()",
-                    "type": "mixin",
-                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's button settings.\nBehaves a lot like the `button` mixin so see that for more detail.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button-outline(); // => creates a standard outline button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button-outline({border-color: blue}); // => creates a blue outline button"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "CSS map. Just about any css is valid (currently transitions can't\nbe overriden) including supported state specific values: hover, active, disabled. The outline\ncolor is derived from the border color. The properties border-color and color can be specified as\nshades (numbers relative to the border-color or primary accent color).\n\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "site",
-                    "group": "site.controls",
-                    "name": "button-icon",
-                    "docName": "button-icon()",
-                    "type": "mixin",
-                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button() => creates a standard, default button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "CSS map. Just about any css is valid.\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
                 }
             ]
         },
@@ -1502,6 +1572,16 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
+                    "name": "nth-if-length",
+                    "docName": "nth-if-length()",
+                    "type": "function",
+                    "description": "If $list has an $nth element, return that element. Otherwise return $fallback.\n",
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
                     "name": "nth-or-val",
                     "docName": "nth-or-val()",
                     "type": "function",
@@ -2018,12 +2098,12 @@ window.pxstyles = {
                     "description": "Calculate a number raised to the power of the provided exponent.\n",
                     "parameter": [
                         {
-                            "type": "*",
+                            "type": "number",
                             "name": "base",
                             "description": "The base number"
                         },
                         {
-                            "type": "*",
+                            "type": "number",
                             "name": "exp",
                             "description": "The exponent used to raise the base"
                         }
@@ -2038,6 +2118,12 @@ window.pxstyles = {
                     "docName": "round-d()",
                     "type": "function",
                     "description": "Round a number using the specified number of decimals.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-d(3.33333333, 2) // => 3.33"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "number",
@@ -2048,7 +2134,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "dec",
                             "default": "2",
-                            "description": "The number of decimals in the output"
+                            "description": "The number of decimals in the output\n"
                         }
                     ],
                     "access": "public",
@@ -2061,6 +2147,12 @@ window.pxstyles = {
                     "docName": "round-f()",
                     "type": "function",
                     "description": "Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-d(3.33333333, 4) // => 3.25"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "number",
@@ -2071,7 +2163,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "frac",
                             "default": "8",
-                            "description": "The denominator of the fractional portion of the result"
+                            "description": "The denominator of the fractional portion of the result\n"
                         }
                     ],
                     "access": "public",
@@ -2098,12 +2190,17 @@ window.pxstyles = {
                         {
                             "type": "number",
                             "name": "prog",
-                            "description": "The progress between the two values, provided as a\nvalue between 0 and 1.\n"
+                            "description": "The progress between the two values, provided as a value between 0 and 1.\n"
                         },
                         {
                             "type": "number",
                             "name": "range",
-                            "description": "The range of interpolation. This can be provided as a\nsingle value which represents the upper range from 0 or as two values which\nrepresent the lower and upper range.\n"
+                            "description": "The range of interpolation. This can be provided as a single value which\nrepresents the upper range from 0 or as two values which represent the lower and upper range.\n"
+                        },
+                        {
+                            "type": "string",
+                            "name": "ease",
+                            "description": "A reference to an easing function. See the ease function for details\n"
                         }
                     ],
                     "access": "public",
@@ -2268,6 +2365,16 @@ window.pxstyles = {
                     "docName": "clamp-number()",
                     "type": "function",
                     "description": "Clamp a number (keep it within the confines of min/max). Note: the weird\nname is to differentiate from the clamp() css function.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "clamp(2, 3, 10) // => 3 // 2 is below the min of 3, so return min which is 3"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "clamp(5, 3, 10) // => 5"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -2282,7 +2389,7 @@ window.pxstyles = {
                         {
                             "type": "*",
                             "name": "max",
-                            "description": "Max allowed value"
+                            "description": "Max allowed value\n"
                         }
                     ],
                     "access": "public",

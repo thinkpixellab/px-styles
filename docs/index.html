@@ -18,10 +18,8 @@
                     <li v-for="group in filteredGroups" :key="group.name" class="nav-group">
                         <strong class="nav-header">{{group.name}}</strong>
                         <ul>
-                            <li v-for="item in group.items" :key="item.name">
-                                <a class="nav-item" :href="`#${itemToId(item)}`">
-                                    {{item.docName}}
-                                </a>
+                            <li class="nav-item" v-for="item in group.items" :key="item.name">
+                                <a :href="`#${itemToId(item)}`">{{item.docName}}</a>
                             </li>
                         </ul>
                     </li>

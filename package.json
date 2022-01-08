@@ -1,6 +1,6 @@
 {
     "name": "@thinkpixellab/pxstyles",
-    "version": "0.9.13",
+    "version": "0.9.14",
     "description": "Shared scss library",
     "main": "index.scss",
     "license": "MIT",
@@ -11,6 +11,7 @@
     "devDependencies": {
         "glob": "^7.2.0",
         "gulp": "^4.0.2",
+        "gulp-replace": "^1.1.3",
         "gulp-sass": "^5.1.0",
         "jest": "^27.4.7",
         "lodash": "^4.17.21",
@@ -19,7 +20,8 @@
         "sassdoc": "^2.7.3"
     },
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "prepare": "gulp verToSass"
     },
     "repository": {
         "type": "git",
