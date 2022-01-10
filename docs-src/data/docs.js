@@ -2506,12 +2506,12 @@ window.pxstyles = {
                     "name": "line-clamp",
                     "docName": "line-clamp()",
                     "type": "mixin",
-                    "description": "Use the (now broadly supported) line-clamp property to restrict the\nnumber of lines that are shown in a text element.\n\n",
-                    "parameter": [
+                    "description": " Use the (now broadly supported) line-clamp property to restrict the\n number of lines that are shown in a text element.\n\n @param {number} $lines The maximum number of lines to be shown\n\n",
+                    "example": [
                         {
-                            "type": "number",
-                            "name": "lines",
-                            "description": "The maximum number of lines to be shown"
+                            "type": "line",
+                            "code": "display: -webkit-box;\n-webkit-line-clamp: 3;\n-webkit-box-orient: vertical;\noverflow: hidden;",
+                            "description": "clamp(3) // =>"
                         }
                     ],
                     "access": "public",
@@ -2523,19 +2523,12 @@ window.pxstyles = {
                     "name": "before",
                     "docName": "before()",
                     "type": "mixin",
-                    "description": "Shortcut for the ::before pseudo element with common defaults for content\nand display.\n\n",
-                    "parameter": [
+                    "description": " Shortcut for the ::before pseudo element with common defaults for content\n and display.\n\n @param {*} $content [''] The value for the content property.\n @param {*} $display [block] The value for the display property.\n\n",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "content",
-                            "default": "''",
-                            "description": "The value for the content property."
-                        },
-                        {
-                            "type": "*",
-                            "name": "display",
-                            "default": "block",
-                            "description": "The value for the display property."
+                            "type": "before",
+                            "code": "content: \"\";\ndisplay: block;",
+                            "description": "('hello, world') // =>"
                         }
                     ],
                     "access": "public",
@@ -2547,19 +2540,11 @@ window.pxstyles = {
                     "name": "after",
                     "docName": "after()",
                     "type": "mixin",
-                    "description": "Shortcut for the ::after pseudo element with common defaults for content\nand display.\n\n",
-                    "parameter": [
+                    "description": " Shortcut for the ::after pseudo element with common defaults for content\n and display.\n\n @param {*} $content [''] The value for the content property.\n @param {*} $display [block] The value for the display property.\n\n",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "content",
-                            "default": "''",
-                            "description": "The value for the content property."
-                        },
-                        {
-                            "type": "*",
-                            "name": "display",
-                            "default": "block",
-                            "description": "The value for the display property."
+                            "type": "scss",
+                            "code": "after('goodbye, world', in-line)"
                         }
                     ],
                     "access": "public",

@@ -68,4 +68,34 @@
             }
         }
     }
+    @include test('line-clamp') {
+        @include assert {
+            // test
+            @include output {
+                @include line-clamp(3);
+            }
+            // output
+            @include expect {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+    }
+    @include test('before') {
+        @include assert {
+            // test
+            @include output {
+                @include before('hello, world');
+            }
+            // output
+            @include expect {
+                &:before {
+                    content: '';
+                    display: block;
+                }
+            }
+        }
+    }
 }

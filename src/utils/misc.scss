@@ -62,7 +62,12 @@
 /// number of lines that are shown in a text element.
 ///
 /// @param {number} $lines The maximum number of lines to be shown
-
+///
+///@example line-clamp(3) // =>
+///display: -webkit-box;
+///-webkit-line-clamp: 3;
+///-webkit-box-orient: vertical;
+///overflow: hidden;
 @mixin line-clamp($lines) {
     display: -webkit-box;
     -webkit-line-clamp: $lines;
@@ -75,6 +80,10 @@
 ///
 /// @param {*} $content [''] The value for the content property.
 /// @param {*} $display [block] The value for the display property.
+///
+///@example before('hello, world') // =>
+///content: "";
+///display: block;
 
 @mixin before($content: '', $display: block) {
     &:before {
@@ -89,6 +98,8 @@
 ///
 /// @param {*} $content [''] The value for the content property.
 /// @param {*} $display [block] The value for the display property.
+///
+///@example after('goodbye, world', in-line)
 
 @mixin after($content: '', $display: block) {
     &:after {
