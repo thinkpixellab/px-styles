@@ -2447,7 +2447,17 @@ window.pxstyles = {
                     "name": "triangle",
                     "docName": "triangle()",
                     "type": "mixin",
-                    "description": " Create a triangle element using the border properties\n\n @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)\n @param {color} $color The fill color for the arrow\n @param {length} $height The height of the arrow\n @param {length} $width  The width of the arrow\n\n @example triangle(up, 'red', 10px, 2px) // =>\nborder-style: solid;\n height: 0;\n width: 0;\n border-color: transparent transparent \"red\" transparent;\n border-width: 0 1px 10px 1px;\n",
+                    "description": " Create a triangle element using the border properties\n\n @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)\n @param {color} $color The fill color for the arrow\n @param {length} $height The height of the arrow\n @param {length} $width  The width of the arrow\n\n @example triangle('up', 'red', 10px, 2px) // =>\nborder-style: solid;\n height: 0;\n width: 0;\n border-color: transparent transparent \"red\" transparent;\n border-width: 0 1px 10px 1px;\n",
+                    "access": "public",
+                    "path": "utils/misc.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.misc",
+                    "name": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)",
+                    "docName": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)()",
+                    "type": "css",
+                    "description": "Finds and replaces keys in a map\n",
                     "access": "public",
                     "path": "utils/misc.scss"
                 },
@@ -2457,7 +2467,13 @@ window.pxstyles = {
                     "name": "map-key-replace",
                     "docName": "map-key-replace()",
                     "type": "function",
-                    "description": "Finds and replaces keys in a map\n",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ""
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 },

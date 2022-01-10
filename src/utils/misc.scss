@@ -165,6 +165,8 @@
 }
 
 /// Finds and replaces keys in a map
+//Robby, need help with example
+/// @example
 
 @function map-key-replace($map, $key-replacements) {
     $remap: ();
@@ -195,7 +197,7 @@
 /// sub states (e.g. (hover: (...)) becomes &:hover {...})
 /// @param {string} $ignore-start-pattern Properties that start with this will be ignored
 ///
-/// @example TODO
+/// @example TODO - do we need an actual map for the test? Sarah is getting an error in scratch
 
 @mixin css-map(
     $map,
@@ -240,6 +242,8 @@
 ///
 /// @param {*} $color1 [yellowgreen] The first color in the gradient
 /// @param {*} $color2 [gold] The second color in the gradient
+/// @example debug-zebra() // =>
+///background-image: repeating-linear-gradient(-45deg, yellowgreen 0 20px, gold 20px 40px);
 
 @mixin debug-zebra($color1: yellowgreen, $color2: gold) {
     background-image: repeating-linear-gradient(-45deg, $color1 0 20px, $color2 20px 40px);

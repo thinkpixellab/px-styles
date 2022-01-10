@@ -98,6 +98,21 @@
             }
         }
     }
+    @include test('after') {
+        @include assert {
+            // test
+            @include output {
+                @include after('hello, world');
+            }
+            // output
+            @include expect {
+                &:after {
+                    content: '';
+                    display: block;
+                }
+            }
+        }
+    }
     @include test('triangle') {
         @include assert {
             // test
@@ -114,18 +129,20 @@
             }
         }
     }
-    @include test('triangle') {
+
+    @include test('debug-zebra') {
         @include assert {
             // test
             @include output {
-                @include before('Goodbye, world');
+                @include debug-zebra();
             }
             // output
             @include expect {
-                &:before {
-                    content: '';
-                    display: block;
-                }
+                background-image: repeating-linear-gradient(
+                    -45deg,
+                    yellowgreen 0 20px,
+                    gold 20px 40px
+                );
             }
         }
     }

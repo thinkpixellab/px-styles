@@ -2454,10 +2454,26 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
+                    "name": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)",
+                    "docName": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)()",
+                    "type": "css",
+                    "description": "Finds and replaces keys in a map\n",
+                    "access": "public",
+                    "path": "utils/misc.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.misc",
                     "name": "map-key-replace",
                     "docName": "map-key-replace()",
                     "type": "function",
-                    "description": "Finds and replaces keys in a map\n",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ""
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 },
@@ -2471,7 +2487,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO"
+                            "code": "TODO - do we need an actual map for the test? Sarah is getting an error in scratch"
                         }
                     ],
                     "parameter": [
@@ -2505,21 +2521,7 @@ window.pxstyles = {
                     "name": "debug-zebra",
                     "docName": "debug-zebra()",
                     "type": "mixin",
-                    "description": "Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)\n\n",
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "color1",
-                            "default": "yellowgreen",
-                            "description": "The first color in the gradient"
-                        },
-                        {
-                            "type": "*",
-                            "name": "color2",
-                            "default": "gold",
-                            "description": "The second color in the gradient"
-                        }
-                    ],
+                    "description": " Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)\n\n @param {*} $color1 [yellowgreen] The first color in the gradient\n @param {*} $color2 [gold] The second color in the gradient\n @example debug-zebra() // =>\nbackground-image: repeating-linear-gradient(-45deg, yellowgreen 0 20px, gold 20px 40px);\n",
                     "access": "public",
                     "path": "utils/misc.scss"
                 }
