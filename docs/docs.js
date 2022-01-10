@@ -8,40 +8,6 @@ window.pxstyles = {
                 {
                     "namespace": "other",
                     "group": "init",
-                    "name": "ensure-init",
-                    "docName": "ensure-init()",
-                    "type": "mixin",
-                    "description": "Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been\ncalled / included. Checks are also provided for an optional minimum required version and an\noptional configuration key that must be present.\n\nThis mixin is generally not required but there may be cases where components from different\nlibraries are each loading px-styles and this help to ensure that it has been initalized and\ninitialized with a compatible configuration.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include ensure-init($require-min-version: 1.0.0); // throws an error if initialized with verion 0.9.9"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string",
-                            "name": "require-min-version",
-                            "default": "null",
-                            "description": "A version number string consisting of three parts\nseparated by periods (e.g. 1.0.15) that represents the minimum required initialization version.\n"
-                        },
-                        {
-                            "type": "string",
-                            "name": "require-config-key",
-                            "default": "null",
-                            "description": "A configuration key (e.g. 'theme-projectname') that\nmust be set to a truthy value in the the config registry.\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "init.scss"
-                },
-                {
-                    "namespace": "other",
-                    "group": "init",
                     "name": "init",
                     "docName": "init()",
                     "type": "mixin",
@@ -49,7 +15,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
+                            "code": "// To initalize pxstyles, first add any required configuration\n@include px.config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
                         }
                     ],
                     "access": "public",
@@ -250,7 +216,7 @@ window.pxstyles = {
                     "name": "atoms-flex",
                     "docName": "atoms-flex()",
                     "type": "mixin",
-                    "description": "Generate atomic classes for flexbox. Full list of classes:\n\n| Class | Equivalent Css |\n| ----- | -------------- |\n| .flex | display: flex; |\n| .flex-inline | display: inline-flex; |\n| .flex-row | flex-direction: row; |\n| .flex-row-reverse | flex-direction: row-reverse; |\n| .flex-column | flex-direction: column; |\n| .flex-column-reverse | flex-direction: column-reverse; |\n| .flex-wrap | flex-wrap: wrap; |\n| .flex-wrap-column | flex-wrap: wrap; flex-direction: column; |\n| .flex-wrap-reverse | flex-wrap: wrap-reverse; |\n| .flex-nowrap | flex-wrap: nowrap; |\n| .flex-auto | flex: 1 1 auto; |\n| .flex-none | flex: none; |\n| .flex-grow-[0...4] | flex-grow: [0...4] |\n| .flex-shrink-[0...4] | flex-shrink: [0...4]; |\n| .items-start | align-items: flex-start; |\n| .items-end | align-items: flex-end; |\n| .items-center | align-items: center; |\n| .items-baseline | align-items: baseline; |\n| .items-stretch | align-items: stretch; |\n| .justify-start | justify-content: flex-start; |\n| .justify-end | justify-content: flex-end; |\n| .justify-center | justify-content: center; |\n| .justify-between | justify-content: space-between; |\n| .justify-around | justify-content: space-around; |\n| .justify-stretch | justify-content: stretch; |\n| .self-start | align-self: flex-start; |\n| .self-end | align-self: flex-end; |\n| .self-center | align-self: center; |\n| .self-baseline | align-self: baseline; |\n| .self-stretch | align-self: stretch; |\n| .order-[0...9] | order: [0...9]; |\n| .order-first | order: -99999; |\n| .order-last | order: 99999; |\n| .flex-center | display: flex; align-items: center; |\n\n",
+                    "description": "Generate flex-box atoms.\n\n",
                     "parameter": [
                         {
                             "type": "*",
@@ -261,143 +227,6 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "modules/atoms.scss"
-                }
-            ]
-        },
-        {
-            "name": "modules.controls",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button",
-                    "docName": "button()",
-                    "type": "mixin",
-                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button() => creates a standard, default button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "A map containing css key / value pairs. Just about any css is valid (currently transitions can't\nbe override) including supported state specific values: hover, active, disabled. If background\nor color are set, they will be adapted for other states unless also override for those states\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button-outline",
-                    "docName": "button-outline()",
-                    "type": "mixin",
-                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's button settings.\nBehaves a lot like the `button` mixin so see that for more detail.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button-outline(); // => creates a standard outline button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button-outline({border-color: blue}); // => creates a blue outline button"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "A map containing css key/value paairs. Just about any css is valid (currently transitions can't\nbe overriden) including supported state specific values: hover, active, disabled. The outline\ncolor is derived from the border color. The properties border-color and color can be specified as\nshades (numbers relative to the border-color or primary accent color).\n\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button-icon",
-                    "docName": "button-icon()",
-                    "type": "mixin",
-                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include button() => creates a standard, default button"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "A map containing css key/value paairs. Just about any css is valid.\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "scrollbar",
-                    "docName": "scrollbar()",
-                    "type": "mixin",
-                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).\n\n",
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "size",
-                            "description": "The overall width of the scrollbar\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "color",
-                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "radius",
-                            "default": "0",
-                            "description": "The border radius of the scrollbar thumb\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "background",
-                            "default": "null",
-                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "padding",
-                            "default": "null",
-                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)\n"
-                        },
-                        {
-                            "type": "true",
-                            "name": "nested",
-                            "default": "null",
-                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
                 }
             ]
         },
@@ -599,50 +428,6 @@ window.pxstyles = {
                             "name": "fallback",
                             "default": "null",
                             "description": "The value to return if the path doesn't exist.\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "throw-not-found",
-                            "default": "null",
-                            "description": "Whether to throw an errow if the value can't be retrieved\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/config.scss"
-                },
-                {
-                    "namespace": "site",
-                    "group": "site.config",
-                    "name": "if-null-get",
-                    "docName": "if-null-get()",
-                    "type": "function",
-                    "description": "Retrieve a configuration setting if and only if the provided $value is null.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "$value: if-null-get(null, 'colors:mycolor'); // => the config value for 'colors:mycolor'"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "$value: if-null-get(red, 'colors:mycolor'); // => red"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string or list",
-                            "name": "paths",
-                            "description": "The value to check for null"
-                        },
-                        {
-                            "type": "string or list",
-                            "name": "paths",
-                            "description": "Path for the value to retrieve if $value is null (see details for get())"
-                        },
-                        {
-                            "type": "*",
-                            "name": "throw-not-found",
-                            "default": "null",
-                            "description": "Whether to throw an errow if the value can't be retrieved\n"
                         }
                     ],
                     "access": "public",
@@ -693,6 +478,97 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/config.scss"
+                }
+            ]
+        },
+        {
+            "name": "site.controls",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "site",
+                    "group": "site.controls",
+                    "name": "button",
+                    "docName": "button()",
+                    "type": "mixin",
+                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button() => creates a standard, default button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "CSS map. Just about any css is valid (currently transitions can't\nbe override) including supported state specific values: hover, active, disabled. If background\nor color are set, they will be adapted for other states unless also override for those states\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.controls",
+                    "name": "button-outline",
+                    "docName": "button-outline()",
+                    "type": "mixin",
+                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's button settings.\nBehaves a lot like the `button` mixin so see that for more detail.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button-outline(); // => creates a standard outline button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button-outline({border-color: blue}); // => creates a blue outline button"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "CSS map. Just about any css is valid (currently transitions can't\nbe overriden) including supported state specific values: hover, active, disabled. The outline\ncolor is derived from the border color. The properties border-color and color can be specified as\nshades (numbers relative to the border-color or primary accent color).\n\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.controls",
+                    "name": "button-icon",
+                    "docName": "button-icon()",
+                    "type": "mixin",
+                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include button() => creates a standard, default button"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides",
+                            "default": "()",
+                            "description": "CSS map. Just about any css is valid.\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
                 }
             ]
         },
@@ -1418,6 +1294,253 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "undefined",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "pow",
+                    "docName": "pow()",
+                    "type": "function",
+                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "pow(2, 3)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "round-d",
+                    "docName": "round-d()",
+                    "type": "function",
+                    "description": " Round a number using the specified number of decimals.\n @param {number} $n The number to be rounded\n @param {number} $dec [2] The number of decimals in the output\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-d(3.33333333, 2) // => 3.33"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "round-f",
+                    "docName": "round-f()",
+                    "type": "function",
+                    "description": " Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)\n @param {number} $n The number to be rounded\n @param {number} $frac [8] The denominator of the fractional portion of the result\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-f(3.3333, 2) // => 3.5"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "intp",
+                    "docName": "intp()",
+                    "type": "function",
+                    "description": "Interpolate between two values.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "intp(0.5, 4) // => 2"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "intp(0.5, (1, 3) // => 2"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "number",
+                            "name": "prog",
+                            "description": "The progress between the two values, provided as a\nvalue between 0 and 1.\n"
+                        },
+                        {
+                            "type": "number",
+                            "name": "range",
+                            "description": "The range of interpolation. This can be provided as a\nsingle value which represents the upper range from 0 or as two values which\nrepresent the lower and upper range.\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease",
+                    "docName": "ease()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the easing function with the given name\n @param {number} $t The input value between 0 and 1\n @param {String} $easing The name of the easing function that should be used for interpolation\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease(0.5, 'out-quad') // => 0.75"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-quad",
+                    "docName": "ease-in-quad()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in quad function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-quad(0.5) // => 0.25"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-quad",
+                    "docName": "ease-out-quad()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out quad function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-quad(0.25) // => 0.4375;"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-cubic",
+                    "docName": "ease-in-cubic()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in cubic function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-cubic(0.5) // => 0.125;"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-cubic",
+                    "docName": "ease-out-cubic()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out cubic function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-cubic(0.25) // => 0.578125"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-quart",
+                    "docName": "ease-in-quart()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in quart function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-quart(0.3) // => 0.0081"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-quart",
+                    "docName": "ease-out-quart()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out quart function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-quart(0.5) // => 0.9375"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "clamp-number",
+                    "docName": "clamp-number()",
+                    "type": "function",
+                    "description": " Clamp a number (keep it within the confines of min/max). Note: the weird\n name is to differentiate from the clamp() css function.\n\n @param {*} $number The number to be clampled\n @param {*} $min Min allowed value\n @param {*} $max Max allowed value\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "clamp-number(4, 3, 10) // => 4 is above the min"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "divide",
+                    "docName": "divide()",
+                    "type": "function",
+                    "description": " Provides a wrapper for the standard sass divide function (math.div) to make imports a little\n simpler. Returns the result of dividing $num1 by $num2.\n\n @param {number} $num1 The first number in the division operation (the numerator)\n @param {number} $num2 The first number in the division operation (the numerator)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "divide(10, 2) // => 5"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "percent",
+                    "docName": "percent()",
+                    "type": "function",
+                    "description": " Convience function that divides two numbers and the multiples the result by 100%\n\n @param {number} $num1 The first number in the division operation (the numerator)\n @param {number} $num2 The first number in the division operation (the numerator)\n @param {number} $round The number of digits to use when rounding the output\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "percent(10, 3, 2) // => 333.33%"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                }
+            ]
+        },
+        {
             "name": "utils.bem",
             "description": "Provides a series of functions and mixins that make it easier to generate\n[bem](http://getbem.com/) style class names. Modified from the great thinking done\n[here](https://codepen.io/gionkunz/pen/rkswl?editors=010).\n\nUnlike many bem mixins, there is no specific mixin for creating modifier classes. Instead,\nmodifiers and pseudo classes can be included directly in the call to the block or element mixin.",
             "variables": [],
@@ -1566,16 +1689,6 @@ window.pxstyles = {
                             "description": "Key chain"
                         }
                     ],
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
-                    "name": "nth-if-length",
-                    "docName": "nth-if-length()",
-                    "type": "function",
-                    "description": "If $list has an $nth element, return that element. Otherwise return $fallback.\n",
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -2085,368 +2198,6 @@ window.pxstyles = {
             ]
         },
         {
-            "name": "utils.math",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "pow",
-                    "docName": "pow()",
-                    "type": "function",
-                    "description": "Calculate a number raised to the power of the provided exponent.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "base",
-                            "description": "The base number"
-                        },
-                        {
-                            "type": "number",
-                            "name": "exp",
-                            "description": "The exponent used to raise the base"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-d",
-                    "docName": "round-d()",
-                    "type": "function",
-                    "description": "Round a number using the specified number of decimals.\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "$val: round-d(3.33333333, 2) // => 3.33"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "n",
-                            "description": "The number to be rounded"
-                        },
-                        {
-                            "type": "number",
-                            "name": "dec",
-                            "default": "2",
-                            "description": "The number of decimals in the output\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-f",
-                    "docName": "round-f()",
-                    "type": "function",
-                    "description": "Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "$val: round-d(3.33333333, 4) // => 3.25"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "n",
-                            "description": "The number to be rounded"
-                        },
-                        {
-                            "type": "number",
-                            "name": "frac",
-                            "default": "8",
-                            "description": "The denominator of the fractional portion of the result\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "intp",
-                    "docName": "intp()",
-                    "type": "function",
-                    "description": "Interpolate between two values.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "intp(0.5, 4) // => 2"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "intp(0.5, (1, 3) // => 2"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "prog",
-                            "description": "The progress between the two values, provided as a value between 0 and 1.\n"
-                        },
-                        {
-                            "type": "number",
-                            "name": "range",
-                            "description": "The range of interpolation. This can be provided as a single value which\nrepresents the upper range from 0 or as two values which represent the lower and upper range.\n"
-                        },
-                        {
-                            "type": "string",
-                            "name": "ease",
-                            "description": "A reference to an easing function. See the ease function for details\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease",
-                    "docName": "ease()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the easing function with the given name\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        },
-                        {
-                            "type": "String",
-                            "name": "easing",
-                            "description": "The name of the easing function that should be used for interpolation"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-quad",
-                    "docName": "ease-in-quad()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in quad function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-quad",
-                    "docName": "ease-out-quad()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out quad function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-cubic",
-                    "docName": "ease-in-cubic()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in cubic function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-cubic",
-                    "docName": "ease-out-cubic()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out cubic function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-quart",
-                    "docName": "ease-in-quart()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in quart function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-quart",
-                    "docName": "ease-out-quart()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out quart function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "clamp-number",
-                    "docName": "clamp-number()",
-                    "type": "function",
-                    "description": "Clamp a number (keep it within the confines of min/max). Note: the weird\nname is to differentiate from the clamp() css function.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "clamp(2, 3, 10) // => 3 // 2 is below the min of 3, so return min which is 3"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "clamp(5, 3, 10) // => 5"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "number",
-                            "description": "The number to be clampled"
-                        },
-                        {
-                            "type": "*",
-                            "name": "min",
-                            "description": "Min allowed value"
-                        },
-                        {
-                            "type": "*",
-                            "name": "max",
-                            "description": "Max allowed value\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "divide",
-                    "docName": "divide()",
-                    "type": "function",
-                    "description": "Provides a wrapper for the standard sass divide function (math.div) to make imports a little\nsimpler. Returns the result of dividing $num1 by $num2.\n\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "num1",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "num2",
-                            "description": "The first number in the division operation (the numerator)"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "percent",
-                    "docName": "percent()",
-                    "type": "function",
-                    "description": "Convience function that divides two numbers and the multiples the result by 100%\n\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "num1",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "num2",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "round",
-                            "description": "The number of digits to use when rounding the output"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                }
-            ]
-        },
-        {
             "name": "utils.misc",
             "description": "",
             "variables": [],
@@ -2454,10 +2205,17 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "control-reset",
-                    "docName": "control-reset()",
-                    "type": "mixin",
-                    "description": "Completely resets the appearance of controls (input and button)\n",
+                    "name": "//Robby - not testable?\n@mixin control-reset",
+                    "docName": "//Robby - not testable?\n@mixin control-reset()",
+                    "type": "css",
+                    "description": " Completely resets the appearance of controls (input and button)\n",
+                    "example": [
+                        {
+                            "type": "control",
+                            "code": "appearance: none;\n border: none;\noutline: none;\n -webkit-touch-callout: none;\n user-select: none;",
+                            "description": "reset // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 },
@@ -2467,7 +2225,7 @@ window.pxstyles = {
                     "name": "placeholder",
                     "docName": "placeholder()",
                     "type": "mixin",
-                    "description": "Style the placeholder text for an text input element\n",
+                    "description": "Style the placeholder text for a text input element\n",
                     "example": [
                         {
                             "type": "scss",

@@ -2454,10 +2454,17 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "control-reset",
-                    "docName": "control-reset()",
-                    "type": "mixin",
-                    "description": "Completely resets the appearance of controls (input and button)\n",
+                    "name": "//Robby - not testable?\n@mixin control-reset",
+                    "docName": "//Robby - not testable?\n@mixin control-reset()",
+                    "type": "css",
+                    "description": " Completely resets the appearance of controls (input and button)\n",
+                    "example": [
+                        {
+                            "type": "control",
+                            "code": "appearance: none;\n border: none;\noutline: none;\n -webkit-touch-callout: none;\n user-select: none;",
+                            "description": "reset // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 },
@@ -2483,7 +2490,13 @@ window.pxstyles = {
                     "name": "no-select",
                     "docName": "no-select()",
                     "type": "mixin",
-                    "description": "Disable text selection on an element\n",
+                    "description": " Disable text selection on an element\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "no-select // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 },

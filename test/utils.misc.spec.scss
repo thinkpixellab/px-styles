@@ -15,22 +15,55 @@
             }
         }
     }
-
-    @include test('mixin line-clamp') {
+    @include test('control-reset') {
         @include assert {
             // test
             @include output {
-                .multiline-button {
-                    @include line-clamp(3);
+                @include control-reset;
+            }
+            // output
+            @include expect {
+                appearance: none;
+                border: none;
+                outline: none;
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    @include test('placeholder') {
+        @include assert {
+            // test
+            @include output {
+                @include placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
                 }
             }
             // output
             @include expect {
-                .multiline-button {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
+                &::placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
+                }
+                &::-webkit-input-placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
+                }
+                &:-moz-placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
+                }
+                &::-moz-placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
+                }
+                &:-ms-input-placeholder {
+                    color: blue;
+                    font-family: 'Open-Sans';
                 }
             }
         }

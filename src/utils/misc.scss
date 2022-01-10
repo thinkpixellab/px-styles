@@ -8,7 +8,13 @@
 @use 'units.scss' as *;
 
 /// Completely resets the appearance of controls (input and button)
-
+///@example control-reset // =>
+///appearance: none;
+/// border: none;
+///outline: none;
+/// -webkit-touch-callout: none;
+/// user-select: none;
+//Robby - not testable?
 @mixin control-reset {
     appearance: none;
     border: none;
@@ -46,7 +52,7 @@
 }
 
 /// Disable text selection on an element
-
+///@example no-select // =>
 @mixin no-select {
     -webkit-touch-callout: none;
     user-select: none;
