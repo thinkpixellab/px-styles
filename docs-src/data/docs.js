@@ -2344,9 +2344,9 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "//Robby - not testable?\n@mixin control-reset",
-                    "docName": "//Robby - not testable?\n@mixin control-reset()",
-                    "type": "css",
+                    "name": "control-reset",
+                    "docName": "control-reset()",
+                    "type": "mixin",
                     "description": " Completely resets the appearance of controls (input and button)\n",
                     "example": [
                         {
@@ -2487,7 +2487,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO - do we need an actual map for the test? Sarah is getting an error in scratch"
+                            "code": "TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch"
                         }
                     ],
                     "parameter": [

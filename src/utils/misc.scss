@@ -14,7 +14,7 @@
 ///outline: none;
 /// -webkit-touch-callout: none;
 /// user-select: none;
-//Robby - not testable?
+
 @mixin control-reset {
     appearance: none;
     border: none;
@@ -197,7 +197,7 @@
 /// sub states (e.g. (hover: (...)) becomes &:hover {...})
 /// @param {string} $ignore-start-pattern Properties that start with this will be ignored
 ///
-/// @example TODO - do we need an actual map for the test? Sarah is getting an error in scratch
+/// @example TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch
 
 @mixin css-map(
     $map,

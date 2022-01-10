@@ -2487,7 +2487,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO"
+                            "code": "TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch"
                         }
                     ],
                     "parameter": [
@@ -2521,21 +2521,7 @@ window.pxstyles = {
                     "name": "debug-zebra",
                     "docName": "debug-zebra()",
                     "type": "mixin",
-                    "description": "Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)\n\n",
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "color1",
-                            "default": "yellowgreen",
-                            "description": "The first color in the gradient"
-                        },
-                        {
-                            "type": "*",
-                            "name": "color2",
-                            "default": "gold",
-                            "description": "The second color in the gradient"
-                        }
-                    ],
+                    "description": " Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)\n\n @param {*} $color1 [yellowgreen] The first color in the gradient\n @param {*} $color2 [gold] The second color in the gradient\n @example debug-zebra() // =>\nbackground-image: repeating-linear-gradient(-45deg, yellowgreen 0 20px, gold 20px 40px);\n",
                     "access": "public",
                     "path": "utils/misc.scss"
                 }
