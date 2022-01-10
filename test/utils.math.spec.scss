@@ -9,8 +9,46 @@
     @include test('function percent with rounding of 1') {
         @include assert-equal(percent(1, 3, 1), 33.3%);
     }
-
+    @include test('pow') {
+        @include assert-equal(pow(2, 3), 8);
+    }
+    @include test('round-d') {
+        @include assert-equal(round-d(3.33333333, 2), 3.33);
+    }
+    @include test('round-f') {
+        @include assert-equal(round-f(3.3333, 2), 3.5);
+    }
+    @include test('intp') {
+        @include assert-equal(intp(0.5, 4), 2);
+    }
+    @include test('ease') {
+        @include assert-equal(ease(0.5, 'out-quad'), 0.75);
+    }
+    @include test('ease-in-quad') {
+        @include assert-equal(ease-in-quad(0.5), 0.25);
+    }
+    @include test('ease-out-quad') {
+        @include assert-equal(ease-out-quad(0.25), 0.4375);
+    }
+    @include test('ease-in-cubic') {
+        @include assert-equal(ease-in-cubic(0.5), 0.125);
+    }
+    @include test('ease-out-cubic') {
+        @include assert-equal(ease-out-cubic(0.25), 0.578125);
+    }
+    @include test('ease-in-quart') {
+        @include assert-equal(ease-in-quart(0.3), 0.0081);
+    }
+    @include test('ease-out-quart') {
+        @include assert-equal(ease-out-quart(0.5), 0.9375);
+    }
     @include test('clamp') {
-        @include assert-equal(clamp(2, 3, 10), 3);
+        @include assert-equal(clamp-number(4, 3, 10), 4);
+    }
+    @include test('divide') {
+        @include assert-equal(divide(10, 2), 5);
+    }
+    @include test('percent') {
+        @include assert-equal(percent(10, 3, 2), 333.33%);
     }
 }
