@@ -98,4 +98,35 @@
             }
         }
     }
+    @include test('triangle') {
+        @include assert {
+            // test
+            @include output {
+                @include triangle('up', 'red', 10px, 2px);
+            }
+            // output
+            @include expect {
+                border-style: solid;
+                height: 0;
+                width: 0;
+                border-color: transparent transparent 'red' transparent;
+                border-width: 0 1px 10px 1px;
+            }
+        }
+    }
+    @include test('triangle') {
+        @include assert {
+            // test
+            @include output {
+                @include before('Goodbye, world');
+            }
+            // output
+            @include expect {
+                &:before {
+                    content: '';
+                    display: block;
+                }
+            }
+        }
+    }
 }

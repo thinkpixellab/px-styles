@@ -1418,6 +1418,258 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "undefined",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "pow",
+                    "docName": "pow()",
+                    "type": "function",
+                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "pow(2, 3)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "round-d",
+                    "docName": "round-d()",
+                    "type": "function",
+                    "description": " Round a number using the specified number of decimals.\n @param {number} $n The number to be rounded\n @param {number} $dec [2] The number of decimals in the output\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-d(3.33333333, 2) // => 3.33"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "round-f",
+                    "docName": "round-f()",
+                    "type": "function",
+                    "description": " Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)\n @param {number} $n The number to be rounded\n @param {number} $frac [8] The denominator of the fractional portion of the result\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$val: round-f(3.3333, 2) // => 3.5"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "intp",
+                    "docName": "intp()",
+                    "type": "function",
+                    "description": "Interpolate between two values.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "intp(0.5, 4) // => 2"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "intp(0.5, (1, 3) // => 2"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "number",
+                            "name": "prog",
+                            "description": "The progress between the two values, provided as a value between 0 and 1.\n"
+                        },
+                        {
+                            "type": "number",
+                            "name": "range",
+                            "description": "The range of interpolation. This can be provided as a single value which\nrepresents the upper range from 0 or as two values which represent the lower and upper range.\n"
+                        },
+                        {
+                            "type": "string",
+                            "name": "ease",
+                            "description": "A reference to an easing function. See the ease function for details\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease",
+                    "docName": "ease()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the easing function with the given name\n @param {number} $t The input value between 0 and 1\n @param {String} $easing The name of the easing function that should be used for interpolation\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease(0.5, 'out-quad') // => 0.75"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-quad",
+                    "docName": "ease-in-quad()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in quad function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-quad(0.5) // => 0.25"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-quad",
+                    "docName": "ease-out-quad()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out quad function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-quad(0.25) // => 0.4375;"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-cubic",
+                    "docName": "ease-in-cubic()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in cubic function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-cubic(0.5) // => 0.125;"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-cubic",
+                    "docName": "ease-out-cubic()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out cubic function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-cubic(0.25) // => 0.578125"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-in-quart",
+                    "docName": "ease-in-quart()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-in quart function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-in-quart(0.3) // => 0.0081"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "ease-out-quart",
+                    "docName": "ease-out-quart()",
+                    "type": "function",
+                    "description": " Interpolate a value between 0 and 1 using the Penner ease-out quart function.\n @param {number} $t The input value between 0 and 1\n @return {number} The eased equivalent of the input (also between 0 and 1).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "ease-out-quart(0.5) // => 0.9375"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "clamp-number",
+                    "docName": "clamp-number()",
+                    "type": "function",
+                    "description": " Clamp a number (keep it within the confines of min/max). Note: the weird\n name is to differentiate from the clamp() css function.\n\n @param {*} $number The number to be clampled\n @param {*} $min Min allowed value\n @param {*} $max Max allowed value\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "clamp-number(4, 3, 10) // => 4 is above the min"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "divide",
+                    "docName": "divide()",
+                    "type": "function",
+                    "description": " Provides a wrapper for the standard sass divide function (math.div) to make imports a little\n simpler. Returns the result of dividing $num1 by $num2.\n\n @param {number} $num1 The first number in the division operation (the numerator)\n @param {number} $num2 The first number in the division operation (the numerator)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "divide(10, 2) // => 5"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "percent",
+                    "docName": "percent()",
+                    "type": "function",
+                    "description": " Convience function that divides two numbers and the multiples the result by 100%\n\n @param {number} $num1 The first number in the division operation (the numerator)\n @param {number} $num2 The first number in the division operation (the numerator)\n @param {number} $round The number of digits to use when rounding the output\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "percent(10, 3, 2) // => 333.33%"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/math.scss"
+                }
+            ]
+        },
+        {
             "name": "utils.bem",
             "description": "Provides a series of functions and mixins that make it easier to generate\n[bem](http://getbem.com/) style class names. Modified from the great thinking done\n[here](https://codepen.io/gionkunz/pen/rkswl?editors=010).\n\nUnlike many bem mixins, there is no specific mixin for creating modifier classes. Instead,\nmodifiers and pseudo classes can be included directly in the call to the block or element mixin.",
             "variables": [],
@@ -2085,368 +2337,6 @@ window.pxstyles = {
             ]
         },
         {
-            "name": "utils.math",
-            "description": "",
-            "variables": [],
-            "items": [
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "pow",
-                    "docName": "pow()",
-                    "type": "function",
-                    "description": "Calculate a number raised to the power of the provided exponent.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "base",
-                            "description": "The base number"
-                        },
-                        {
-                            "type": "number",
-                            "name": "exp",
-                            "description": "The exponent used to raise the base"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-d",
-                    "docName": "round-d()",
-                    "type": "function",
-                    "description": "Round a number using the specified number of decimals.\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "$val: round-d(3.33333333, 2) // => 3.33"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "n",
-                            "description": "The number to be rounded"
-                        },
-                        {
-                            "type": "number",
-                            "name": "dec",
-                            "default": "2",
-                            "description": "The number of decimals in the output\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "round-f",
-                    "docName": "round-f()",
-                    "type": "function",
-                    "description": "Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "$val: round-d(3.33333333, 4) // => 3.25"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "n",
-                            "description": "The number to be rounded"
-                        },
-                        {
-                            "type": "number",
-                            "name": "frac",
-                            "default": "8",
-                            "description": "The denominator of the fractional portion of the result\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "intp",
-                    "docName": "intp()",
-                    "type": "function",
-                    "description": "Interpolate between two values.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "intp(0.5, 4) // => 2"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "intp(0.5, (1, 3) // => 2"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "prog",
-                            "description": "The progress between the two values, provided as a value between 0 and 1.\n"
-                        },
-                        {
-                            "type": "number",
-                            "name": "range",
-                            "description": "The range of interpolation. This can be provided as a single value which\nrepresents the upper range from 0 or as two values which represent the lower and upper range.\n"
-                        },
-                        {
-                            "type": "string",
-                            "name": "ease",
-                            "description": "A reference to an easing function. See the ease function for details\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease",
-                    "docName": "ease()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the easing function with the given name\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        },
-                        {
-                            "type": "String",
-                            "name": "easing",
-                            "description": "The name of the easing function that should be used for interpolation"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-quad",
-                    "docName": "ease-in-quad()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in quad function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-quad",
-                    "docName": "ease-out-quad()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out quad function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-cubic",
-                    "docName": "ease-in-cubic()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in cubic function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-cubic",
-                    "docName": "ease-out-cubic()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out cubic function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-in-quart",
-                    "docName": "ease-in-quart()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-in quart function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "ease-out-quart",
-                    "docName": "ease-out-quart()",
-                    "type": "function",
-                    "description": "Interpolate a value between 0 and 1 using the Penner ease-out quart function.\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "t",
-                            "description": "The input value between 0 and 1"
-                        }
-                    ],
-                    "return": {
-                        "type": "number",
-                        "description": "The eased equivalent of the input (also between 0 and 1)."
-                    },
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "clamp-number",
-                    "docName": "clamp-number()",
-                    "type": "function",
-                    "description": "Clamp a number (keep it within the confines of min/max). Note: the weird\nname is to differentiate from the clamp() css function.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "clamp(2, 3, 10) // => 3 // 2 is below the min of 3, so return min which is 3"
-                        },
-                        {
-                            "type": "scss",
-                            "code": "clamp(5, 3, 10) // => 5"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "number",
-                            "description": "The number to be clampled"
-                        },
-                        {
-                            "type": "*",
-                            "name": "min",
-                            "description": "Min allowed value"
-                        },
-                        {
-                            "type": "*",
-                            "name": "max",
-                            "description": "Max allowed value\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "divide",
-                    "docName": "divide()",
-                    "type": "function",
-                    "description": "Provides a wrapper for the standard sass divide function (math.div) to make imports a little\nsimpler. Returns the result of dividing $num1 by $num2.\n\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "num1",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "num2",
-                            "description": "The first number in the division operation (the numerator)"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.math",
-                    "name": "percent",
-                    "docName": "percent()",
-                    "type": "function",
-                    "description": "Convience function that divides two numbers and the multiples the result by 100%\n\n",
-                    "parameter": [
-                        {
-                            "type": "number",
-                            "name": "num1",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "num2",
-                            "description": "The first number in the division operation (the numerator)"
-                        },
-                        {
-                            "type": "number",
-                            "name": "round",
-                            "description": "The number of digits to use when rounding the output"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/math.scss"
-                }
-            ]
-        },
-        {
             "name": "utils.misc",
             "description": "",
             "variables": [],
@@ -2474,7 +2364,7 @@ window.pxstyles = {
                     "name": "placeholder",
                     "docName": "placeholder()",
                     "type": "mixin",
-                    "description": "Style the placeholder text for an text input element\n",
+                    "description": "Style the placeholder text for a text input element\n",
                     "example": [
                         {
                             "type": "scss",
@@ -2543,8 +2433,9 @@ window.pxstyles = {
                     "description": " Shortcut for the ::after pseudo element with common defaults for content\n and display.\n\n @param {*} $content [''] The value for the content property.\n @param {*} $display [block] The value for the display property.\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "after('goodbye, world', in-line)"
+                            "type": "after",
+                            "code": "content: \"\";\ndisplay: block;",
+                            "description": "('goodbye, world') // =>"
                         }
                     ],
                     "access": "public",
@@ -2556,35 +2447,7 @@ window.pxstyles = {
                     "name": "triangle",
                     "docName": "triangle()",
                     "type": "mixin",
-                    "description": "Create a triangle element using the border properties\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "TODO"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string",
-                            "name": "direction",
-                            "description": "The direction the arrow is pointing (up, down, left, right, etc.)"
-                        },
-                        {
-                            "type": "color",
-                            "name": "color",
-                            "description": "The fill color for the arrow"
-                        },
-                        {
-                            "type": "length",
-                            "name": "height",
-                            "description": "The height of the arrow"
-                        },
-                        {
-                            "type": "length",
-                            "name": "width",
-                            "description": "The width of the arrow\n"
-                        }
-                    ],
+                    "description": " Create a triangle element using the border properties\n\n @param {string} $direction The direction the arrow is pointing (up, down, left, right, etc.)\n @param {color} $color The fill color for the arrow\n @param {length} $height The height of the arrow\n @param {length} $width  The width of the arrow\n\n @example triangle('up', 'red', 10px, 2px) // =>\nborder-style: solid;\n height: 0;\n width: 0;\n border-color: transparent transparent \"red\" transparent;\n border-width: 0 1px 10px 1px;\n",
                     "access": "public",
                     "path": "utils/misc.scss"
                 },
