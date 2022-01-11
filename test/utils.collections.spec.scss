@@ -27,4 +27,24 @@
             2
         );
     }
+    @include test('nth-or-val') {
+        @include assert-equal(nth-or-val((a, b, c), 1, d), a);
+    }
+    @include test('list-remove') {
+        @include assert-equal(list-remove((a, b, c), 1), (b, c));
+    }
+    @include test('list-replace') {
+        @include assert-equal(
+            list-replace(
+                (a, 1, c, d, e),
+                (
+                    e: 7,
+                )
+            ),
+            (a, 1, c, d, e, 7)
+        );
+    }
+    @include test('list-contains') {
+        @include assert-equal(list-contains((a, b, c), c), true);
+    }
 }

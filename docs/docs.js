@@ -1806,6 +1806,12 @@ window.pxstyles = {
                     "docName": "map-deep-get()",
                     "type": "function",
                     "description": "Deep lookup for map values, each parameter represents the next level lookup\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "map-deep-get((a:1, b:2), b) // => 2"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "map",
@@ -1827,7 +1833,13 @@ window.pxstyles = {
                     "name": "nth-if-length",
                     "docName": "nth-if-length()",
                     "type": "function",
-                    "description": "If $list has an $nth element, return that element. Otherwise return $fallback.\n",
+                    "description": " If $list has an $nth element, return that element. Otherwise return $fallback.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "nth-if-length((a, b, c), 1) // => a"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -1841,7 +1853,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "nth-or-val((a, b, c), 1, d) => 1"
+                            "code": "nth-or-val((a, b, c), 1, d) => a"
                         },
                         {
                             "type": "scss",
@@ -1862,26 +1874,26 @@ window.pxstyles = {
                     "docName": "list-remove()",
                     "type": "function",
                     "description": "Return a copy of a list with the nth value removed\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "list-remove((a, b, c), 1) // => b, c"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "list-replace",
-                    "docName": "list-replace()",
-                    "type": "function",
+                    "name": "//Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)",
+                    "docName": "//Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)()",
+                    "type": "css",
                     "description": "Performas a find and replace of items within a list\n\n",
-                    "parameter": [
+                    "example": [
                         {
-                            "type": "list",
-                            "name": "list",
-                            "description": "The list on which the replacement will be performed"
-                        },
-                        {
-                            "type": "map",
-                            "name": "replacements",
-                            "description": "A map of the search/replacent values, e.g. (searchForThis: newKey)\n"
+                            "type": "scss",
+                            "code": "list-replace((a, b, c), (c: d)) // => a, b, c, d"
                         }
                     ],
                     "access": "public",
@@ -2344,9 +2356,9 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "//Robby - not testable?\n@mixin control-reset",
-                    "docName": "//Robby - not testable?\n@mixin control-reset()",
-                    "type": "css",
+                    "name": "control-reset",
+                    "docName": "control-reset()",
+                    "type": "mixin",
                     "description": " Completely resets the appearance of controls (input and button)\n",
                     "example": [
                         {

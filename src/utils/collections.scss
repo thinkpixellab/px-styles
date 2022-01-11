@@ -22,6 +22,7 @@
 /// Deep lookup for map values, each parameter represents the next level lookup
 /// @param {map} $map - Map
 /// @param {arglist} $keys - Key chain
+/// @example map-deep-get((a:1, b:2), b) // => 2
 
 @function map-deep-get($map, $keys...) {
     @each $key in $keys {
@@ -53,6 +54,7 @@
 // }
 
 /// If $list has an $nth element, return that element. Otherwise return $fallback.
+///@example nth-if-length((a, b, c), 1) // => a
 @function nth-if-length($list, $n, $fallback: null) {
     @if ($n <= length($list)) {
         @return nth($list, $n);
@@ -63,7 +65,7 @@
 /// If $list-or-val is a list, return the nth value; if the item is a value
 /// return the value; if the value is null return the default
 ///
-/// @example nth-or-val((a, b, c), 1, d) => 1
+/// @example nth-or-val((a, b, c), 1, d) => a
 /// @example nth-or-val(a, 1, d) => a
 /// @example nth-or-val(null, 1, d) => d
 
@@ -78,6 +80,7 @@
 }
 
 /// Return a copy of a list with the nth value removed
+/// @example list-remove((a, b, c), 1) // => b, c
 
 @function list-remove($list, $n) {
     $result: ();
@@ -96,8 +99,8 @@
 ///
 /// @param {list} $list The list on which the replacement will be performed
 /// @param {map} $replacements A map of the search/replacent values, e.g. (searchForThis: newKey)
-///
-
+/// @example list-replace((a, b, c), (c: d)) // => a, b, c, d
+//Robby - this isn't working as I expected it to.
 @function list-replace($list, $replacements) {
     $result: ();
 
@@ -110,6 +113,7 @@
 }
 
 /// Returns true if the list contains a value, otherwise false
+/// @example list-contains((a, b, c), c) // => true
 
 @function list-contains($list, $val) {
     @return index($list, $val) != null;
