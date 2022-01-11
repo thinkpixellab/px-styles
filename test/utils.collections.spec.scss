@@ -1,0 +1,30 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.collections') {
+    @include test('map-get-default') {
+        @include assert-equal(
+            map-get-default(
+                (
+                    a: 1,
+                    b: 2,
+                ),
+                a,
+                3
+            ),
+            1
+        );
+    }
+    @include test('map-deep-get') {
+        @include assert-equal(
+            map-deep-get(
+                (
+                    a: 1,
+                    b: 2,
+                ),
+                b
+            ),
+            2
+        );
+    }
+}
