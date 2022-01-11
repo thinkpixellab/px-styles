@@ -20,4 +20,7 @@
     @include test('list-join') {
         @include assert-equal(list-join('a' 'b' 'c', ':'), 'a:b:c');
     }
+    @include test('starts-with') {
+        @include assert-equal(starts-with('abc', 'a'), true);
+    }
 }

@@ -1886,8 +1886,8 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "//Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)",
-                    "docName": "//Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)()",
+                    "name": "// Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)",
+                    "docName": "// Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)()",
                     "type": "css",
                     "description": "Performas a find and replace of items within a list\n\n",
                     "example": [

@@ -2950,14 +2950,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
+                    "name": "// Robby, can you explain?\n/// @example strip-unit(234.8) // => 234.8\n\n@function strip-unit($number)",
+                    "docName": "// Robby, can you explain?\n/// @example strip-unit(234.8) // => 234.8\n\n@function strip-unit($number)()",
+                    "type": "css",
+                    "description": "Strip the unit from a number\n\n",
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
                     "name": "strip-unit",
                     "docName": "strip-unit()",
                     "type": "function",
-                    "description": "Strip the unit from a number\n\n",
-                    "parameter": [
+                    "description": "",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "value"
+                            "type": "scss",
+                            "code": "strip-unit(234.8) // => 234.8"
                         }
                     ],
                     "access": "public",

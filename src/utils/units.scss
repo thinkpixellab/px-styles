@@ -9,6 +9,8 @@
 /// Strip the unit from a number
 ///
 /// @param {*} $value
+// Robby, can you explain?
+/// @example strip-unit(234.8) // => 234.8
 
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
