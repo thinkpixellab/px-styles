@@ -1906,6 +1906,12 @@ window.pxstyles = {
                     "docName": "list-contains()",
                     "type": "function",
                     "description": "Returns true if the list contains a value, otherwise false\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "list-contains((a, b, c), c) // => true"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -1916,6 +1922,22 @@ window.pxstyles = {
                     "docName": "list-sort-num()",
                     "type": "function",
                     "description": "Return a copy of a list sorted numerically\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "list-sort-num(2, 4, 1, 5, 3) // => 1 2 3 4 5"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
+                    "name": "//Robby, need guidance on error\n/// @example list-sort(y, z, a, h, b) // =>\n\n@function list-sort($list)",
+                    "docName": "//Robby, need guidance on error\n/// @example list-sort(y, z, a, h, b) // =>\n\n@function list-sort($list)()",
+                    "type": "css",
+                    "description": "Return a copy of a list sorted alphabetically\n",
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -1925,7 +1947,13 @@ window.pxstyles = {
                     "name": "list-sort",
                     "docName": "list-sort()",
                     "type": "function",
-                    "description": "Return a copy of a list sorted alphabetically\n",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "list-sort(y, z, a, h, b) // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -1936,6 +1964,12 @@ window.pxstyles = {
                     "docName": "map-sort-by-values()",
                     "type": "function",
                     "description": "Return a copy of a map sorted by the value of each entry\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "map-sort-by-values((a:1, b:2, d:4, c:3))"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
@@ -2002,6 +2036,12 @@ window.pxstyles = {
                     "docName": "map-collect()",
                     "type": "function",
                     "description": "Merge multiple maps into a single map\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "map-collect()"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -2022,32 +2062,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.flatmap",
+                    "name": "//Robby: need help - example isn't working in scratch\n/// @example\n/// $color: flat-get((colors: (red: #F00)), 'colors:red')\n/// ==> #F00\n\n@function flat-get($map, $path, $fallback: null)",
+                    "docName": "//Robby: need help - example isn't working in scratch\n/// @example\n/// $color: flat-get((colors: (red: #F00)), 'colors:red')\n/// ==> #F00\n\n@function flat-get($map, $path, $fallback: null)()",
+                    "type": "css",
+                    "description": "A function that retrieves a \"deep\" value from a map using path syntax where key names are\nseparated by colons\n\n",
+                    "access": "public",
+                    "path": "utils/flatmap.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.flatmap",
                     "name": "flat-get",
                     "docName": "flat-get()",
                     "type": "function",
-                    "description": "A function that retrieves a \"deep\" value from a map using path syntax where key names are\nseparated by colons\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "$color: flat-get((colors: (red: #F00)), 'colors:red')\n==> #F00"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "map",
-                            "description": "An existing map that serves as the lookup source\n"
-                        },
-                        {
-                            "type": "string",
-                            "name": "path",
-                            "description": "The path where the value is found, expressed as a list of keys separated\nby colons (e.g. 'colors:accent')\n"
-                        },
-                        {
-                            "type": "*",
-                            "name": "fallback",
-                            "default": "null",
-                            "description": "An optional fallback value that will be returned in the value isn't\nfound\n"
                         }
                     ],
                     "access": "public",
@@ -2101,6 +2133,22 @@ window.pxstyles = {
                     "docName": "flat-default()",
                     "type": "function",
                     "description": "Same as flat-set, but will not overwrite a value if it already exists\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "TODO"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/flatmap.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.flatmap",
+                    "name": "// Robby: need help\n/// @example\n/// flatten-map((colors: (red: #f00, blue: #00f)))\n/// ==> (\"colors:red\": #f00, \"colors:blue\": #00f)\n\n@function flatten-map($map)",
+                    "docName": "// Robby: need help\n/// @example\n/// flatten-map((colors: (red: #f00, blue: #00f)))\n/// ==> (\"colors:red\": #f00, \"colors:blue\": #00f)\n\n@function flatten-map($map)()",
+                    "type": "css",
+                    "description": "A function that flattens a map to it's \"flat\" equivalent where every key is replaced with a deep path\n(see examples) into the original map.\n\n",
                     "access": "public",
                     "path": "utils/flatmap.scss"
                 },
@@ -2110,18 +2158,11 @@ window.pxstyles = {
                     "name": "flatten-map",
                     "docName": "flatten-map()",
                     "type": "function",
-                    "description": "A function that flattens a map to it's \"flat\" equivalent where every key is replaced with a deep path\n(see examples) into the original map.\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "flatten-map((colors: (red: #f00, blue: #00f)))\n==> (\"colors:red\": #f00, \"colors:blue\": #00f)"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "map",
-                            "description": "The map to be flattened\n"
                         }
                     ],
                     "access": "public",
@@ -2332,15 +2373,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
+                    "name": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)",
+                    "docName": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)()",
+                    "type": "css",
+                    "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
                     "name": "aspect",
                     "docName": "aspect()",
                     "type": "mixin",
-                    "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
-                    "parameter": [
+                    "description": "",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "aspect",
-                            "description": "A number (like 1.333) or string (like '16:9') that represents the aspect ratio"
+                            "type": "scss",
+                            "code": "aspect(1:3)"
                         }
                     ],
                     "access": "public",
@@ -2567,6 +2617,12 @@ window.pxstyles = {
                     "docName": "url-encode()",
                     "type": "function",
                     "description": "Url encode a string (used primarily for encoding inline svg)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "url-encode('pixellab') // => \"www.thinkpixellab.com%25\";"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/strings.scss"
                 },
@@ -2581,6 +2637,22 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "background-image: inline-svg('<svg>...</svg>'); // => background-image: url('data:image/svg+xml, ... ');"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/strings.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.strings",
+                    "name": "str-split",
+                    "docName": "str-split()",
+                    "type": "function",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "str-split('you are here', 'a') // => \"you \" \"re here\""
                         }
                     ],
                     "access": "public",

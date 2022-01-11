@@ -18,6 +18,7 @@
 /// @param {*} $fallback [null] An optional fallback value that will be returned in the value isn't
 /// found
 ///
+//Robby: need help - example isn't working in scratch
 /// @example
 /// $color: flat-get((colors: (red: #F00)), 'colors:red')
 /// ==> #F00
@@ -84,7 +85,7 @@
 }
 
 /// Same as flat-set, but will not overwrite a value if it already exists
-
+/// @example TODO
 @function flat-default($map, $path, $val, $merge-maps: false) {
     $current: flat-get($map, $path, $fallback: 'NOTFOUND');
     @if ($current == 'NOTFOUND') {
@@ -97,6 +98,7 @@
 ///
 /// @param {map} $map The map to be flattened
 ///
+// Robby: need help
 /// @example
 /// flatten-map((colors: (red: #f00, blue: #00f)))
 /// ==> ("colors:red": #f00, "colors:blue": #00f)

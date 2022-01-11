@@ -100,7 +100,7 @@
 /// @param {list} $list The list on which the replacement will be performed
 /// @param {map} $replacements A map of the search/replacent values, e.g. (searchForThis: newKey)
 /// @example list-replace((a, b, c), (c: d)) // => a, b, c, d
-//Robby - this isn't working as I expected it to.
+// Robby - this isn't working as I expected it to.
 @function list-replace($list, $replacements) {
     $result: ();
 
@@ -120,6 +120,7 @@
 }
 
 /// Return a copy of a list sorted numerically
+/// @example list-sort-num(2, 4, 1, 5, 3) // => 1 2 3 4 5
 
 @function list-sort-num($list) {
     $sortedlist: ();
@@ -137,6 +138,8 @@
 }
 
 /// Return a copy of a list sorted alphabetically
+//Robby, need guidance on error
+/// @example list-sort(y, z, a, h, b) // =>
 
 @function list-sort($list) {
     $order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']' '^' '_' '{' '|' '}' '~''0'
@@ -167,6 +170,7 @@
 }
 
 /// Return a copy of a map sorted by the value of each entry
+/// @example map-sort-by-values((a:1, b:2, d:4, c:3))
 
 @function map-sort-by-values($map) {
     $keys: ();
@@ -260,7 +264,7 @@
 
 /// Merge multiple maps into a single map
 /// @param {*} $maps... One or more maps that should be merged into a single map.
-
+/// @example map-collect()
 @function map-collect($maps...) {
     $collection: ();
 

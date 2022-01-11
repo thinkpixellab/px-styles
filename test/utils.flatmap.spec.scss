@@ -1,0 +1,33 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.flatmap') {
+    // @include test('flat-get') {
+    //     @include assert-equal(
+    //         flat-get(
+    //             (
+    //                 colors: (
+    //                     red: #f00,
+    //                 ),
+    //             ),
+    //             'colors:red'
+    //         ),
+    //         #f00
+    //     );
+    // }
+    //NEED HELP WITH ALL OF THEM UNTIL THE LAST ONE
+    @include test('flat-has-key') {
+        @include assert-equal(
+            flat-has-key(
+                (
+                    colors: (
+                        red: #f00,
+                        blue: #00f,
+                    ),
+                ),
+                'colors:blue'
+            ),
+            true
+        );
+    }
+}

@@ -16,6 +16,7 @@
 }
 
 /// Url encode a string (used primarily for encoding inline svg)
+/// @example url-encode('pixellab') // => "www.thinkpixellab.com%25";
 
 @function url-encode($string) {
     $map: (
@@ -41,7 +42,7 @@
         '?': '%3F',
         '#': '%23',
         '[': '%5B',
-        ']': '%5D'
+        ']': '%5D',
     );
 
     $new: $string;
@@ -67,6 +68,7 @@
     @return url('data:image/svg+xml,#{url-encode($string)}');
 }
 
+/// @example str-split('you are here', 'a') // => "you " "re here"
 @function str-split($string, $separator) {
     // empty array/list
     $split-arr: ();

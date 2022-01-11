@@ -1,0 +1,23 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.strings') {
+    @include test('str-replace') {
+        @include assert-equal(str-replace('test test test', 'test', 'pass'), ('pass pass pass'));
+    }
+    @include test('url-encode') {
+        @include assert-equal(url-encode('www.thinkpixellab.com%'), 'www.thinkpixellab.com%25');
+    }
+    @include test('inline-svg') {
+        @include assert-equal(
+            inline-svg('<svg>...</svg>'),
+            url('data:image/svg+xml,%3Csvg%3E...%3C%2Fsvg%3E')
+        );
+    }
+    @include test('str-split') {
+        @include assert-equal(str-split('you are here', 'a'), 'you ' 're here');
+    }
+    @include test('list-join') {
+        @include assert-equal(list-join('a' 'b' 'c', ':'), 'a:b:c');
+    }
+}
