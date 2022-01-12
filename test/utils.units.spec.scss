@@ -46,4 +46,60 @@
             true
         );
     }
+    @include test('is-list') {
+        @include assert-equal(is-list(1 2 3), true);
+    }
+    @include test('is-color') {
+        @include assert-equal(is-color(red), true);
+    }
+    @include test('if-null') {
+        @include assert-equal(if-null(null, 20), 20);
+    }
+    @include test('if-string') {
+        @include assert-equal(if-string(10, 'hello', 20), 20);
+    }
+    @include test('if-number') {
+        @include assert-equal(if-number(10, 'hello', 20), 'hello');
+    }
+    @include test('if-list') {
+        @include assert-equal(if-list((10 20), 'hello', 20), 'hello');
+    }
+    @include test('if-map') {
+        @include assert-equal(
+            if-map(
+                (
+                    color: red,
+                ),
+                'hello',
+                20
+            ),
+            'hello'
+        );
+    }
+    @include test('if-color') {
+        @include assert-equal(if-color(pink, #fefe, 'not a color'), #fefe);
+    }
+    @include test('if-type') {
+        @include assert-equal(
+            if-type(
+                10,
+                (
+                    color: blue,
+                ),
+                'fallback'
+            ),
+            'fallback'
+        );
+    }
+    // @include test('get-fourpart') {
+    //     @include assert-equal(
+    //         get-fourpart('2px'),
+    //         (
+    //             top: 2px,
+    //             right: 2px,
+    //             bottom: 2px,
+    //             left: 2px,
+    //         )
+    //     );
+    // }
 }

@@ -171,14 +171,18 @@
 /// Return true if the provided value is a string
 ///
 /// @param {*} $value
+///
+/// @example is-string('Hello, world') // => true
 
 @function is-string($value) {
     @return type-of($value) == 'string';
 }
 
-/// Return true if the provided value is a string
+/// Return true if the provided value is a map
 ///
 /// @param {*} $value
+///
+/// @example is-map((red: #f00, blue: #00f)) // => true
 
 @function is-map($value) {
     @return type-of($value) == 'map' or (is-list($value) and length($value) == 0);
@@ -187,6 +191,8 @@
 /// Return true if the provided value is a string
 ///
 /// @param {*} $value
+///
+/// @example is-list((1 2 3)) // => true
 
 @function is-list($value) {
     @return type-of($value) == 'list';
@@ -195,6 +201,9 @@
 /// Return true if the provided value is a color
 ///
 /// @param {*} $value
+///
+/// @example is-color(blue) // => true
+/// @example is-color(#444) // => true
 
 @function is-color($value) {
     @return type-of($value) == 'color';
@@ -204,6 +213,9 @@
 ///
 /// @param {*} $value
 /// @param {*} $fallback
+///
+/// @example if-null(10, 20) // => 10
+/// @example if-null(null, 20) // => 20
 
 @function if-null($value, $fallback) {
     @if ($value != null) {
@@ -217,19 +229,23 @@
 /// @param {*} $value
 /// @param {*} $trueval
 /// @param {*} $falseval
-
+///
+/// @example if-string(10, 'hello', 20) // => 20
+/// @example if-string('tree', 'hello', 20) // => 'hello'
 @function if-string($value, $trueval, $falseval) {
     @if (is-string($value)) {
         @return $trueval;
     }
     @return $falseval;
 }
-
+//Robby - is this correct?
 /// Choose a value based on whether another value is a string or not
 ///
 /// @param {*} $value
 /// @param {*} $trueval
 /// @param {*} $falseval
+///
+/// @example if-number(10, 'hello', 20) // => "hello"
 
 @function if-number($value, $trueval, $falseval) {
     @if (is-number($value)) {
@@ -237,12 +253,15 @@
     }
     @return $falseval;
 }
-
+//Robby?
 /// Choose a value based on whether another value is a string or not
 ///
 /// @param {*} $value
 /// @param {*} $trueval
 /// @param {*} $falseval
+///
+/// @example if-list(10, 'hello', 20) // => 20
+/// @example if-list((10, 20), 'hello', 20) // => 'hello'
 
 @function if-list($value, $trueval, $falseval) {
     @if (is-list($value)) {
@@ -256,6 +275,9 @@
 /// @param {*} $value
 /// @param {*} $trueval
 /// @param {*} $falseval
+///
+/// @example if-map((10, 20), 'hello', 20) // => 20
+/// @example if-map((color: red), 'hello', 20) // => 'hello'
 
 @function if-map($value, $trueval, $falseval) {
     @if (is-map($value)) {
@@ -269,6 +291,8 @@
 /// @param {*} $value
 /// @param {*} $trueval
 /// @param {*} $falseval
+///
+/// @example if-color(pink, #fefe, 'not a color') // => #fefe
 
 @function if-color($value, $trueval, $falseval) {
     @if (is-color($value)) {
@@ -282,6 +306,10 @@
 /// @param {*} $value
 /// @param {*} $value-map
 /// @param {*} $fallback [null]
+///
+/// @example if-type(10, (color: blue), 'fallback') // => 'fallback
+//Robby? another example?
+/// @example
 
 @function if-type($value, $value-map, $fallback: null) {
     $type: type-of($value);
@@ -300,7 +328,8 @@
 /// @example get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)
 /// @example get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)
 /// @example get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)
-
+// SARAH IS HERE
+//Robby ?
 @function get-fourpart($value) {
     @if (type-of($value) == 'list') {
         $length: length($value);

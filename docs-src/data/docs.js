@@ -3216,6 +3216,12 @@ window.pxstyles = {
                     "docName": "is-string()",
                     "type": "function",
                     "description": "Return true if the provided value is a string\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-string('Hello, world') // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3231,7 +3237,13 @@ window.pxstyles = {
                     "name": "is-map",
                     "docName": "is-map()",
                     "type": "function",
-                    "description": "Return true if the provided value is a string\n\n",
+                    "description": "Return true if the provided value is a map\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-map((red: #f00, blue: #00f)) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3248,6 +3260,12 @@ window.pxstyles = {
                     "docName": "is-list()",
                     "type": "function",
                     "description": "Return true if the provided value is a string\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-list((1 2 3)) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3264,6 +3282,16 @@ window.pxstyles = {
                     "docName": "is-color()",
                     "type": "function",
                     "description": "Return true if the provided value is a color\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-color(blue) // => true"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "is-color(#444) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3280,6 +3308,16 @@ window.pxstyles = {
                     "docName": "if-null()",
                     "type": "function",
                     "description": "Provide an alternate value when $value is null\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-null(10, 20) // => 10"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "if-null(null, 20) // => 20"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3300,6 +3338,16 @@ window.pxstyles = {
                     "docName": "if-string()",
                     "type": "function",
                     "description": "Choose a value based on whether another value is a string or not\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-string(10, 'hello', 20) // => 20"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "if-string('tree', 'hello', 20) // => 'hello'"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3324,6 +3372,12 @@ window.pxstyles = {
                     "docName": "if-number()",
                     "type": "function",
                     "description": "Choose a value based on whether another value is a string or not\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-number(10, 'hello', 20) // => \"hello\""
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3348,6 +3402,16 @@ window.pxstyles = {
                     "docName": "if-list()",
                     "type": "function",
                     "description": "Choose a value based on whether another value is a string or not\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-list(10, 'hello', 20) // => 20"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "if-list((10, 20), 'hello', 20) // => 'hello'"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3372,6 +3436,16 @@ window.pxstyles = {
                     "docName": "if-map()",
                     "type": "function",
                     "description": "Choose a value based on whether another value is a string or not\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-map((10, 20), 'hello', 20) // => 20"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "if-map((color: red), 'hello', 20) // => 'hello'"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3396,6 +3470,12 @@ window.pxstyles = {
                     "docName": "if-color()",
                     "type": "function",
                     "description": "Choose a value based on whether another value is a color or not\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "if-color(pink, #fefe, 'not a color') // => #fefe"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3416,23 +3496,14 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "if-type",
-                    "docName": "if-type()",
-                    "type": "function",
+                    "name": "//Robby? another example?\n/// @example\n\n@function if-type($value, $value-map, $fallback: null)",
+                    "docName": "//Robby? another example?\n/// @example\n\n@function if-type($value, $value-map, $fallback: null)()",
+                    "type": "css",
                     "description": "Choose a value based on the type of another value by provide a mapping between type and values\n\n",
-                    "parameter": [
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "value"
-                        },
-                        {
-                            "type": "*",
-                            "name": "value-map"
-                        },
-                        {
-                            "type": "*",
-                            "name": "fallback",
-                            "default": "null"
+                            "type": "scss",
+                            "code": "if-type(10, (color: blue), 'fallback') // => 'fallback"
                         }
                     ],
                     "access": "public",
@@ -3441,9 +3512,25 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "get-fourpart",
-                    "docName": "get-fourpart()",
+                    "name": "if-type",
+                    "docName": "if-type()",
                     "type": "function",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ""
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
+                    "name": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)",
+                    "docName": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)()",
+                    "type": "css",
                     "description": "Convert any valid four-part value (like those used for margin or padding) into a map with\nthe correct values for top, right, bottom, left)\n\n",
                     "example": [
                         {
@@ -3461,12 +3548,6 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "value"
                         }
                     ],
                     "access": "public",
