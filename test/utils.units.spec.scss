@@ -1,0 +1,49 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('utils.units') {
+    @include test('strip-unit') {
+        @include assert-equal(strip-unit(234.8), 234.8);
+    }
+    @include test('to-number') {
+        @include assert-equal(to-number('234.8'), 234.8);
+    }
+    @include test('is-rems') {
+        @include assert-equal(is-rems(3rem), true);
+    }
+    @include test('is-px') {
+        @include assert-equal(is-px(10px), true);
+    }
+    @include test('is-time') {
+        @include assert-equal(is-time(1000ms), true);
+    }
+    @include test('is-angle') {
+        @include assert-equal(is-angle(45deg), true);
+    }
+    @include test('is-integer') {
+        @include assert-equal(is-integer(456), true);
+    }
+    @include test('is-relative-length') {
+        @include assert-equal(is-relative-length(20vmin), true);
+    }
+    @include test('is-percentage') {
+        @include assert-equal(is-percentage(100%), true);
+    }
+    @include test('is-length') {
+        @include assert-equal(is-length(100%), true);
+    }
+    @include test('is-string') {
+        @include assert-equal(is-string('Hello, world.'), true);
+    }
+    @include test('is-map') {
+        @include assert-equal(
+            is-map(
+                (
+                    red: #f00,
+                    blue: #00f,
+                )
+            ),
+            true
+        );
+    }
+}

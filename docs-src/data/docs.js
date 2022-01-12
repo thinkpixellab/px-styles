@@ -2980,6 +2980,12 @@ window.pxstyles = {
                     "docName": "to-number()",
                     "type": "function",
                     "description": "Convert a number-like string value to a proper number (that can be used for\narithmetic, etc.)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "to-number('234.8') // => 234.8"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -2996,6 +3002,12 @@ window.pxstyles = {
                     "docName": "is-number()",
                     "type": "function",
                     "description": "Return true if the provided value is a number\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-number(4) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3012,6 +3024,12 @@ window.pxstyles = {
                     "docName": "is-rems()",
                     "type": "function",
                     "description": "Return true if the provided value is in rem units\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-rems(3rem) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3028,6 +3046,12 @@ window.pxstyles = {
                     "docName": "is-px()",
                     "type": "function",
                     "description": "Return true if the provided value is in px units\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-px(10px) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3044,6 +3068,12 @@ window.pxstyles = {
                     "docName": "is-time()",
                     "type": "function",
                     "description": "Return true if the provided value is a css duration / time\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-time(5000ms) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3060,6 +3090,12 @@ window.pxstyles = {
                     "docName": "is-angle()",
                     "type": "function",
                     "description": "Return true if the provided value is a css angle\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-angle(45deg) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3076,6 +3112,12 @@ window.pxstyles = {
                     "docName": "is-integer()",
                     "type": "function",
                     "description": "Return true if the provided value is an integer\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-integer(456) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3092,6 +3134,12 @@ window.pxstyles = {
                     "docName": "is-relative-length()",
                     "type": "function",
                     "description": "Return true if the provided value is a relative length value (if you don't\nknow about vmin/vmax then look them up because they are cool).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-relative-length(20vmin) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3124,6 +3172,12 @@ window.pxstyles = {
                     "docName": "is-percentage()",
                     "type": "function",
                     "description": "Return true if the provided value is an absolute length value\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-percentage(100%) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3140,6 +3194,12 @@ window.pxstyles = {
                     "docName": "is-length()",
                     "type": "function",
                     "description": "Return true if the provided value is a length\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-length(100%) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",

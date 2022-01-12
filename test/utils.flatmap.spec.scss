@@ -2,6 +2,7 @@
 @use 'true' as *;
 
 @include test-module('utils.flatmap') {
+    //not working
     // @include test('flat-get') {
     //     @include assert-equal(
     //         flat-get(
@@ -15,6 +16,41 @@
     //         #f00
     //     );
     // }
+    //
+    // @include test('flat-set') {
+    //     @include assert-equal(
+    //         flat-set(
+    //             (
+    //                 (
+    //                     colors: (
+    //                         red: #f00,
+    //                     )
+    //                 ),
+    //                 'colors:blue',
+    //                 #00f
+    //             ),
+    //             colors: {red: #F00, blue: #00F}
+    //         )
+    //     );
+    // }
+    //
+    @include test('flatten-map') {
+        @include assert-equal(
+            flatten-map(
+                (
+                    colors: (
+                        red: #f00,
+                        blue: #00f,
+                    ),
+                )
+            ),
+            (
+                'colors:red': #f00,
+                'colors:blue': #00f,
+            )
+        );
+    }
+
     //NEED HELP WITH ALL OF THEM UNTIL THE LAST ONE
     @include test('flat-has-key') {
         @include assert-equal(
