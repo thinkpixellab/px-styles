@@ -42,7 +42,7 @@
                     e: 7,
                 )
             ),
-            (a, 1, c, d, e, 7)
+            (a 1 c d 7)
         );
     }
     @include test('list-contains') {
