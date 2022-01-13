@@ -90,7 +90,23 @@
         );
     }
 
-    //NEED HELP WITH ALL OF THEM UNTIL THE LAST ONE
+    @include test('flat-merge') {
+        @include assert-equal(
+            flat-merge(
+                (
+                    'clr:main': blue,
+                ),
+                (
+                    'clr:main': red,
+                )
+            ),
+            (
+                clr: (
+                    main: red,
+                ),
+            )
+        );
+    }
     @include test('flat-has-key') {
         @include assert-equal(
             flat-has-key(
