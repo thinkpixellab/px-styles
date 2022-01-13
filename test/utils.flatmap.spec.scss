@@ -73,6 +73,23 @@
         );
     }
 
+    @include test('unflatten-map') {
+        @include assert-equal(
+            unflatten-map(
+                (
+                    'colors:clr1': #f00,
+                    'colors:clr2': #00f,
+                )
+            ),
+            (
+                colors: (
+                    clr1: #f00,
+                    clr2: #00f,
+                ),
+            )
+        );
+    }
+
     //NEED HELP WITH ALL OF THEM UNTIL THE LAST ONE
     @include test('flat-has-key') {
         @include assert-equal(
