@@ -2,38 +2,42 @@
 @use 'true' as *;
 
 @include test-module('utils.flatmap') {
-    //not working
-    // @include test('flat-get') {
-    //     @include assert-equal(
-    //         flat-get(
-    //             (
-    //                 colors: (
-    //                     red: #f00,
-    //                 ),
-    //             ),
-    //             'colors:red'
-    //         ),
-    //         #f00
-    //     );
-    // }
-    //
-    // @include test('flat-set') {
-    //     @include assert-equal(
-    //         flat-set(
-    //             (
-    //                 (
-    //                     colors: (
-    //                         red: #f00,
-    //                     )
-    //                 ),
-    //                 'colors:blue',
-    //                 #00f
-    //             ),
-    //             colors: {red: #F00, blue: #00F}
-    //         )
-    //     );
-    // }
-    //
+    @include test('flat-get') {
+        @include assert-equal(
+            flat-get(
+                (
+                    colors: (
+                        somecolor: #f00,
+                    ),
+                ),
+                'colors:somecolor'
+            ),
+            #f00
+        );
+    }
+
+    @include test-module('utils.flatmap') {
+        @include test('flat-set') {
+            @include assert-equal(
+                flat-set(
+                    (
+                        colors: (
+                            clr1: #f00,
+                        ),
+                    ),
+                    'colors:clr2',
+                    #00f
+                ),
+                (
+                    colors: (
+                        clr1: #f00,
+                        clr2: #00f,
+                    ),
+                )
+            );
+        }
+    }
+
     @include test('flatten-map') {
         @include assert-equal(
             flatten-map(
