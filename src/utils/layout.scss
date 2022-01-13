@@ -30,7 +30,7 @@
     padding-bottom: 100% * math.div(1, $aspect);
 }
 ///
-/// @example aspect-before(1.333, $display: block) // =>
+/// @example @include aspect-before(1.333, $display: block) // =>
 /// display: block;
 /// width: 100%;
 /// padding-bottom: 75.0187546887%;
@@ -40,7 +40,11 @@
         @include aspect($aspect, $display);
     }
 }
-
+///
+/// @example @include aspect-after(1.333, $display: block) // =>
+/// display: block;
+/// width: 100%;
+/// padding-bottom: 75.0187546887%;
 @mixin aspect-after($aspect, $display: block) {
     &:after {
         content: '';
@@ -49,6 +53,9 @@
 }
 
 // inherit the border radius of a parent for the first and last items
+///
+// Robby ? help with example and testing the next few mixins
+/// @example @include first-last-radius
 
 @mixin first-last-radius {
     border-radius: 0;
@@ -66,6 +73,13 @@
         border-radius: inherit;
     }
 }
+///
+/// @example pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>
+/// position: absolute;
+/// top: 0;
+/// right: 0;
+/// bottom: 0;
+/// left: 0;
 
 @mixin pos($pos: null, $t: null, $r: null, $b: null, $l: null) {
     position: $pos;

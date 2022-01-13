@@ -73,4 +73,20 @@
             }
         }
     }
+    @include test('mixin pos') {
+        @include assert {
+            // test
+            @include output {
+                @include pos($pos: absolute, $t: null, $r: null, $b: null, $l: null);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
 }

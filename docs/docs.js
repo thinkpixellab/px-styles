@@ -2429,11 +2429,64 @@ window.pxstyles = {
                     "description": "\n",
                     "example": [
                         {
-                            "type": "aspect",
-                            "code": "content: \"\";\ndisplay: block;\nwidth: 100%;\npadding-bottom: 75.0187546887%;",
-                            "description": "before(1.333, $display: block) // =>"
+                            "type": "include",
+                            "code": "display: block;\nwidth: 100%;\npadding-bottom: 75.0187546887%;",
+                            "description": "aspect-before(1.333, $display: block) // =>"
                         }
                     ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "aspect-after",
+                    "docName": "aspect-after()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "display: block;\nwidth: 100%;\npadding-bottom: 75.0187546887%;",
+                            "description": "aspect-after(1.333, $display: block) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "// Robby ? help with example and testing the next few mixins\n/// @example @include first-last-radius\n\n@mixin first-last-radius",
+                    "docName": "// Robby ? help with example and testing the next few mixins\n/// @example @include first-last-radius\n\n@mixin first-last-radius()",
+                    "type": "css",
+                    "description": "\n",
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "first-last-radius",
+                    "docName": "first-last-radius()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include first-last-radius"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "pos",
+                    "docName": "pos()",
+                    "type": "mixin",
+                    "description": "\n @example pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>\nposition: absolute;\ntop: 0;\nright: 0;\nbottom: 0;\n left: 0;\n",
                     "access": "public",
                     "path": "utils/layout.scss"
                 }
