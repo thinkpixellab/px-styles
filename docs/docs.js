@@ -2632,6 +2632,23 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center",
+                    "docName": "center()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 50%;\ntop: 50%;\ntransform: translate(-50%, -50%);",
+                            "description": "center($left: 50%, $top: 50%, $position: absolute)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
                 }
             ]
         },

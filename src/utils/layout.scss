@@ -204,13 +204,19 @@
     top: $top;
     transform: translate(-$left, -$top);
 }
-
+/// @example @include center-x($left: 50%, $position: absolute) // =>
+/// position: absolute;
+/// left: 50%;
+/// transform: translateX(-50%);
 @mixin center-x($left: 50%, $position: absolute) {
     position: $position;
     left: $left;
     transform: translateX(-$left);
 }
-
+/// @example @include center-y($top: 50%, $position: absolute) // =>
+/// position: absolute;
+/// top: 50%;
+/// transform: translateY(-50%);
 @mixin center-y($top: 50%, $position: absolute) {
     position: $position;
     top: $top;

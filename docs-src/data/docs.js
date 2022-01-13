@@ -2649,6 +2649,40 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center-x",
+                    "docName": "center-x()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 50%;\ntransform: translateX(-50%);",
+                            "description": "center-x($left: 50%, $position: absolute) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center-y",
+                    "docName": "center-y()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\ntop: 50%;\ntransform: translateY(-50%);",
+                            "description": "center-y($top: 50%, $position: absolute) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
                 }
             ]
         },

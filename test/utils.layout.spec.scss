@@ -209,4 +209,47 @@
             }
         }
     }
+    @include test('mixin center') {
+        @include assert {
+            // test
+            @include output {
+                @include center($left: 50%, $top: 50%, $position: absolute);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+    @include test('mixin center-x') {
+        @include assert {
+            // test
+            @include output {
+                @include center-x($left: 50%, $position: absolute);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+    @include test('mixin center-y') {
+        @include assert {
+            // test
+            @include output {
+                @include center-y($top: 50%, $position: absolute);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
 }
