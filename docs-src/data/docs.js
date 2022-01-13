@@ -4021,7 +4021,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-border-width('2px solid red') // => red"
+                            "code": "get-border-color('2px solid red') // => red"
                         }
                     ],
                     "parameter": [
@@ -4036,25 +4036,28 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
+                    "name": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)",
+                    "docName": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)()",
+                    "type": "css",
+                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
                     "name": "aspect-to-number",
                     "docName": "aspect-to-number()",
                     "type": "function",
-                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$aspect: aspect-to-number('16:9') // => 1.77778"
+                            "code": "$aspect: aspect-to-number('16:9') // => 1.77777778;"
                         },
                         {
                             "type": "scss",
                             "code": "$aspect: aspect-to-number(1.77778) // => 1.77778"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string | number",
-                            "name": "The",
-                            "description": "string representation of the aspect (should be two numbers\nseparated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be\nreturned directly. This makes it possible to use the function as a safety where a number is\nexpected but a string could be used for convenience.\n"
                         }
                     ],
                     "access": "public",

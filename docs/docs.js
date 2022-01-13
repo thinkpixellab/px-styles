@@ -3999,7 +3999,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-border-width('2px solid red') // => solid"
+                            "code": "get-border-style('2px solid red') // => solid"
                         }
                     ],
                     "parameter": [
@@ -4021,7 +4021,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-border-width('2px solid red') // => red"
+                            "code": "get-border-color('2px solid red') // => red"
                         }
                     ],
                     "parameter": [
@@ -4043,7 +4043,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$aspect: aspect-to-number('16:9') // => 1.77778"
+                            "code": "$aspect: aspect-to-number('16:9') // => 1.77777778;"
                         },
                         {
                             "type": "scss",

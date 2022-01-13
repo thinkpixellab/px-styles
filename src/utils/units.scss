@@ -425,7 +425,7 @@
 ///
 /// @param {*} $input
 ///
-/// @example get-border-width('2px solid red') // => red
+/// @example get-border-color('2px solid red') // => red
 
 @function get-border-color($input) {
     @each $part in $input {
@@ -443,7 +443,8 @@
 /// returned directly. This makes it possible to use the function as a safety where a number is
 /// expected but a string could be used for convenience.
 ///
-/// @example $aspect: aspect-to-number('16:9') // => 1.77778
+// Robby ?
+/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;
 /// @example $aspect: aspect-to-number(1.77778) // => 1.77778
 
 @function aspect-to-number($aspect) {
