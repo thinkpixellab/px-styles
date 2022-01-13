@@ -2373,8 +2373,8 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
-                    "name": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)",
-                    "docName": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)()",
+                    "name": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)",
+                    "docName": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)()",
                     "type": "css",
                     "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
                     "access": "public",
@@ -2390,7 +2390,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "aspect(1:3)"
+                            "code": "aspect('1:3')"
                         }
                     ],
                     "access": "public",
@@ -3528,9 +3528,9 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "get-fourpart",
-                    "docName": "get-fourpart()",
-                    "type": "function",
+                    "name": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)",
+                    "docName": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)()",
+                    "type": "css",
                     "description": "Convert any valid four-part value (like those used for margin or padding) into a map with\nthe correct values for top, right, bottom, left)\n\n",
                     "example": [
                         {
@@ -3548,12 +3548,6 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "value"
                         }
                     ],
                     "access": "public",

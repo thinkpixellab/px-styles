@@ -2373,8 +2373,8 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
-                    "name": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)",
-                    "docName": "//Robby need help\n/// @example aspect(1:3)\n@mixin aspect($aspect)()",
+                    "name": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)",
+                    "docName": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)()",
                     "type": "css",
                     "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
                     "access": "public",
@@ -2390,7 +2390,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "aspect(1:3)"
+                            "code": "aspect('1:3')"
                         }
                     ],
                     "access": "public",
