@@ -2519,6 +2519,42 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
+                    "name": "checkered-background",
+                    "docName": "checkered-background()",
+                    "type": "mixin",
+                    "description": "Sets a generated checked pattern background svg image on an element\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "width",
+                            "default": "12px",
+                            "description": "The width of an individual square in the checked pattern"
+                        },
+                        {
+                            "type": "*",
+                            "name": "color",
+                            "default": "#c8c8c8",
+                            "description": "The first of two colors in the check pattern"
+                        },
+                        {
+                            "type": "*",
+                            "name": "color-alt",
+                            "default": "transparent",
+                            "description": "The second of two colors in the check pattern\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/misc.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.misc",
                     "name": "map-key-replace",
                     "docName": "map-key-replace()",
                     "type": "function",

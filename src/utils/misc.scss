@@ -164,6 +164,22 @@
     }
 }
 
+/// Sets a generated checked pattern background svg image on an element
+///
+/// @param {*} $width [12px] The width of an individual square in the checked pattern
+/// @param {*} $color [#c8c8c8] The first of two colors in the check pattern
+/// @param {*} $color-alt [transparent] The second of two colors in the check pattern
+///
+/// @example @include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px
+
+@mixin checkered-background($width: 12px, $color: #c8c8c8, $color-alt: transparent) {
+    background-size: #{$width * 2} #{$width * 2};
+    background-repeat: repeat;
+    background-image: inline-svg(
+        '<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#{$color}" d="M0 0h10v10H0z"/><path fill="#{$color-alt}" d="M10 0h10v10H10zM0 10h10v10H0z"/><path fill="#{$foreground}" d="M10 10h10v10H10z"/></g></svg>'
+    );
+}
+
 /// Finds and replaces keys in a map
 ///
 /// @example
