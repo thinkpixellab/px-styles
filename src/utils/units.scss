@@ -9,8 +9,9 @@
 /// Strip the unit from a number
 ///
 /// @param {*} $value
-// Robby, can you explain?
+///
 /// @example strip-unit(234.8) // => 234.8
+/// @todo Robby, can you explain?
 
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
@@ -230,15 +231,17 @@
 /// @param {*} $trueval
 /// @param {*} $falseval
 ///
+/// @todo Robby - is this correct?
 /// @example if-string(10, 'hello', 20) // => 20
 /// @example if-string('tree', 'hello', 20) // => 'hello'
+
 @function if-string($value, $trueval, $falseval) {
     @if (is-string($value)) {
         @return $trueval;
     }
     @return $falseval;
 }
-//Robby - is this correct?
+
 /// Choose a value based on whether another value is a string or not
 ///
 /// @param {*} $value
@@ -253,7 +256,7 @@
     }
     @return $falseval;
 }
-//Robby?
+
 /// Choose a value based on whether another value is a string or not
 ///
 /// @param {*} $value
@@ -262,7 +265,8 @@
 ///
 /// @example if-list(10, 'hello', 20) // => 20
 /// @example if-list((10, 20), 'hello', 20) // => 'hello'
-
+///
+/// @todo Robby?
 @function if-list($value, $trueval, $falseval) {
     @if (is-list($value)) {
         @return $trueval;
@@ -308,7 +312,8 @@
 /// @param {*} $fallback [null]
 ///
 /// @example if-type(10, (color: blue), 'fallback') // => 'fallback
-//Robby? another example?
+///
+/// @todo Robby? another example?
 /// @example
 
 @function if-type($value, $value-map, $fallback: null) {
@@ -328,8 +333,10 @@
 /// @example get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)
 /// @example get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)
 /// @example get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)
-// SARAH IS HERE
-//Robby ?
+///
+/// @todo SARAH IS HERE
+/// Robby ?
+
 @function get-fourpart($value) {
     @if (type-of($value) == 'list') {
         $length: length($value);

@@ -82,7 +82,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'colors:gray'",
-                            "value": "(mix(#a0a0a0, accent(), 90%), accent(-9), white)",
+                            "value": "(mix(#a0a0a0, accent(), 95%), accent(-9), white)",
                             "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
                         },
                         {
@@ -1713,7 +1713,7 @@ window.pxstyles = {
                             "type": "string",
                             "name": "modifier",
                             "default": "''",
-                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected)."
+                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected).\n"
                         },
                         {
                             "type": "string",
@@ -1735,7 +1735,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": ".block { @include bem(element) { ... } }\n// => block__element { ... }"
+                            "code": ".block { @include bem(element) { ... } }\n// => .block__element { ... }"
                         },
                         {
                             "type": "scss",
@@ -1748,19 +1748,23 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": ".block { @include bem,(element, modifier) { @include bem(child) { ... } } }\n// => .block__element--modifier { .block__child { ... } }"
+                        },
+                        {
+                            "type": "scss",
+                            "code": ".block { @include bem((element1 element2)) { ... } }\n// => .block__element1, block__element2 { ... }"
                         }
                     ],
                     "parameter": [
                         {
-                            "type": "string",
+                            "type": "string | list",
                             "name": "name",
-                            "description": "The element name string"
+                            "description": "The element name string (if a list is provided the selector will\ninclude a selector for each item in the list)\n"
                         },
                         {
                             "type": "string",
                             "name": "modifier",
                             "default": "''",
-                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected)."
+                            "description": "An optional modifier string. Use this to indicate that the\nblock is in a modified state (e.g. selected).\n"
                         },
                         {
                             "type": "string",
@@ -2939,24 +2943,20 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "// Robby, can you explain?\n/// @example strip-unit(234.8) // => 234.8\n\n@function strip-unit($number)",
-                    "docName": "// Robby, can you explain?\n/// @example strip-unit(234.8) // => 234.8\n\n@function strip-unit($number)()",
-                    "type": "css",
-                    "description": "Strip the unit from a number\n\n",
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
                     "name": "strip-unit",
                     "docName": "strip-unit()",
                     "type": "function",
-                    "description": "",
+                    "description": "Strip the unit from a number\n\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "strip-unit(234.8) // => 234.8"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "value"
                         }
                     ],
                     "access": "public",
@@ -3397,8 +3397,9 @@ window.pxstyles = {
                             "code": "if-list(10, 'hello', 20) // => 20"
                         },
                         {
-                            "type": "scss",
-                            "code": "if-list((10, 20), 'hello', 20) // => 'hello'"
+                            "type": "if",
+                            "code": "",
+                            "description": "list((10, 20), 'hello', 20) // => 'hello'"
                         }
                     ],
                     "parameter": [
@@ -3485,41 +3486,45 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "//Robby? another example?\n/// @example\n\n@function if-type($value, $value-map, $fallback: null)",
-                    "docName": "//Robby? another example?\n/// @example\n\n@function if-type($value, $value-map, $fallback: null)()",
-                    "type": "css",
-                    "description": "Choose a value based on the type of another value by provide a mapping between type and values\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "if-type(10, (color: blue), 'fallback') // => 'fallback"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
                     "name": "if-type",
                     "docName": "if-type()",
                     "type": "function",
-                    "description": "",
+                    "description": "Choose a value based on the type of another value by provide a mapping between type and values\n\n",
                     "example": [
+                        {
+                            "type": "if",
+                            "code": "",
+                            "description": "type(10, (color: blue), 'fallback') // => 'fallback"
+                        },
                         {
                             "type": "scss",
                             "code": ""
                         }
                     ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "value"
+                        },
+                        {
+                            "type": "*",
+                            "name": "value-map"
+                        },
+                        {
+                            "type": "*",
+                            "name": "fallback",
+                            "default": "null"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/units.scss"
                 },
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)",
-                    "docName": "// SARAH IS HERE\n//Robby ?\n@function get-fourpart($value)()",
-                    "type": "css",
+                    "name": "get-fourpart",
+                    "docName": "get-fourpart()",
+                    "type": "function",
                     "description": "Convert any valid four-part value (like those used for margin or padding) into a map with\nthe correct values for top, right, bottom, left)\n\n",
                     "example": [
                         {
@@ -3535,8 +3540,15 @@ window.pxstyles = {
                             "code": "get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)"
                         },
                         {
-                            "type": "scss",
-                            "code": "get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
+                            "type": "get",
+                            "code": "",
+                            "description": "fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "value"
                         }
                     ],
                     "access": "public",

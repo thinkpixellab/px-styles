@@ -126,7 +126,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
     @include default('colors:accent', #0099fd);
 
     /// Default base gray color. Optionally include a list of three values to override shading.
-    @include default('colors:gray', (mix(#a0a0a0, accent(), 90%), accent(-9), white));
+    @include default('colors:gray', (mix(#a0a0a0, accent(), 95%), accent(-9), white));
 
     /// Default text selection color
     @include default('colors:select', accent(-4));
