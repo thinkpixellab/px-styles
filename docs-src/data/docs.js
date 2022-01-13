@@ -1950,14 +1950,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
+                    "name": "//Robby?\n/// @example map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))\n\n@function map-sort-by-values($map)",
+                    "docName": "//Robby?\n/// @example map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))\n\n@function map-sort-by-values($map)()",
+                    "type": "css",
+                    "description": "Return a copy of a map sorted by the value of each entry\n",
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
                     "name": "map-sort-by-values",
                     "docName": "map-sort-by-values()",
                     "type": "function",
-                    "description": "Return a copy of a map sorted by the value of each entry\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "map-sort-by-values((a:1, b:2, d:4, c:3))"
+                            "code": "map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))"
                         }
                     ],
                     "access": "public",

@@ -138,7 +138,8 @@
 }
 
 /// Return a copy of a map sorted by the value of each entry
-/// @example map-sort-by-values((a:1, b:2, d:4, c:3))
+//Robby?
+/// @example map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))
 
 @function map-sort-by-values($map) {
     $keys: ();

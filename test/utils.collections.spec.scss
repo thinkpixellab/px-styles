@@ -27,6 +27,9 @@
             2
         );
     }
+    @include test('nth-if-length') {
+        @include assert-equal(nth-if-length((a, b, c), 1), a);
+    }
     @include test('nth-or-val') {
         @include assert-equal(nth-or-val((a, b, c), 1, d), a);
     }
@@ -51,6 +54,20 @@
     @include test('list-sort-num') {
         @include assert-equal(list-sort-num((2, 4, 1, 5, 3)), (1 2 3 4 5));
     }
+    @include test('map-sort-by-values') {
+        @include assert-equal(
+            map-sort-by-values(
+                (
+                    a: 1,
+                    b: 2,
+                    d: 4,
+                    c: 3,
+                )
+            ),
+            ((a: 1, b: 2, c: 3, d: 4))
+        );
+    }
+
     //need help
     // @include test('list-sort') {
     //     @include assert-equal(list-sort(('z', 'a')), ('z a'));
