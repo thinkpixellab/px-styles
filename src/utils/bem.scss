@@ -16,7 +16,7 @@ $-block-prefix: '' !default;
 $-element-prefix: '__' !default;
 $-modifier-prefix: '--' !default;
 
-@mixin -bem-base($name: false, $modifier: '', $pseudo: '', $prefix: '') {
+@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '') {
     @if (not $name) {
         @error "Missing block or element name.";
     }
@@ -29,7 +29,22 @@ $-modifier-prefix: '--' !default;
         $pseudo: #{':' + $pseudo};
     }
 
-    #{'.' + $prefix + $name + $modifier + $pseudo} {
+    @return #{'.' + $prefix + $name + $modifier + $pseudo};
+}
+
+@mixin -bem-base($name: false, $modifier: '', $pseudo: '', $prefix: '') {
+    $selector: false;
+
+    @if is-list($name) {
+        $selector: ();
+
+        @each $n in $name {
+            $selector: append($selector, -bem-name($n, $modifier, $pseudo, $prefix), comma);
+        }
+    } @else {
+        $selector: -bem-name($name, $modifier, $pseudo, $prefix);
+    }
+    #{$selector} {
         @content;
     }
 }
@@ -58,6 +73,7 @@ $-modifier-prefix: '--' !default;
 /// @param {string} $name - The block name string
 /// @param {string} $modifier [''] - An optional modifier string. Use this to indicate that the
 /// block is in a modified state (e.g. selected).
+///
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
@@ -81,15 +97,18 @@ $-modifier-prefix: '--' !default;
 /// inside of the block mixin or just within a class declartion. Should also work with media media
 /// queries and other complex scnearios.
 ///
-/// @param {string} $name - The element name string
+/// @param {string | list} $name - The element name string (if a list is provided the selector will
+/// include a selector for each item in the list)
+///
 /// @param {string} $modifier [''] - An optional modifier string. Use this to indicate that the
 /// block is in a modified state (e.g. selected).
+///
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
 /// @example
 ///     .block { @include bem(element) { ... } }
-///     // => block__element { ... }
+///     // => .block__element { ... }
 ///
 /// @example
 ///     .block { @include bem,(element, modifier) { ... } }
@@ -102,6 +121,10 @@ $-modifier-prefix: '--' !default;
 /// @example
 ///     .block { @include bem,(element, modifier) { @include bem(child) { ... } } }
 ///     // => .block__element--modifier { .block__child { ... } }
+///
+/// @example
+///     .block { @include bem((element1 element2)) { ... } }
+///     // => .block__element1, block__element2 { ... }
 
 @mixin bem($name, $modifier: '', $pseudo: '') {
     @include -bem-base(
