@@ -2134,7 +2134,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO"
+                            "code": "flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}"
                         }
                     ],
                     "access": "public",

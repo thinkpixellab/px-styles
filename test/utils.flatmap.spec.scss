@@ -16,26 +16,44 @@
         );
     }
 
-    @include test-module('utils.flatmap') {
-        @include test('flat-set') {
-            @include assert-equal(
-                flat-set(
-                    (
-                        colors: (
-                            clr1: #f00,
-                        ),
-                    ),
-                    'colors:clr2',
-                    #00f
-                ),
+    @include test('flat-set') {
+        @include assert-equal(
+            flat-set(
                 (
                     colors: (
                         clr1: #f00,
-                        clr2: #00f,
                     ),
-                )
-            );
-        }
+                ),
+                'colors:clr2',
+                #00f
+            ),
+            (
+                colors: (
+                    clr1: #f00,
+                    clr2: #00f,
+                ),
+            )
+        );
+    }
+
+    @include test('flat-default') {
+        @include assert-equal(
+            flat-default(
+                (
+                    colors: (
+                        clr1: #f00,
+                    ),
+                ),
+                'colors:clr2',
+                #00f
+            ),
+            (
+                colors: (
+                    clr1: #f00,
+                    clr2: #00f,
+                ),
+            )
+        );
     }
 
     @include test('flatten-map') {

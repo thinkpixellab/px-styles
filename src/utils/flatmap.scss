@@ -84,7 +84,8 @@
 }
 
 /// Same as flat-set, but will not overwrite a value if it already exists
-/// @example TODO
+// Robby?
+/// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}
 @function flat-default($map, $path, $val, $merge-maps: false) {
     $current: flat-get($map, $path, $fallback: 'NOTFOUND');
     @if ($current == 'NOTFOUND') {

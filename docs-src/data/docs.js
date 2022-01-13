@@ -2127,14 +2127,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.flatmap",
+                    "name": "// Robby?\n/// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // =>",
+                    "docName": "// Robby?\n/// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // =>()",
+                    "type": "css",
+                    "description": "Same as flat-set, but will not overwrite a value if it already exists\n",
+                    "access": "public",
+                    "path": "utils/flatmap.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.flatmap",
                     "name": "flat-default",
                     "docName": "flat-default()",
                     "type": "function",
-                    "description": "Same as flat-set, but will not overwrite a value if it already exists\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO"
+                            "code": "flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}"
                         }
                     ],
                     "access": "public",
