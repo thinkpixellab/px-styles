@@ -1976,26 +1976,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
+                    "name": "// Robby ? Explain how to test/write test with additional function (square) involved\n/// @example\n///   @function square($x, $i)",
+                    "docName": "// Robby ? Explain how to test/write test with additional function (square) involved\n/// @example\n///   @function square($x, $i)()",
+                    "type": "css",
+                    "description": "Creates a new list with the results of calling a function once for every\nitem in this list. Equivalent to Array.map in JavaScript.\n\n",
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
                     "name": "list-map",
                     "docName": "list-map()",
                     "type": "function",
-                    "description": "Creates a new list with the results of calling a function once for every\nitem in this list. Equivalent to Array.map in JavaScript.\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "@function square($x, $i) { @return $x * $x }\nlist-map(1 2 3 4, square); // => 1 4 9 16"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "List",
-                            "name": "list",
-                            "description": "the list to which the function is being applied\n"
-                        },
-                        {
-                            "type": "Function",
-                            "name": "fn",
-                            "description": "reference to a function(item, index) that will be\napplied to every item.\n"
                         }
                     ],
                     "access": "public",
@@ -2032,21 +2030,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
+                    "name": "// Robby ?\n/// @example map-collect()\n@function map-collect($maps...)",
+                    "docName": "// Robby ?\n/// @example map-collect()\n@function map-collect($maps...)()",
+                    "type": "css",
+                    "description": "Merge multiple maps into a single map\n",
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
                     "name": "map-collect",
                     "docName": "map-collect()",
                     "type": "function",
-                    "description": "Merge multiple maps into a single map\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "map-collect()"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "maps...",
-                            "description": "One or more maps that should be merged into a single map."
                         }
                     ],
                     "access": "public",
@@ -2395,8 +2396,8 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "include",
-                            "code": "",
-                            "description": "aspect('16:9') // produces the correct css for an aspect ratio of 16:9"
+                            "code": "display: block;\nwidth: 100%;\npadding-bottom: 56.25%;",
+                            "description": "aspect('16:9') // produces the correct css for an aspect ratio of 16:9// =>"
                         },
                         {
                             "type": "scss",
@@ -2414,6 +2415,23 @@ window.pxstyles = {
                             "name": "display",
                             "default": "block",
                             "description": "The value of the display property to be set on the element\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "aspect-before",
+                    "docName": "aspect-before()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "aspect",
+                            "code": "display: block;\nwidth: 100%;\npadding-bottom: 75.0187546887%;",
+                            "description": "before(1.333, $display: block) // =>"
                         }
                     ],
                     "access": "public",

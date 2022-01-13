@@ -36,7 +36,7 @@
     @include test('list-remove') {
         @include assert-equal(list-remove((a, b, c), 1), (b, c));
     }
-    // Robby: not sure this is working properly
+
     @include test('list-replace') {
         @include assert-equal(
             list-replace(
@@ -69,10 +69,6 @@
     }
 
     //need help
-    // @include test('list-sort') {
-    //     @include assert-equal(list-sort(('z', 'a')), ('z a'));
-    // }
-    //map-sort-by-values: need help
 
     //need help - "mixins may not contain function declarations"
     // @include test('list-map') {
@@ -82,5 +78,7 @@
     //     @include assert-equal(list-map((1 2 3 4), square), 1 4 9 16);
     // }
     //need help
+    //list-map
+    //list-filter
     //map-collect
 }

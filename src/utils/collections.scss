@@ -196,6 +196,7 @@
 /// @param {Function} $fn reference to a function(item, index) that will be
 /// applied to every item.
 ///
+// Robby ? Explain how to test/write test with additional function (square) involved
 /// @example
 ///   @function square($x, $i) { @return $x * $x }
 ///   list-map(1 2 3 4, square); // => 1 4 9 16
@@ -233,6 +234,7 @@
 
 /// Merge multiple maps into a single map
 /// @param {*} $maps... One or more maps that should be merged into a single map.
+// Robby ?
 /// @example map-collect()
 @function map-collect($maps...) {
     $collection: ();
