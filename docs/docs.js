@@ -2489,9 +2489,9 @@ window.pxstyles = {
                     "description": "\n",
                     "example": [
                         {
-                            "type": "pos",
+                            "type": "include",
                             "code": "position: absolute;\ntop: 0;\nright: 0;\nbottom: 0;\nleft: 0;",
-                            "description": "($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>"
+                            "description": "pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>"
                         }
                     ],
                     "access": "public",
@@ -2506,9 +2506,9 @@ window.pxstyles = {
                     "description": "\n",
                     "example": [
                         {
-                            "type": "rel",
+                            "type": "include",
                             "code": "position: relative;\ntop: 0;\nright: 0;\nbottom: 0;\nleft: 0;",
-                            "description": "($t: null, $r: null, $b: null, $l: null) // =>"
+                            "description": "rel($t: null, $r: null, $b: null, $l: null) // =>"
                         }
                     ],
                     "access": "public",
@@ -2523,9 +2523,9 @@ window.pxstyles = {
                     "description": "",
                     "example": [
                         {
-                            "type": "abs",
+                            "type": "include",
                             "code": "position: absolute;\ntop: 0;\nright: 0;\nbottom: 0;\nleft: 0;",
-                            "description": "($t: null, $r: null, $b: null, $l: null) // =>"
+                            "description": "abs($t: null, $r: null, $b: null, $l: null) // =>"
                         }
                     ],
                     "access": "public",
@@ -2540,9 +2540,94 @@ window.pxstyles = {
                     "description": "",
                     "example": [
                         {
-                            "type": "fixed",
+                            "type": "include",
                             "code": "position: fixed;\ntop: 0;\nright: 0;\nbottom: 0;\nleft: 0;",
-                            "description": "($t: null, $r: null, $b: null, $l: null) // =>"
+                            "description": "fixed($t: null, $r: null, $b: null, $l: null) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "left-top",
+                    "docName": "left-top()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 0;\ntop: 0;",
+                            "description": "left-top($l: 0, $t: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "right-top",
+                    "docName": "right-top()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nright: 0;\ntop: 0;",
+                            "description": "right-top($r: 0, $t: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "left-bottom",
+                    "docName": "left-bottom()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 0;\nbottom: 0;",
+                            "description": "left-bottom($l: 0, $b: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "right-bottom",
+                    "docName": "right-bottom()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 0;\nbottom: 0;",
+                            "description": "right-bottom($r: 0, $b: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "abs-fill",
+                    "docName": "abs-fill()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\ntop: 0;\nleft: 0;\nwidth: 100%;\nheight: 100%;",
+                            "description": "abs-fill() // =>"
                         }
                     ],
                     "access": "public",

@@ -151,4 +151,62 @@
             }
         }
     }
+    @include test('mixin top-right') {
+        @include assert {
+            // test
+            @include output {
+                @include right-top($r: 0, $t: 0);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+    }
+    @include test('mixin left-bottom') {
+        @include assert {
+            // test
+            @include output {
+                @include left-bottom($l: 0, $b: 0);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+        }
+    }
+    @include test('mixin right-bottom') {
+        @include assert {
+            // test
+            @include output {
+                @include right-bottom($r: 0, $b: 0);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+    @include test('mixin abs-fill') {
+        @include assert {
+            // test
+            @include output {
+                @include abs-fill();
+            }
+            // output
+            @include expect {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
 }

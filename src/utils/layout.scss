@@ -153,25 +153,39 @@
     left: $l;
     top: $t;
 }
-
+/// @example @include right-top($r: 0, $t: 0) // =>
+/// position: absolute;
+/// right: 0;
+/// top: 0;
 @mixin right-top($r: 0, $t: 0) {
     position: absolute;
     right: $r;
     top: $t;
 }
-
+/// @example @include left-bottom($l: 0, $b: 0) // =>
+/// position: absolute;
+/// left: 0;
+/// bottom: 0;
 @mixin left-bottom($l: 0, $b: 0) {
     position: absolute;
     left: $l;
-    bottom: $t;
+    bottom: $b;
 }
-
+/// @example @include right-bottom($r: 0, $b: 0) // =>
+/// position: absolute;
+/// left: 0;
+/// bottom: 0;
 @mixin right-bottom($r: 0, $b: 0) {
     position: absolute;
-    right: $l;
-    bottom: $t;
+    right: $r;
+    bottom: $b;
 }
-
+/// @example @include abs-fill() // =>
+/// position: absolute;
+/// top: 0;
+/// left: 0;
+/// width: 100%;
+/// height: 100%;
 @mixin abs-fill() {
     position: absolute;
     top: 0;
@@ -179,7 +193,11 @@
     width: 100%;
     height: 100%;
 }
-
+/// @example @include center($left: 50%, $top: 50%, $position: absolute)
+/// position: absolute;
+/// left: 50%;
+/// top: 50%;
+/// transform: translate(-50%, -50%);
 @mixin center($left: 50%, $top: 50%, $position: absolute) {
     position: $position;
     left: $left;

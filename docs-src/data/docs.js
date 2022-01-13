@@ -2564,6 +2564,91 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "right-top",
+                    "docName": "right-top()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nright: 0;\ntop: 0;",
+                            "description": "right-top($r: 0, $t: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "left-bottom",
+                    "docName": "left-bottom()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 0;\nbottom: 0;",
+                            "description": "left-bottom($l: 0, $b: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "right-bottom",
+                    "docName": "right-bottom()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 0;\nbottom: 0;",
+                            "description": "right-bottom($r: 0, $b: 0) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "abs-fill",
+                    "docName": "abs-fill()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\ntop: 0;\nleft: 0;\nwidth: 100%;\nheight: 100%;",
+                            "description": "abs-fill() // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center",
+                    "docName": "center()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 50%;\ntop: 50%;\ntransform: translate(-50%, -50%);",
+                            "description": "center($left: 50%, $top: 50%, $position: absolute)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
                 }
             ]
         },
