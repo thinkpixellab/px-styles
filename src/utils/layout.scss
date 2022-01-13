@@ -74,7 +74,7 @@
     }
 }
 ///
-/// @example pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>
+/// @example @include pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>
 /// position: absolute;
 /// top: 0;
 /// right: 0;
@@ -116,19 +116,38 @@
         left: $l;
     }
 }
-
+///
+/// @example @include rel($t: null, $r: null, $b: null, $l: null) // =>
+/// position: relative;
+/// top: 0;
+/// right: 0;
+/// bottom: 0;
+/// left: 0;
 @mixin rel($t: null, $r: null, $b: null, $l: null) {
     @include pos(relative, $t, $r, $b, $l);
 }
-
+/// @example @include abs($t: null, $r: null, $b: null, $l: null) // =>
+/// position: absolute;
+/// top: 0;
+/// right: 0;
+/// bottom: 0;
+/// left: 0;
 @mixin abs($t: null, $r: null, $b: null, $l: null) {
     @include pos(absolute, $t, $r, $b, $l);
 }
-
+/// @example @include fixed($t: null, $r: null, $b: null, $l: null) // =>
+/// position: fixed;
+/// top: 0;
+/// right: 0;
+/// bottom: 0;
+/// left: 0;
 @mixin fixed($t: null, $r: null, $b: null, $l: null) {
     @include pos(fixed, $t, $r, $b, $l);
 }
-
+/// @example @include left-top($l: 0, $t: 0) // =>
+/// position: absolute;
+/// left: 0;
+/// top: 0;
 @mixin left-top($l: 0, $t: 0) {
     position: absolute;
     left: $l;

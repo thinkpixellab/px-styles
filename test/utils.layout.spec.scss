@@ -89,4 +89,66 @@
             }
         }
     }
+    @include test('mixin rel') {
+        @include assert {
+            // test
+            @include output {
+                @include rel($t: null, $r: null, $b: null, $l: null);
+            }
+            // output
+            @include expect {
+                position: relative;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+    @include test('mixin abs') {
+        @include assert {
+            // test
+            @include output {
+                @include abs($t: null, $r: null, $b: null, $l: null);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+    @include test('mixin fixed') {
+        @include assert {
+            // test
+            @include output {
+                @include fixed($t: null, $r: null, $b: null, $l: null);
+            }
+            // output
+            @include expect {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+    @include test('mixin top-left') {
+        @include assert {
+            // test
+            @include output {
+                @include left-top($l: 0, $t: 0);
+            }
+            // output
+            @include expect {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
 }
