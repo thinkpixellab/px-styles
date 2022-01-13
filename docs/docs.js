@@ -1886,14 +1886,26 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "// Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)",
-                    "docName": "// Robby - this isn't working as I expected it to.\n@function list-replace($list, $replacements)()",
-                    "type": "css",
+                    "name": "list-replace",
+                    "docName": "list-replace()",
+                    "type": "function",
                     "description": "Performas a find and replace of items within a list\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "list-replace((a, b, c), (c: d)) // => a, b, c, d"
+                            "code": "list-replace((a, b, c), (c: d)) // => a, b, d"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "list",
+                            "name": "list",
+                            "description": "The list on which the replacement will be performed"
+                        },
+                        {
+                            "type": "map",
+                            "name": "replacements",
+                            "description": "A map of the search/replacent values, e.g. (searchForThis: newKey)"
                         }
                     ],
                     "access": "public",
@@ -1926,32 +1938,6 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "list-sort-num(2, 4, 1, 5, 3) // => 1 2 3 4 5"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
-                    "name": "//Robby, need guidance on error\n/// @example list-sort(y, z, a, h, b) // =>\n\n@function list-sort($list)",
-                    "docName": "//Robby, need guidance on error\n/// @example list-sort(y, z, a, h, b) // =>\n\n@function list-sort($list)()",
-                    "type": "css",
-                    "description": "Return a copy of a list sorted alphabetically\n",
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
-                    "name": "list-sort",
-                    "docName": "list-sort()",
-                    "type": "function",
-                    "description": "",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "list-sort(y, z, a, h, b) // =>"
                         }
                     ],
                     "access": "public",
@@ -2062,24 +2048,32 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.flatmap",
-                    "name": "//Robby: need help - example isn't working in scratch\n/// @example\n/// $color: flat-get((colors: (red: #F00)), 'colors:red')\n/// ==> #F00\n\n@function flat-get($map, $path, $fallback: null)",
-                    "docName": "//Robby: need help - example isn't working in scratch\n/// @example\n/// $color: flat-get((colors: (red: #F00)), 'colors:red')\n/// ==> #F00\n\n@function flat-get($map, $path, $fallback: null)()",
-                    "type": "css",
-                    "description": "A function that retrieves a \"deep\" value from a map using path syntax where key names are\nseparated by colons\n\n",
-                    "access": "public",
-                    "path": "utils/flatmap.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.flatmap",
                     "name": "flat-get",
                     "docName": "flat-get()",
                     "type": "function",
-                    "description": "",
+                    "description": "A function that retrieves a \"deep\" value from a map using path syntax where key names are\nseparated by colons\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$color: flat-get((colors: (red: #F00)), 'colors:red')\n==> #F00"
+                            "code": "$color: flat-get((colors: (somecolor: #F00)), 'colors:somecolor')\n==> #F00"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "map",
+                            "description": "An existing map that serves as the lookup source\n"
+                        },
+                        {
+                            "type": "string",
+                            "name": "path",
+                            "description": "The path where the value is found, expressed as a list of keys separated\nby colons (e.g. 'colors:accent')\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "fallback",
+                            "default": "null",
+                            "description": "An optional fallback value that will be returned in the value isn't\nfound\n"
                         }
                     ],
                     "access": "public",
@@ -2095,11 +2089,11 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$map: flat-set((), 'colors:red', #F00) // ==> (colors: (red: #F00))"
+                            "code": "$map: flat-set((), 'colors:somecolor', #F00) // ==> (colors: (somecolor: #F00))"
                         },
                         {
                             "type": "scss",
-                            "code": "$map: flat-set((colors: (red: #F00)), 'colors:blue', #00F) // ==> {colors: {red: #F00, blue: #00F}}"
+                            "code": "$map: flat-set((colors: (clr1: #F00)), 'colors:clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}"
                         }
                     ],
                     "parameter": [
@@ -2145,24 +2139,21 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.flatmap",
-                    "name": "// Robby: need help\n/// @example\n/// flatten-map((colors: (red: #f00, blue: #00f)))\n/// ==> (\"colors:red\": #f00, \"colors:blue\": #00f)\n\n@function flatten-map($map)",
-                    "docName": "// Robby: need help\n/// @example\n/// flatten-map((colors: (red: #f00, blue: #00f)))\n/// ==> (\"colors:red\": #f00, \"colors:blue\": #00f)\n\n@function flatten-map($map)()",
-                    "type": "css",
-                    "description": "A function that flattens a map to it's \"flat\" equivalent where every key is replaced with a deep path\n(see examples) into the original map.\n\n",
-                    "access": "public",
-                    "path": "utils/flatmap.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.flatmap",
                     "name": "flatten-map",
                     "docName": "flatten-map()",
                     "type": "function",
-                    "description": "",
+                    "description": "A function that flattens a map to it's \"flat\" equivalent where every key is replaced with a deep path\n(see examples) into the original map.\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "flatten-map((colors: (red: #f00, blue: #00f)))\n==> (\"colors:red\": #f00, \"colors:blue\": #00f)"
+                            "code": "flatten-map((colors: (clr1: #f00, clr2: #00f)))\n==> (\"colors:clr1\": #f00, \"colors:clr2\": #00f)"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "map",
+                            "description": "The map to be flattened\n"
                         }
                     ],
                     "access": "public",
@@ -2178,7 +2169,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "unflatten-map((\"colors:red\": #f00, \"colors:blue\": #00f))\n==> (colors: (red: #f00, blue: #00f))"
+                            "code": "unflatten-map((\"colors:clr1\": #f00, \"colors:clr2\": #00f))\n==> (colors: (clr1: #f00, clr2: #00f))"
                         }
                     ],
                     "parameter": [
@@ -2201,7 +2192,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "flatten-map-merge((colors: (red: #f00)), ('colors:blue': #00f))\n    -> (colors: (red: #f00, blue: #00f))"
+                            "code": "flatten-map-merge((colors: (clr1: #f00)), ('colors:clr2': #00f))\n    -> (colors: (clr1: #f00, clr2: #00f))"
                         },
                         {
                             "type": "scss",
@@ -2221,7 +2212,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "flat-has-key((colors: (red: #f00, blue: #00f)), 'colors:blue') => true"
+                            "code": "flat-has-key((colors: (clr1: #f00, clr2: #00f)), 'colors:clr2') => true"
                         }
                     ],
                     "parameter": [
@@ -2373,24 +2364,32 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
-                    "name": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)",
-                    "docName": "//Robby need help\n/// @example aspect('1:3')\n@mixin aspect($aspect)()",
-                    "type": "css",
-                    "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick.\n\n",
-                    "access": "public",
-                    "path": "utils/layout.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.layout",
                     "name": "aspect",
                     "docName": "aspect()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "Creates css to force an element to maintain a particular aspect (based on width) using the\npadding bottom trick. Note: padding bottom is calculated relative to the parent width, so it's\ncommon to use this on a pseudo element and set the width on the element itself. Check out\naspect-before / aspect-after.\n\n",
                     "example": [
                         {
+                            "type": "include",
+                            "code": "",
+                            "description": "aspect('16:9') // produces the correct css for an aspect ratio of 16:9"
+                        },
+                        {
                             "type": "scss",
-                            "code": "aspect('1:3')"
+                            "code": "@include aspect(divide(4,3))  // produces the correct css for an aspect ratio of 4:3"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string or number",
+                            "name": "aspect",
+                            "description": "A number (like 1.333) or string (like '16:9') that represents the aspect\nratio\n"
+                        },
+                        {
+                            "type": "string",
+                            "name": "display",
+                            "default": "block",
+                            "description": "The value of the display property to be set on the element\n"
                         }
                     ],
                     "access": "public",
@@ -2516,24 +2515,14 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)",
-                    "docName": "//Robby, need help with example\n/// @example\n\n@function map-key-replace($map, $key-replacements)()",
-                    "type": "css",
-                    "description": "Finds and replaces keys in a map\n",
-                    "access": "public",
-                    "path": "utils/misc.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.misc",
                     "name": "map-key-replace",
                     "docName": "map-key-replace()",
                     "type": "function",
-                    "description": "",
+                    "description": "Finds and replaces keys in a map\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": ""
+                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey));"
                         }
                     ],
                     "access": "public",

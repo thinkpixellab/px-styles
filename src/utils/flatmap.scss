@@ -18,9 +18,8 @@
 /// @param {*} $fallback [null] An optional fallback value that will be returned in the value isn't
 /// found
 ///
-//Robby: need help - example isn't working in scratch
 /// @example
-/// $color: flat-get((colors: (red: #F00)), 'colors:red')
+/// $color: flat-get((colors: (somecolor: #F00)), 'colors:somecolor')
 /// ==> #F00
 
 @function flat-get($map, $path, $fallback: null) {
@@ -52,10 +51,10 @@
 /// overwritten as needed)
 ///
 /// @example
-/// $map: flat-set((), 'colors:red', #F00) // ==> (colors: (red: #F00))
+/// $map: flat-set((), 'colors:somecolor', #F00) // ==> (colors: (somecolor: #F00))
 ///
 /// @example
-/// $map: flat-set((colors: (red: #F00)), 'colors:blue', #00F) // ==> {colors: {red: #F00, blue: #00F}}
+/// $map: flat-set((colors: (clr1: #F00)), 'colors:clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
 
 @function flat-set($map, $path, $val, $merge-maps: false) {
     $keys: str-split($path, ':');
@@ -98,10 +97,9 @@
 ///
 /// @param {map} $map The map to be flattened
 ///
-// Robby: need help
 /// @example
-/// flatten-map((colors: (red: #f00, blue: #00f)))
-/// ==> ("colors:red": #f00, "colors:blue": #00f)
+/// flatten-map((colors: (clr1: #f00, clr2: #00f)))
+/// ==> ("colors:clr1": #f00, "colors:clr2": #00f)
 
 @function flatten-map($map) {
     $flat: ();
@@ -129,8 +127,8 @@
 /// @param {map} $map The map to be unflattened
 ///
 /// @example
-/// unflatten-map(("colors:red": #f00, "colors:blue": #00f))
-/// ==> (colors: (red: #f00, blue: #00f))
+/// unflatten-map(("colors:clr1": #f00, "colors:clr2": #00f))
+/// ==> (colors: (clr1: #f00, clr2: #00f))
 
 @function unflatten-map($map) {
     $unflat: ();
@@ -145,8 +143,8 @@
 /// conflicts, last in list wins.
 ///
 /// @example
-/// flatten-map-merge((colors: (red: #f00)), ('colors:blue': #00f))
-///     -> (colors: (red: #f00, blue: #00f))
+/// flatten-map-merge((colors: (clr1: #f00)), ('colors:clr2': #00f))
+///     -> (colors: (clr1: #f00, clr2: #00f))
 ///
 /// @example
 /// flat-merge(('clr:main': blue),('clr:main': red));
@@ -173,7 +171,7 @@
 /// @param {map} $map
 /// @param {string} $key
 ///
-/// @example flat-has-key((colors: (red: #f00, blue: #00f)), 'colors:blue') => true
+/// @example flat-has-key((colors: (clr1: #f00, clr2: #00f)), 'colors:clr2') => true
 
 @function flat-has-key($map, $key) {
     $flat: flatten-map($map);

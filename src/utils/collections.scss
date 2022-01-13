@@ -99,14 +99,14 @@
 ///
 /// @param {list} $list The list on which the replacement will be performed
 /// @param {map} $replacements A map of the search/replacent values, e.g. (searchForThis: newKey)
-/// @example list-replace((a, b, c), (c: d)) // => a, b, c, d
-// Robby - this isn't working as I expected it to.
+/// @example list-replace((a, b, c), (c: d)) // => a, b, d
+
 @function list-replace($list, $replacements) {
     $result: ();
 
     @each $item in $list {
         $new-item: map-get-default($replacements, $item, $item);
-        $result: append($list, $new-item);
+        $result: append($result, $new-item);
     }
 
     @return $result;
@@ -135,38 +135,6 @@
         $list: list-remove($list, index($list, $value));
     }
     @return $sortedlist;
-}
-
-/// Return a copy of a list sorted alphabetically
-//Robby, need guidance on error
-/// @example list-sort(y, z, a, h, b) // =>
-
-@function list-sort($list) {
-    $order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']' '^' '_' '{' '|' '}' '~''0'
-        '1' '2' '3' '4' '5' '6' '7' '8' '9' 'a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n'
-        'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z';
-
-    $less: ();
-    $equal: ();
-    $large: ();
-
-    @if length($list) > 1 {
-        $seed: nth($list, ceil(length($list) * 0.5));
-
-        @each $item in $list {
-            @if ($item == $seed) {
-                $equal: append($equal, $item);
-            } @else if ($item < $seed) {
-                $less: append($less, $item);
-            } @else if ($item > $seed) {
-                $large: append($large, $item);
-            }
-        }
-
-        @return join(join(list-sort($less, $order), $equal), list-sort($large, $order));
-    }
-
-    @return $list;
 }
 
 /// Return a copy of a map sorted by the value of each entry

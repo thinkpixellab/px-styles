@@ -7,29 +7,37 @@
 @use 'units.scss' as units;
 
 /// Creates css to force an element to maintain a particular aspect (based on width) using the
-/// padding bottom trick.
+/// padding bottom trick. Note: padding bottom is calculated relative to the parent width, so it's
+/// common to use this on a pseudo element and set the width on the element itself. Check out
+/// aspect-before / aspect-after.
 ///
-/// @param {*} $aspect A number (like 1.333) or string (like '16:9') that represents the aspect ratio
+/// @param {string or number} $aspect A number (like 1.333) or string (like '16:9') that represents the aspect
+/// ratio
 ///
-//Robby need help
-/// @example aspect('1:3')
-@mixin aspect($aspect) {
+/// @param {string} $display [block] The value of the display property to be set on the element
+///
+/// @example @include aspect('16:9') // produces the correct css for an aspect ratio of 16:9
+///
+/// @example @include aspect(divide(4,3))  // produces the correct css for an aspect ratio of 4:3
+
+@mixin aspect($aspect, $display: block) {
     $aspect: units.aspect-to-number($aspect);
-    display: block;
-    content: '';
+    display: $display;
     width: 100%;
     padding-bottom: 100% * math.div(1, $aspect);
 }
 
-@mixin aspect-after($aspect) {
-    &:after {
-        @include aspect($aspect);
+@mixin aspect-before($aspect, $display: block) {
+    &:before {
+        content: '';
+        @include aspect($aspect, $display);
     }
 }
 
-@mixin aspect-before($aspect) {
-    &:before {
-        @include aspect($aspect);
+@mixin aspect-after($aspect, $display: block) {
+    &:after {
+        content: '';
+        @include aspect($aspect, $display);
     }
 }
 
