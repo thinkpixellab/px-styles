@@ -361,7 +361,8 @@
 /// Convenience function to just retrieve the left value from get-fourpart
 ///
 /// @param {*} $value
-
+// Robby ?
+/// @example get-fourpart-left(10px) // => 10px
 @function get-fourpart-left($value) {
     @return map-get(get-fourpart($value), left);
 }
@@ -369,7 +370,7 @@
 /// Convenience function to just retrieve the top value from get-fourpart
 ///
 /// @param {*} $value
-
+/// @example get-fourpart-top(10px) // => 10px
 @function get-fourpart-top($value) {
     @return map-get(get-fourpart($value), top);
 }
@@ -377,7 +378,7 @@
 /// Convenience function to just retrieve the bottom value from get-fourpart
 ///
 /// @param {*} $value
-
+/// @example get-fourpart-bottom(10px) // => 10px
 @function get-fourpart-bottom($value) {
     @return map-get(get-fourpart($value), bottom);
 }
@@ -385,7 +386,7 @@
 /// Convenience function to just retrieve the right value from get-fourpart
 ///
 /// @param {*} $value
-
+/// @example get-fourpart-right(10px) // => 10px
 @function get-fourpart-right($value) {
     @return map-get(get-fourpart($value), right);
 }
@@ -394,7 +395,7 @@
 ///
 /// @param {*} $input
 ///
-/// @example get-border-width('2px solid red') // => 2px
+/// @example get-border-width(2px solid red) // => 2px
 
 @function get-border-width($input) {
     @each $part in $input {
@@ -409,7 +410,7 @@
 ///
 /// @param {*} $input
 ///
-/// @example get-border-width('2px solid red') // => solid
+/// @example get-border-style('2px solid red') // => solid
 
 @function get-border-style($input) {
     @each $part in $input {

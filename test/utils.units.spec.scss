@@ -102,4 +102,22 @@
     //         )
     //     );
     // }
+    @include test('get-fourpart-left') {
+        @include assert-equal(get-fourpart-left(10px), 10px);
+    }
+    @include test('get-fourpart-top') {
+        @include assert-equal(get-fourpart-top(10px), 10px);
+    }
+    @include test('get-fourpart-bottom') {
+        @include assert-equal(get-fourpart-bottom(10px), 10px);
+    }
+    @include test('get-fourpart-right') {
+        @include assert-equal(get-fourpart-right(10px), 10px);
+    }
+    @include test('get-border-width') {
+        @include assert-equal(get-border-width(2px solid red), 2px);
+    }
+    @include test('get-border-style') {
+        @include assert-equal(get-border-style(2px solid red), solid);
+    }
 }

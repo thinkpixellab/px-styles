@@ -2649,6 +2649,40 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center-x",
+                    "docName": "center-x()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\nleft: 50%;\ntransform: translateX(-50%);",
+                            "description": "center-x($left: 50%, $position: absolute) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "center-y",
+                    "docName": "center-y()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "position: absolute;\ntop: 50%;\ntransform: translateY(-50%);",
+                            "description": "center-y($top: 50%, $position: absolute) // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
                 }
             ]
         },
@@ -3844,14 +3878,24 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
+                    "name": "// Robby ?\n/// @example get-fourpart-left(10px) // => 10px\n@function get-fourpart-left($value)",
+                    "docName": "// Robby ?\n/// @example get-fourpart-left(10px) // => 10px\n@function get-fourpart-left($value)()",
+                    "type": "css",
+                    "description": "Convenience function to just retrieve the left value from get-fourpart\n\n",
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
                     "name": "get-fourpart-left",
                     "docName": "get-fourpart-left()",
                     "type": "function",
-                    "description": "Convenience function to just retrieve the left value from get-fourpart\n\n",
-                    "parameter": [
+                    "description": "",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "value"
+                            "type": "scss",
+                            "code": "get-fourpart-left(10px) // => 10px"
                         }
                     ],
                     "access": "public",
@@ -3864,6 +3908,12 @@ window.pxstyles = {
                     "docName": "get-fourpart-top()",
                     "type": "function",
                     "description": "Convenience function to just retrieve the top value from get-fourpart\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-fourpart-top(10px) // => 10px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3880,6 +3930,12 @@ window.pxstyles = {
                     "docName": "get-fourpart-bottom()",
                     "type": "function",
                     "description": "Convenience function to just retrieve the bottom value from get-fourpart\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-fourpart-bottom(10px) // => 10px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3896,6 +3952,12 @@ window.pxstyles = {
                     "docName": "get-fourpart-right()",
                     "type": "function",
                     "description": "Convenience function to just retrieve the right value from get-fourpart\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-fourpart-right(10px) // => 10px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -3915,7 +3977,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-border-width('2px solid red') // => 2px"
+                            "code": "get-border-width(2px solid red) // => 2px"
                         }
                     ],
                     "parameter": [
