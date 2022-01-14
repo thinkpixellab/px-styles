@@ -3232,6 +3232,13 @@ window.pxstyles = {
                     "docName": "font-smoothing-on()",
                     "type": "mixin",
                     "description": "Turn font smoothing on (makes type appear thinner and lighter on Mac and more closely\nresembles type rendering on Windows)\n",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "font-smooth: always;\n-webkit-font-smoothing: antialiased;\n-moz-osx-font-smoothing: grayscale;",
+                            "description": "font-smoothing-on() // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/typography.scss"
                 },
@@ -3242,6 +3249,13 @@ window.pxstyles = {
                     "docName": "font-smoothing-off()",
                     "type": "mixin",
                     "description": "Restore font-smoothing to it's default value.\n",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "font-smooth: initial;\n-webkit-font-smoothing: initial;\n-moz-osx-font-smoothing: initial;",
+                            "description": "font-smoothing-off() // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/typography.scss"
                 }
