@@ -46,9 +46,19 @@
     $dur: if-null($dur, get('transitions:' + $lookup + ':dur'));
     $ease: if-null($ease, get('transitions:' + $lookup + ':ease'));
 
-    .#{$name}-enter-active,
+    .#{$name}-enter-active
     .#{$name}-leave-active {
         transition: opacity $dur $ease;
+    }
+
+    .#{$name}-enter-active {
+        transition-delay: $enter-delay;
+
+    }
+
+    .#{$name}-leave-active {
+        transition-delay: $leave-delay;
+
     }
 
     .#{$name}-enter,
@@ -65,6 +75,7 @@
         }
     }
 }
+
 
 // [name]-enter
 // Starting state for enter. Added before element is inserted, removed one frame
