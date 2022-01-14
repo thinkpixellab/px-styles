@@ -40,7 +40,7 @@ $typescale-ratios: (
 /// for the given parameters
 ///
 /// @link  https://www.modularscale.com/
-
+/// @example modular-size(100px, 1.25, -1) // => 80px
 @function modular-size($base, $ratio, $step) {
     $size: $base;
 
@@ -74,7 +74,7 @@ $typescale-ratios: (
 ///
 /// @return {Map} A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem,
 /// large: 1.33rem)`
-///
+// Robby - example isn't working, also isn't working if we use 0.75
 /// @example $typescale: modular-scale(16px, 4/3, sm base lg);
 
 @function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4) {
@@ -163,6 +163,7 @@ $typescale-ratios: (
 /// @param {String} $exts [woff ttf] - (optional) The full list of extensions to
 /// be loaded (added to path), no period
 ///
+// Robby - need help with the test as the output is giving me an error
 /// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');
 
 @mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf) {
@@ -194,6 +195,10 @@ $typescale-ratios: (
 
 /// Turn font smoothing on (makes type appear thinner and lighter on Mac and more closely
 /// resembles type rendering on Windows)
+/// @example @include font-smoothing-on() // =>
+/// font-smooth: always;
+/// -webkit-font-smoothing: antialiased;
+/// -moz-osx-font-smoothing: grayscale;
 @mixin font-smoothing-on() {
     font-smooth: always;
     -webkit-font-smoothing: antialiased;
@@ -201,6 +206,10 @@ $typescale-ratios: (
 }
 
 /// Restore font-smoothing to it's default value.
+/// @example @include font-smoothing-off() // =>
+/// font-smooth: initial;
+/// -webkit-font-smoothing: initial;
+/// -moz-osx-font-smoothing: initial;
 @mixin font-smoothing-off() {
     font-smooth: initial;
     -webkit-font-smoothing: initial;

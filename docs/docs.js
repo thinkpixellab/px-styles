@@ -1677,6 +1677,32 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.bem",
+                    "name": "// Robby?\n/// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')\n@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '')",
+                    "docName": "// Robby?\n/// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')\n@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '')()",
+                    "type": "css",
+                    "description": "\n",
+                    "access": "public",
+                    "path": "utils/bem.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
+                    "name": "-bem-name",
+                    "docName": "-bem-name()",
+                    "type": "function",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "-bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')"
+                        }
+                    ],
+                    "access": "private",
+                    "path": "utils/bem.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
                     "name": "get-block-name",
                     "docName": "get-block-name()",
                     "type": "function",
@@ -3117,6 +3143,12 @@ window.pxstyles = {
                     "docName": "modular-size()",
                     "type": "function",
                     "description": "Generate a modular type size\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "modular-size(100px, 1.25, -1) // => 80px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "number",
@@ -3144,49 +3176,36 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.typography",
+                    "name": "// Robby - example isn't working, also isn't working if we use 0.75\n/// @example $typescale: modular-scale(16px, 4/3, sm base lg);\n\n@function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4)",
+                    "docName": "// Robby - example isn't working, also isn't working if we use 0.75\n/// @example $typescale: modular-scale(16px, 4/3, sm base lg);\n\n@function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4)()",
+                    "type": "css",
+                    "description": "Generate a complete modular type scale, expressed as a map of type names and\nfont sizes\n\n",
+                    "access": "public",
+                    "path": "utils/typography.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.typography",
                     "name": "modular-scale",
                     "docName": "modular-scale()",
                     "type": "function",
-                    "description": "Generate a complete modular type scale, expressed as a map of type names and\nfont sizes\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "$typescale: modular-scale(16px, 4/3, sm base lg);"
                         }
                     ],
-                    "parameter": [
-                        {
-                            "type": "Number | List",
-                            "name": "bases",
-                            "description": "The base size or sizes used to generate the\ntypescale\n"
-                        },
-                        {
-                            "type": "number",
-                            "name": "ratio",
-                            "description": "The ratio used to generate the typescale\n"
-                        },
-                        {
-                            "type": "List",
-                            "name": "names",
-                            "description": "The names for the generated sizes (these will be the\nkeys in the map that gets returned)\n"
-                        },
-                        {
-                            "type": "Bool",
-                            "name": "rems",
-                            "default": "true",
-                            "description": "Whether or not to convert to rems. Note that rems\nwill be based on the first (or only) value in $bases\n"
-                        },
-                        {
-                            "type": "number",
-                            "name": "round",
-                            "default": "4",
-                            "description": "The fractional rounding amount (e.g. value of 4\nmeans 1/4 so round to 0.25, 0.50, etc.)\n"
-                        }
-                    ],
-                    "return": {
-                        "type": "Map",
-                        "description": "A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem,\nlarge: 1.33rem)`\n"
-                    },
+                    "access": "public",
+                    "path": "utils/typography.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.typography",
+                    "name": "// Robby - need help with the test as the output is giving me an error\n/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');\n\n@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf)",
+                    "docName": "// Robby - need help with the test as the output is giving me an error\n/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');\n\n@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf)()",
+                    "type": "css",
+                    "description": "Simplified syntax for generating a font-face at-rule for loading custom\nfonts.\n\n",
                     "access": "public",
                     "path": "utils/typography.scss"
                 },
@@ -3196,39 +3215,11 @@ window.pxstyles = {
                     "name": "font-face",
                     "docName": "font-face()",
                     "type": "mixin",
-                    "description": "Simplified syntax for generating a font-face at-rule for loading custom\nfonts.\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "String",
-                            "name": "name",
-                            "description": "Name of the font (as referenced in css)\n"
-                        },
-                        {
-                            "type": "String",
-                            "name": "path",
-                            "description": "The url path used to load the font (do not include\nthe extension, it will be appended)\n"
-                        },
-                        {
-                            "type": "String",
-                            "name": "weight",
-                            "description": "The weight associated with this variation of the\nfont\n"
-                        },
-                        {
-                            "type": "String",
-                            "name": "style",
-                            "description": "(optional) The styles associated with this variation\nof the font\n"
-                        },
-                        {
-                            "type": "String",
-                            "name": "exts",
-                            "default": "woff ttf",
-                            "description": "(optional) The full list of extensions to\nbe loaded (added to path), no period\n"
                         }
                     ],
                     "access": "public",
@@ -4036,10 +4027,20 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
+                    "name": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)",
+                    "docName": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)()",
+                    "type": "css",
+                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
                     "name": "aspect-to-number",
                     "docName": "aspect-to-number()",
                     "type": "function",
-                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
@@ -4048,13 +4049,6 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "$aspect: aspect-to-number(1.77778) // => 1.77778"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string | number",
-                            "name": "The",
-                            "description": "string representation of the aspect (should be two numbers\nseparated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be\nreturned directly. This makes it possible to use the function as a safety where a number is\nexpected but a string could be used for convenience.\n"
                         }
                     ],
                     "access": "public",
