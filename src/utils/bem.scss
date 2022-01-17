@@ -16,7 +16,7 @@ $-block-prefix: '' !default;
 $-element-prefix: '__' !default;
 $-modifier-prefix: '--' !default;
 ///
-// Robby?
+/// @todo Robby?
 /// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')
 @function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '') {
     @if (not $name) {

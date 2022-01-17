@@ -53,28 +53,29 @@ $typescale-ratios: (
     @return $size;
 }
 
-/// Generate a complete modular type scale, expressed as a map of type names and
-/// font sizes
+/// Generate a complete modular type scale, expressed as a map of type names and font sizes
 ///
-/// @param {Number | List} $bases The base size or sizes used to generate the
-/// typescale
+/// @param {Number | List} $bases The base size or sizes used to generate the typescale
 ///
 /// @param {number} $ratio The ratio used to generate the typescale
 ///
-/// @param {List} $names The names for the generated sizes (these will be the
-/// keys in the map that gets returned)
+/// @param {List} $range Optional -- either $range or $names must be provided. A list of two values
+/// that represent the range of sizes to be created (e.g. -3, 10), with the size 0 being equivalent
+/// to the base.
 ///
-/// @param {Bool} $rems [true] Whether or not to convert to rems. Note that rems
-/// will be based on the first (or only) value in $bases
+/// @param {List} $names Optional -- either $range or $names must be provided. The names for the
+/// generated sizes (these will be the keys in the map that gets returned)
 ///
-/// @param {number} $round [4] The fractional rounding amount (e.g. value of 4
-/// means 1/4 so round to 0.25, 0.50, etc.)
+/// @param {Bool} $rems [true] Whether or not to convert to rems. Note that rems will be based on
+/// the first (or only) value in $bases
+///
+/// @param {number} $round [4] The fractional rounding amount (e.g. value of 4 means 1/4 so round to
+/// 0.25, 0.50, etc.)
 ///
 /// @link  https://www.modularscale.com/
 ///
-/// @return {Map} A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem,
-/// large: 1.33rem)`
-// Robby - example isn't working, also isn't working if we use 0.75
+/// @return {Map} A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem, large: 1.33rem)`
+///
 /// @example $typescale: modular-scale(16px, 4/3, sm base lg);
 
 @function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4) {
@@ -163,7 +164,7 @@ $typescale-ratios: (
 /// @param {String} $exts [woff ttf] - (optional) The full list of extensions to
 /// be loaded (added to path), no period
 ///
-// Robby - need help with the test as the output is giving me an error
+/// @todo Robby - need help with the test as the output is giving me an error
 /// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');
 
 @mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf) {

@@ -84,8 +84,26 @@
 }
 
 /// Same as flat-set, but will not overwrite a value if it already exists
-// Robby?
+///
 /// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}
+///
+/// @param {*} $map The flat map that will be modified
+/// @param {*} $path The path of the new value
+/// @param {*} $val The new value
+/// @param {*} $merge-maps [false] Determines what to do if the key refers to a value that is already a map. See example of both behaviors below.
+///
+/// @example
+///     // example with $merge-maps true (not that the result is merged)
+///     $map: (config: (bluecolor: blue));
+///     $result: flat-map($map, 'config:colors', (redcolor: red), true); => (config:(colors:(bluecolor:blue, redcolor:red)))
+///
+/// @example
+///     // example with $merge-maps false (not that the result is replaced)
+///     $map: (config: (bluecolor: blue));
+///     $result: flat-map($map, 'config:colors', (redcolor: red), true); => (config:(colors:(redcolor:red)))
+///
+/// @todo need to document the $merge-maps parameter (also for other functions in flat-map)
+
 @function flat-default($map, $path, $val, $merge-maps: false) {
     $current: flat-get($map, $path, $fallback: 'NOTFOUND');
     @if ($current == 'NOTFOUND') {
@@ -99,8 +117,8 @@
 /// @param {map} $map The map to be flattened
 ///
 /// @example
-/// flatten-map((colors: (clr1: #f00, clr2: #00f)))
-/// ==> ("colors:clr1": #f00, "colors:clr2": #00f)
+///     flatten-map((colors: (clr1: #f00, clr2: #00f)))
+///     ==> ("colors:clr1": #f00, "colors:clr2": #00f)
 
 @function flatten-map($map) {
     $flat: ();

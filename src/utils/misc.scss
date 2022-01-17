@@ -214,12 +214,14 @@
 /// sub states (e.g. (hover: (...)) becomes &:hover {...})
 /// @param {string} $ignore-start-pattern Properties that start with this will be ignored
 ///
+/// @todo need a better description of all of these weird parameters and why they exist (or else better api)
+///
 /// @example TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch
 
 @mixin css-map(
     $map,
     $aliases: (),
-    $map-states: false,
+    $map-states: (hover active disabled readonly),
     $use-smart-aliases: true,
     $ignore-start-pattern: '-'
 ) {

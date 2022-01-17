@@ -1677,20 +1677,10 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.bem",
-                    "name": "// Robby?\n/// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')\n@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '')",
-                    "docName": "// Robby?\n/// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')\n@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '')()",
-                    "type": "css",
-                    "description": "\n",
-                    "access": "public",
-                    "path": "utils/bem.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.bem",
                     "name": "-bem-name",
                     "docName": "-bem-name()",
                     "type": "function",
-                    "description": "",
+                    "description": "\n",
                     "example": [
                         {
                             "type": "scss",
@@ -1976,20 +1966,10 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "//Robby?\n/// @example map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))\n\n@function map-sort-by-values($map)",
-                    "docName": "//Robby?\n/// @example map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))\n\n@function map-sort-by-values($map)()",
-                    "type": "css",
-                    "description": "Return a copy of a map sorted by the value of each entry\n",
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
                     "name": "map-sort-by-values",
                     "docName": "map-sort-by-values()",
                     "type": "function",
-                    "description": "",
+                    "description": "Return a copy of a map sorted by the value of each entry\n",
                     "example": [
                         {
                             "type": "scss",
@@ -2002,24 +1982,26 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "// Robby ? Explain how to test/write test with additional function (square) involved\n/// @example\n///   @function square($x, $i)",
-                    "docName": "// Robby ? Explain how to test/write test with additional function (square) involved\n/// @example\n///   @function square($x, $i)()",
-                    "type": "css",
-                    "description": "Creates a new list with the results of calling a function once for every\nitem in this list. Equivalent to Array.map in JavaScript.\n\n",
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
                     "name": "list-map",
                     "docName": "list-map()",
                     "type": "function",
-                    "description": "",
+                    "description": "Creates a new list with the results of calling a function once for every\nitem in this list. Equivalent to Array.map in JavaScript. Must use get-function to retrieve the function used for the $fn parameter. See example.\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@function square($x, $i) { @return $x * $x }\nlist-map(1 2 3 4, square); // => 1 4 9 16"
+                            "code": "@function square($x) { @return $x * $x }\nlist-map(1 2 3 4, get-function(square)); // => 1 4 9 16"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "List",
+                            "name": "list",
+                            "description": "the list to which the function is being applied\n"
+                        },
+                        {
+                            "type": "Function",
+                            "name": "fn",
+                            "description": "reference to a function(item, index) that will be\napplied to every item.\n"
                         }
                     ],
                     "access": "public",
@@ -2056,24 +2038,21 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.collections",
-                    "name": "// Robby ?\n/// @example map-collect()\n@function map-collect($maps...)",
-                    "docName": "// Robby ?\n/// @example map-collect()\n@function map-collect($maps...)()",
-                    "type": "css",
-                    "description": "Merge multiple maps into a single map\n",
-                    "access": "public",
-                    "path": "utils/collections.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.collections",
                     "name": "map-collect",
                     "docName": "map-collect()",
                     "type": "function",
-                    "description": "",
+                    "description": "Merge multiple maps into a single map\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "map-collect()"
+                            "code": "map-collect((a: 1), (b:2), (c: 3)); => (a:1, b:2, c:3)"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "maps...",
+                            "description": "One or more maps that should be merged into a single map.\n"
                         }
                     ],
                     "access": "public",
@@ -2164,24 +2143,46 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.flatmap",
-                    "name": "// Robby?\n/// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // =>",
-                    "docName": "// Robby?\n/// @example flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // =>()",
-                    "type": "css",
-                    "description": "Same as flat-set, but will not overwrite a value if it already exists\n",
-                    "access": "public",
-                    "path": "utils/flatmap.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.flatmap",
                     "name": "flat-default",
                     "docName": "flat-default()",
                     "type": "function",
-                    "description": "",
+                    "description": "Same as flat-set, but will not overwrite a value if it already exists\n\n",
                     "example": [
                         {
+                            "type": "flat",
+                            "code": "",
+                            "description": "default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}"
+                        },
+                        {
                             "type": "scss",
-                            "code": "flat-default((colors: (clr1: #F00)), 'colors:clr2', #00F) // => {colors: {clr1: #F00, clr2: #00F}}"
+                            "code": "// example with $merge-maps true (not that the result is merged)\n$map: (config: (bluecolor: blue));\n$result: flat-map($map, 'config:colors', (redcolor: red), true); => (config:(colors:(bluecolor:blue, redcolor:red)))"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "// example with $merge-maps false (not that the result is replaced)\n$map: (config: (bluecolor: blue));\n$result: flat-map($map, 'config:colors', (redcolor: red), true); => (config:(colors:(redcolor:red)))"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "map",
+                            "description": "The flat map that will be modified"
+                        },
+                        {
+                            "type": "*",
+                            "name": "path",
+                            "description": "The path of the new value"
+                        },
+                        {
+                            "type": "*",
+                            "name": "val",
+                            "description": "The new value"
+                        },
+                        {
+                            "type": "*",
+                            "name": "merge-maps",
+                            "default": "false",
+                            "description": "Determines what to do if the key refers to a value that is already a map. See example of both behaviors below.\n"
                         }
                     ],
                     "access": "public",
@@ -2483,20 +2484,10 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
-                    "name": "// Robby ? help with example and testing the next few mixins\n/// @example @include first-last-radius\n\n@mixin first-last-radius",
-                    "docName": "// Robby ? help with example and testing the next few mixins\n/// @example @include first-last-radius\n\n@mixin first-last-radius()",
-                    "type": "css",
-                    "description": "\n",
-                    "access": "public",
-                    "path": "utils/layout.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.layout",
                     "name": "first-last-radius",
                     "docName": "first-last-radius()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "Convenience mixin to inherit the border-radius of a parent based on child position (first child\ninherits top left/right radius, last child inherits bottom left/right radius)\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -2509,27 +2500,10 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.layout",
-                    "name": "pos",
-                    "docName": "pos()",
-                    "type": "mixin",
-                    "description": "\n",
-                    "example": [
-                        {
-                            "type": "include",
-                            "code": "position: absolute;\ntop: 0;\nright: 0;\nbottom: 0;\nleft: 0;",
-                            "description": "pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/layout.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.layout",
                     "name": "rel",
                     "docName": "rel()",
                     "type": "mixin",
-                    "description": "\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "include",
@@ -3176,36 +3150,54 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.typography",
-                    "name": "// Robby - example isn't working, also isn't working if we use 0.75\n/// @example $typescale: modular-scale(16px, 4/3, sm base lg);\n\n@function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4)",
-                    "docName": "// Robby - example isn't working, also isn't working if we use 0.75\n/// @example $typescale: modular-scale(16px, 4/3, sm base lg);\n\n@function modular-scale($bases, $ratio, $range: null, $names: null, $rems: true, $round: 4)()",
-                    "type": "css",
-                    "description": "Generate a complete modular type scale, expressed as a map of type names and\nfont sizes\n\n",
-                    "access": "public",
-                    "path": "utils/typography.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.typography",
                     "name": "modular-scale",
                     "docName": "modular-scale()",
                     "type": "function",
-                    "description": "",
+                    "description": "Generate a complete modular type scale, expressed as a map of type names and font sizes\n\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "$typescale: modular-scale(16px, 4/3, sm base lg);"
                         }
                     ],
-                    "access": "public",
-                    "path": "utils/typography.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.typography",
-                    "name": "// Robby - need help with the test as the output is giving me an error\n/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');\n\n@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf)",
-                    "docName": "// Robby - need help with the test as the output is giving me an error\n/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');\n\n@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf)()",
-                    "type": "css",
-                    "description": "Simplified syntax for generating a font-face at-rule for loading custom\nfonts.\n\n",
+                    "parameter": [
+                        {
+                            "type": "Number | List",
+                            "name": "bases",
+                            "description": "The base size or sizes used to generate the typescale\n"
+                        },
+                        {
+                            "type": "number",
+                            "name": "ratio",
+                            "description": "The ratio used to generate the typescale\n"
+                        },
+                        {
+                            "type": "List",
+                            "name": "range",
+                            "description": "Optional -- either $range or $names must be provided. A list of two values\nthat represent the range of sizes to be created (e.g. -3, 10), with the size 0 being equivalent\nto the base.\n"
+                        },
+                        {
+                            "type": "List",
+                            "name": "names",
+                            "description": "Optional -- either $range or $names must be provided. The names for the\ngenerated sizes (these will be the keys in the map that gets returned)\n"
+                        },
+                        {
+                            "type": "Bool",
+                            "name": "rems",
+                            "default": "true",
+                            "description": "Whether or not to convert to rems. Note that rems will be based on\nthe first (or only) value in $bases\n"
+                        },
+                        {
+                            "type": "number",
+                            "name": "round",
+                            "default": "4",
+                            "description": "The fractional rounding amount (e.g. value of 4 means 1/4 so round to\n0.25, 0.50, etc.)\n"
+                        }
+                    ],
+                    "return": {
+                        "type": "Map",
+                        "description": "A map of named type sizes, e.g. `(small: 0.75rem, -base: 1rem, large: 1.33rem)`\n"
+                    },
                     "access": "public",
                     "path": "utils/typography.scss"
                 },
@@ -3215,11 +3207,39 @@ window.pxstyles = {
                     "name": "font-face",
                     "docName": "font-face()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "Simplified syntax for generating a font-face at-rule for loading custom\nfonts.\n\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "String",
+                            "name": "name",
+                            "description": "Name of the font (as referenced in css)\n"
+                        },
+                        {
+                            "type": "String",
+                            "name": "path",
+                            "description": "The url path used to load the font (do not include\nthe extension, it will be appended)\n"
+                        },
+                        {
+                            "type": "String",
+                            "name": "weight",
+                            "description": "The weight associated with this variation of the\nfont\n"
+                        },
+                        {
+                            "type": "String",
+                            "name": "style",
+                            "description": "(optional) The styles associated with this variation\nof the font\n"
+                        },
+                        {
+                            "type": "String",
+                            "name": "exts",
+                            "default": "woff ttf",
+                            "description": "(optional) The full list of extensions to\nbe loaded (added to path), no period\n"
                         }
                     ],
                     "access": "public",
@@ -3883,24 +3903,20 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "// Robby ?\n/// @example get-fourpart-left(10px) // => 10px\n@function get-fourpart-left($value)",
-                    "docName": "// Robby ?\n/// @example get-fourpart-left(10px) // => 10px\n@function get-fourpart-left($value)()",
-                    "type": "css",
-                    "description": "Convenience function to just retrieve the left value from get-fourpart\n\n",
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
                     "name": "get-fourpart-left",
                     "docName": "get-fourpart-left()",
                     "type": "function",
-                    "description": "",
+                    "description": "Convenience function to just retrieve the left value from get-fourpart\n\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "get-fourpart-left(10px) // => 10px"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "value"
                         }
                     ],
                     "access": "public",
@@ -4041,20 +4057,10 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)",
-                    "docName": "// Robby ?\n/// @example $aspect: aspect-to-number('16:9') // => 1.77777778;\n/// @example $aspect: aspect-to-number(1.77778) // => 1.77778\n\n@function aspect-to-number($aspect)()",
-                    "type": "css",
-                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
                     "name": "aspect-to-number",
                     "docName": "aspect-to-number()",
                     "type": "function",
-                    "description": "",
+                    "description": "Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -4063,6 +4069,13 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "$aspect: aspect-to-number(1.77778) // => 1.77778"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string | number",
+                            "name": "The",
+                            "description": "string representation of the aspect (should be two numbers\nseparated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be\nreturned directly. This makes it possible to use the function as a safety where a number is\nexpected but a string could be used for convenience.\n"
                         }
                     ],
                     "access": "public",

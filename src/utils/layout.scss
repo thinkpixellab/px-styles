@@ -52,36 +52,28 @@
     }
 }
 
-// inherit the border radius of a parent for the first and last items
+/// Convenience mixin to inherit the border-radius of a parent based on child position (first child
+/// inherits top left/right radius, last child inherits bottom left/right radius)
 ///
-// Robby ? help with example and testing the next few mixins
 /// @example @include first-last-radius
 
 @mixin first-last-radius {
-    border-radius: 0;
     &:first-child {
-        border-radius: inherit;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
     }
     &:last-child {
-        border-radius: inherit;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
     }
     &:first-child:last-child {
         border-radius: inherit;
     }
 }
-///
-/// @example @include pos($pos: absolute, $t: null, $r: null, $b: null, $l: null) // =>
-/// position: absolute;
-/// top: 0;
-/// right: 0;
-/// bottom: 0;
-/// left: 0;
 
-@mixin pos($pos: null, $t: null, $r: null, $b: null, $l: null) {
+// internal helper for abs, fixed, rel
+
+@mixin -pos($pos: null, $t: null, $r: null, $b: null, $l: null) {
     position: $pos;
 
     // no offsets
@@ -116,7 +108,7 @@
         left: $l;
     }
 }
-///
+
 /// @example @include rel($t: null, $r: null, $b: null, $l: null) // =>
 /// position: relative;
 /// top: 0;
@@ -124,8 +116,9 @@
 /// bottom: 0;
 /// left: 0;
 @mixin rel($t: null, $r: null, $b: null, $l: null) {
-    @include pos(relative, $t, $r, $b, $l);
+    @include -pos(relative, $t, $r, $b, $l);
 }
+
 /// @example @include abs($t: null, $r: null, $b: null, $l: null) // =>
 /// position: absolute;
 /// top: 0;
@@ -133,8 +126,9 @@
 /// bottom: 0;
 /// left: 0;
 @mixin abs($t: null, $r: null, $b: null, $l: null) {
-    @include pos(absolute, $t, $r, $b, $l);
+    @include -pos(absolute, $t, $r, $b, $l);
 }
+
 /// @example @include fixed($t: null, $r: null, $b: null, $l: null) // =>
 /// position: fixed;
 /// top: 0;
@@ -142,8 +136,9 @@
 /// bottom: 0;
 /// left: 0;
 @mixin fixed($t: null, $r: null, $b: null, $l: null) {
-    @include pos(fixed, $t, $r, $b, $l);
+    @include -pos(fixed, $t, $r, $b, $l);
 }
+
 /// @example @include left-top($l: 0, $t: 0) // =>
 /// position: absolute;
 /// left: 0;

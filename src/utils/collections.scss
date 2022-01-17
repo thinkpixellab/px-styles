@@ -188,17 +188,16 @@
 }
 
 /// Creates a new list with the results of calling a function once for every
-/// item in this list. Equivalent to Array.map in JavaScript.
+/// item in this list. Equivalent to Array.map in JavaScript. Must use get-function to retrieve the function used for the $fn parameter. See example.
 ///
 /// @param {List} $list the list to which the function is being applied
 ///
 /// @param {Function} $fn reference to a function(item, index) that will be
 /// applied to every item.
 ///
-// Robby ? Explain how to test/write test with additional function (square) involved
 /// @example
-///   @function square($x, $i) { @return $x * $x }
-///   list-map(1 2 3 4, square); // => 1 4 9 16
+///     @function square($x) { @return $x * $x }
+///     list-map(1 2 3 4, get-function(square)); // => 1 4 9 16
 ///
 @function list-map($list, $fn) {
     @if length($list) == 0 {
@@ -233,8 +232,10 @@
 
 /// Merge multiple maps into a single map
 /// @param {*} $maps... One or more maps that should be merged into a single map.
-// Robby ?
-/// @example map-collect()
+///
+/// @example
+/// map-collect((a: 1), (b:2), (c: 3)); => (a:1, b:2, c:3)
+
 @function map-collect($maps...) {
     $collection: ();
 
