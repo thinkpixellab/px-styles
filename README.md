@@ -1,4 +1,4 @@
-# pxstyles
+# px-styles
 
 This is a simple SCSS framework that provides basic site setup and some common functionality for web
 projects. The goal is to create a simple to understand boilerplate coupled with a consistent
@@ -24,7 +24,7 @@ npm install @thinkpixellab/pxstyles --save
 
 You could import the package directly using @import or @use but in most cases you will want to
 create a file that forwards the library after first configuring it. Other files in the project can
-then @use that file knowing pxstyles has been properly configured. Here's a sample file:
+then @use that file knowing px-styles has been properly configured. Here's a sample file:
 
 ```scss
 /*

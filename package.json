@@ -1,5 +1,5 @@
 {
-    "name": "@thinkpixellab/pxstyles",
+    "name": "@thinkpixellab/px-styles",
     "version": "0.9.21",
     "description": "Shared scss library",
     "main": "index.scss",

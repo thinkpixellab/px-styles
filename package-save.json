@@ -1,16 +1,19 @@
 {
-    "name": "@thinkpixellab/pxstyles",
-    "title": "pxstyles",
+    "name": "@thinkpixellab/px-styles",
+    "title": "px-styles",
     "version": "1.0.0",
     "private": true,
     "author": {
         "name": "Pixel Lab",
         "url": "http://thinkpixellab.com/"
     },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
     "scripts": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/thinkpixellab/px-styles"
+        "url": "https://github.com/thinkpixellab/pxstyles"
     },
     "engines": {
         "node": ">=14.15.0 <15.0.0",

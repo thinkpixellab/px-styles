@@ -49,7 +49,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
+                            "code": "// To initalize px-styles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
                         }
                     ],
                     "access": "public",

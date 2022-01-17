@@ -1,7 +1,7 @@
 @forward '../index.scss';
 @use '../index.scss' as *;
 
-// load pxstyles defaults
+// load px-styles defaults
 @include init();
 
 // enable terminal output for true

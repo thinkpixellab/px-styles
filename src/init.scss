@@ -97,7 +97,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
 /// possible defaults in a single location. See the source for details.
 ///
 /// @example
-/// // To initalize pxstyles, first add any required configuration
+/// // To initalize px-styles, first add any required configuration
 /// %%include config('colors:accent', #00dc82);
 ///
 /// // then load the defaults by calling this mixin
