@@ -161,6 +161,27 @@
     }
     // css-map
 
+    @include test('css-map') {
+        @include assert {
+            // test
+            @include output {
+                @include css-map(
+                    (
+                        color: blue,
+                        background-color: green,
+                        font-family: sans-serif,
+                    )
+                );
+            }
+            // output
+            @include expect {
+                color: blue;
+                background-color: green;
+                font-family: sans-serif;
+            }
+        }
+    }
+
     @include test('debug-zebra') {
         @include assert {
             // test

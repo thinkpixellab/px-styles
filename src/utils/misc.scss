@@ -216,7 +216,10 @@
 ///
 /// @todo need a better description of all of these weird parameters and why they exist (or else better api)
 ///
-/// @example TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch
+/// @example @include css-map(( color: blue, background-color: green, font-family: sans-serif)); // =>
+/// color: blue;
+/// background-color: green;
+/// font-family: sans-serif;
 
 @mixin css-map(
     $map,

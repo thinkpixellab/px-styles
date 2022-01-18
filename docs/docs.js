@@ -2895,7 +2895,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey));"
+                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey)); // => (newkey: 'value')"
                         }
                     ],
                     "access": "public",
@@ -2911,7 +2911,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch"
+                            "code": "@include css-map(( 'colors:red': #f00, 'colors:blue': #00f )) // => (colors:red: #f00;colors:blue: #00f;)"
                         }
                     ],
                     "parameter": [
