@@ -8,6 +8,9 @@
     @include test('to-number') {
         @include assert-equal(to-number('234.8'), 234.8);
     }
+    @include test('is-number') {
+        @include assert-equal(to-number(4), true);
+    }
     @include test('is-rems') {
         @include assert-equal(is-rems(3rem), true);
     }
