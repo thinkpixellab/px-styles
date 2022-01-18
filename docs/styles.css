@@ -514,10 +514,6 @@ body {
 .textbox:disabled, .textbox:disabled:hover, .textbox:disabled:active {
   cursor: not-allowed;
 }
-.textbox:focus-visible {
-  box-shadow: 0 0 0 3px rgba(0, 153, 253, 0.33);
-}
-
 .nav {
   position: sticky;
   top: 0;
@@ -899,12 +895,6 @@ strong {
   border-style: solid;
   transition: background 75ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, color 75ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 }
-.copy-button:disabled, .copy-button:disabled:hover, .copy-button:disabled:active {
-  cursor: not-allowed;
-  background: #ccd0d2;
-  color: #7a8389;
-  box-shadow: none;
-}
 .copy-button:hover {
   color: #33adfd;
   background: rgba(51, 173, 253, 0.05);
@@ -915,10 +905,12 @@ strong {
   background: rgba(0, 138, 228, 0.1);
   border-color: #008ae4;
 }
-.copy-button:focus-visible {
-  box-shadow: 0 0 0 3px rgba(0, 153, 253, 0.33);
+.copy-button:disabled, .copy-button:disabled:hover, .copy-button:disabled:active {
+  cursor: not-allowed;
+  background: #ccd0d2;
+  color: #7a8389;
+  box-shadow: none;
 }
-
 .hljs {
   color: #d6d9db;
   background: #1e2c35;

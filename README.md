@@ -83,6 +83,32 @@ global css. Typically these would be in a separate file that only gets loaded on
 }
 ```
 
+### Pattern for Multiple Configurations
+
+All of the configuration settings for px-styles exist within a single map. Because of that, two distinct "instances" of px-styles can be loaded within the same context using the following pattern:
+
+```scss
+@use '~@thinkpixellab/pxstyles' as px-one;
+@use '~@thinkpixellab/pxstyles' as px-two;
+
+// give each version a distinct map
+px-one.$config: ();
+px-two.$config: ();
+
+@include px-one.config('colors:accent', blue);
+@include px-one.init();
+.px-one-class {
+    color: px-one.accent();
+}
+
+// px-two test
+@include px-two.config('colors:accent', green);
+@include px-two.init();
+.px-two-class {
+    color: px-two.accent();
+}
+```
+
 ## API Documentation
 
 API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should

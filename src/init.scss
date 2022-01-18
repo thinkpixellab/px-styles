@@ -544,8 +544,12 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
             selector: ':focus-visible',
             shadow-color: accent($alpha: 0.33),
             shadow-width: 3px,
+            outline-color: accent(),
         )
     );
+
+    // button defaults
+    @include default('controls:button', ());
 
     // @include default(
     //     'controls:base',

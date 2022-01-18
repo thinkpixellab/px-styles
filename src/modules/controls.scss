@@ -5,6 +5,67 @@
 @use '../utils' as *;
 @use '../site' as *;
 
+// Implementation notes:
+//
+// Some general control style implementation notes:
+//
+// - For most controls, we use css-map to generate the style. This means that we are, for the most
+//   part, keeping the css in a map until we finalize it and then we use css-map($css) to actually
+//   generate the style. This prevents duplicate properties and lets us keep the css fluid as we
+//   merge in defaults and overrides, etc.
+//
+// - We're not using @extend much, primarily because the expectation is that in many cases these
+//   control styles are generated from within component files with relatively narrow scope, where
+//   @extend won't provide much advantage.
+//
+// - The general flow for a control style that accounts for various defaults, overrides, etc. is as
+//   follows:
+//   1. Make a call to contr
+
+// ----------------------------------------------------------------------------
+// helpers
+// ----------------------------------------------------------------------------
+
+/// Generates one of a number of "canned" / common focus styles as a css map (which can be combined
+/// with the css-map function to generate the correct focus visual css)
+///
+///
+/// @param {shadow | outline} $style A named style.
+/// @param {color} $color [null]
+
+@function control-focus-style($style, $color: null) {
+    @if ($style == 'shadow') {
+        $color: if-null($color, get('focus:shadow-color'));
+        $width: get('focus:shadow-width');
+        @return (box-shadow: 0 0 0 $width $color);
+    }
+    @if ($style == 'outline') {
+        $color: if-null($color, get('focus:outline-color'));
+        @return (outline-offset: 0px, outline: 1px dashed $color);
+    }
+}
+
+// extract an accent color from any of the properties in $props, with a
+// fallback value of 'controls:accent' (note: last property in list wins)
+
+@function -get-control-accent($overrides, $accent-props...) {
+    $accent: get('controls:accent');
+    @each $prop in $accent-props {
+        $accent: map-get-default($overrides, $prop, $accent);
+    }
+    @return $accent;
+}
+
+@mixin -focus-style($style, $color: null) {
+    @include css-map(-focus-style($style, $color));
+}
+
+@mixin -focus($style, $color: null) {
+    @include focus() {
+        @include -focus-style($style, $color);
+    }
+}
+
 // ----------------------------------------------------------------------------
 // base
 // ----------------------------------------------------------------------------
@@ -23,7 +84,11 @@
     );
 }
 
-@function -button-base() {
+// ----------------------------------------------------------------------------
+// button
+// ----------------------------------------------------------------------------
+
+@function -button-base-map() {
     @return (
         display: inline-flex,
         align-items: center,
@@ -42,11 +107,7 @@
     );
 }
 
-// ----------------------------------------------------------------------------
-// button
-// ----------------------------------------------------------------------------
-
-@function -button($accent) {
+@function -button-map($accent) {
     @return (
         background: $accent,
         box-shadow: shadow(2, 0.5),
@@ -82,32 +143,36 @@
 /// %%include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
 
 @mixin button($overrides: ()) {
-    $accent: -control-accent($overrides, background, background-color);
+    // extract an accent color
+    $accent: -get-control-accent($overrides, background, background-color);
 
-    // basic button css
-    $button: -button($accent);
+    // get basic button css
+    $button: -button-map($accent);
 
-    // config
+    // get the focus css
+    $focus: (
+        focus: control-focus-style('shadow', rgba($accent, 0.33)),
+    );
+
+    // get button defaults if defined
     $config: get('controls:button', null, false);
 
     // merge all the css
-    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
-
-    // output the css
-    @include css-map($css, $map-states: (hover active disabled));
+    $css: flat-merge(-control-base(), -button-base-map(), $button, $focus, $config, $overrides);
 
     // add transitions
+    // @todo we need to create a transition function so that this can be included in the css map
     @include transition(background color box-shadow, get('controls:transition', 'fast'));
 
-    // add focus selector
-    @include -focus('shadow', rgba($accent, 0.33));
+    // output the css
+    @include css-map($css);
 }
 
 // ----------------------------------------------------------------------------
 // button-outline
 // ----------------------------------------------------------------------------
 
-@function -button-outline($accent) {
+@function -button-outline-map($accent) {
     @return (
         color: $accent,
         border-color: currentColor,
@@ -134,29 +199,30 @@
 /// Generates a (somewhat opinionated) outlined button style based on the site's button settings.
 /// Behaves a lot like the `button` mixin so see that for more detail.
 ///
-/// @param {map} $overrides [()] A map containing css key/value paairs. Just about any css is valid (currently transitions can't
-/// be overriden) including supported state specific values: hover, active, disabled. The outline
-/// color is derived from the border color. The properties border-color and color can be specified as
-/// shades (numbers relative to the border-color or primary accent color).
+/// @param {map} $overrides [()] A map containing css key/value pairs. Just about any css is valid
+/// (currently transitions can't be overriden) including supported state specific values: hover,
+/// active, disabled. The outline color is derived from the border color. The properties
+/// border-color and color can be specified as shades (numbers relative to the border-color or
+/// primary accent color).
 ///
 ///
 /// @example
-/// %%include button-outline(); // => creates a standard outline button
+///     @include button-outline(); // => creates a standard outline button
 ///
 /// @example
-/// %%include button-outline({border-color: blue}); // => creates a blue outline button
+///     @include button-outline({border-color: blue}); // => creates a blue outline button
 
 @mixin button-outline($overrides: ()) {
-    $accent: -control-accent($overrides, color, border-color);
+    $accent: -get-control-accent($overrides, color, border-color);
 
     // button css
-    $button: -button-outline($accent);
+    $button: -button-outline-map($accent);
 
     // config
     $config: get('controls:button', null, false);
 
     // merge all the css
-    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+    $css: flat-merge(-control-base(), -button-base-map(), $button, $config, $overrides);
 
     // output the css
     @include css-map($css, $map-states: (hover active disabled));
@@ -168,26 +234,30 @@
     @include -focus('shadow');
 }
 
-/// Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.
+/// Generates a simple button with very little styling that can be used to wrap an icon or text but
+/// includes basic transitions for hover and active.
 ///
-/// @param {map} $overrides [()]  A map containing css key/value paairs. Just about any css is valid.
+/// @param {map} $overrides [()]  A map containing css key/value paairs. Just about any css is
+/// valid.
 ///
 /// @example
-/// %%include button() => creates a standard, default button
+///     @include button() => creates a standard, default button
 ///
 /// @example
-/// %%include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+///     @include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+
 @mixin button-icon($overrides: ()) {
-    $accent: -control-accent($overrides, color, border-color);
+    // update accent
+    $accent: -get-control-accent($overrides, color, border-color);
 
     // button css
-    $button: -button-outline($accent);
+    $button: -button-outline-map($accent);
 
     // config
     $config: get('controls:button', null, false);
 
     // merge all the css
-    $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
+    $css: flat-merge(-control-base(), -button-base-map(), $button, $config, $overrides);
 
     // output the css
     @include css-map($css, $map-states: (hover active disabled));
@@ -220,27 +290,8 @@
         )
     );
 }
+
 @mixin textbox($overrides: ()) {
-    //$accent: -control-accent($overrides, background, background-color);
-
-    // // basic button css
-    // $button: -button($accent);
-
-    // // config
-    // $config: get('controls:button', null, false);
-
-    // // merge all the css
-    // $css: flat-merge(-control-base(), -button-base(), $button, $config, $overrides);
-
-    // // output the css
-    // @include css-map($css, $map-states: (hover active disabled));
-
-    // // add transitions
-    // @include transition(background color box-shadow, get('controls:transition', 'fast'));
-
-    // // add focus selector
-    // @include -focus('shadow', rgba($accent, 0.33));
-
     // textbox base css
     $textbox: -textbox-base();
 
@@ -263,36 +314,6 @@
 
     // add focus selector
     @include -focus('shadow');
-}
-
-// ----------------------------------------------------------------------------
-// helpers
-// ----------------------------------------------------------------------------
-
-@function -control-accent($overrides, $props...) {
-    $accent: get('controls:accent');
-    @each $prop in $props {
-        $accent: map-get-default($overrides, $prop, $accent);
-    }
-    @return $accent;
-}
-
-@mixin -focus-style($style, $color: null) {
-    @if ($style == 'shadow') {
-        $color: if-null($color, get('focus:shadow-color'));
-        $width: get('focus:shadow-width');
-        box-shadow: 0 0 0 $width $color;
-    }
-    @if ($style == 'outline') {
-        outline-offset: 0px;
-        outline: 1px dashed $color;
-    }
-}
-
-@mixin -focus($style, $color: null) {
-    @include focus() {
-        @include -focus-style($style, $color);
-    }
 }
 
 // ----------------------------------------------------------------------------
@@ -345,3 +366,68 @@
         background: $background;
     }
 }
+
+// ----------------------------------------------------------------------------
+// dropdown
+// ----------------------------------------------------------------------------
+
+// .dropdown-base {
+//     @extend .control-base;
+//     cursor: pointer;
+//     padding: 0 (2.25 * $control-textbox-padding) 0 $control-textbox-padding;
+//     background-repeat: no-repeat;
+//     background-position: right $control-textbox-padding top 50%;
+//     background-size: $control-select-arrow-width auto;
+// }
+
+// .dropdown {
+//     @extend .textbox;
+//     @extend .dropdown-base;
+//     color: $control-select-textbox-fg;
+//     background-image: inline-svg(
+//         $control-select-arrow-svg,
+//         (
+//             '#fillcolor': $control-select-textbox-fg,
+//         )
+//     );
+//     &:hover {
+//         color: $control-select-textbox-hover-fg;
+//         background-image: inline-svg(
+//             $control-select-arrow-svg,
+//             (
+//                 '#fillcolor': $control-select-textbox-hover-fg,
+//             )
+//         );
+//     }
+// }
+
+// .dropdown-button {
+//     @extend .button;
+//     @extend .dropdown-base;
+//     color: $control-select-button-fg;
+//     line-height: $control-button-height;
+//     background-image: inline-svg(
+//         $control-select-arrow-svg,
+//         (
+//             '#fillcolor': $control-select-button-fg,
+//         )
+//     );
+//     &:hover {
+//         color: $control-select-button-hover-fg;
+//         background-image: inline-svg(
+//             $control-select-arrow-svg,
+//             (
+//                 '#fillcolor': $control-select-button-hover-fg,
+//             )
+//         );
+//     }
+//     &:active {
+//         color: $control-select-button-active-fg;
+//         background-image: inline-svg(
+//             $control-select-arrow-svg,
+//             (
+//                 '#fillcolor': $control-select-button-active-fg,
+//             )
+//         );
+//     }
+// }

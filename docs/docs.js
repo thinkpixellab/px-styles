@@ -282,6 +282,28 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
+                    "name": "control-focus-style",
+                    "docName": "control-focus-style()",
+                    "type": "function",
+                    "description": "Generates one of a number of \"canned\" / common focus styles as a css map (which can be combined\nwith the css-map function to generate the correct focus visual css)\n\n\n",
+                    "parameter": [
+                        {
+                            "type": "shadow | outline",
+                            "name": "style",
+                            "description": "A named style."
+                        },
+                        {
+                            "type": "color",
+                            "name": "color",
+                            "default": "null"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
                     "name": "button",
                     "docName": "button()",
                     "type": "mixin",
@@ -329,7 +351,7 @@ window.pxstyles = {
                             "type": "map",
                             "name": "overrides",
                             "default": "()",
-                            "description": "A map containing css key/value paairs. Just about any css is valid (currently transitions can't\nbe overriden) including supported state specific values: hover, active, disabled. The outline\ncolor is derived from the border color. The properties border-color and color can be specified as\nshades (numbers relative to the border-color or primary accent color).\n\n"
+                            "description": "A map containing css key/value pairs. Just about any css is valid\n(currently transitions can't be overriden) including supported state specific values: hover,\nactive, disabled. The outline color is derived from the border color. The properties\nborder-color and color can be specified as shades (numbers relative to the border-color or\nprimary accent color).\n\n"
                         }
                     ],
                     "access": "public",
@@ -341,7 +363,7 @@ window.pxstyles = {
                     "name": "button-icon",
                     "docName": "button-icon()",
                     "type": "mixin",
-                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but includes basic transitions for hover and active.\n\n",
+                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text but\nincludes basic transitions for hover and active.\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -357,7 +379,7 @@ window.pxstyles = {
                             "type": "map",
                             "name": "overrides",
                             "default": "()",
-                            "description": "A map containing css key/value paairs. Just about any css is valid.\n"
+                            "description": "A map containing css key/value paairs. Just about any css is\nvalid.\n"
                         }
                     ],
                     "access": "public",
@@ -699,6 +721,22 @@ window.pxstyles = {
                             "name": "val",
                             "default": "null",
                             "description": "The value to be added."
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/config.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.config",
+                    "name": "scoped-config",
+                    "docName": "scoped-config()",
+                    "type": "mixin",
+                    "description": "Handles the unique scenario of isolating an \"instance\" of px-styles from other configurations.\npx-styles can be reinitialized within the content block of this mixin without effecting other\nglobal configurations. This is pretty experimental and could have side effects. Use with caution\nfor now.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "\n// configure px with a blue accent and initialize\n @include config('colors:accent', blue);\n @include init();\n\n .px-og-class1 {\n     /* should be blue */\n     color: accent();\n }\n\n @include scoped-config() {\n      configure px with a green accent and initialize\n     @include config('colors:accent', green);\n     @include init();\n     .px-scope-class {\n         /* should be green */\n         color: accent();\n     }\n }\n\n .px-og-class2 {\n     /* should be blue */\n     color: accent();\n }"
                         }
                     ],
                     "access": "public",
@@ -2908,6 +2946,22 @@ window.pxstyles = {
                     "docName": "debug-zebra()",
                     "type": "mixin",
                     "description": " Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)\n\n @param {*} $color1 [yellowgreen] The first color in the gradient\n @param {*} $color2 [gold] The second color in the gradient\n @example debug-zebra() // =>\nbackground-image: repeating-linear-gradient(-45deg, yellowgreen 0 20px, gold 20px 40px);\n",
+                    "access": "public",
+                    "path": "utils/misc.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.misc",
+                    "name": "once",
+                    "docName": "once()",
+                    "type": "mixin",
+                    "description": "Mixin that ensures that the wrapped @content will only be included once per $key.\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "key"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/misc.scss"
                 }
