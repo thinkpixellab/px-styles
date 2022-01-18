@@ -32,11 +32,16 @@
 @use 'site' as *;
 @use 'version' as *;
 
-$-px-is-init: false;
 $-px-version: str-split(get-version(), '.');
 $-px-version-major: to-number(nth-if-length($-px-version, 1, 0));
 $-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));
 $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
+
+/// Returns true if px-styles has been initialized, otherwise false.
+
+@function px-is-init() {
+    @return get('px:init', false);
+}
 
 /// Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been
 /// called / included. Checks are also provided for an optional minimum required version and an
@@ -59,7 +64,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
 /// %%include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy
 
 @mixin ensure-init($require-min-version: null, $require-config-key: null) {
-    $is-init: $-px-is-init;
+    $is-init: px-is-init();
 
     @if not $is-init {
         @error 'Error: px-styles has not been correctly initialized. Make sure that the init() mixin has been called.';
@@ -709,7 +714,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
     );
 
     // flag as initialized
-    $-px-is-init: true !global;
+    @include config('px:init', true);
 }
 
 // @include default(

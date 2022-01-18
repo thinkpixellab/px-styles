@@ -8,6 +8,16 @@ window.pxstyles = {
                 {
                     "namespace": "other",
                     "group": "init",
+                    "name": "px-is-init",
+                    "docName": "px-is-init()",
+                    "type": "function",
+                    "description": "Returns true if px-styles has been initialized, otherwise false.\n",
+                    "access": "public",
+                    "path": "init.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "init",
                     "name": "ensure-init",
                     "docName": "ensure-init()",
                     "type": "mixin",
@@ -49,7 +59,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// To initalize pxstyles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
+                            "code": "// To initalize px-styles, first add any required configuration\n@include config('colors:accent', #00dc82);\n\n// then load the defaults by calling this mixin\n@include init();"
                         }
                     ],
                     "access": "public",
