@@ -29,6 +29,9 @@
     @include test('is-relative-length') {
         @include assert-equal(is-relative-length(20vmin), true);
     }
+    @include test('is-absolute-length') {
+        @include assert-equal(is-absolute-length(20cm), true);
+    }
     @include test('is-percentage') {
         @include assert-equal(is-percentage(100%), true);
     }
