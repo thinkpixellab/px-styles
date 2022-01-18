@@ -3222,7 +3222,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$typescale: modular-scale(16px, 4/3, sm base lg);"
+                            "code": "$typescale: modular-scale(16px, 0.75, null, (sm base lg)); // => (sm: 0.75rem, base: 1rem, lg: 1.25rem)"
                         }
                     ],
                     "parameter": [

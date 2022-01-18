@@ -5,6 +5,18 @@
     @include test('modular-size') {
         @include assert-equal(modular-size(100px, 1.25, -1), 80px);
     }
+
+    @include test('modular-scale') {
+        @include assert-equal(
+            modular-scale(16px, 0.75, null, (sm base lg)),
+            (
+                sm: 0.75rem,
+                base: 1rem,
+                lg: 1.25rem,
+            )
+        );
+    }
+
     // @include test('font-face') {
     //     @include assert {
     //         // test

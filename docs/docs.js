@@ -2910,8 +2910,9 @@ window.pxstyles = {
                     "description": "Generates css from a map of properties and values. Properties can be remapped with aliases or\nignored with a start pattern.\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "@include css-map(( 'colors:red': #f00, 'colors:blue': #00f )) // => (colors:red: #f00;colors:blue: #00f;)"
+                            "type": "include",
+                            "code": "color: blue;\nbackground-color: green;\nfont-family: sans-serif;",
+                            "description": "css-map(( color: blue, background-color: green, font-family: sans-serif)); // =>"
                         }
                     ],
                     "parameter": [
