@@ -7,14 +7,11 @@
 @use 'flatmap.scss' as *;
 @use 'units.scss' as *;
 
-// Global map that contains all config settings for the site (private)
-$-config: ();
-
-// Global map that contains all default config settings for the site (private)
-$-defaults: ();
+// Default global map that contains all config settings for the site (private)
+$config: () !default;
 
 @function get-config-map() {
-    @return $-config;
+    @return $config;
 }
 
 /// Retrieve a configuration setting.
@@ -41,7 +38,7 @@ $-defaults: ();
             }
         }
     } @else {
-        $result: flat-get($-config, $paths, $fallback);
+        $result: flat-get($config, $paths, $fallback);
         @if ($result != null) {
             @return $result;
         }
@@ -79,7 +76,7 @@ $-defaults: ();
 /// @param {*} $val [null] The value to be added.
 
 @mixin config($path, $val) {
-    $-config: flat-set($-config, $path, $val) !global;
+    $config: flat-set($config, $path, $val) !global;
 }
 
 /// Add a default configuration setting (provides the same functionality as config, but will not
@@ -105,4 +102,49 @@ $-defaults: ();
             @include config($path, flat-merge($val, $current));
         }
     }
+}
+
+/// Handles the unique scenario of isolating an "instance" of px-styles from other configurations.
+/// px-styles can be reinitialized within the content block of this mixin without effecting other
+/// global configurations. This is pretty experimental and could have side effects. Use with caution
+/// for now.
+///
+/// @example
+///
+///    // configure px with a blue accent and initialize
+///     @include config('colors:accent', blue);
+///     @include init();
+///
+///     .px-og-class1 {
+///         /* should be blue */
+///         color: accent();
+///     }
+///
+///     @include scoped-config() {
+///         /// configure px with a green accent and initialize
+///         @include config('colors:accent', green);
+///         @include init();
+///         .px-scope-class {
+///             /* should be green */
+///             color: accent();
+///         }
+///     }
+///
+///     .px-og-class2 {
+///         /* should be blue */
+///         color: accent();
+///     }
+
+@mixin scoped-config() {
+    // backup the existing config
+    $prev-config: $config;
+
+    // reset the config to empty (it will need to be reinitialized in the @content block)
+    $config: () !global;
+
+    // do stuff
+    @content;
+
+    // restore the previous config
+    $config: $prev-config !global;
 }
