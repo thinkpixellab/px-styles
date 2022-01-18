@@ -129,6 +129,25 @@
             }
         }
     }
+    // checkered-background
+    @include test('checkered-background') {
+        @include assert {
+            // test
+            @include output {
+                @include checkered-background(20px, green);
+            }
+            // output
+            @include expect {
+                background-size: 40px 40px;
+                background-repeat: repeat;
+                background-image: url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cpath%20fill%3D%22green%22%20d%3D%22M0%200h10v10H0z%22%2F%3E%3Cpath%20fill%3D%22transparent%22%20d%3D%22M10%200h10v10H10zM0%2010h10v10H0z%22%2F%3E%3Cpath%20fill%3D%22green%22%20d%3D%22M10%2010h10v10H10z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+            }
+        }
+    }
+
+    // map-key-replace
+
+    // css-map
 
     @include test('debug-zebra') {
         @include assert {
