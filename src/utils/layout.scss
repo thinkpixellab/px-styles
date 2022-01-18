@@ -55,7 +55,7 @@
 /// Convenience mixin to inherit the border-radius of a parent based on child position (first child
 /// inherits top left/right radius, last child inherits bottom left/right radius)
 ///
-/// @example @include first-last-radius
+/// @example @include first-last-radius()
 
 @mixin first-last-radius {
     &:first-child {

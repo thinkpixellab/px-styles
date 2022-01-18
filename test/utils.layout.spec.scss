@@ -73,6 +73,28 @@
             }
         }
     }
+    @include test('mixin first-last-radius') {
+        @include assert {
+            // test
+            @include output {
+                @include first-last-radius();
+            }
+            // output
+            @include expect {
+                &:first-child {
+                    border-top-left-radius: inherit;
+                    border-top-right-radius: inherit;
+                }
+                &:last-child {
+                    border-bottom-left-radius: inherit;
+                    border-bottom-right-radius: inherit;
+                }
+                &:first-child:last-child {
+                    border-radius: inherit;
+                }
+            }
+        }
+    }
 
     @include test('mixin rel') {
         @include assert {
