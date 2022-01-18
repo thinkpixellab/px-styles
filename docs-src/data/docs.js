@@ -3556,6 +3556,12 @@ window.pxstyles = {
                     "docName": "is-absolute-length()",
                     "type": "function",
                     "description": "Return true if the provided value is an absolute length value\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-absolute-length(10cm) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
