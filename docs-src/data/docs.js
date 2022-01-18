@@ -2065,7 +2065,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@function aboveTen($x) { @return x > 10 }\nlist-filter(2 20 30 3 4 100, get-function(aboveTen)); // => (20 30 100)"
+                            "code": "@function aboveTen($x) { @return ($x > 10)}\nlist-filter(2 20 30 3 4 100, get-function(aboveTen)); // => (20 30 100)"
                         }
                     ],
                     "parameter": [
@@ -2093,7 +2093,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "map-collect((a: 1), (b:2), (c: 3)); => (a:1, b:2, c:3)"
+                            "code": "map-collect((a: 1), (b:2), (c: 3)); // => (a:1, b:2, c:3)"
                         }
                     ],
                     "parameter": [

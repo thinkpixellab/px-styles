@@ -217,7 +217,7 @@
 /// @param {Function} $fn reference to a filtering function
 ///
 /// @example
-///   @function aboveTen($x) { @return x > 10 }
+///   @function aboveTen($x) { @return ($x > 10)}
 ///   list-filter(2 20 30 3 4 100, get-function(aboveTen)); // => (20 30 100)
 
 @function list-filter($list, $fn) {
@@ -234,7 +234,7 @@
 /// @param {*} $maps... One or more maps that should be merged into a single map.
 ///
 /// @example
-/// map-collect((a: 1), (b:2), (c: 3)); => (a:1, b:2, c:3)
+/// map-collect((a: 1), (b:2), (c: 3)); // => (a:1, b:2, c:3)
 
 @function map-collect($maps...) {
     $collection: ();

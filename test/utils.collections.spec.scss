@@ -1,6 +1,14 @@
 @use 'px' as *;
 @use 'true' as *;
 
+@function square($x) {
+    @return $x * $x;
+}
+
+@function aboveTen($x) {
+    @return ($x > 10);
+}
+
 @include test-module('utils.collections') {
     @include test('map-get-default') {
         @include assert-equal(
@@ -67,18 +75,12 @@
             ((a: 1, b: 2, c: 3, d: 4))
         );
     }
+    @include test('list-map') {
+        @include assert-equal(list-map((1 2 3 4), get-function(square)), 1 4 9 16);
+    }
 
-    //need help
-
-    //need help - "mixins may not contain function declarations"
-    // @include test('list-map') {
-    //     @function square($x, $i) {
-    //         @return $x * $x;
-    //     }
-    //     @include assert-equal(list-map((1 2 3 4), square), 1 4 9 16);
-    // }
-    //need help
-    //list-map
-    //list-filter
+    @include test('list-filter') {
+        @include assert-equal(list-filter(2 20 30 3 4 100, get-function(aboveTen)), (20 30 100));
+    }
     //map-collect
 }
