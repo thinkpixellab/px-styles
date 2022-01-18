@@ -221,7 +221,7 @@
 @mixin css-map(
     $map,
     $aliases: (),
-    $map-states: (hover active disabled readonly),
+    $map-states: (hover active focus disabled readonly),
     $use-smart-aliases: true,
     $ignore-start-pattern: '-'
 ) {
@@ -230,6 +230,7 @@
             disabled: 'disabled, &:disabled:hover, &:disabled:active',
             readonly: 'read-only, &:read-only:hover, &:read-only:active',
             read-only: 'read-only, &:read-only:hover, &:read-only:active',
+            focus: 'focus-visible',
         );
         $aliases: flat-merge($smart-aliases, $aliases);
     }
@@ -240,18 +241,25 @@
     // replace $map-states with their aliases
     $map-states: list-replace($map-states, $aliases);
 
+    // output non-states first
     @each $key, $val in $remap {
         @if not((starts-with($key, $ignore-start-pattern))) {
-            @if (is-map($val)) {
-                @if (is-list($map-states) and list-contains($map-states, $key)) {
-                    &:#{$key} {
-                        @include css-map($val, $aliases, $ignore-start-pattern);
-                    }
-                }
-            } @else if (is-list($val) and length($val) == 0) {
-                // do nothing (empty maps look like empty lists in scss)
+            @if (is-map($val) or (is-list($val) and length($val) == 0)) {
+                // do nothing (this is a map or an empty list)
             } @else {
                 #{$key}: $val;
+            }
+        }
+    }
+
+    // now output mapped states
+    @if is-list($map-states) {
+        @each $state in $map-states {
+            @if (map-has-key($remap, $state)) {
+                $state-css: map-get($remap, $state);
+                &:#{$state} {
+                    @include css-map($state-css, $aliases, $ignore-start-pattern);
+                }
             }
         }
     }
@@ -266,4 +274,16 @@
 
 @mixin debug-zebra($color1: yellowgreen, $color2: gold) {
     background-image: repeating-linear-gradient(-45deg, $color1 0 20px, $color2 20px 40px);
+}
+
+$-once-keys: ();
+
+/// Mixin that ensures that the wrapped @content will only be included once per $key.
+/// @param {*} $key
+
+@mixin once($key) {
+    @if (index($-once-keys, $key) == null) {
+        $-once-keys: append($-once-keys, $key) !global;
+        @content;
+    }
 }
