@@ -334,8 +334,7 @@
 /// @example get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)
 /// @example get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)
 ///
-/// @todo SARAH IS HERE
-/// @todo Robby ?
+/// @todo Robby the spec file is getting an error.
 
 @function get-fourpart($value) {
     @if (type-of($value) == 'list') {

@@ -218,7 +218,7 @@
 ///
 /// @example
 ///   @function aboveTen($x) { @return x > 10 }
-///   list-filter(2 20 30 3 4 100, aboveTen); // => (20 30 100)
+///   list-filter(2 20 30 3 4 100, get-function(aboveTen)); // => (20 30 100)
 
 @function list-filter($list, $fn) {
     $new-list: ();
