@@ -2895,7 +2895,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey));"
+                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey)); // => (newkey: 'value')"
                         }
                     ],
                     "access": "public",

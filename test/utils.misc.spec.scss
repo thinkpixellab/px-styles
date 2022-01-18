@@ -144,9 +144,21 @@
             }
         }
     }
-
-    // map-key-replace
-
+    @include test('map-key-replace') {
+        @include assert-equal(
+            map-key-replace(
+                (
+                    oldkey: 'value',
+                ),
+                (
+                    oldkey: newkey,
+                )
+            ),
+            (
+                newkey: 'value',
+            )
+        );
+    }
     // css-map
 
     @include test('debug-zebra') {

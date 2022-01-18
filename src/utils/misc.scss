@@ -183,7 +183,7 @@
 /// Finds and replaces keys in a map
 ///
 /// @example
-/// $map: map-key-replace(( oldkey: 'value'), (oldkey: newkey));
+/// $map: map-key-replace(( oldkey: 'value'), (oldkey: newkey)); // => (newkey: 'value')
 
 @function map-key-replace($map, $key-replacements) {
     $remap: ();
