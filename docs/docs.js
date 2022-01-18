@@ -1745,6 +1745,12 @@ window.pxstyles = {
                     "docName": "get-block-name()",
                     "type": "function",
                     "description": "Extracts the block name form a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-block-name(`.block__element--mod`)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -1763,8 +1769,9 @@ window.pxstyles = {
                     "description": "Creates a block class selector using the bem approach to class naming. This is often unecessary\nsince elements can be nested under the block class using a normal declation.\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}"
+                            "type": "Robby",
+                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}",
+                            "description": "Sarah is getting an error with this example"
                         }
                     ],
                     "parameter": [

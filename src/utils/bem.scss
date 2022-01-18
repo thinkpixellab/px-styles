@@ -16,7 +16,7 @@ $-block-prefix: '' !default;
 $-element-prefix: '__' !default;
 $-modifier-prefix: '--' !default;
 ///
-/// @todo Robby?
+/// @todo Robby do we need examples and tests for the next two since they start with - ?
 /// @example -bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')
 @function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '') {
     @if (not $name) {
@@ -55,7 +55,8 @@ $-modifier-prefix: '--' !default;
 /// `.block__element--mod` the function would return `block`.
 ///
 /// @param {*} $selector
-
+/// @todo Robby
+/// @example get-block-name(`.block__element--mod`)
 @function get-block-name($selector) {
     $selector: #{$selector};
     $inf: 9999999;
@@ -79,7 +80,7 @@ $-modifier-prefix: '--' !default;
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
-/// @example
+/// @example Robby - Sarah is getting an error with this example
 /// // An intentionally complex example:
 ///  @include block(block, modifier) {
 ///     @include element(element, modifier) {
@@ -108,6 +109,8 @@ $-modifier-prefix: '--' !default;
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
+///
+/// @todo Robby need explanation/guidance for testing
 /// @example
 ///     .block { @include bem(element) { ... } }
 ///     // => .block__element { ... }
