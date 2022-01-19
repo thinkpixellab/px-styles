@@ -479,6 +479,12 @@ window.pxstyles = {
                     "docName": "shade()",
                     "type": "function",
                     "description": "Produce a shade (a lighter or darker version) of a color based on the value\nof $shade and an optional darkest to lightest shade range.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$color: shade(red, 5, null) // => #ff8080"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "color",
