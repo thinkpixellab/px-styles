@@ -1841,7 +1841,7 @@ window.pxstyles = {
                             "type": "string",
                             "name": "pseudo",
                             "default": "''",
-                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n"
+                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n\n"
                         }
                     ],
                     "access": "public",
