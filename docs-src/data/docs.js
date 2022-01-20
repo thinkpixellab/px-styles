@@ -545,6 +545,12 @@ window.pxstyles = {
                     "docName": "accent()",
                     "type": "function",
                     "description": "Get a standardized shade of the site's primary accent color\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "accent(2, 0.5) // => rgba(51, 173, 253, 0.5)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -556,7 +562,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "alpha",
                             "default": "1",
-                            "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the ooutput will be in rgba format."
+                            "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the output will be in rgba format.\n"
                         }
                     ],
                     "access": "public",

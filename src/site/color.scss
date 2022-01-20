@@ -65,7 +65,9 @@
 /// postive values make it lighter.
 ///
 /// @param {number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
-/// is provided, the ooutput will be in rgba format.
+/// is provided, the output will be in rgba format.
+///
+/// @example accent(2, 0.5) // => rgba(51, 173, 253, 0.5)
 
 @function accent($shade: 0, $alpha: 1) {
     @return clr(accent, $shade, $alpha);
