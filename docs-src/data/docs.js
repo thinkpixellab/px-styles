@@ -515,6 +515,12 @@ window.pxstyles = {
                     "docName": "gray()",
                     "type": "function",
                     "description": "Get a standardized shade of site's base gray.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "gray(2, 0.5) // => rgba(173, 179, 183, 0.5)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "number",
@@ -526,7 +532,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "alpha",
                             "default": "1",
-                            "description": "The alpha value of the final color that will be returned."
+                            "description": "The alpha value of the final color that will be returned.\n"
                         }
                     ],
                     "access": "public",
