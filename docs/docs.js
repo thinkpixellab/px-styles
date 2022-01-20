@@ -1174,7 +1174,13 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "function",
-                    "description": "Returns a standardized box shadow\n",
+                    "description": "Returns a standardized box shadow\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow(2) // => 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 },
@@ -1184,7 +1190,13 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "mixin",
-                    "description": "Create a standard box-shadow\n",
+                    "description": "Create a standard box-shadow\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow(2, black) // => box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 },

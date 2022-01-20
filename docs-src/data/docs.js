@@ -1190,7 +1190,13 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "mixin",
-                    "description": "Create a standard box-shadow\n",
+                    "description": "Create a standard box-shadow\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow(2, black) // => box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 },
@@ -1200,7 +1206,13 @@ window.pxstyles = {
                     "name": "shadow-effect",
                     "docName": "shadow-effect()",
                     "type": "mixin",
-                    "description": "Create a standard drop-shadow as a css filter effect (creates\nnon-rectangular shadows on any content)\n",
+                    "description": "Create a standard drop-shadow as a css filter effect (creates\nnon-rectangular shadows on any content)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow-effect(2, gray) // => filter: drop-shadow(0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06));"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 }
