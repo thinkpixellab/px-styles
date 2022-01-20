@@ -9,7 +9,7 @@
 //
 // Notes:
 //
-// These are not particularly smart mixins, they just media queries a litte
+// These are not particularly smart mixins, they just make media queries a litte
 // easier to read and encourage consistent breakpoints.
 //
 // Remember that order matters. If using a series of "media-until" rules, they
@@ -28,7 +28,7 @@
 //
 //     background-color: #f2f2f2;
 //
-//     /* "until-media" should be ordered largest to smallest */
+//     /* "media-until" should be ordered largest to smallest */
 //     @include media-until(tablet) {
 //         background-color: orange;
 //     }
@@ -62,6 +62,9 @@
 ///
 /// @param {String | Length} $break The name of the breakpoint or a number that
 /// will be returned
+///
+/// @example get-breakpoint(481px) // => 481px
+/// @example get-breakpoint(md) // => 1366px
 
 @function get-breakpoint($break) {
     @if is-number($break) {

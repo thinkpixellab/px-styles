@@ -870,11 +870,21 @@ window.pxstyles = {
                     "docName": "get-breakpoint()",
                     "type": "function",
                     "description": "Get a breakpoint by name. If an number value is provided, that number will\nbe returned.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(481px) // => 481px"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(md) // => 1366px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "String | Length",
                             "name": "break",
-                            "description": "The name of the breakpoint or a number that\nwill be returned"
+                            "description": "The name of the breakpoint or a number that\nwill be returned\n"
                         }
                     ],
                     "access": "public",
