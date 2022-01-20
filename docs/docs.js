@@ -605,6 +605,12 @@ window.pxstyles = {
                     "docName": "yiq()",
                     "type": "function",
                     "description": "Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used\nfor determining the relative contrast between two colors.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "yiq(purple) // => 52.864"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/color.scss"
                 },

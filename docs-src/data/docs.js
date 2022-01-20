@@ -621,6 +621,12 @@ window.pxstyles = {
                     "docName": "contrast-color()",
                     "type": "function",
                     "description": "Choose a contrasting foreground based on the contrast between a background and two foreground\noptions (a light and dark).\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "contrast-color(rgb(233, 229, 31), rgb(199, 192, 192), rgb(133, 133, 231)) // => #8585e7"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/color.scss"
                 }
