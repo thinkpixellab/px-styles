@@ -1219,6 +1219,23 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "site.spacing",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "site",
+                    "group": "site.spacing",
+                    "name": "// for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'\n@function sp($val: 1)",
+                    "docName": "// for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'\n@function sp($val: 1)()",
+                    "type": "css",
+                    "description": "",
+                    "access": "public",
+                    "path": "site/spacing.scss"
+                }
+            ]
+        },
+        {
             "name": "site.transitions",
             "description": "",
             "variables": [
