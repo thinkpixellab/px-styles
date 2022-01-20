@@ -1614,6 +1614,12 @@ window.pxstyles = {
                     "docName": "type-style()",
                     "type": "mixin",
                     "description": "Generate type style based on a site base style (as defined in type-bases)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "type-style()"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/typography.scss"
                 }

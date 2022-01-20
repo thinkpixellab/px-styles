@@ -1560,7 +1560,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "vue",
-                            "code": ".fade-enter-active .fade-leave-active {\n transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n.class .fade-enter-active {\n  transition-delay: 0;\n}\n.class .fade-leave-active {\n  transition-delay: 0;\n}\n.class .fade-enter,\n.class .fade-leave-to {\n  opacity: 0;\n}",
+                            "code": ".fade-enter-active .fade-leave-active {\n transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n.fade-enter-active {\n  transition-delay: 0;\n}\n.fade-leave-active {\n  transition-delay: 0;\n}\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n}",
                             "description": "transition-fade() // =>"
                         }
                     ],

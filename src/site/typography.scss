@@ -10,6 +10,7 @@
 /// @param {String or Number} $name The name or offset of the size to lookup. Must be defined in the
 /// config $typescale variable.
 ///
+/// @todo Robby: can you explain?
 /// @example
 /// config(typescale, (sm: 14px, base: 15px, lg: 18px, xl: 20px));
 ///
@@ -49,6 +50,8 @@
 }
 
 /// Generate type style based on a site base style (as defined in type-bases)
+/// @todo Robby, can we define these parameters? Help with examples
+/// @example type-style()
 @mixin type-style($base-name, $props: ()) {
     $base-props: get('type-bases:' + $base-name);
     $props: map-merge($base-props, $props);
