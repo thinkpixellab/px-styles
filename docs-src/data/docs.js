@@ -822,6 +822,13 @@ window.pxstyles = {
                     "docName": "item-grid()",
                     "type": "mixin",
                     "description": "Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)\nand fills the entire row. Use this, for example, to create a grid of cards or someting along\nthose lines.\n\n",
+                    "example": [
+                        {
+                            "type": "item",
+                            "code": "display: grid;\ngrid-template-columns: repeat(auto-fit, minmax(10px, 50px));\ngrid-auto-rows: auto;\ngrid-gap: 24px;",
+                            "description": "grid(10px, 50px) // =>"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -843,7 +850,7 @@ window.pxstyles = {
                             "type": "*",
                             "name": "gap",
                             "default": "24px",
-                            "description": "The gap between items"
+                            "description": "The gap between items\n"
                         }
                     ],
                     "access": "public",

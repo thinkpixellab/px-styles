@@ -30,6 +30,12 @@
 /// @param {*} $item-max-width Maximum width of the item
 /// @param {*} $item-height [auto] The item height
 /// @param {*} $gap [24px] The gap between items
+///
+/// @example item-grid(10px, 50px) // =>
+/// display: grid;
+/// grid-template-columns: repeat(auto-fit, minmax(10px, 50px));
+/// grid-auto-rows: auto;
+/// grid-gap: 24px;
 
 @mixin item-grid($item-min-width, $item-max-width, $item-height: auto, $gap: 24px) {
     display: grid;
