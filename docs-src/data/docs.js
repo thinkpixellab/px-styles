@@ -1131,10 +1131,26 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.shadows",
+                    "name": "-shadow-from-ranges",
+                    "docName": "-shadow-from-ranges()",
+                    "type": "function",
+                    "description": "\n",
+                    "access": "private",
+                    "path": "site/shadows.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.shadows",
                     "name": "depth-shadow",
                     "docName": "depth-shadow()",
                     "type": "function",
                     "description": "Creates the syntax for a multi-level shadow\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "depth-shadow(2, 0.5, purple) // => 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",

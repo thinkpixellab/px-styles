@@ -1115,7 +1115,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "px(1.3, 10px) // =>"
+                            "code": "px(1.3, 10px) // => 13px/rem <-- is that right, Robby? (output from scratch)"
                         }
                     ],
                     "access": "public",
