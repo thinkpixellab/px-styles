@@ -870,11 +870,21 @@ window.pxstyles = {
                     "docName": "get-breakpoint()",
                     "type": "function",
                     "description": "Get a breakpoint by name. If an number value is provided, that number will\nbe returned.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(481px) // => 481px"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(md) // => 1366px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "String | Length",
                             "name": "break",
-                            "description": "The name of the breakpoint or a number that\nwill be returned"
+                            "description": "The name of the breakpoint or a number that\nwill be returned\n"
                         }
                     ],
                     "access": "public",
@@ -972,7 +982,7 @@ window.pxstyles = {
                         {
                             "type": "Length",
                             "name": "size",
-                            "description": "The size for the generated media query.\n"
+                            "description": "The size for the generated media query.\n\n"
                         }
                     ],
                     "access": "public",
@@ -988,7 +998,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
+                            "code": "@include media-after-height(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
                         }
                     ],
                     "parameter": [

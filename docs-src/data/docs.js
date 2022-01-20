@@ -982,7 +982,7 @@ window.pxstyles = {
                         {
                             "type": "Length",
                             "name": "size",
-                            "description": "The size for the generated media query.\n"
+                            "description": "The size for the generated media query.\n\n"
                         }
                     ],
                     "access": "public",
@@ -998,7 +998,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
+                            "code": "@include media-after-height(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
                         }
                     ],
                     "parameter": [

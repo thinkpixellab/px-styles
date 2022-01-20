@@ -85,6 +85,7 @@
 /// @param {String | Length} $break The breakpoint for the generated media
 /// query. Use a string for a named site breakpoint or a length.
 ///
+/// @todo Robby: how do we test this?
 /// @example
 ///     // Note that media-until rules should be ordered largest to smallest
 ///
@@ -104,6 +105,7 @@
 /// @param {String | Length} $break The breakpoint for the generated media
 /// query. Use a string for a named site breakpoint or a length.
 ///
+/// @todo Robby: how do we test this?
 /// @example
 ///     // Note that media-afters rules should be ordered smallest to largest
 ///
@@ -126,6 +128,7 @@
 /// @param {String | Length} $break-to The upper limit breakpoint for the generated media query. Use
 /// a string for a named site breakpoint or a length.
 ///
+/// @todo Robby: how do we write tests for this?
 /// @example @include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and
 /// (max-width: 1024px) { ... }
 
@@ -142,6 +145,8 @@
 ///
 /// @param {Length} $size The size for the generated media query.
 ///
+///
+/// @todo Robby: how do we write tests for this?
 /// @example
 /// %%include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }
 
@@ -156,7 +161,7 @@
 /// @param {Length} $size The size for the generated media query.
 ///
 /// @example
-/// %%include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }
+/// %%include media-after-height(sm) { ... } // => @media screen and (min-height: 768px) { ... }
 
 @mixin media-after-height($size) {
     @media screen and (min-height: $size) {
