@@ -6,6 +6,13 @@
 /// @param {column definitions} $columns Column definitions
 /// @param {row definition} $row-height [auto] The height of each row
 /// @param {number} $gap [8px] The gap between items
+///
+/// @example @include table-grid(4, auto, 10px); // =>
+/// display: grid;
+/// grid-template-columns: 4;
+/// grid-template-rows: auto;
+/// grid-auto-rows: auto;
+/// grid-gap: 10px;
 
 @mixin table-grid($columns, $row-height: auto, $gap: 8px) {
     display: grid;
