@@ -1501,15 +1501,15 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity);"
+                            "code": "@include transition(transform opacity); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, 500ms);"
+                            "code": "@include transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, $ease: $ease-out-bounce A l);"
+                            "code": "@include transition(transform opacity, $ease: $ease-out-bounce A l); // => Robby, same here."
                         }
                     ],
                     "parameter": [
@@ -1537,6 +1537,43 @@ window.pxstyles = {
                             "description": "The delay for the transition\n"
                         }
                     ],
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "transition",
+                    "docName": "transition()",
+                    "type": "mixin",
+                    "description": "",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vue-transition-fade",
+                    "docName": "vue-transition-fade()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "vue",
+                            "code": ".fade-enter-active .fade-leave-active {\n transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n.fade-enter-active {\n  transition-delay: 0;\n}\n.fade-leave-active {\n  transition-delay: 0;\n}\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n}",
+                            "description": "transition-fade() // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vue-transition-slide-fade",
+                    "docName": "vue-transition-slide-fade()",
+                    "type": "mixin",
+                    "description": "",
                     "access": "public",
                     "path": "site/transitions.scss"
                 }
