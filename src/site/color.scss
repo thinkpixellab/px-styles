@@ -83,6 +83,7 @@
 /// is provided, the ooutput will be in rgba format.
 ///
 /// @example
+/// @todo Robby how do we test this?
 /// // Add the color to the global configuration
 /// config('colors:purple', #C578DD);
 ///
@@ -122,6 +123,7 @@
 
 /// Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used
 /// for determining the relative contrast between two colors.
+/// @example yiq(purple) // => 52.864
 
 @function yiq($color) {
     $r: red($color);

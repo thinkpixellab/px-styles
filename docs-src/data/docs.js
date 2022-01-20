@@ -578,7 +578,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\nclr(purple) => #C578DD\nclr(purple, -1) => (purple but 1 level darker)\nclr(purple, $alpha: 0.5) => (purple half alpha of 0.5)"
+                            "code": ""
                         }
                     ],
                     "parameter": [
@@ -605,6 +605,12 @@ window.pxstyles = {
                     "docName": "yiq()",
                     "type": "function",
                     "description": "Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used\nfor determining the relative contrast between two colors.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "yiq(purple) // => 52.864"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/color.scss"
                 },
