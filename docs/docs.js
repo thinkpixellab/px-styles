@@ -1096,6 +1096,12 @@ window.pxstyles = {
                     "docName": "rems()",
                     "type": "function",
                     "description": "Convert px to rem for a given base font size (the font size of the document root element)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "rems(16px) // => 1.0666666667rem"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/rems.scss"
                 },
@@ -1106,6 +1112,12 @@ window.pxstyles = {
                     "docName": "px()",
                     "type": "function",
                     "description": "Convert rem to px for a given base font size (the font size of the document root element)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "px(1.3, 10px) // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/rems.scss"
                 }
