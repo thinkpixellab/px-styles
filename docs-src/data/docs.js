@@ -532,7 +532,13 @@ window.pxstyles = {
                     "name": "sanitize",
                     "docName": "sanitize()",
                     "type": "mixin",
-                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n",
+                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include sanitize()"
+                        }
+                    ],
                     "access": "public",
                     "path": "modules/sanitize.scss"
                 }

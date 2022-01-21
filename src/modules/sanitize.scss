@@ -3,7 +3,8 @@
 ////
 
 /// Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).
-
+///
+/// @example @include sanitize()
 @mixin sanitize() {
     // add border box sizing in all browsers
     *,

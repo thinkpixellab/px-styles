@@ -499,7 +499,23 @@ window.pxstyles = {
                     "name": "reading",
                     "docName": "reading()",
                     "type": "mixin",
-                    "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.\n",
+                    "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include reading()"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/reading.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.reading",
+                    "name": "// $styles-base: get('type-bases:' + flat-get($config, 'styles-base'));\n    // $styles: flat-get($config, 'styles');\n    // @if ($styles)",
+                    "docName": "// $styles-base: get('type-bases:' + flat-get($config, 'styles-base'));\n    // $styles: flat-get($config, 'styles');\n    // @if ($styles)()",
+                    "type": "css",
+                    "description": "",
                     "access": "public",
                     "path": "modules/reading.scss"
                 }
