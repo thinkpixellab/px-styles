@@ -278,6 +278,32 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "modules/atoms.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.atoms",
+                    "name": "atoms-spacers",
+                    "docName": "atoms-spacers()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "atoms-spacers()"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/atoms.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.atoms",
+                    "name": "// prettier-ignore\n$-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);\n///\n/// @example atoms-spacers()\n@mixin atoms-spacers(\n    $space,\n    $vals: $-spacer-vals,\n    $props: $-spacer-props,\n    $variants: $-spacer-variants,\n    $coolnames: true,\n    $prefix: ''\n)",
+                    "docName": "// prettier-ignore\n$-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);\n///\n/// @example atoms-spacers()\n@mixin atoms-spacers(\n    $space,\n    $vals: $-spacer-vals,\n    $props: $-spacer-props,\n    $variants: $-spacer-variants,\n    $coolnames: true,\n    $prefix: ''\n)()",
+                    "type": "css",
+                    "description": "",
+                    "access": "public",
+                    "path": "modules/atoms.scss"
                 }
             ]
         },
