@@ -319,6 +319,12 @@ window.pxstyles = {
                     "docName": "control-focus-style()",
                     "type": "function",
                     "description": "Generates one of a number of \"canned\" / common focus styles as a css map (which can be combined\nwith the css-map function to generate the correct focus visual css)\n\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed red)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "shadow | outline",

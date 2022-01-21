@@ -32,6 +32,8 @@
 ///
 /// @param {shadow | outline} $style A named style.
 /// @param {color} $color [null]
+///
+/// @example control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed red)
 
 @function control-focus-style($style, $color: null) {
     @if ($style == 'shadow') {
@@ -209,6 +211,7 @@
 /// @example
 ///     @include button-outline(); // => creates a standard outline button
 ///
+/// @todo Robby how do we test the example below? the curly braces throw an error in scratch.
 /// @example
 ///     @include button-outline({border-color: blue}); // => creates a blue outline button
 
