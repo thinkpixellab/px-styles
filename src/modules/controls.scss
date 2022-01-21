@@ -244,10 +244,10 @@
 /// valid.
 ///
 /// @example
-///     @include button() => creates a standard, default button
+///     @include button-icon() => creates a standard, default button
 ///
 /// @example
-///     @include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+///     @include button-icon((font-size: 12px)) => creates a smaller button with a font-size of 12px
 
 @mixin button-icon($overrides: ()) {
     // update accent
@@ -293,7 +293,8 @@
         )
     );
 }
-
+///
+/// @todo Robby: examples, etc.
 @mixin textbox($overrides: ()) {
     // textbox base css
     $textbox: -textbox-base();
@@ -343,6 +344,8 @@
 ///
 /// @param {true} $nested [null] Set to false if this is using outside of a parent selector (to
 /// apply to all scrollbars).
+///
+/// @example @include scrollbar(100%, blue)
 
 @mixin scrollbar($size, $color, $radius: null, $background: null, $padding: null, $nested: true) {
     $background: if-null($background, mix($color, white));

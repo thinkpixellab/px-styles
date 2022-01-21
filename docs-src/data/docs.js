@@ -406,11 +406,11 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include button() => creates a standard, default button"
+                            "code": "@include button-icon() => creates a standard, default button"
                         },
                         {
                             "type": "scss",
-                            "code": "@include button((font-size: 12px)) => creates a smaller button with a font-size of 12px"
+                            "code": "@include button-icon((font-size: 12px)) => creates a smaller button with a font-size of 12px"
                         }
                     ],
                     "parameter": [
@@ -427,10 +427,26 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
+                    "name": "textbox",
+                    "docName": "textbox()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
                     "name": "scrollbar",
                     "docName": "scrollbar()",
                     "type": "mixin",
                     "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include scrollbar(100%, blue)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -464,7 +480,7 @@ window.pxstyles = {
                             "type": "true",
                             "name": "nested",
                             "default": "null",
-                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
+                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars).\n"
                         }
                     ],
                     "access": "public",
