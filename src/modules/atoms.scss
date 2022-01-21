@@ -288,10 +288,11 @@ $-spacer-variants: (
     r: ( right ),
 );
 
-// TODO: move to config?
+/// @todo: move to config? Example, testing
 // prettier-ignore
 $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
-
+///
+/// @example atoms-spacers()
 @mixin atoms-spacers(
     $space,
     $vals: $-spacer-vals,
