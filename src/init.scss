@@ -32,70 +32,6 @@
 @use 'site' as *;
 @use 'version' as *;
 
-$-px-version: str-split(get-version(), '.');
-$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));
-$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));
-$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
-
-/// Returns true if px-styles has been initialized, otherwise false.
-
-@function px-is-init() {
-    @return get('px:init', false);
-}
-
-/// Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been
-/// called / included. Checks are also provided for an optional minimum required version and an
-/// optional configuration key that must be present.
-///
-/// This mixin is generally not required but there may be cases where components from different
-/// libraries are each loading px-styles and this help to ensure that it has been initalized and
-/// initialized with a compatible configuration.
-///
-/// @param {string} $require-min-version [null] A version number string consisting of three parts
-/// separated by periods (e.g. 1.0.15) that represents the minimum required initialization version.
-///
-/// @param {string} $require-config-key [null] A configuration key (e.g. 'theme-projectname') that
-/// must be set to a truthy value in the the config registry.
-///
-/// @example
-/// %%include ensure-init($require-min-version: 1.0.0); // throws an error if initialized with verion 0.9.9
-///
-/// @example
-/// %%include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy
-
-@mixin ensure-init($require-min-version: null, $require-config-key: null) {
-    $is-init: px-is-init();
-
-    @if not $is-init {
-        @error 'Error: px-styles has not been correctly initialized. Make sure that the init() mixin has been called.';
-    }
-
-    // if provided, compare against the required version
-    @if ($require-min-version) {
-        $min-version: str-split($require-min-version, '.');
-        $min-version-major: to-number(nth-if-length($min-version, 1, 0));
-        $min-version-minor: to-number(nth-if-length($min-version, 2, 0));
-        $min-version-patch: to-number(nth-if-length($min-version, 3, 0));
-
-        $is-correct-version: true;
-        $is-correct-version: $is-correct-version and ($-px-version-major >= $min-version-major);
-        $is-correct-version: $is-correct-version and ($-px-version-minor >= $min-version-minor);
-        $is-correct-version: $is-correct-version and ($-px-version-patch >= $min-version-patch);
-
-        @if not $is-correct-version {
-            @error 'Error: px-styles has not been initialized with a compatible version. Required minimum version is #{$require-min-version}. Initialized version is #{$-px-version}.';
-        }
-    }
-
-    // if provided, ensure that the required config key has been defined
-    @if ($require-config-key) {
-        $config-key: get($require-config-key, 'NOTFOUND', false);
-        @if $config-key == 'NOTFOUND' {
-            @error 'Error: px-styles has not been initialized with the required configuration value for #{$require-config-key}.';
-        }
-    }
-}
-
 /// Initialize the library by filling in default values for all config values that haven't been
 /// previously set using the `config` command. All defaults for all built-in modules are defined in
 /// this mixin. This fixes a generalized loading problem and provides a single place to document all
@@ -342,7 +278,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
                 ease: $ease-out-quart,
             ),
             fast: (
-                dur: 75ms,
+                dur: 100ms,
                 ease: $ease-out-quart,
             ),
             slow: (
@@ -522,9 +458,32 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
     );
 
     // ----------------------------------------------------------------------
-    // Controls
+    // Shared SVG
     // ----------------------------------------------------------------------
 
+    @include default(
+        'svg',
+        (
+            'dropdown':
+                '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="6"><path d="m8.781.5-4 4.8-4-4.8z" fill="currentColor" fill-rule="evenodd"/></svg>',
+        )
+    );
+
+    // @include default(
+    //     'svg',
+    //     (
+    //         'dropdown': (
+    //             width: 9,
+    //             height: 6,
+    //             svg:
+    //                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 6"><path d="m8.781.5-4 4.8-4-4.8z" fill="currentColor" fill-rule="evenodd"/></svg>',
+    //         ),
+    //     )
+    // );
+
+    // ---------------------------------------------------------------------
+    // Control
+    // ---------------------------------------------------------------------
     @include default(
         'controls',
         (
@@ -551,40 +510,39 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
     // button defaults
     @include default('controls:button', ());
 
-    // @include default(
-    //     'controls:base',
-    //     (
-    //         -px-accent: accent(),
-    //         -px-radius: 3px,
-    //         -px-focus-style: 'shadow',
-    //         -px-transition: 'fast',
-    //         min-height: 2.25em,
-    //         line-height: 1.33,
-    //         font-family: get('font-family'),
-    //         font-size: fs(base),
-    //         font-weight: 400
-    //     )
-    // );
-
-    // textbox
-
-    // @include default(
-    //     'controls:textbox',
-    //     (
-    //         -px-accent: accent(),
-    //         -px-placeholder: rgba(clr('page-fg'), 0.5),
-    //         border: none,
-    //         background-color: rgba(gray(7), 0.66),
-    //         color: clr('page-fg'),
-    //         min-height: 2.25em,
-    //         min-width: 6em,
-    //         padding: 0 0.5em,
-    //         hover: (),
-    //         disabled: (),
-    //         read-only: ()
-    //     )
-    // );
-
+    // tooltip defaults
+    @include default('controls:tooltip', ());
+    // @include default
+    //     'controls:base'
+    //
+    //         -px-accent: accent()
+    //         -px-radius: 3px
+    //         -px-focus-style: 'shadow'
+    //         -px-transition: 'fast'
+    //         min-height: 2.25em
+    //         line-height: 1.33
+    //         font-family: get('font-family')
+    //         font-size: fs(base)
+    //         font-weight: 40
+    //
+    // )
+    // textbo
+    // @include default
+    //     'controls:textbox'
+    //
+    //         -px-accent: accent()
+    //         -px-placeholder: rgba(clr('page-fg'), 0.5)
+    //         border: none
+    //         background-color: rgba(gray(7), 0.66)
+    //         color: clr('page-fg')
+    //         min-height: 2.25em
+    //         min-width: 6em
+    //         padding: 0 0.5em
+    //         hover: ()
+    //         disabled: ()
+    //         read-only: (
+    //
+    // )
     @include default(
         'controls:slider',
         (
@@ -755,3 +713,69 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
 //             // ),,,
 //     )
 // );
+
+$-px-version: str-split(get-version(), '.');
+$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));
+$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));
+$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
+
+/// Returns true if px-styles has been initialized, otherwise false.
+
+@function px-is-init() {
+    @return get('px:init', false);
+}
+
+/// Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been
+/// called / included. Checks are also provided for an optional minimum required version and an
+/// optional configuration key that must be present.
+///
+/// This mixin is generally not required but there may be cases where components from different
+/// libraries are each loading px-styles and this help to ensure that it has been initalized and
+/// initialized with a compatible configuration.
+///
+/// @param {string} $require-min-version [null] A version number string consisting of three parts
+/// separated by periods (e.g. 1.0.15) that represents the minimum required initialization version.
+///
+/// @param {string} $require-config-key [null] A configuration key (e.g. 'theme-projectname') that
+/// must be set to a truthy value in the the config registry.
+///
+/// @example
+/// %%include ensure-init($require-min-version: 1.0.0); // throws an error if initialized with verion 0.9.9
+///
+/// @example
+/// %%include ensure-init($require-config-key: 'theme-projectname'); // throws an error if get('theme-projectname') isn't truthy
+
+@mixin ensure-init($require-min-version: null, $require-config-key: null) {
+    $is-init: px-is-init();
+
+    @if not $is-init {
+        @error 'Error: px-styles has not been correctly initialized. Make sure that the init() mixin has been called.';
+    }
+
+    // if provided, compare against the required version
+    @if ($require-min-version) {
+        $min-version: str-split($require-min-version, '.');
+        $min-version-major: to-number(nth-if-length($min-version, 1, 0));
+        $min-version-minor: to-number(nth-if-length($min-version, 2, 0));
+        $min-version-patch: to-number(nth-if-length($min-version, 3, 0));
+
+        $is-correct-version: true;
+        $is-correct-version: $is-correct-version and ($-px-version-major >= $min-version-major);
+        $is-correct-version: $is-correct-version and ($-px-version-minor >= $min-version-minor);
+        $is-correct-version: $is-correct-version and ($-px-version-patch >= $min-version-patch);
+
+        @if not $is-correct-version {
+            @error 'Error: px-styles has not been initialized with a compatible version. Required minimum version is #{$require-min-version}. Initialized version is #{$-px-version}.';
+        }
+    }
+
+    // if provided, ensure that the required config key has been defined
+    @if ($require-config-key) {
+        $config-key: get($require-config-key, 'NOTFOUND', false);
+        @if $config-key == 'NOTFOUND' {
+            @error 'Error: px-styles has not been initialized with the required configuration value for #{$require-config-key}.';
+        }
+    }
+
+    @content;
+}
