@@ -511,7 +511,7 @@ body {
   color: #2e3b43;
   padding: 0 1.25em;
 }
-.textbox:disabled, .textbox:disabled:hover, .textbox:disabled:active {
+.textbox:disabled, .textbox:disabled:hover, .textbox:disabled:active, .textbox:disabled[aria-checked] {
   cursor: not-allowed;
 }
 .nav {
@@ -897,7 +897,7 @@ strong {
 .copy-button:active {
   transform: translateY(1px);
 }
-.copy-button:disabled, .copy-button:disabled:hover, .copy-button:disabled:active {
+.copy-button:disabled, .copy-button:disabled:hover, .copy-button:disabled:active, .copy-button:disabled[aria-checked] {
   cursor: not-allowed;
   opacity: 0.5;
 }

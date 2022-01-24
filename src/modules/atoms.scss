@@ -272,26 +272,44 @@
 // spacers
 // ----------------------------------------------------------------------------
 
-// TODO: move to config?
-// prettier-ignore
-$-spacer-props: ( p: padding, m: margin);
-
-// TODO: move to config?
-// prettier-ignore
-$-spacer-variants: (
-    all: ( top, bottom, left, right ),
-    v: ( top, bottom ),
-    h: ( left, right ),
-    t: ( top ),
-    b: ( bottom ),
-    l: ( left ),
-    r: ( right ),
+$-spacer-props: (
+    p: padding,
+    m: margin,
 );
 
-/// @todo: move to config? Example, testing
-// prettier-ignore
+$-spacer-variants: (
+    all: (
+        top,
+        bottom,
+        left,
+        right,
+    ),
+    v: (
+        top,
+        bottom,
+    ),
+    h: (
+        left,
+        right,
+    ),
+    t: (
+        top,
+    ),
+    b: (
+        bottom,
+    ),
+    l: (
+        left,
+    ),
+    r: (
+        right,
+    ),
+);
+
+// @todo: move to config? Example, testing
+
 $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
-///
+
 /// @example atoms-spacers()
 @mixin atoms-spacers(
     $space,

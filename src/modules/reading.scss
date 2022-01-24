@@ -9,6 +9,7 @@
 /// formatted to be read, rather than structured as ui.
 ///
 /// @example @include reading()
+
 @mixin reading($overrides: ()) {
     $config: flat-merge(get('reading'), $overrides);
 
@@ -79,7 +80,8 @@
 
     // headings and other styles
 
-    /// @todo
+    // @todo
+
     // $styles-base: get('type-bases:' + flat-get($config, 'styles-base'));
     // $styles: flat-get($config, 'styles');
     // @if ($styles) {

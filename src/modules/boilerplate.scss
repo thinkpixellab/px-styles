@@ -11,9 +11,7 @@
     @if (get('fonts')) {
         // local fonts
         @each $font-name, $variants in get('fonts') {
-            // convert maps to lists
-            // prettier-ignore
-            $variants-list: if(is-list($variants), $variants, ($variants,));
+            $variants-list: if(is-list($variants), $variants, ($variants));
             @each $options in $variants-list {
                 @if (map-has-key($options, src)) {
                     $src: map-get($options, src);

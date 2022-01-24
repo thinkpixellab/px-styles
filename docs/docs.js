@@ -173,17 +173,17 @@ window.pxstyles = {
                         },
                         {
                             "name": "'shadows:umbra'",
-                            "value": "(\n    y: ( 0px, 12px ),\n    blur: (0px, 20px),\n    spread: (0px, -7px),\n    opacity: (0.2, 0.3),\n)",
+                            "value": "$umbra",
                             "description": "_shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
                         },
                         {
                             "name": "'shadows:penumbra'",
-                            "value": "(\n    y: (1px, 24px),\n    blur: (0px, 38px),\n    spread: (0px, 0px),\n    opacity: (0, 0.15),\n)",
+                            "value": "$penumbra",
                             "description": "_shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
                         },
                         {
                             "name": "'shadows:ambient'",
-                            "value": "(\n    y: (0px, 9px ),\n    blur: (0px, 50px),\n    spread: (0px, 8px),\n    opacity: (0.05, 0.15),\n)",
+                            "value": "$ambient",
                             "description": "_shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\ncan be configured using flat-map syntax.\n"
                         },
                         {
@@ -202,36 +202,6 @@ window.pxstyles = {
                             "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
-                },
-                {
-                    "namespace": "other",
-                    "group": "init",
-                    "name": "// prettier-ignore\n    @include default(\n        'shadows:umbra',\n        (\n            y: ( 0px, 12px ),\n            blur: (0px, 20px),\n            spread: (0px, -7px),\n            opacity: (0.2, 0.3),\n        )\n    );\n\n    /// _shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\n    /// be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:penumbra',\n        (\n            y: (1px, 24px),\n            blur: (0px, 38px),\n            spread: (0px, 0px),\n            opacity: (0, 0.15),\n        )\n    );\n\n    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\n    /// can be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()",
-                    "docName": "// prettier-ignore\n    @include default(\n        'shadows:umbra',\n        (\n            y: ( 0px, 12px ),\n            blur: (0px, 20px),\n            spread: (0px, -7px),\n            opacity: (0.2, 0.3),\n        )\n    );\n\n    /// _shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\n    /// be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:penumbra',\n        (\n            y: (1px, 24px),\n            blur: (0px, 38px),\n            spread: (0px, 0px),\n            opacity: (0, 0.15),\n        )\n    );\n\n    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\n    /// can be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()()",
-                    "type": "css",
-                    "description": "_shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\n    be configured using flat-map syntax.\n",
-                    "access": "public",
-                    "path": "init.scss"
-                },
-                {
-                    "namespace": "other",
-                    "group": "init",
-                    "name": "// prettier-ignore\n    @include default(\n        'shadows:penumbra',\n        (\n            y: (1px, 24px),\n            blur: (0px, 38px),\n            spread: (0px, 0px),\n            opacity: (0, 0.15),\n        )\n    );\n\n    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\n    /// can be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()",
-                    "docName": "// prettier-ignore\n    @include default(\n        'shadows:penumbra',\n        (\n            y: (1px, 24px),\n            blur: (0px, 38px),\n            spread: (0px, 0px),\n            opacity: (0, 0.15),\n        )\n    );\n\n    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\n    /// can be configured using flat-map syntax.\n    // prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()()",
-                    "type": "css",
-                    "description": "_shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\n    be configured using flat-map syntax.\n",
-                    "access": "public",
-                    "path": "init.scss"
-                },
-                {
-                    "namespace": "other",
-                    "group": "init",
-                    "name": "// prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()",
-                    "docName": "// prettier-ignore\n    @include default(\n        'shadows:ambient',\n        (\n            y: (0px, 9px ),\n            blur: (0px, 50px),\n            spread: (0px, 8px),\n            opacity: (0.05, 0.15),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Site Basics\n    // ----------------------------------------------------------------------\n\n    // container\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'container',\n        (\n            width: 1200px,\n            gutter: sp(3),\n            selector: '.container',\n        )\n    );\n\n    //  resets\n\n    /// _boilerplate_ Settings related to the default outer content container. Note: individual settings\n    /// can be configured using flat map syntax.\n    @include default(\n        'reset',\n        (\n            sanitize: true,\n            link: true,\n            button: true,\n            lists: true,\n            headings: true,\n            paragraph: true,\n        )\n    );\n\n    // links\n\n    /// _boilerplate_ Setings related to the default rendering of hyperlinks.\n    @include default(\n        'links',\n        (\n            -selector: '.link',\n            color: adjust-color(accent(), $saturation: 40%),\n            text-decoration: none,\n            text-decoration-color: null,\n            hover: (\n                color: null,\n                background-color: rgba(accent(), 0.1),\n                text-decoration: underline,\n                text-decoration-color: null\n            )\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Reading\n    // ----------------------------------------------------------------------\n\n    // reading: default styles (css map)\n    // @include default(\n    //     'reading',\n    //     (\n    //         base: (\n    //             font-family: get('font-family'),\n    //             font-size: fs(base),\n    //             line-height: normal,\n    //             font-weight: 400,\n    //         ),\n    //     )\n    // );\n\n    // reading: font weight for <strong> text\n    @include default('reading:font-weight-strong', 600);\n\n    // reading: default vertical spacing between block elements (set as a margin-bottom)\n    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));\n    @include default('reading:block-spacing', 1em);\n\n    // reading: list / list item (li) customization\n    @include default('reading:list-padding', 1.25em);\n    @include default('reading:list-item-padding', 0.25em);\n    @include default('reading:list-item-spacing', 0.25em);\n\n    // reading: links\n    @include default(\n        'reading:links',\n        flat-merge(\n            get('links'),\n            (\n                text-decoration: underline,\n            )\n        )\n    );\n\n    // reading: type styles\n    @include default('reading:styles-base', 'headings');\n    @include default(\n        'reading:styles',\n        (\n            'h1, .h1': (\n                'font-size': fs(5),\n            ),\n            'h2, .h2': (\n                'font-size': fs(4),\n            ),\n            'h3, .h3': (\n                'font-size': fs(3),\n            ),\n            'h4, .h4': (\n                'font-size': fs(2),\n            ),\n            'h5, .h5': (\n                'font-size': fs(1),\n            ),\n        )\n    );\n\n    // ----------------------------------------------------------------------\n    // Shared SVG\n    // ----------------------------------------------------------------------\n\n    @include default(\n        'svg',\n        (\n            'dropdown':\n                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n        )\n    );\n\n    // @include default(\n    //     'svg',\n    //     (\n    //         'dropdown': (\n    //             width: 9,\n    //             height: 6,\n    //             svg:\n    //                 '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\"><path d=\"m8.781.5-4 4.8-4-4.8z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>',\n    //         ),\n    //     )\n    // );\n\n    // ---------------------------------------------------------------------\n    // Control\n    // ---------------------------------------------------------------------\n    @include default(\n        'controls',\n        (\n            accent: accent(),\n            border-radius: 3px,\n            font-family: get(font-family),\n            font-size: fs(base),\n            font-weight: 400,\n            min-height: 2.25em,\n            min-width: 6em,\n        )\n    );\n\n    @include default(\n        'focus',\n        (\n            selector: ':focus-visible',\n            shadow-color: accent($alpha: 0.33),\n            shadow-width: 3px,\n            outline-color: accent(),\n        )\n    );\n\n    // button defaults\n    @include default('controls:button', ());\n\n    // tooltip defaults\n    @include default('controls:tooltip', ());\n    // @include default\n    //     'controls:base'\n    //\n    //         -px-accent: accent()\n    //         -px-radius: 3px\n    //         -px-focus-style: 'shadow'\n    //         -px-transition: 'fast'\n    //         min-height: 2.25em\n    //         line-height: 1.33\n    //         font-family: get('font-family')\n    //         font-size: fs(base)\n    //         font-weight: 40\n    //\n    // )\n    // textbo\n    // @include default\n    //     'controls:textbox'\n    //\n    //         -px-accent: accent()\n    //         -px-placeholder: rgba(clr('page-fg'), 0.5)\n    //         border: none\n    //         background-color: rgba(gray(7), 0.66)\n    //         color: clr('page-fg')\n    //         min-height: 2.25em\n    //         min-width: 6em\n    //         padding: 0 0.5em\n    //         hover: ()\n    //         disabled: ()\n    //         read-only: (\n    //\n    // )\n    @include default(\n        'controls:slider',\n        (\n            track-height: 4px,\n            track-max-width: 200px,\n            track-radius: 2px,\n            track-bg: gray(5),\n            track-border: none,\n            track-shadow: null,\n            thumb-bg: accent(),\n            thumb-border: none,\n            thumb-width: 12px,\n            thumb-height: 12px,\n            thumb-radius: 50%,\n            thumb-px-shadow: shadow(2),\n        )\n    );\n\n    // checkbox\n\n    // prettier-ignore\n    @include default(\n        'controls:checkbox',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(6))),\n            // toggle-background-hover:inline-svg('<svg viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"18\" height=\"18\" rx=\"2\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: gray(3))),\n            // toggle-check: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.7 9.7L7 13l7.3-7.3\" stroke=\"--stroke\" stroke-width=\"2.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>',(--stroke: get('controls:base:-px-accent'))),\n            // toggle-indeterminate: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"5\" width=\"8\" height=\"8\" rx=\"1\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // radio\n\n    // prettier-ignore\n    @include default(\n        'controls:radio',\n        (\n            // toggle-width: 16px,\n            // toggle-height: 16px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-background: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(5), --stroke: gray())),\n            // toggle-background-hover: inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"8.5\" fill=\"--fill\" stroke=\"--stroke\" fill-rule=\"evenodd\"/></svg>', (--fill: gray(3), --stroke: gray())),\n            // toggle-check:inline-svg('<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"9\" cy=\"9\" r=\"5\" fill=\"--fill\" fill-rule=\"evenodd\"/></svg>',(--fill: get('controls:base:-px-accent')))\n        )\n    );\n\n    // toggle\n\n    // prettier-ignore\n    @include default(\n        'controls:toggle',\n        (\n            // toggle-width: 38px,\n            // toggle-height: 19px,\n            // toggle-spacing: 6px,\n            // toggle-side: left,\n            // toggle-shadow: null, //inset 0 1px 0px rgba(black, 0.2),\n            // toggle-off-background: gray(4),\n            // toggle-off-background-hover:null,\n            // toggle-off-background-active: gray(2),\n            // toggle-on-background: accent(),\n            // toggle-on-background-hover: null,\n            // toggle-on-background-active: accent(-1),\n            // indicator-gap: 2px,\n            // indicator-aspect: 1,\n            // indicator-off-background: gray(8),\n            // indicator-on-background: white,\n            // indicator-shadow: 0px 2px 5px 0px rgba(black, 0.25)\n        )\n    );\n\n    // toggle-button\n\n    @include default(\n        'controls:toggle-button',\n        (\n            // -px-accent: gray(10),\n            // -px-shadow: shadow(1),\n            // -px-icon: inline-svg(\n            //         '<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke=\"--stroke\" stroke-width=\"2\" d=\"m1 3.256 2.755 2.863L8.875 1\" fill=\"none\" fill-rule=\"evenodd\"/></svg>',\n            //         (\n            //             --stroke: rgba(white, 0.66),\n            //         )\n            //     ),\n            // -px-icon-width: 0.7em,\n            // -px-icon-height: 1em,\n            // -px-icon-space: 0.3em,\n            // -px-connect: false,\n            // font-size: fs(sm),\n            // min-height: 2em,\n            // min-width: initial,\n            // padding: 0 1.25em,\n            // border: 1px solid gray(),\n            // color: gray(-6),\n            // hover: (-px-accent: gray(10), border: 1px solid clr(select), -px-shadow: shadow(2)),\n            // active: (\n            //     -px-accent: clr(select, -1),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -3)\n            // ),\n            // checked: (\n            //     -px-accent: clr(select),\n            //     color: contrast-color(select),\n            //     border: 1px solid clr(select, -4),\n            //     hover: (border: 1px solid clr(select, -4)),\n            //     active: (-px-accent: clr(select, 2))\n            //)\n        )\n    );\n\n    // tooltip\n\n    @include default(\n        'controls:tooltip',\n        (\n            // background-color: #fae9c8,\n            // border: 1px solid #e3ba71,\n            // font-size: rems(13px),\n            // max-width: 40em,\n            // min-height: 1.75em,\n            // display: flex,\n            // align-items: center,\n            // padding: 0 0.75em,\n            // border-radius: get('controls:base:-px-radius'),\n        )\n    );\n\n    // flag as initialized\n    @include config('px:init', true);\n}\n\n// @include default(\n//     'controls:dropdown',\n//     (\n//         cursor: pointer,\n//         padding: 0 0.5em,\n//         icon:\n//             '<svg width=\"8\" height=\"5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fill\" d=\"M0 0h8L4 5z\" fill-rule=\"evenodd\"/></svg>',\n//         icon-fill: 3 // accent: accent(),\n//             // bg: gray(6),\n//             // fg: null,\n//             // placeholder: null,\n//             // height: null,\n//             // border: none,\n//             // min-width: 6em,\n//             // padding: 0 0.5em,\n//             // disabled: (\n//             //     bg: 7,\n//             //     fg: 4,\n//             //     placeholder: 6,\n//             //     border: none,\n//             //     icon: null,\n//             //     icon-fill: null,\n//             // ),\n//             // readonly: (\n//             //     bg: 1,\n//             //     fg: 0,\n//             //     placeholder: 0,\n//             //     border: none,\n//             //     icon:\n//             //         '<svg width=\"9\" height=\"11\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.5 0a3 3 0 013 3v1h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-6A.5.5 0 01.5 4h1V3a3 3 0 013-3zm0 1.5a1.5 1.5 0 00-1.493 1.356L3 3v1h3V3a1.5 1.5 0 00-1.5-1.5z\" fill=\"#fill\" fill-rule=\"evenodd\"/></svg>',\n//             //     icon-fill: 5,\n//             // ),,,\n//     )\n// );\n\n$-px-version: str-split(get-version(), '.');\n$-px-version-major: to-number(nth-if-length($-px-version, 1, 0));\n$-px-version-minor: to-number(nth-if-length($-px-version, 2, 0));\n$-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));\n\n/// Returns true if px-styles has been initialized, otherwise false.\n\n@function px-is-init()()",
-                    "type": "css",
-                    "description": "_shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\n    can be configured using flat-map syntax.\n",
-                    "access": "public",
-                    "path": "init.scss"
                 },
                 {
                     "namespace": "other",
@@ -291,12 +261,35 @@ window.pxstyles = {
                     "docName": "atoms-flex()",
                     "type": "mixin",
                     "description": "Generate atomic classes for flexbox. Full list of classes:\n\n| Class | Equivalent Css |\n| ----- | -------------- |\n| .flex | display: flex; |\n| .flex-inline | display: inline-flex; |\n| .flex-row | flex-direction: row; |\n| .flex-row-reverse | flex-direction: row-reverse; |\n| .flex-column | flex-direction: column; |\n| .flex-column-reverse | flex-direction: column-reverse; |\n| .flex-wrap | flex-wrap: wrap; |\n| .flex-wrap-column | flex-wrap: wrap; flex-direction: column; |\n| .flex-wrap-reverse | flex-wrap: wrap-reverse; |\n| .flex-nowrap | flex-wrap: nowrap; |\n| .flex-auto | flex: 1 1 auto; |\n| .flex-none | flex: none; |\n| .flex-grow-[0...4] | flex-grow: [0...4] |\n| .flex-shrink-[0...4] | flex-shrink: [0...4]; |\n| .items-start | align-items: flex-start; |\n| .items-end | align-items: flex-end; |\n| .items-center | align-items: center; |\n| .items-baseline | align-items: baseline; |\n| .items-stretch | align-items: stretch; |\n| .justify-start | justify-content: flex-start; |\n| .justify-end | justify-content: flex-end; |\n| .justify-center | justify-content: center; |\n| .justify-between | justify-content: space-between; |\n| .justify-around | justify-content: space-around; |\n| .justify-stretch | justify-content: stretch; |\n| .self-start | align-self: flex-start; |\n| .self-end | align-self: flex-end; |\n| .self-center | align-self: center; |\n| .self-baseline | align-self: baseline; |\n| .self-stretch | align-self: stretch; |\n| .order-[0...9] | order: [0...9]; |\n| .order-first | order: -99999; |\n| .order-last | order: 99999; |\n| .flex-center | display: flex; align-items: center; |\n\n",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": ".classNameflex {\ndisplay: flex;\n}",
+                            "description": "atoms-flex('className') // (results limited to only first in list) =>"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
                             "name": "prefix",
                             "default": "''",
                             "description": "A prefix that can be applied to each of the classes\ngenerated by the mixin."
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/atoms.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.atoms",
+                    "name": "atoms-spacers",
+                    "docName": "atoms-spacers()",
+                    "type": "mixin",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "atoms-spacers()"
                         }
                     ],
                     "access": "public",
@@ -316,6 +309,12 @@ window.pxstyles = {
                     "docName": "control-focus-style()",
                     "type": "function",
                     "description": "Generates one of a number of \"canned\" / common focus styles as a css map (which can be combined\nwith the css-map function to generate the correct focus visual css)\n\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed red)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "shadow | outline",
@@ -500,10 +499,26 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
+                    "name": "textbox",
+                    "docName": "textbox()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
                     "name": "scrollbar",
                     "docName": "scrollbar()",
                     "type": "mixin",
                     "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include scrollbar(100%, blue)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -537,7 +552,7 @@ window.pxstyles = {
                             "type": "true",
                             "name": "nested",
                             "default": "null",
-                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
+                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars).\n"
                         }
                     ],
                     "access": "public",
@@ -556,7 +571,13 @@ window.pxstyles = {
                     "name": "reading",
                     "docName": "reading()",
                     "type": "mixin",
-                    "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.\n",
+                    "description": "Generates classes for \"readable\" content, e.g. standard HTML that should be\nformatted to be read, rather than structured as ui.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include reading()"
+                        }
+                    ],
                     "access": "public",
                     "path": "modules/reading.scss"
                 }
@@ -573,7 +594,13 @@ window.pxstyles = {
                     "name": "sanitize",
                     "docName": "sanitize()",
                     "type": "mixin",
-                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n",
+                    "description": "Outputs a modified version of [sanitize.css](https://csstools.github.io/sanitize.css/).\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include sanitize()"
+                        }
+                    ],
                     "access": "public",
                     "path": "modules/sanitize.scss"
                 }
@@ -591,6 +618,12 @@ window.pxstyles = {
                     "docName": "shade()",
                     "type": "function",
                     "description": "Produce a shade (a lighter or darker version) of a color based on the value\nof $shade and an optional darkest to lightest shade range.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "$color: shade(red, 5, null) // => #ff8080"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "color",
@@ -621,6 +654,12 @@ window.pxstyles = {
                     "docName": "gray()",
                     "type": "function",
                     "description": "Get a standardized shade of site's base gray.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "gray(2, 0.5) // => rgba(173, 179, 183, 0.5)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "number",
@@ -632,7 +671,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "alpha",
                             "default": "1",
-                            "description": "The alpha value of the final color that will be returned."
+                            "description": "The alpha value of the final color that will be returned.\n"
                         }
                     ],
                     "access": "public",
@@ -645,6 +684,12 @@ window.pxstyles = {
                     "docName": "accent()",
                     "type": "function",
                     "description": "Get a standardized shade of the site's primary accent color\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "accent(2, 0.5) // => rgba(51, 173, 253, 0.5)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -656,7 +701,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "alpha",
                             "default": "1",
-                            "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the ooutput will be in rgba format."
+                            "description": "The alpha value of the color to be returned. If a value other than 1\nis provided, the output will be in rgba format.\n"
                         }
                     ],
                     "access": "public",
@@ -672,7 +717,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\nclr(purple) => #C578DD\nclr(purple, -1) => (purple but 1 level darker)\nclr(purple, $alpha: 0.5) => (purple half alpha of 0.5)"
+                            "code": ""
                         }
                     ],
                     "parameter": [
@@ -699,6 +744,12 @@ window.pxstyles = {
                     "docName": "yiq()",
                     "type": "function",
                     "description": "Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used\nfor determining the relative contrast between two colors.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "yiq(purple) // => 52.864"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/color.scss"
                 },
@@ -709,6 +760,12 @@ window.pxstyles = {
                     "docName": "contrast-color()",
                     "type": "function",
                     "description": "Choose a contrasting foreground based on the contrast between a background and two foreground\noptions (a light and dark).\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "contrast-color(rgb(233, 229, 31), rgb(199, 192, 192), rgb(133, 133, 231)) // => #8585e7"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/color.scss"
                 }
@@ -868,6 +925,13 @@ window.pxstyles = {
                     "docName": "table-grid()",
                     "type": "mixin",
                     "description": "Create a CSS grid that mimics a table where columns are specified and rows are added as needed.\n",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "display: grid;\ngrid-template-columns: 4;\ngrid-template-rows: auto;\ngrid-auto-rows: auto;\ngrid-gap: 10px;",
+                            "description": "table-grid(4, auto, 10px); // =>"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "column definitions",
@@ -884,7 +948,7 @@ window.pxstyles = {
                             "type": "number",
                             "name": "gap",
                             "default": "8px",
-                            "description": "The gap between items"
+                            "description": "The gap between items\n"
                         }
                     ],
                     "access": "public",
@@ -897,6 +961,13 @@ window.pxstyles = {
                     "docName": "item-grid()",
                     "type": "mixin",
                     "description": "Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)\nand fills the entire row. Use this, for example, to create a grid of cards or someting along\nthose lines.\n\n",
+                    "example": [
+                        {
+                            "type": "item",
+                            "code": "display: grid;\ngrid-template-columns: repeat(auto-fit, minmax(10px, 50px));\ngrid-auto-rows: auto;\ngrid-gap: 24px;",
+                            "description": "grid(10px, 50px) // =>"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -918,7 +989,7 @@ window.pxstyles = {
                             "type": "*",
                             "name": "gap",
                             "default": "24px",
-                            "description": "The gap between items"
+                            "description": "The gap between items\n"
                         }
                     ],
                     "access": "public",
@@ -938,11 +1009,21 @@ window.pxstyles = {
                     "docName": "get-breakpoint()",
                     "type": "function",
                     "description": "Get a breakpoint by name. If an number value is provided, that number will\nbe returned.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(481px) // => 481px"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "get-breakpoint(md) // => 1366px"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "String | Length",
                             "name": "break",
-                            "description": "The name of the breakpoint or a number that\nwill be returned"
+                            "description": "The name of the breakpoint or a number that\nwill be returned\n"
                         }
                     ],
                     "access": "public",
@@ -1040,7 +1121,7 @@ window.pxstyles = {
                         {
                             "type": "Length",
                             "name": "size",
-                            "description": "The size for the generated media query.\n"
+                            "description": "The size for the generated media query.\n\n"
                         }
                     ],
                     "access": "public",
@@ -1056,7 +1137,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-until(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
+                            "code": "@include media-after-height(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
                         }
                     ],
                     "parameter": [
@@ -1170,6 +1251,12 @@ window.pxstyles = {
                     "docName": "rems()",
                     "type": "function",
                     "description": "Convert px to rem for a given base font size (the font size of the document root element)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "rems(16px) // => 1.0666666667rem"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/rems.scss"
                 },
@@ -1180,6 +1267,12 @@ window.pxstyles = {
                     "docName": "px()",
                     "type": "function",
                     "description": "Convert rem to px for a given base font size (the font size of the document root element)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "px(1.3, 10px) // => 13px/rem <-- is that right, Robby? (output from scratch)"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/rems.scss"
                 }
@@ -1193,10 +1286,26 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.shadows",
+                    "name": "-shadow-from-ranges",
+                    "docName": "-shadow-from-ranges()",
+                    "type": "function",
+                    "description": "\n",
+                    "access": "private",
+                    "path": "site/shadows.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.shadows",
                     "name": "depth-shadow",
                     "docName": "depth-shadow()",
                     "type": "function",
                     "description": "Creates the syntax for a multi-level shadow\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "depth-shadow(2, 0.5, purple) // => 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -1220,7 +1329,13 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "function",
-                    "description": "Returns a standardized box shadow\n",
+                    "description": "Returns a standardized box shadow\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow(2) // => 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 },
@@ -1230,7 +1345,13 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "mixin",
-                    "description": "Create a standard box-shadow\n",
+                    "description": "Create a standard box-shadow\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow(2, black) // => box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
                 },
@@ -1240,9 +1361,32 @@ window.pxstyles = {
                     "name": "shadow-effect",
                     "docName": "shadow-effect()",
                     "type": "mixin",
-                    "description": "Create a standard drop-shadow as a css filter effect (creates\nnon-rectangular shadows on any content)\n",
+                    "description": "Create a standard drop-shadow as a css filter effect (creates\nnon-rectangular shadows on any content)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "shadow-effect(2, gray) // => filter: drop-shadow(0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06));"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/shadows.scss"
+                }
+            ]
+        },
+        {
+            "name": "site.spacing",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "site",
+                    "group": "site.spacing",
+                    "name": "sp",
+                    "docName": "sp()",
+                    "type": "function",
+                    "description": "",
+                    "access": "public",
+                    "path": "site/spacing.scss"
                 }
             ]
         },
@@ -1512,15 +1656,15 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity);"
+                            "code": "@include transition(transform opacity); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, 500ms);"
+                            "code": "@include transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, $ease: $ease-out-bounce A l);"
+                            "code": "@include transition(transform opacity, $ease: $ease-out-bounce A l); // => Robby, same here."
                         }
                     ],
                     "parameter": [
@@ -1548,6 +1692,43 @@ window.pxstyles = {
                             "description": "The delay for the transition\n"
                         }
                     ],
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "transition",
+                    "docName": "transition()",
+                    "type": "mixin",
+                    "description": "",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vue-transition-fade",
+                    "docName": "vue-transition-fade()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "vue",
+                            "code": ".fade-enter-active .fade-leave-active {\n transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n.fade-enter-active {\n  transition-delay: 0;\n}\n.fade-leave-active {\n  transition-delay: 0;\n}\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n}",
+                            "description": "transition-fade() // =>"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vue-transition-slide-fade",
+                    "docName": "vue-transition-slide-fade()",
+                    "type": "mixin",
+                    "description": "",
                     "access": "public",
                     "path": "site/transitions.scss"
                 }
@@ -1588,6 +1769,12 @@ window.pxstyles = {
                     "docName": "type-style()",
                     "type": "mixin",
                     "description": "Generate type style based on a site base style (as defined in type-bases)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "type-style()"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/typography.scss"
                 }
@@ -1873,6 +2060,12 @@ window.pxstyles = {
                     "docName": "get-block-name()",
                     "type": "function",
                     "description": "Extracts the block name form a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-block-name(`.block__element--mod`)"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -1891,8 +2084,9 @@ window.pxstyles = {
                     "description": "Creates a block class selector using the bem approach to class naming. This is often unecessary\nsince elements can be nested under the block class using a normal declation.\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}"
+                            "type": "Robby",
+                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}",
+                            "description": "Sarah is getting an error with this example"
                         }
                     ],
                     "parameter": [
@@ -1962,7 +2156,7 @@ window.pxstyles = {
                             "type": "string",
                             "name": "pseudo",
                             "default": "''",
-                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n"
+                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n\n"
                         }
                     ],
                     "access": "public",
@@ -2193,7 +2387,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@function aboveTen($x) { @return x > 10 }\nlist-filter(2 20 30 3 4 100, aboveTen); // => (20 30 100)"
+                            "code": "@function aboveTen($x) { @return ($x > 10)}\nlist-filter(2 20 30 3 4 100, get-function(aboveTen)); // => (20 30 100)"
                         }
                     ],
                     "parameter": [
@@ -2221,7 +2415,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "map-collect((a: 1), (b:2), (c: 3)); => (a:1, b:2, c:3)"
+                            "code": "map-collect((a: 1), (b:2), (c: 3)); // => (a:1, b:2, c:3)"
                         }
                     ],
                     "parameter": [
@@ -2667,7 +2861,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include first-last-radius"
+                            "code": "@include first-last-radius()"
                         }
                     ],
                     "access": "public",
@@ -3006,7 +3200,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey));"
+                            "code": "$map: map-key-replace(( oldkey: 'value'), (oldkey: newkey)); // => (newkey: 'value')"
                         }
                     ],
                     "access": "public",
@@ -3021,8 +3215,9 @@ window.pxstyles = {
                     "description": "Generates css from a map of properties and values. Properties can be remapped with aliases or\nignored with a start pattern.\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "TODO - Robby, do we need an actual map for the test? Sarah is getting an error in scratch"
+                            "type": "include",
+                            "code": "color: blue;\nbackground-color: green;\nfont-family: sans-serif;",
+                            "description": "css-map(( color: blue, background-color: green, font-family: sans-serif)); // =>"
                         }
                     ],
                     "parameter": [
@@ -3332,7 +3527,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$typescale: modular-scale(16px, 4/3, sm base lg);"
+                            "code": "$typescale: modular-scale(16px, 0.75, null, (sm base lg)); // => (sm: 0.75rem, base: 1rem, lg: 1.25rem)"
                         }
                     ],
                     "parameter": [
@@ -3666,6 +3861,12 @@ window.pxstyles = {
                     "docName": "is-absolute-length()",
                     "type": "function",
                     "description": "Return true if the provided value is an absolute length value\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "is-absolute-length(10cm) // => true"
+                        }
+                    ],
                     "parameter": [
                         {
                             "type": "*",
