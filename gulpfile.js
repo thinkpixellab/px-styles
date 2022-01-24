@@ -55,7 +55,7 @@ exports.default = function () {
         './src/**/*.scss',
         './init.scss',
     ];
-    gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles));
+    gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles, scratch));
 
     gulp.watch(['./scratch.scss'], gulp.series(scratch));
 };
