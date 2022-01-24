@@ -65,7 +65,7 @@ $config: () !default;
 /// $value: if-null-get(red, 'colors:mycolor'); // => red
 
 @function if-null-get($value, $paths, $throw-not-found: true) {
-    @return if-null($value, get($paths, $throw-not-found: $throw-not));
+    @return if-null($value, get($paths, $throw-not-found: $throw-not-found));
 }
 
 /// Add a configuration setting.
