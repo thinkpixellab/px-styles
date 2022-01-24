@@ -15,24 +15,6 @@
             }
         }
     }
-    @include test('control-reset') {
-        @include assert {
-            // test
-            @include output {
-                @include control-reset;
-            }
-            // output
-            @include expect {
-                appearance: none;
-                border: none;
-                outline: none;
-                &:focus {
-                    border: none;
-                    outline: none;
-                }
-            }
-        }
-    }
 
     @include test('placeholder') {
         @include assert {

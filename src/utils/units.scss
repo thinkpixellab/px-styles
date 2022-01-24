@@ -206,6 +206,7 @@
 ///
 /// @example is-color(blue) // => true
 /// @example is-color(#444) // => true
+/// @example is-color(5) // => false
 
 @function is-color($value) {
     @return type-of($value) == 'color';

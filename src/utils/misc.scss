@@ -7,24 +7,6 @@
 @use 'strings.scss' as *;
 @use 'units.scss' as *;
 
-/// Completely resets the appearance of controls (input and button)
-///@example control-reset // =>
-///appearance: none;
-/// border: none;
-///outline: none;
-/// -webkit-touch-callout: none;
-/// user-select: none;
-
-@mixin control-reset {
-    appearance: none;
-    border: none;
-    outline: none;
-    &:focus {
-        border: none;
-        outline: none;
-    }
-}
-
 /// Style the placeholder text for a text input element
 /// @example
 /// input {
@@ -230,7 +212,7 @@
 ) {
     @if ($use-smart-aliases) {
         $smart-aliases: (
-            disabled: 'disabled, &:disabled:hover, &:disabled:active',
+            disabled: 'disabled, &:disabled:hover, &:disabled:active, &:disabled[aria-checked]',
             readonly: 'read-only, &:read-only:hover, &:read-only:active',
             read-only: 'read-only, &:read-only:hover, &:read-only:active',
             focus: 'focus-visible',
