@@ -132,11 +132,12 @@ $-modifier-prefix: '--' !default;
 ///     // => .block__element1, block__element2 { ... }
 
 @mixin bem($name, $modifier: '', $pseudo: '') {
+    $bem-block: get-block-name(&) !global;
     @include -bem-base(
         $name,
         $modifier,
         $pseudo,
-        #{$-block-prefix + get-block-name(&) + $-element-prefix}
+        #{$-block-prefix + $bem-block + $-element-prefix}
     ) {
         @content;
     }

@@ -825,7 +825,7 @@ strong {
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2017%2019%22%3E%3Cg%20fill%3D%22%232e3b43%22%20fill-rule%3D%22nonzero%22%3E%3Cpath%20d%3D%22M7%200a2.99%202.99%200%200%200-2.816%202H2a2%202%200%200%200-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202-2V4a2%202%200%200%200-2-2H9.816A2.99%202.99%200%200%200%207%200Zm0%202a1%201%200%200%201%20.389%201.922L7%204l-.389-.078A1.002%201.002%200%200%201%207%202ZM2%204h2v1a1%201%200%200%200%201%201h4a1%201%200%200%200%201-1V4h2v10H2V4Z%22%2F%3E%3Cpath%20d%3D%22M14%205h1a2%202%200%200%201%201.995%201.85L17%207v10a2%202%200%200%201-1.85%201.995L15%2019H5a2%202%200%200%201-1.995-1.85L3%2017v-1h2v1h10V7h-1V5Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  transition: opacity 75ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
+  transition: opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
   opacity: 0;
 }
 .hljs:hover:after,
@@ -881,36 +881,27 @@ strong {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   text-overflow: ellipsis;
   user-select: none;
-  padding: 0 1em;
+  padding: 0.5em;
   border-radius: 3px;
-  min-width: 6em;
+  min-width: 0;
   min-height: 2.25em;
   cursor: pointer;
-  color: #0099fd;
-  border-color: currentColor;
-  border-width: 2px;
-  border-style: solid;
-  transition: background 75ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, color 75ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
+  background-color: transparent;
+  transition: transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 }
 .copy-button:hover {
-  color: #33adfd;
-  background: rgba(51, 173, 253, 0.05);
-  border-color: #33adfd;
+  transform: translateY(-1px);
 }
 .copy-button:active {
-  color: #008ae4;
-  background: rgba(0, 138, 228, 0.1);
-  border-color: #008ae4;
+  transform: translateY(1px);
 }
 .copy-button:disabled, .copy-button:disabled:hover, .copy-button:disabled:active {
   cursor: not-allowed;
-  background: #ccd0d2;
-  color: #7a8389;
-  box-shadow: none;
+  opacity: 0.5;
 }
+
 .hljs {
   color: #d6d9db;
   background: #1e2c35;
