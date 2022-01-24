@@ -1791,7 +1791,7 @@ window.pxstyles = {
                     "name": "pow",
                     "docName": "pow()",
                     "type": "function",
-                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n\n",
+                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n",
                     "example": [
                         {
                             "type": "scss",
