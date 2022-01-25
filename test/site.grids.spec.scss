@@ -1,0 +1,21 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('site.grids') {
+    @include test('mixin table-grid') {
+        @include assert {
+            // test
+            @include output {
+                @include table-grid(4, auto, 10px);
+            }
+            // output
+            @include expect {
+                display: grid;
+                grid-template-columns: 4;
+                grid-template-rows: auto;
+                grid-auto-rows: auto;
+                grid-gap: 10px;
+            }
+        }
+    }
+}
