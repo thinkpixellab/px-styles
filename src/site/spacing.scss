@@ -5,7 +5,8 @@
 @use '../utils' as *;
 // @use 'config.scss' as *;
 
-/// @todo Robby - I didn't get '36px' or '36px 36px' when I tested in scratch. for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'
+/// @todo Robby - I didn't get '36px' or '36px 36px' when I tested in scratch.
+/// for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'
 
 @function sp($val: 1) {
     $spacer: get(spacer);
