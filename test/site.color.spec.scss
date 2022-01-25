@@ -8,4 +8,7 @@
     @include test('gray') {
         @include assert-equal(gray(2, 0.5), rgba(173, 179, 183, 0.5));
     }
+    @include test('accent') {
+        @include assert-equal(accent(2, 0.5), rgba(51, 173, 253, 0.5));
+    }
 }
