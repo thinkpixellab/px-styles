@@ -11,4 +11,11 @@
     @include test('accent') {
         @include assert-equal(accent(2, 0.5), rgba(51, 173, 253, 0.5));
     }
+
+    // @include test('clr') {
+    //     @include assert-equal(clr, );
+    // }
+    @include test('yiq') {
+        @include assert-equal(yiq(purple), 52.864);
+    }
 }
