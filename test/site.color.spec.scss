@@ -1,6 +1,8 @@
 @use 'px' as *;
 @use 'true' as *;
 
-@include test('shade') {
-    @include assert-equal(shade(red, 5, null), #ff8080);
+@include test-module('site.color') {
+    @include test('shade') {
+        @include assert-equal(shade(red, 5, null), #ff8080);
+    }
 }
