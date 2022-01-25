@@ -1717,7 +1717,7 @@ window.pxstyles = {
                     "name": "vue-transition-fade",
                     "docName": "vue-transition-fade()",
                     "type": "mixin",
-                    "description": "\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "vue",

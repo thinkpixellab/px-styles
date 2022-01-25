@@ -3,4 +3,15 @@
 
 /// @todo test
 @include test-module('site.transitions') {
+    @include test('mixin vue-transition-fade') {
+        @include assert {
+            // test
+            @include output {
+                @include vue-transition-fade();
+            }
+            // output
+            @include expect {
+            }
+        }
+    }
 }
