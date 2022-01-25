@@ -18,4 +18,10 @@
     @include test('yiq') {
         @include assert-equal(yiq(purple), 52.864);
     }
+    @include test('contrast-color') {
+        @include assert-equal(
+            contrast-color(rgb(233, 229, 31), rgb(199, 192, 192), rgb(133, 133, 231)),
+            #8585e7
+        );
+    }
 }
