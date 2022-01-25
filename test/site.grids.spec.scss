@@ -18,4 +18,19 @@
             }
         }
     }
+    @include test('mixin item-grid') {
+        @include assert {
+            // test
+            @include output {
+                @include item-grid(10px, 50px);
+            }
+            // output
+            @include expect {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(10px, 50px));
+                grid-auto-rows: auto;
+                grid-gap: 24px;
+            }
+        }
+    }
 }
