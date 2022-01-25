@@ -50,4 +50,20 @@
     //         0 1px 5px 1px rgba(0, 0, 0, 0.06)
     //     );
     // }
+    @include test('mixin shadow-effect') {
+        @include assert {
+            // test
+            @include output {
+                @include shadow-effect(2, gray);
+            }
+            // output
+            @include expect {
+                filter: drop-shadow(
+                    0 1px 2px -0.5px rgba(0, 0, 0, 0.21),
+                    0 3.5px 4px 0px rgba(0, 0, 0, 0.015),
+                    0 1px 5px 1px rgba(0, 0, 0, 0.06)
+                );
+            }
+        }
+    }
 }
