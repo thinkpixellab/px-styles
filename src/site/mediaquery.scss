@@ -192,7 +192,8 @@
 }
 
 /// Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest
-///
+/// @example breakpoints-asc()
+/// @todo Robby: not getting a response in scratch
 @function breakpoints-asc() {
     @return map-sort-by-values(get(breakpoints));
 }

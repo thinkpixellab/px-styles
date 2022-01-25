@@ -1195,6 +1195,12 @@ window.pxstyles = {
                     "docName": "breakpoints-asc()",
                     "type": "function",
                     "description": "Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "breakpoints-asc()"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 }
@@ -1250,7 +1256,7 @@ window.pxstyles = {
                     "name": "rems",
                     "docName": "rems()",
                     "type": "function",
-                    "description": "Convert px to rem for a given base font size (the font size of the document root element)\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
@@ -1266,7 +1272,7 @@ window.pxstyles = {
                     "name": "px",
                     "docName": "px()",
                     "type": "function",
-                    "description": "Convert rem to px for a given base font size (the font size of the document root element)\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
@@ -1329,7 +1335,7 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "function",
-                    "description": "Returns a standardized box shadow\n\n",
+                    "description": "Returns a standardized box shadow\n",
                     "example": [
                         {
                             "type": "scss",
@@ -1791,7 +1797,7 @@ window.pxstyles = {
                     "name": "pow",
                     "docName": "pow()",
                     "type": "function",
-                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n\n",
+                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n",
                     "example": [
                         {
                             "type": "scss",

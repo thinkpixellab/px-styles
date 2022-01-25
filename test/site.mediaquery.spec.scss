@@ -1,0 +1,8 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('site.mediaquery') {
+    @include test('get-breakpoint') {
+        @include assert-equal(get-breakpoint(md), 1366px);
+    }
+}
