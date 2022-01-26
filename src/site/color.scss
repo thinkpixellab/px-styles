@@ -20,7 +20,6 @@
 /// @param {(color, color)} $shade-range [null] The range of colors will be produced
 /// as a list (darkest, lightest).
 /// @example $color: shade(red, 5, null) // => #ff8080
-/// @todo Robby - the test file isn't showing up when I run tests.
 
 @function shade($color: null, $shade: 0, $shade-range: null) {
     $shade-steps: get(shade-steps);
