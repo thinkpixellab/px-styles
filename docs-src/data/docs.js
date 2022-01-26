@@ -3603,7 +3603,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');"
+                            "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, woff woff2 otf);"
                         }
                     ],
                     "parameter": [

@@ -164,8 +164,7 @@ $typescale-ratios: (
 /// @param {String} $exts [woff ttf] - (optional) The full list of extensions to
 /// be loaded (added to path), no period
 ///
-/// @todo Robby - need help with the test as the output is giving me an error
-/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');
+/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, woff woff2 otf);
 
 @mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf) {
     $src: null;

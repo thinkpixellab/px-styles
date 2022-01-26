@@ -85,18 +85,7 @@
     @include test('if-color') {
         @include assert-equal(if-color(pink, #fefe, 'not a color'), #fefe);
     }
-    @include test('if-type') {
-        @include assert-equal(
-            if-type(
-                10,
-                (
-                    color: blue,
-                ),
-                'fallback'
-            ),
-            'fallback'
-        );
-    }
+
     @include test('get-fourpart') {
         @include assert-equal(
             get-fourpart(2px),
@@ -129,7 +118,10 @@
     @include test('get-border-color') {
         @include assert-equal(get-border-color(2px solid red), red);
     }
-    // @include test('aspect-to-number') {
-    //     @include assert-equal(aspect-to-number('16:9'), 1.7777777778);
-    // }
+    @include test('aspect-to-number') {
+        @include assert-equal(aspect-to-number('2:1'), 2);
+    }
+    @include test('aspect-to-number') {
+        @include assert-equal(aspect-to-number('1:2'), 0.5);
+    }
 }

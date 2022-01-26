@@ -3256,7 +3256,7 @@ window.pxstyles = {
                         {
                             "type": "list",
                             "name": "map-states",
-                            "description": "If provided, the specified map-type properties will be interpreted as\nsub states (e.g. (hover: (...)) becomes &:hover {...})"
+                            "description": "If provided, the specified map-type properties will be interpreted as\nsub states (e.g. (hover: (...)) becomes &:hover {...}), leave as null to map a"
                         },
                         {
                             "type": "string",
@@ -3603,7 +3603,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, 'woff woff2 otf');"
+                            "code": "@include font-face('circular','~assets/fonts/circular/circular-book', 400, null, woff woff2 otf);"
                         }
                     ],
                     "parameter": [
@@ -4241,20 +4241,20 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px') => (top: 2px, right: 2px, bottom: 2px, left: 2px)"
+                            "code": "get-fourpart(2px) => (top: 2px, right: 2px, bottom: 2px, left: 2px)"
                         },
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)"
+                            "code": "get-fourpart(2px 4px) => (top: 2px, right: 4px, bottom: 2px, left: 4px)"
                         },
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)"
+                            "code": "get-fourpart(2px 4px 8px) => (top: 2px, right: 4px, bottom: 8px, left: 4px)"
                         },
                         {
                             "type": "get",
                             "code": "",
-                            "description": "fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
+                            "description": "fourpart(2px 4px 8px 16px) => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
                         }
                     ],
                     "parameter": [

@@ -426,7 +426,6 @@
 /// returned directly. This makes it possible to use the function as a safety where a number is
 /// expected but a string could be used for convenience.
 ///
-/// @todo Robby getting an error message when spec file is run.
 /// @example $aspect: aspect-to-number('16:9') // => 1.77777778;
 /// @example $aspect: aspect-to-number(1.77778) // => 1.77778
 
