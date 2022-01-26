@@ -250,6 +250,65 @@
     }
 }
 
+// newer, better version fo css-map (just need to convert now)
+
+@mixin css-map2($map, $aliases: (), $ignore: '--', $auto-alias-common-states: true) {
+    @if ($auto-alias-common-states) {
+        $common-states: (
+            hover: '&:hover',
+            active: '&:active',
+            focus: '&:focus-visible',
+            disabled: '&:disabled, &:disabled:hover, &:disabled:active, &:disabled[aria-checked]',
+            checked: '&:checked, &[aria-checked]',
+            readonly: '&:read-only, &:read-only:hover, &:read-only:active',
+            read-only: '&:read-only, &:read-only:hover, &:read-only:active',
+            before: '&:before',
+            after: '&:after',
+        );
+        $aliases: map-merge($common-states, $aliases);
+    }
+    // walk through $map and replace any aliases with their counterparts
+    $remap: map-key-replace($map, $aliases);
+
+    // remove keys that start with $ignore
+    @each $key, $val in $remap {
+        @if starts-with($key, $ignore) {
+            $remap: map-remove($remap, $key);
+        }
+    }
+
+    // output non-states first
+    @each $key, $val in $remap {
+        @if (is-map($val) or (is-list($val) and length($val) == 0)) {
+            // do nothing (this is a map or an empty list)
+        } @else {
+            #{$key}: $val;
+        }
+    }
+
+    // now output mapped states
+    @each $key, $val in $remap {
+        @if (is-map($val) or (is-list($val) and length($val) == 0)) {
+            $state-map: map-get($remap, $key);
+            $state-key: unquote($key);
+            #{$state-key} {
+                @include css-map2($state-map, $aliases, $ignore);
+            }
+        }
+    }
+
+    // @if is-list($map-states) {
+    //     @each $state in $states {
+    //         @if (map-has-key($remap, $state)) {
+    //             $state-css: map-get($remap, $state);
+    //             #{$state} {
+    //                 @include css-map($state-css, $aliases, $ignore-start-pattern);
+    //             }
+    //         }
+    //     }
+    // }
+}
+
 /// Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)
 ///
 /// @param {*} $color1 [yellowgreen] The first color in the gradient
