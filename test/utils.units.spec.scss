@@ -3,7 +3,7 @@
 
 @include test-module('utils.units') {
     @include test('strip-unit') {
-        @include assert-equal(strip-unit(234.8), 234.8);
+        @include assert-equal(strip-unit(234.8px), 234.8);
     }
     @include test('to-number') {
         @include assert-equal(to-number('234.8'), 234.8);

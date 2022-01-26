@@ -3681,40 +3681,20 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "<<<<<<< HEAD\n/// @example strip-unit(100px) // => 100\n/// @todo Sarah -- need test\n=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
-                    "docName": "<<<<<<< HEAD\n/// @example strip-unit(100px) // => 100\n/// @todo Sarah -- need test\n=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
-                    "type": "css",
+                    "name": "strip-unit",
+                    "docName": "strip-unit()",
+                    "type": "function",
                     "description": "Strip the unit from a number\n\n",
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
-                    "name": "=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
-                    "docName": "=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
-                    "type": "css",
-                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "strip-unit(100px) // => 100"
                         }
                     ],
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
-                    "name": ">>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
-                    "docName": ">>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
-                    "type": "css",
-                    "description": "",
-                    "example": [
+                    "parameter": [
                         {
-                            "type": "scss",
-                            "code": "strip-unit(234.8px) // => 234.8"
+                            "type": "*",
+                            "name": "value"
                         }
                     ],
                     "access": "public",
