@@ -198,7 +198,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'links'",
-                            "value": "(\n    -selector: '.link',\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null\n    )\n)",
+                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    --selector: '.link',\n)",
                             "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
@@ -1232,6 +1232,22 @@ window.pxstyles = {
                     "group": "site.misc",
                     "name": "aria-checked",
                     "docName": "aria-checked()",
+                    "type": "mixin",
+                    "description": "Shortcut for checked state (and a reminder to use aria to manage this)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ".item { @include checked() {...} }  => .item:[aria-checked] {...}"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "disabled",
+                    "docName": "disabled()",
                     "type": "mixin",
                     "description": "Shortcut for checked state (and a reminder to use aria to manage this)\n\n",
                     "example": [
@@ -3672,7 +3688,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "strip-unit(234.8) // => 234.8"
+                            "code": "strip-unit(100px) // => 100"
                         }
                     ],
                     "parameter": [
@@ -4218,42 +4234,6 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "if-type",
-                    "docName": "if-type()",
-                    "type": "function",
-                    "description": "Choose a value based on the type of another value by provide a mapping between type and values\n\n",
-                    "example": [
-                        {
-                            "type": "if",
-                            "code": "",
-                            "description": "type(10, (color: blue), 'fallback') // => 'fallback"
-                        },
-                        {
-                            "type": "scss",
-                            "code": ""
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "value"
-                        },
-                        {
-                            "type": "*",
-                            "name": "value-map"
-                        },
-                        {
-                            "type": "*",
-                            "name": "fallback",
-                            "default": "null"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "utils/units.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.units",
                     "name": "get-fourpart",
                     "docName": "get-fourpart()",
                     "type": "function",
@@ -4261,20 +4241,20 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px') => (top: 2px, right: 2px, bottom: 2px, left: 2px)"
+                            "code": "get-fourpart(2px) => (top: 2px, right: 2px, bottom: 2px, left: 2px)"
                         },
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)"
+                            "code": "get-fourpart(2px 4px) => (top: 2px, right: 4px, bottom: 2px, left: 4px)"
                         },
                         {
                             "type": "scss",
-                            "code": "get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)"
+                            "code": "get-fourpart(2px 4px 8px) => (top: 2px, right: 4px, bottom: 8px, left: 4px)"
                         },
                         {
                             "type": "get",
                             "code": "",
-                            "description": "fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
+                            "description": "fourpart(2px 4px 8px 16px) => (top: 2px, right: 4px, bottom: 8px, left: 16px)"
                         }
                     ],
                     "parameter": [

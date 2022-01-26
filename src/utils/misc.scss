@@ -208,7 +208,7 @@
     $aliases: (),
     $map-states: (hover active focus disabled readonly),
     $use-smart-aliases: true,
-    $ignore-start-pattern: '-'
+    $ignore-start-pattern: '--'
 ) {
     @if ($use-smart-aliases) {
         $smart-aliases: (

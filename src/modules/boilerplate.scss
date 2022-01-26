@@ -92,8 +92,8 @@
     }
 
     // link styles
-    @if (get('links:-selector')) {
-        #{get('links:-selector')} {
+    @if (get('links:--selector')) {
+        #{get('links:--selector')} {
             @include css-map(get('links'));
         }
     }

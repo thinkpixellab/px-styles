@@ -398,6 +398,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 54px;
+  -base: "headings";
 }
 
 .display2 {
@@ -406,6 +407,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 42px;
+  -base: "headings";
 }
 
 .h1 {
@@ -414,6 +416,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 36px;
+  -base: "headings";
 }
 
 .h2 {
@@ -422,6 +425,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 28px;
+  -base: "headings";
 }
 
 .h3 {
@@ -430,6 +434,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 24px;
+  -base: "headings";
 }
 
 .h4 {
@@ -438,6 +443,7 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 20px;
+  -base: "headings";
 }
 
 .h5 {
@@ -446,24 +452,28 @@ sup {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   font-size: 18px;
+  -base: "headings";
 }
 
 .sh1 {
   line-height: 1.15;
   margin-bottom: 0.5em;
   font-size: 20px;
+  -base: "sub-headings";
 }
 
 .sh2 {
   line-height: 1.15;
   margin-bottom: 0.5em;
   font-size: 18px;
+  -base: "sub-headings";
 }
 
 .sh3 {
   line-height: 1.15;
   margin-bottom: 0.5em;
   font-size: 15px;
+  -base: "sub-headings";
 }
 
 html,
@@ -500,8 +510,8 @@ body {
   outline: none;
   border: none;
   white-space: nowrap;
+  font-size: inherit;
   font-family: Inter, sans-serf;
-  font-size: 15px;
   font-weight: 400;
   display: inline-flex;
   border-radius: 9999px;
@@ -777,13 +787,11 @@ strong {
 .markdown ul ol ol ol {
   list-style-type: lower-alpha;
 }
-.markdown a,
-.markdown .link {
+.markdown a {
   color: #0099fd;
   text-decoration: underline;
 }
-.markdown a:hover,
-.markdown .link:hover {
+.markdown a:hover {
   background-color: rgba(0, 153, 253, 0.1);
   text-decoration: underline;
 }
@@ -875,8 +883,8 @@ strong {
   outline: none;
   border: none;
   white-space: nowrap;
+  font-size: inherit;
   font-family: Inter, sans-serf;
-  font-size: 15px;
   font-weight: 400;
   display: inline-flex;
   align-items: center;

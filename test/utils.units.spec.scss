@@ -97,17 +97,17 @@
             'fallback'
         );
     }
-    // @include test('get-fourpart') {
-    //     @include assert-equal(
-    //         get-fourpart('2px'),
-    //         (
-    //             top: 2px,
-    //             right: 2px,
-    //             bottom: 2px,
-    //             left: 2px,
-    //         )
-    //     );
-    // }
+    @include test('get-fourpart') {
+        @include assert-equal(
+            get-fourpart(2px),
+            (
+                top: 2px,
+                right: 2px,
+                bottom: 2px,
+                left: 2px,
+            )
+        );
+    }
     @include test('get-fourpart-left') {
         @include assert-equal(get-fourpart-left(10px), 10px);
     }

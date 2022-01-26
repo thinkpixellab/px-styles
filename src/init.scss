@@ -378,7 +378,6 @@
     @include default(
         'links',
         (
-            -selector: '.link',
             color: adjust-color(accent(), $saturation: 40%),
             text-decoration: none,
             text-decoration-color: null,
@@ -386,8 +385,9 @@
                 color: null,
                 background-color: rgba(accent(), 0.1),
                 text-decoration: underline,
-                text-decoration-color: null
-            )
+                text-decoration-color: null,
+            ),
+            --selector: '.link',
         )
     );
 
@@ -475,7 +475,7 @@
             accent: accent(),
             border-radius: 3px,
             font-family: get(font-family),
-            font-size: fs(base),
+            font-size: inherit,
             font-weight: 400,
             min-height: 2.25em,
             min-width: 6em,

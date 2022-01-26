@@ -10,8 +10,8 @@
 ///
 /// @param {*} $value
 ///
-/// @example strip-unit(234.8) // => 234.8
-/// @todo Robby, can you explain?
+/// @example strip-unit(100px) // => 100
+/// @todo Sarah -- need test
 
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
@@ -234,6 +234,7 @@
 /// @param {*} $falseval
 ///
 /// @todo Robby - is this correct?
+/// @todo Sarah - yup
 /// @example if-string(10, 'hello', 20) // => 20
 /// @example if-string('tree', 'hello', 20) // => 'hello'
 
@@ -307,34 +308,15 @@
     @return $falseval;
 }
 
-/// Choose a value based on the type of another value by provide a mapping between type and values
-///
-/// @param {*} $value
-/// @param {*} $value-map
-/// @param {*} $fallback [null]
-///
-/// @example if-type(10, (color: blue), 'fallback') // => 'fallback
-///
-/// @todo Robby? another example?
-/// @example
-
-@function if-type($value, $value-map, $fallback: null) {
-    $type: type-of($value);
-    @if (map-has-key($value-map, $type)) {
-        @return map-get($value-map, $type);
-    }
-    @return $fallback;
-}
-
 /// Convert any valid four-part value (like those used for margin or padding) into a map with
 /// the correct values for top, right, bottom, left)
 ///
 /// @param {*} $value
 ///
-/// @example get-fourpart('2px') => (top: 2px, right: 2px, bottom: 2px, left: 2px)
-/// @example get-fourpart('2px 4px') => (top: 2px, right: 4px, bottom: 2px, left: 4px)
-/// @example get-fourpart('2px 4px 8px') => (top: 2px, right: 4px, bottom: 8px, left: 4px)
-/// @example get-fourpart('2px 4px 8px 16px') => (top: 2px, right: 4px, bottom: 8px, left: 16px)
+/// @example get-fourpart(2px) => (top: 2px, right: 2px, bottom: 2px, left: 2px)
+/// @example get-fourpart(2px 4px) => (top: 2px, right: 4px, bottom: 2px, left: 4px)
+/// @example get-fourpart(2px 4px 8px) => (top: 2px, right: 4px, bottom: 8px, left: 4px)
+/// @example get-fourpart(2px 4px 8px 16px) => (top: 2px, right: 4px, bottom: 8px, left: 16px)
 ///
 /// @todo Robby the spec file is getting an error.
 

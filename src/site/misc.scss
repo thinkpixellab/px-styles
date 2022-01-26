@@ -26,3 +26,17 @@
         @content;
     }
 }
+
+/// Shortcut for checked state (and a reminder to use aria to manage this)
+///
+/// @example
+/// .item { @include checked() {...} }  => .item:[aria-checked] {...}
+
+@mixin disabled() {
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active,
+    &:disabled[aria-checked] {
+        @content;
+    }
+}

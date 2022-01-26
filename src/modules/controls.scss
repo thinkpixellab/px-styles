@@ -139,7 +139,7 @@
 // base
 // ----------------------------------------------------------------------------
 
-@function -control-base() {
+@function control-reset() {
     @return (
         appearance: none,
         box-sizing: border-box,
@@ -147,8 +147,8 @@
         outline: none,
         border: none,
         white-space: nowrap,
-        font-family: get('controls:font-family'),
         font-size: get('controls:font-size'),
+        font-family: get('controls:font-family'),
         font-weight: get('controls:font-weight')
     );
 }
@@ -159,7 +159,7 @@
 /// @example control-reset() // => outputs an in
 
 @mixin control-reset() {
-    @include css-map(-control-base());
+    @include css-map(control-reset());
 }
 
 // ----------------------------------------------------------------------------
@@ -239,7 +239,7 @@
     );
 
     // merge and return all the css
-    @return flat-merge(-control-base(), -button-base-map(), $button, $config, $overrides);
+    @return flat-merge(control-reset(), -button-base-map(), $button, $config, $overrides);
 }
 
 // ----------------------------------------------------------------------------
@@ -305,7 +305,7 @@
     );
 
     // merge and return all the css
-    @return flat-merge(-control-base(), -button-base-map(), $button, $config, $overrides);
+    @return flat-merge(control-reset(), -button-base-map(), $button, $config, $overrides);
 }
 
 // ----------------------------------------------------------------------------
@@ -340,7 +340,7 @@
     );
 
     // merge all the css
-    $css: flat-merge(-control-base(), -button-base-map(), $button, $overrides);
+    $css: flat-merge(control-reset(), -button-base-map(), $button, $overrides);
 
     @return $css;
 }
@@ -444,7 +444,7 @@
     $config: get('controls:textbox', null, false);
 
     // merge all the css
-    $css: flat-merge(-control-base(), $textbox, $config, $overrides);
+    $css: flat-merge(control-reset(), $textbox, $config, $overrides);
 
     // // add placeholder styles
     // $placeholder: flat-get($css, '-px-placeholder');
