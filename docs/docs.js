@@ -3256,7 +3256,7 @@ window.pxstyles = {
                         {
                             "type": "list",
                             "name": "map-states",
-                            "description": "If provided, the specified map-type properties will be interpreted as\nsub states (e.g. (hover: (...)) becomes &:hover {...}), leave as null to map a"
+                            "description": "If provided, the specified map-type properties will be interpreted as\nsub states (e.g. (hover: (...)) becomes &:hover {...})"
                         },
                         {
                             "type": "string",
@@ -3681,20 +3681,40 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.units",
-                    "name": "strip-unit",
-                    "docName": "strip-unit()",
-                    "type": "function",
+                    "name": "<<<<<<< HEAD\n/// @example strip-unit(100px) // => 100\n/// @todo Sarah -- need test\n=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
+                    "docName": "<<<<<<< HEAD\n/// @example strip-unit(100px) // => 100\n/// @todo Sarah -- need test\n=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
+                    "type": "css",
                     "description": "Strip the unit from a number\n\n",
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
+                    "name": "=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
+                    "docName": "=======\n/// @example strip-unit(234.8px) // => 234.8\n>>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
+                    "type": "css",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
                             "code": "strip-unit(100px) // => 100"
                         }
                     ],
-                    "parameter": [
+                    "access": "public",
+                    "path": "utils/units.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.units",
+                    "name": ">>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)",
+                    "docName": ">>>>>>> 87e6524 (minor changes)\n\n@function strip-unit($number)()",
+                    "type": "css",
+                    "description": "",
+                    "example": [
                         {
-                            "type": "*",
-                            "name": "value"
+                            "type": "scss",
+                            "code": "strip-unit(234.8px) // => 234.8"
                         }
                     ],
                     "access": "public",
