@@ -131,8 +131,8 @@ $-modifier-prefix: '--' !default;
 ///     .block { @include bem((element1 element2)) { ... } }
 ///     // => .block__element1, block__element2 { ... }
 
-@mixin bem($name, $modifier: '', $pseudo: '') {
-    $bem-block: get-block-name(&) !global;
+@mixin bem($name, $block: null, $modifier: '', $pseudo: '') {
+    $bem-block: if-null($block, get-block-name(&)) !global;
     @include -bem-base(
         $name,
         $modifier,
