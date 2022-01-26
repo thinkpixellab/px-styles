@@ -3,6 +3,19 @@
 
 /// @todo test
 @include test-module('site.transitions') {
+    @include test('mixin transition') {
+        @include assert {
+            // test
+            @include output {
+                @include transition(transform opacity);
+            }
+            // output
+            @include expect {
+                transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+                    opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
+            }
+        }
+    }
     // @include test('mixin vue-transition-fade') {
     //     @include assert {
     //         // test

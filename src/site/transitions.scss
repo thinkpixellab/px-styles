@@ -13,8 +13,7 @@
 /// @param {string} $ease [$transition-ease] The easing to be used in the transition
 /// @param {duration} $delay [0ms] The delay for the transition
 ///
-/// @todo Robby: testing
-/// @example @include transition(transform opacity); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
+/// @example @include transition(transform opacity); // => transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 /// @example @include transition(transform opacity, 500ms); // => Robby, I'm getting an error message
 /// @example @include transition(transform opacity, $ease: $ease-out-bounce A l); // => Robby, same here.
 
@@ -29,11 +28,11 @@
     }
     @return unquote(list-join($transitions, ', '));
 }
-/// @todo examples? Are they above?
+/// @todo Is this different as a mixin? Examples? (Are they above?)
 @mixin transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
     transition: transition($proplist, $name, $dur, $ease, $delay);
 }
-/// @todo testing
+/// @todo testing. Robby, how do I write the expected outcome in the test?
 /// @example vue-transition-fade() // =>
 ///  .fade-enter-active .fade-leave-active {
 ///   transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -142,7 +141,7 @@
 // }
 
 // // slide and fade
-/// @todo Robby: example
+/// @todo Robby: example - I'm getting an error saying $lookup is an undefined variable
 @mixin vue-transition-slide-fade(
     $name: 'slide',
     $dur: null,

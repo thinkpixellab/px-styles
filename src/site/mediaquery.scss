@@ -85,7 +85,7 @@
 /// @param {String | Length} $break The breakpoint for the generated media
 /// query. Use a string for a named site breakpoint or a length.
 ///
-/// @todo Robby: how do we test this?
+/// @todo Robby: how do we test this? I'm even having issues debugging it in scratch (getting: undefined variable for $breakpoint)
 /// @example
 ///     // Note that media-until rules should be ordered largest to smallest
 ///

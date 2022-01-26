@@ -717,7 +717,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": ""
+                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\nclr(purple) => #C578DD\nclr(purple, -1) => (#b16cc7)\nclr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))"
                         }
                     ],
                     "parameter": [
@@ -1678,7 +1678,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
+                            "code": "@include transition(transform opacity); // => transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
