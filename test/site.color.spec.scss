@@ -1,6 +1,8 @@
 @use 'px' as *;
 @use 'true' as *;
 
+@include config('colors:purple', #c578dd);
+
 @include test-module('site.color') {
     @include test('shade') {
         @include assert-equal(shade(red, 5, null), #ff8080);
@@ -12,9 +14,9 @@
         @include assert-equal(accent(2, 0.5), rgba(51, 173, 253, 0.5));
     }
 
-    // @include test('clr') {
-    //     @include assert-equal(clr, );
-    // }
+    @include test('clr') {
+        @include assert-equal(clr(purple, -1), #b16cc7);
+    }
     @include test('yiq') {
         @include assert-equal(yiq(purple), 52.864);
     }

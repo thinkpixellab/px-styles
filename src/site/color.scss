@@ -88,8 +88,8 @@
 ///
 /// // Retrieve the color
 /// clr(purple) => #C578DD
-/// clr(purple, -1) => (purple but 1 level darker)
-/// clr(purple, $alpha: 0.5) => (purple half alpha of 0.5)
+/// clr(purple, -1) => (#b16cc7)
+/// clr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))
 
 @function clr($name, $shade: 0, $alpha: 1) {
     $color: get('colors:' + $name);
