@@ -144,9 +144,8 @@
 /// @param {Length} $size The size for the generated media query.
 ///
 ///
-/// @todo Robby: how do we write tests for this?
 /// @example
-/// %%include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }
+/// %%include media-until-height(sm) { ... } // => @media screen and (max-height: sm) { background: grey }
 
 @mixin media-until-height($size) {
     @media screen and (max-height: $size) {

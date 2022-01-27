@@ -1117,7 +1117,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }"
+                            "code": "@include media-until-height(sm) { ... } // => @media screen and (max-height: sm) { background: grey }"
                         }
                     ],
                     "parameter": [

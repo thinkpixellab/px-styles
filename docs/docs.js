@@ -1088,8 +1088,8 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "include",
-                            "code": "(max-width: 1024px) { ... }",
-                            "description": "media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and"
+                            "code": "(max-width: 1024px) { background: gray }",
+                            "description": "media-between(sm, md) { background: gray } // => @media screen and (min-width: 768px) and"
                         }
                     ],
                     "parameter": [
