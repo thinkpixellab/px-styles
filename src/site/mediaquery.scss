@@ -182,6 +182,8 @@
 }
 
 /// A convenience mixin that is equivalent to media-until($mobile-breakpoint).
+/// @example @include media-until-mobile()
+/// @todo: Robby - need help with test
 @mixin media-until-mobile() {
     @include media-until(get(mobile-breakpoint)) {
         @content;
@@ -189,8 +191,7 @@
 }
 
 /// Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest
-/// @example breakpoints-asc()
-/// @todo Robby: not getting a response in scratch
+/// @example  // => (xs: 640px, mobile: 768px, sm: 1024px, md: 1366px, lg: 1600px, xl: 1920px)
 @function breakpoints-asc() {
     @return map-sort-by-values(get(breakpoints));
 }

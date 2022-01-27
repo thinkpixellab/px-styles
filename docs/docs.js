@@ -1188,6 +1188,12 @@ window.pxstyles = {
                     "docName": "media-until-mobile()",
                     "type": "mixin",
                     "description": "A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include media-until-mobile()"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 },
@@ -1201,7 +1207,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "breakpoints-asc()"
+                            "code": "// => (xs: 640px, mobile: 768px, sm: 1024px, md: 1366px, lg: 1600px, xl: 1920px)"
                         }
                     ],
                     "access": "public",
