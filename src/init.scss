@@ -395,19 +395,6 @@
     // Reading
     // ----------------------------------------------------------------------
 
-    // reading: default styles (css map)
-    // @include default(
-    //     'reading',
-    //     (
-    //         base: (
-    //             font-family: get('font-family'),
-    //             font-size: fs(base),
-    //             line-height: normal,
-    //             font-weight: 400,
-    //         ),
-    //     )
-    // );
-
     // reading: font weight for <strong> text
     @include default('reading:font-weight-strong', 600);
 
