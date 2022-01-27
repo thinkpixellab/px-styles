@@ -1032,21 +1032,24 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.mediaquery",
+                    "name": "/// @example\n///     // Note that media-until rules should be ordered largest to smallest\n///\n///     @include media-until(md)",
+                    "docName": "/// @example\n///     // Note that media-until rules should be ordered largest to smallest\n///\n///     @include media-until(md)()",
+                    "type": "css",
+                    "description": "Creates a media query that applies for all browser widths **smaller** than\nthe provided breakpoint.\n\n",
+                    "access": "public",
+                    "path": "site/mediaquery.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.mediaquery",
                     "name": "media-until",
                     "docName": "media-until()",
                     "type": "mixin",
-                    "description": "Creates a media query that applies for all browser widths **smaller** than\nthe provided breakpoint.\n\n",
+                    "description": "",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Note that media-until rules should be ordered largest to smallest\n\n@include media-until(md) { ... } // => @media screen and (max-width: 1024px) { ... }\n@include media-until(sm) { ... } // => @media screen and (max-width: 768px) { ... }"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "String | Length",
-                            "name": "break",
-                            "description": "The breakpoint for the generated media\nquery. Use a string for a named site breakpoint or a length.\n"
+                            "code": "// Note that media-until rules should be ordered largest to smallest\n\n@include media-until(md) { background: green } // => @media screen and (max-width: 1366px) {.class {background: green;}}\n@include media-until(sm) { ... } // => @media screen and (max-width: 1024px) { ... }"
                         }
                     ],
                     "access": "public",
@@ -1062,7 +1065,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Note that media-afters rules should be ordered smallest to largest\n\n@include media-after(sm) { ... } // => @media screen and (max-width: 768px) { ... }\n@include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }"
+                            "code": "// Note that media-afters rules should be ordered smallest to largest\n\n@include media-after(sm) { background: blue } // => @media screen and (max-width: 768px) { background: blue }\n@include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }"
                         }
                     ],
                     "parameter": [

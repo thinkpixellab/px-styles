@@ -5,4 +5,45 @@
     @include test('get-breakpoint') {
         @include assert-equal(get-breakpoint(md), 1366px);
     }
+
+    @include test('mixin media-until') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-until(md) {
+                        background: green;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (max-width: 1366px) {
+                    .class {
+                        background: green;
+                    }
+                }
+            }
+        }
+    }
+    @include test('mixin media-after') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-after(sm) {
+                        background: blue;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (min-width: 1024px) {
+                    .class {
+                        background: blue;
+                    }
+                }
+            }
+        }
+    }
 }

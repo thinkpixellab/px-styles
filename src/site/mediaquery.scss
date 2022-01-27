@@ -85,12 +85,12 @@
 /// @param {String | Length} $break The breakpoint for the generated media
 /// query. Use a string for a named site breakpoint or a length.
 ///
-/// @todo Robby: how do we test this? I'm even having issues debugging it in scratch (getting: undefined variable for $breakpoint)
+
 /// @example
 ///     // Note that media-until rules should be ordered largest to smallest
 ///
-///     @include media-until(md) { ... } // => @media screen and (max-width: 1024px) { ... }
-///     @include media-until(sm) { ... } // => @media screen and (max-width: 768px) { ... }
+///     @include media-until(md) { background: green } // => @media screen and (max-width: 1366px) {.class {background: green;}}
+///     @include media-until(sm) { ... } // => @media screen and (max-width: 1024px) { ... }
 
 @mixin media-until($break) {
     $breakpoint: get-breakpoint($break);
@@ -105,11 +105,10 @@
 /// @param {String | Length} $break The breakpoint for the generated media
 /// query. Use a string for a named site breakpoint or a length.
 ///
-/// @todo Robby: how do we test this?
 /// @example
 ///     // Note that media-afters rules should be ordered smallest to largest
 ///
-///     @include media-after(sm) { ... } // => @media screen and (max-width: 768px) { ... }
+///     @include media-after(sm) { background: blue } // => @media screen and (max-width: 768px) { background: blue }
 ///     @include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }
 
 @mixin media-after($break) {
