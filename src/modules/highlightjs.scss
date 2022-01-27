@@ -1,0 +1,93 @@
+// highlight.js theme generator
+@use '../utils' as *;
+@use '../site' as *;
+
+$default-colors: (
+    fg: #abb2bf,
+    bg: #282c34,
+    comment: #7f848e,
+    keyword: #c678dd,
+    name: #e06c75,
+    literal: #56b6c2,
+    symbol: #61aeee,
+    string: #98c379,
+    variable: #d19a66,
+    class: #e6c07b,
+);
+
+@mixin highlightjs($colors: $default-colors, $prefix: hljs) {
+    color: map-get($colors, fg);
+    background: map-get($colors, bg);
+
+    .#{$prefix} {
+        &-comment,
+        &-quote {
+            color: map-get($colors, comment);
+            font-style: italic;
+        }
+
+        &-doctag,
+        &-keyword,
+        &-formula {
+            color: map-get($colors, keyword);
+        }
+
+        &-section,
+        &-name,
+        &-selector-tag,
+        &-deletion,
+        &-subst {
+            color: map-get($colors, name);
+        }
+
+        &-literal {
+            color: map-get($colors, literal);
+        }
+
+        &-string,
+        &-regexp,
+        &-addition,
+        &-attribute,
+        &-meta &-string {
+            color: map-get($colors, string);
+        }
+
+        &-attr,
+        &-variable,
+        &-template-variable,
+        &-type,
+        &-selector-class,
+        &-selector-attr,
+        &-selector-pseudo,
+        &-number {
+            color: map-get($colors, variable);
+        }
+
+        &-symbol,
+        &-bullet,
+        &-link,
+        &-meta,
+        &-selector-id,
+        &-title {
+            color: map-get($colors, symbol);
+        }
+
+        &-built_in,
+        &-title.class_,
+        &-class &-title {
+            color: map-get($colors, class);
+        }
+
+        &-emphasis {
+            font-style: italic;
+        }
+
+        &-strong {
+            font-weight: bold;
+        }
+
+        &-link {
+            text-decoration: underline;
+        }
+    }
+}
