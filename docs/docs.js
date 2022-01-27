@@ -1032,24 +1032,21 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.mediaquery",
-                    "name": "/// @example\n///     // Note that media-until rules should be ordered largest to smallest\n///\n///     @include media-until(md)",
-                    "docName": "/// @example\n///     // Note that media-until rules should be ordered largest to smallest\n///\n///     @include media-until(md)()",
-                    "type": "css",
-                    "description": "Creates a media query that applies for all browser widths **smaller** than\nthe provided breakpoint.\n\n",
-                    "access": "public",
-                    "path": "site/mediaquery.scss"
-                },
-                {
-                    "namespace": "site",
-                    "group": "site.mediaquery",
                     "name": "media-until",
                     "docName": "media-until()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "Creates a media query that applies for all browser widths **smaller** than\nthe provided breakpoint.\n\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "// Note that media-until rules should be ordered largest to smallest\n\n@include media-until(md) { background: green } // => @media screen and (max-width: 1366px) {.class {background: green;}}\n@include media-until(sm) { ... } // => @media screen and (max-width: 1024px) { ... }"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "String | Length",
+                            "name": "break",
+                            "description": "The breakpoint for the generated media\nquery. Use a string for a named site breakpoint or a length.\n\n"
                         }
                     ],
                     "access": "public",
