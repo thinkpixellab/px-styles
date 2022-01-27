@@ -127,9 +127,8 @@
 /// @param {String | Length} $break-to The upper limit breakpoint for the generated media query. Use
 /// a string for a named site breakpoint or a length.
 ///
-/// @todo Robby: how do we write tests for this?
-/// @example @include media-between(sm, md) { ... } // => @media screen and (min-width: 768px) and
-/// (max-width: 1024px) { ... }
+/// @example @include media-between(sm, md) { background: gray } // => @media screen and (min-width: 768px) and
+/// (max-width: 1024px) { background: gray }
 
 @mixin media-between($break-from, $break-to) {
     $breakpoint-from: get-breakpoint($break-from);

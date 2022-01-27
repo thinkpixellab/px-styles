@@ -1065,7 +1065,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Note that media-afters rules should be ordered smallest to largest\n\n@include media-after(sm) { ... } // => @media screen and (max-width: 768px) { ... }\n@include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }"
+                            "code": "// Note that media-afters rules should be ordered smallest to largest\n\n@include media-after(sm) { background: blue } // => @media screen and (max-width: 768px) { background: blue }\n@include media-after(md) { ... } // => @media screen and (max-width: 1024px) { ... }"
                         }
                     ],
                     "parameter": [

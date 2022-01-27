@@ -46,4 +46,24 @@
             }
         }
     }
+    @include test('mixin media-between') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-between(sm, md) {
+                        background: gray;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (min-width: 1024px) and (max-width: 1366px) {
+                    .class {
+                        background: gray;
+                    }
+                }
+            }
+        }
+    }
 }
