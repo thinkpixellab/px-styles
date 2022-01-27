@@ -86,4 +86,44 @@
             }
         }
     }
+    @include test('mixin media-after-height') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-after-height(sm) {
+                        background: grey;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (min-height: sm) {
+                    .class {
+                        background: grey;
+                    }
+                }
+            }
+        }
+    }
+    @include test('mixin media-between-height') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-between-height(sm, md) {
+                        background: white;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (min-height: sm) and (max-height: md) {
+                    .class {
+                        background: white;
+                    }
+                }
+            }
+        }
+    }
 }

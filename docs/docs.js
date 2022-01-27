@@ -1117,7 +1117,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-until(sm) { ... } // => @media screen and (max-height: 768px) { ... }"
+                            "code": "@include media-until-height(sm) { ... } // => @media screen and (max-height: sm) { background: grey }"
                         }
                     ],
                     "parameter": [
@@ -1140,7 +1140,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-after-height(sm) { ... } // => @media screen and (min-height: 768px) { ... }"
+                            "code": "@include media-after-height(sm) { background: yellow } // => @media screen and (min-height: sm) { background: yellow }"
                         }
                     ],
                     "parameter": [
@@ -1163,7 +1163,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include media-between-height(sm, md) { ... } // => @media screen and (min-height: 768px) and (max-height: 1024px) { ... }"
+                            "code": "@include media-between-height(sm, md) { ... } // => @media screen and (min-height: sm) and (max-height: md) { ... }"
                         }
                     ],
                     "parameter": [
