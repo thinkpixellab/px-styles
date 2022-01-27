@@ -57,3 +57,11 @@
     $props: map-merge($base-props, $props);
     @include css-map($props);
 }
+
+@mixin type-styles($styles, $base-name) {
+    @each $selector, $props in $styles {
+        #{$selector} {
+            @include type-style($base-name, $props);
+        }
+    }
+}

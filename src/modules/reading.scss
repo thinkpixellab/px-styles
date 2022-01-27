@@ -20,10 +20,10 @@
     a,
     span,
     p {
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        line-height: inherit;
+        font-family: flat-get($config, 'p:font-family', inherit);
+        font-size: flat-get($config, 'p:line-height', inherit);
+        font-weight: flat-get($config, 'p:line-height', inherit);
+        line-height: flat-get($config, 'p:line-height', inherit);
     }
 
     strong {
@@ -80,13 +80,12 @@
 
     // headings and other styles
 
-    // @todo
+    $styles-base-name: flat-get($config, 'styles-base');
+    $styles: flat-get($config, 'styles');
 
-    // $styles-base: get('type-bases:' + flat-get($config, 'styles-base'));
-    // $styles: flat-get($config, 'styles');
-    // @if ($styles) {
-    //     @include type-styles($styles, $styles-base);
-    // }
+    @if ($styles) {
+        @include type-styles($styles, $styles-base-name);
+    }
 
     // link styles
 
