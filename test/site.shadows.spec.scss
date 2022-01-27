@@ -2,23 +2,7 @@
 @use 'true' as *;
 
 @include test-module('site.shadows') {
-    // @include test('depth-shadow') {
-    //     @include assert-equal(
-    //         depth-shadow(2, 0.5, purple),
-    //         0 1px 2px -0.5px rgba(128, 0, 128, 0.2295),
-    //         0 3.5px 4px 0px rgba(128, 0, 128, 0.03425),
-    //         0 1px 5px 1px rgba(128, 0, 128, 0.072)
-    //     );
-    // }
-    // @include test('shadow') {
-    //     @include assert-equal(
-    //         shadow(2),
-    //         (0 1px 2px -0.5px rgba(0, 0, 0, 0.21)),
-    //         (0 3.5px 4px 0px rgba(0, 0, 0, 0.015)),
-    //         (0 1px 5px 1px rgba(0, 0, 0, 0.06))
-    //     );
-    // }
-    @include test('function shadow') {
+    @include test('function depth-shadow') {
         @include assert {
             // test
             @include output {
@@ -40,12 +24,16 @@
         @include assert {
             // test
             @include output {
-                @include shadow(2, black);
+                .class {
+                    box-shadow: shadow(2);
+                }
             }
             // output
             @include expect {
-                box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21),
-                    0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);
+                .class {
+                    box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21),
+                        0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);
+                }
             }
         }
     }
