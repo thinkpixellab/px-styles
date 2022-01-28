@@ -1,0 +1,14 @@
+@use 'px' as *;
+@use 'true' as *;
+
+@include test-module('modules.controls') {
+    @include test('function control-focus-style') {
+        @include assert-equal(
+            control-focus-style('outline', red),
+            (
+                outline-offset: 0px,
+                outline: 1px dashed red,
+            )
+        );
+    }
+}

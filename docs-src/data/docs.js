@@ -252,7 +252,18 @@ window.pxstyles = {
         {
             "name": "modules.atoms",
             "description": "",
-            "variables": [],
+            "variables": [
+                {
+                    "namespace": "modules",
+                    "group": "modules.atoms",
+                    "name": "-spacer-vals",
+                    "docName": "$-spacer-vals",
+                    "type": "variable",
+                    "description": "",
+                    "access": "private",
+                    "path": "modules/atoms.scss"
+                }
+            ],
             "items": [
                 {
                     "namespace": "modules",
@@ -289,7 +300,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "atoms-spacers()"
+                            "code": ""
                         }
                     ],
                     "access": "public",
