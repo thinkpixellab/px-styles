@@ -54,215 +54,226 @@
 /// display: flex;
 /// }
 
-@mixin atoms-flex($prefix: '') {
+@mixin atoms-flex(
+    $prefix: 'flex',
+    $order-classes: false,
+    $align-self-classes: false,
+    $grow-shrink-classes: false
+) {
     // Display
 
-    .#{$prefix}flex {
+    .#{$prefix} {
         display: flex;
     }
 
-    .#{$prefix}flex-inline {
+    .#{$prefix}-inline {
         display: inline-flex;
     }
 
     // Direction
 
-    .#{$prefix}flex-row {
+    .#{$prefix}-row {
         flex-direction: row;
-        &:not(.#{$prefix}inline-flex) {
+        &:not(.#{$prefix}-inline-flex) {
             display: flex;
         }
     }
-    .#{$prefix}flex-row-reverse {
+    .#{$prefix}-row-reverse {
         flex-direction: row-reverse;
-        &:not(.#{$prefix}inline-flex) {
+        &:not(.#{$prefix}-inline-flex) {
             display: flex;
         }
     }
-    .#{$prefix}flex-column {
+    .#{$prefix}-column {
         flex-direction: column;
-        &:not(.#{$prefix}inline-flex) {
+        &:not(.#{$prefix}-inline-flex) {
             display: flex;
         }
     }
-    .#{$prefix}flex-column-reverse {
+    .#{$prefix}-column-reverse {
         flex-direction: column-reverse;
-        &:not(.#{$prefix}inline-flex) {
+        &:not(.#{$prefix}-inline-flex) {
             display: flex;
         }
     }
 
     // Wrapping
 
-    .#{$prefix}flex-wrap {
+    .#{$prefix}-wrap {
         flex-wrap: wrap;
         flex-direction: row;
     }
-    .#{$prefix}flex-wrap-column {
+    .#{$prefix}-wrap-column {
         flex-wrap: wrap;
         flex-direction: column;
     }
-    .#{$prefix}flex-wrap-reverse {
+    .#{$prefix}-wrap-reverse {
         flex-wrap: wrap-reverse;
     }
-    .#{$prefix}flex-nowrap {
+    .#{$prefix}-nowrap {
         flex-wrap: nowrap;
     }
 
-    // Grow / Shrink
-
-    .#{$prefix}flex-auto {
+    .#{$prefix}-auto {
         flex: 1 1 auto;
     }
 
-    .#{$prefix}flex-none {
+    .#{$prefix}-none {
         flex: none;
-    }
-
-    // Generate flex-basis classes (disabled because never used)
-    // @for $b from 0 to 10 {
-    //     .#{$prefix}flex-basisc-#{($b * 10)} {
-    //         flex-basis: $b * 10%;
-    //     }
-    // }
-
-    @for $f from 0 to 4 {
-        .#{$prefix}flex-grow-#{$f} {
-            flex-grow: $f;
-        }
-        .#{$prefix}flex-shrink-#{$f} {
-            flex-shrink: $f;
-        }
-    }
-
-    @for $g from 0 to 4 {
-        @for $s from 0 to 4 {
-            .#{$prefix}flex-#{$g}-#{$s} {
-                flex-grow: $g;
-                flex-shrink: $s;
-            }
-        }
     }
 
     // Align items
 
-    .#{$prefix}items-start {
+    .#{$prefix}-items-start {
         align-items: flex-start;
     }
 
-    .#{$prefix}items-end {
+    .#{$prefix}-items-end {
         align-items: flex-end;
     }
 
-    .#{$prefix}items-center {
+    .#{$prefix}-items-center {
         align-items: center;
     }
 
-    .#{$prefix}items-baseline {
+    .#{$prefix}-items-baseline {
         align-items: baseline;
     }
 
-    .#{$prefix}items-stretch {
+    .#{$prefix}-items-stretch {
         align-items: stretch;
     }
 
     // Justify items
 
-    .#{$prefix}justify-start {
+    .#{$prefix}-justify-start {
         justify-content: flex-start;
     }
 
-    .#{$prefix}justify-end {
+    .#{$prefix}-justify-end {
         justify-content: flex-end;
     }
 
-    .#{$prefix}justify-center {
+    .#{$prefix}-justify-center {
         justify-content: center;
     }
 
-    .#{$prefix}justify-between {
+    .#{$prefix}-justify-between {
         justify-content: space-between;
     }
 
-    .#{$prefix}justify-around {
+    .#{$prefix}-justify-around {
         justify-content: space-around;
     }
 
-    .#{$prefix}justify-stretch {
+    .#{$prefix}-justify-stretch {
         justify-content: stretch;
     }
 
     // Align self
 
-    .#{$prefix}self-start {
-        align-self: flex-start;
+    @if ($align-self-classes) {
+        .#{$prefix}-self-start {
+            align-self: flex-start;
+        }
+
+        .#{$prefix}-self-end {
+            align-self: flex-end;
+        }
+
+        .#{$prefix}-self-center {
+            align-self: center;
+        }
+
+        .#{$prefix}-self-baseline {
+            align-self: baseline;
+        }
+
+        .#{$prefix}-self-stretch {
+            align-self: stretch;
+        }
     }
 
-    .#{$prefix}self-end {
-        align-self: flex-end;
-    }
+    // Generate flex-basis classes (disabled because never used)
+    // @for $b from 0 to 10 {
+    //     .#{$prefix}-basisc-#{($b * 10)} {
+    //         flex-basis: $b * 10%;
+    //     }
+    // }
 
-    .#{$prefix}self-center {
-        align-self: center;
-    }
+    // Grow / Shrink
 
-    .#{$prefix}self-baseline {
-        align-self: baseline;
-    }
+    @if ($grow-shrink-classes) {
+        @for $f from 0 to 4 {
+            .#{$prefix}-grow-#{$f} {
+                flex-grow: $f;
+            }
+            .#{$prefix}-shrink-#{$f} {
+                flex-shrink: $f;
+            }
+        }
 
-    .#{$prefix}self-stretch {
-        align-self: stretch;
+        @for $g from 0 to 4 {
+            @for $s from 0 to 4 {
+                .#{$prefix}-#{$g}-#{$s} {
+                    flex-grow: $g;
+                    flex-shrink: $s;
+                }
+            }
+        }
     }
 
     // Order
 
-    .#{$prefix}order-0 {
-        order: 0;
-    }
+    @if ($order-classes) {
+        .#{$prefix}-order-0 {
+            order: 0;
+        }
 
-    .#{$prefix}order-1 {
-        order: 1;
-    }
+        .#{$prefix}-order-1 {
+            order: 1;
+        }
 
-    .#{$prefix}order-2 {
-        order: 2;
-    }
+        .#{$prefix}-order-2 {
+            order: 2;
+        }
 
-    .#{$prefix}order-3 {
-        order: 3;
-    }
+        .#{$prefix}-order-3 {
+            order: 3;
+        }
 
-    .#{$prefix}order-4 {
-        order: 4;
-    }
+        .#{$prefix}-order-4 {
+            order: 4;
+        }
 
-    .#{$prefix}order-5 {
-        order: 5;
-    }
+        .#{$prefix}-order-5 {
+            order: 5;
+        }
 
-    .#{$prefix}order-6 {
-        order: 6;
-    }
+        .#{$prefix}-order-6 {
+            order: 6;
+        }
 
-    .#{$prefix}order-7 {
-        order: 7;
-    }
+        .#{$prefix}-order-7 {
+            order: 7;
+        }
 
-    .#{$prefix}order-8 {
-        order: 8;
-    }
+        .#{$prefix}-order-8 {
+            order: 8;
+        }
 
-    .#{$prefix}order-first {
-        order: -99999;
-    }
+        .#{$prefix}-order-first {
+            order: -99999;
+        }
 
-    .#{$prefix}order-last {
-        order: 99999;
+        .#{$prefix}-order-last {
+            order: 99999;
+        }
     }
 
     // Combos
 
-    .#{$prefix}flex-center {
+    .#{$prefix}-center {
         display: flex;
         align-items: center;
     }
