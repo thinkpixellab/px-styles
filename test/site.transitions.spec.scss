@@ -16,15 +16,31 @@
             }
         }
     }
-    // @include test('mixin vue-transition-fade') {
-    //     @include assert {
-    //         // test
-    //         @include output {
-    //             @include vue-transition-fade();
-    //         }
-    //         // output
-    //         @include expect {
-    //         }
-    //     }
-    // }
+    /// @todo Robby: test not working/running?
+    @include test('mixin vue-transition-fade') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include vue-transition-fade();
+                }
+            }
+            // output
+            @include expect {
+                .class .fade-enter-active .fade-leave-active {
+                    transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                }
+                .class .fade-enter-active {
+                    transition-delay: 0;
+                }
+                .class .fade-leave-active {
+                    transition-delay: 0;
+                }
+                .class .fade-enter,
+                .class .fade-leave-to {
+                    opacity: 0;
+                }
+            }
+        }
+    }
 }

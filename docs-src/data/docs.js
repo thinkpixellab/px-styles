@@ -1331,7 +1331,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "depth-shadow(2, 0.5, purple) // => 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)"
+                            "code": "depth-shadow(2, 0.5, purple) // => shadow: 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)"
                         }
                     ],
                     "parameter": [
