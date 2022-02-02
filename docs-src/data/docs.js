@@ -348,6 +348,12 @@ window.pxstyles = {
                     "docName": "get-control-accent()",
                     "type": "function",
                     "description": "Extract an accent color from any of the properties in $accent-props, with a fallback value of\n'controls:accent' (note: last property in list wins)\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-control-accent()"
+                        }
+                    ],
                     "access": "public",
                     "path": "modules/controls.scss"
                 },

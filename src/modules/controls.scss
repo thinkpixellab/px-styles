@@ -49,7 +49,8 @@
 
 /// Extract an accent color from any of the properties in $accent-props, with a fallback value of
 /// 'controls:accent' (note: last property in list wins)
-
+/// @todo: testing, etc. Robby, can you explain what the $overrides are?
+/// @example get-control-accent()
 @function get-control-accent($overrides, $accent-props...) {
     $accent: get('controls:accent');
     @each $prop in $accent-props {
