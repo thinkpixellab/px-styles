@@ -158,7 +158,7 @@
 /// @param {Length} $size The size for the generated media query.
 ///
 /// @example
-/// %%include media-after-height(sm) { background: yellow } // => @media screen and (min-height: sm) { background: yellow }
+///     @include media-after-height(sm) { background: yellow } // => @media screen and (min-height: sm) { background: yellow }
 
 @mixin media-after-height($size) {
     @media screen and (min-height: $size) {
@@ -173,8 +173,8 @@
 /// @param {Length} $size-to The upper limit size for the generated media query.
 ///
 /// @example
-/// %%include media-between-height(sm, md) { ... } // => @media screen and (min-height: sm) and (max-height: md) { ... }
-/// @todo: Robby - in the code we had min-height and min-height - I changed the second to max - is that correct?
+///     @include media-between-height(sm, md) { ... } // => @media screen and (min-height: sm) and (max-height: md) { ... }
+
 @mixin media-between-height($size-from, $size-to) {
     @media screen and (min-height: $size-from) and (max-height: $size-to) {
         @content;
@@ -183,7 +183,7 @@
 
 /// A convenience mixin that is equivalent to media-until($mobile-breakpoint).
 /// @example @include media-until-mobile()
-/// @todo: Robby - need help with test
+
 @mixin media-until-mobile() {
     @include media-until(get(mobile-breakpoint)) {
         @content;

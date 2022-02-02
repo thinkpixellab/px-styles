@@ -1295,7 +1295,7 @@ window.pxstyles = {
                     "name": "rems",
                     "docName": "rems()",
                     "type": "function",
-                    "description": "",
+                    "description": "Convert px to rem for a given base font size (the font size of the document root element)\n",
                     "example": [
                         {
                             "type": "scss",
@@ -1311,11 +1311,11 @@ window.pxstyles = {
                     "name": "px",
                     "docName": "px()",
                     "type": "function",
-                    "description": "",
+                    "description": "Convert rem to px for a given base font size (the font size of the document root element)\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "px(1.3, 10px) // => 13px/rem <-- is that right, Robby? (output from scratch)"
+                            "code": "px(1.3rem, 10px) // => 13px/rem"
                         }
                     ],
                     "access": "public",
@@ -2085,22 +2085,6 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.bem",
-                    "name": "-bem-name",
-                    "docName": "-bem-name()",
-                    "type": "function",
-                    "description": "\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "-bem-name($name: true, $modifier: 'test', $pseudo: '', $prefix: '')"
-                        }
-                    ],
-                    "access": "private",
-                    "path": "utils/bem.scss"
-                },
-                {
-                    "namespace": "utils",
-                    "group": "utils.bem",
                     "name": "get-block-name",
                     "docName": "get-block-name()",
                     "type": "function",
@@ -2108,7 +2092,11 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "get-block-name(`.block__element--mod`)"
+                            "code": "get-block-name('.block__element--mod') => block"
+                        },
+                        {
+                            "type": "scss",
+                            "code": "get-block-name(&) => [name of block as extracted from current path]"
                         }
                     ],
                     "parameter": [
@@ -2130,7 +2118,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "Robby",
-                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include element(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include element(element) { ... }\n        }\n    }\n}",
+                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include bem(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include bem(element) { ... }\n        }\n    }\n}",
                             "description": "Sarah is getting an error with this example"
                         }
                     ],
@@ -2204,6 +2192,16 @@ window.pxstyles = {
                             "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n\n"
                         }
                     ],
+                    "access": "public",
+                    "path": "utils/bem.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.bem",
+                    "name": "element",
+                    "docName": "element()",
+                    "type": "mixin",
+                    "description": "Wrapper for bem mixin with slightly more contextual naming\n",
                     "access": "public",
                     "path": "utils/bem.scss"
                 }
