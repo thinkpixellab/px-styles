@@ -1423,7 +1423,13 @@ window.pxstyles = {
                     "name": "sp",
                     "docName": "sp()",
                     "type": "function",
-                    "description": "",
+                    "description": "for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "sp(36) // => 28.8rem"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/spacing.scss"
                 }

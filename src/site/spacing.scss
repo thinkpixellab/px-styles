@@ -4,10 +4,8 @@
 
 @use '../utils' as *;
 // @use 'config.scss' as *;
-
-/// @todo Robby - I didn't get '36px' or '36px 36px' when I tested in scratch.
 /// for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'
-
+/// @example sp(36) // => 28.8rem
 @function sp($val: 1) {
     $spacer: get(spacer);
 

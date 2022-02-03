@@ -1270,7 +1270,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": ".item { @include disabled() {...} }  => .item:[aria-checked] {...}"
+                            "code": ".item { @include disabled() {...} }  =>\n.item:disabled, .item:disabled:hover, .item:disabled:active, .item:disabled[aria-checked] {...}"
                         }
                     ],
                     "access": "public",
