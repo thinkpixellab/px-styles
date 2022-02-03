@@ -2,6 +2,29 @@
 @use 'true' as *;
 
 @include test-module('modules.controls') {
+    // test needed: get-control-accent
+    @include test('mixin toggle-helper') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include toggle-helper(base);
+                }
+            }
+            // output
+            @include expect {
+                .class > input {
+                    position: absolute;
+                    appearance: none;
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    transform: scale(0);
+                }
+            }
+        }
+    }
+
     @include test('function control-focus-style') {
         @include assert-equal(
             control-focus-style('outline', red),
