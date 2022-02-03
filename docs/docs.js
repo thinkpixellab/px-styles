@@ -1201,13 +1201,7 @@ window.pxstyles = {
                     "name": "media-until-mobile",
                     "docName": "media-until-mobile()",
                     "type": "mixin",
-                    "description": "A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include media-until-mobile()"
-                        }
-                    ],
+                    "description": " A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n @example @include media-until-mobile() {color: red} // =>\n @media screen and (max-width: 768px) {\n  .class {\n    color: red;\n  }\n}\n\n",
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 },

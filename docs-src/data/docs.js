@@ -1293,7 +1293,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "rems(16px) // => 1.0666666667rem"
+                            "code": "rems(1.5px) // => 0.1rem;"
                         }
                     ],
                     "access": "public",

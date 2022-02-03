@@ -7,7 +7,7 @@
 @use '../utils' as *;
 
 /// Convert px to rem for a given base font size (the font size of the document root element)
-/// @example rems(16px) // => 1.0666666667rem
+/// @example rems(1.5px) // => 0.1rem;
 @function rems($px, $round: 0) {
     $basepx: get(font-size-base, $throw-not-found: true);
     $r: math.div($px, $basepx) * 1rem;
