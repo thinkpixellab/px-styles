@@ -1,7 +1,6 @@
 @use 'px' as *;
 @use 'true' as *;
 
-/// @todo test
 @include test-module('site.spacing') {
     @include test('sp') {
         @include assert-equal(sp(36), 28.8rem);
