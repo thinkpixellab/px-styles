@@ -6,7 +6,6 @@
 
 /// Adds a site-specific focus selector use the value defined by `focus:selector`
 ///
-/// @todo Robby: what goes in the curly braces during testing?
 /// @example
 /// .item { @include focus() {...} }  => .item:focus-visible {...}
 
