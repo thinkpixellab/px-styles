@@ -79,7 +79,7 @@ $-modifier-prefix: '--' !default;
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
-/// @example Robby - Sarah is getting an error with this example
+/// @example
 /// // An intentionally complex example:
 ///  @include block(block, modifier) {
 ///     @include bem(element, modifier) {
@@ -88,6 +88,8 @@ $-modifier-prefix: '--' !default;
 ///         }
 ///     }
 /// }
+/// @example @include block(my-component, red, before) { color: red } // =>
+/// .my-component--red:before {color: red;}
 
 @mixin block($name, $modifier: '', $pseudo: '') {
     @include -bem-base($name, $modifier, $pseudo, $-block-prefix) {
@@ -109,7 +111,7 @@ $-modifier-prefix: '--' !default;
 /// (e.g. hover or after)
 ///
 ///
-/// @todo Robby need explanation/guidance for testing
+///
 /// @example
 ///     .block { @include bem(element) { ... } }
 ///     // => .block__element { ... }
@@ -141,7 +143,7 @@ $-modifier-prefix: '--' !default;
         @content;
     }
 }
-
+/// @todo example - Robby my test is failing
 /// Wrapper for bem mixin with slightly more contextual naming
 @mixin element($name, $modifier: '', $pseudo: '', $block: null) {
     @include bem($name, $modifier, $pseudo, $block);

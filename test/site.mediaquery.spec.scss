@@ -127,20 +127,26 @@
         }
     }
 
-    // @include test('mixin media-until-mobile') {
-    //     @include assert {
-    //         // test
-    //         @include output {
-    //             .class {
-    //                 @include media-until-mobile()
-    //             }
-    //         }
-    //         // output
-    //         @include expect {
-
-    //         }
-    //     }
-    // }
+    @include test('mixin media-until-mobile') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include media-until-mobile() {
+                        color: red;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                @media screen and (max-width: 768px) {
+                    .class {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
 
     @include test('breakpoints-asc') {
         @include assert-equal(

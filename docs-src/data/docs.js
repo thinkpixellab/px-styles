@@ -1201,13 +1201,7 @@ window.pxstyles = {
                     "name": "media-until-mobile",
                     "docName": "media-until-mobile()",
                     "type": "mixin",
-                    "description": "A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include media-until-mobile()"
-                        }
-                    ],
+                    "description": " A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n @example @include media-until-mobile() {color: red} // =>\n @media screen and (max-width: 768px) {\n  .class {\n    color: red;\n  }\n}\n\n",
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 },
@@ -1315,7 +1309,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "px(1.3rem, 10px) // => 13px/rem"
+                            "code": "px(1.3rem, 10px) // => 13px"
                         }
                     ],
                     "access": "public",
@@ -2117,9 +2111,13 @@ window.pxstyles = {
                     "description": "Creates a block class selector using the bem approach to class naming. This is often unecessary\nsince elements can be nested under the block class using a normal declation.\n\n",
                     "example": [
                         {
-                            "type": "Robby",
-                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include bem(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include bem(element) { ... }\n        }\n    }\n}",
-                            "description": "Sarah is getting an error with this example"
+                            "type": "scss",
+                            "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include bem(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include bem(element) { ... }\n        }\n    }\n}"
+                        },
+                        {
+                            "type": "include",
+                            "code": ".my-component--red:before {color: red;}",
+                            "description": "block(my-component, red, before) { color: red } // =>"
                         }
                     ],
                     "parameter": [
@@ -2189,7 +2187,7 @@ window.pxstyles = {
                             "type": "string",
                             "name": "pseudo",
                             "default": "''",
-                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n\n"
+                            "description": "An optional pseudo class that should be appended to the selector\n(e.g. hover or after)\n\n\n"
                         }
                     ],
                     "access": "public",
@@ -2201,7 +2199,7 @@ window.pxstyles = {
                     "name": "element",
                     "docName": "element()",
                     "type": "mixin",
-                    "description": "Wrapper for bem mixin with slightly more contextual naming\n",
+                    "description": "",
                     "access": "public",
                     "path": "utils/bem.scss"
                 }

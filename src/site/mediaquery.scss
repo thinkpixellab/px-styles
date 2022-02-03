@@ -182,7 +182,13 @@
 }
 
 /// A convenience mixin that is equivalent to media-until($mobile-breakpoint).
-/// @example @include media-until-mobile()
+/// @example @include media-until-mobile() {color: red} // =>
+/// @media screen and (max-width: 768px) {
+///  .class {
+///    color: red;
+///  }
+///}
+///
 
 @mixin media-until-mobile() {
     @include media-until(get(mobile-breakpoint)) {
