@@ -39,4 +39,25 @@
             }
         }
     }
+    @include test('mixin disabled') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include disabled() {
+                        background: red;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                .class:disabled,
+                .class:disabled:hover,
+                .class:disabled:active,
+                .class:disabled[aria-checked] {
+                    background: red;
+                }
+            }
+        }
+    }
 }

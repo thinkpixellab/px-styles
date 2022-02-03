@@ -18,7 +18,7 @@
 /// Shortcut for checked state (and a reminder to use aria to manage this)
 ///
 /// @example
-/// .item { @include checked() {...} }  => .item:[aria-checked] {...}
+/// .item { @include aria-checked() {...} }  => .item:[aria-checked] {...}
 
 @mixin aria-checked() {
     &[aria-checked] {
@@ -29,7 +29,8 @@
 /// Shortcut for checked state (and a reminder to use aria to manage this)
 ///
 /// @example
-/// .item { @include checked() {...} }  => .item:[aria-checked] {...}
+/// .item { @include disabled() {...} }  =>
+/// .item:disabled, .item:disabled:hover, .item:disabled:active, .item:disabled[aria-checked] {...}
 
 @mixin disabled() {
     &:disabled,
