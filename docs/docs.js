@@ -252,18 +252,7 @@ window.pxstyles = {
         {
             "name": "modules.atoms",
             "description": "",
-            "variables": [
-                {
-                    "namespace": "modules",
-                    "group": "modules.atoms",
-                    "name": "-spacer-vals",
-                    "docName": "$-spacer-vals",
-                    "type": "variable",
-                    "description": "",
-                    "access": "private",
-                    "path": "modules/atoms.scss"
-                }
-            ],
+            "variables": [],
             "items": [
                 {
                     "namespace": "modules",
@@ -1701,15 +1690,15 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity); // => transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
+                            "code": "box-shadow: transition(transform opacity); // => transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
+                            "code": "box-shadow: transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
                         },
                         {
                             "type": "scss",
-                            "code": "@include transition(transform opacity, $ease: $ease-out-bounce A l); // => Robby, same here."
+                            "code": "box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => Robby, same here."
                         }
                     ],
                     "parameter": [
@@ -1813,13 +1802,37 @@ window.pxstyles = {
                     "name": "type-style",
                     "docName": "type-style()",
                     "type": "mixin",
-                    "description": "Generate type style based on a site base style (as defined in type-bases)\n",
+                    "description": "Generate a type style from a site base style (as defined in the config setting 'type-bases').\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "type-style()"
+                            "type": "type",
+                            "code": "",
+                            "description": "style()"
                         }
                     ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "base-name",
+                            "description": "A string that correlate to the name of a base in the config settings 'type-bases'"
+                        },
+                        {
+                            "type": "map",
+                            "name": "props",
+                            "default": "()",
+                            "description": "A map of css properties that will override the properties in the base"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/typography.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.typography",
+                    "name": "type-styles",
+                    "docName": "type-styles()",
+                    "type": "mixin",
+                    "description": "",
                     "access": "public",
                     "path": "site/typography.scss"
                 }

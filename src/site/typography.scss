@@ -48,14 +48,21 @@
     @error '[fs] Argument is unusable. Must be a string or a number.';
 }
 
-/// Generate type style based on a site base style (as defined in type-bases)
-/// @todo Robby, can we define these parameters? Help with examples
+/// Generate a type style from a site base style (as defined in the config setting 'type-bases').
 /// @example type-style()
+///
+/// @param {string} $base-name A string that correlate to the name of a base in the config settings 'type-bases'
+/// @param {map} $props [()] A map of css properties that will override the properties in the base
+
 @mixin type-style($base-name, $props: ()) {
     $base-props: get('type-bases:' + $base-name);
     $props: map-merge($base-props, $props);
     @include css-map($props);
 }
+
+/// @todo this is only used by reading module and should be refactored to use type-style
+/// above...thie ambiguous naming here isn't worth the shortcut in reading
+/// @todo no need to test
 
 @mixin type-styles($styles, $base-name) {
     @each $selector, $props in $styles {

@@ -317,8 +317,6 @@ $-spacer-variants: (
     ),
 );
 
-/// @todo: move to config? Example, testing (this is Robby's note)
-
 $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
 
 /// @example
@@ -330,8 +328,6 @@ $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
     $coolnames: true,
     $prefix: ''
 ) {
-    $vals: if-null($vals, get('atoms:spacers'));
-
     @each $base, $prop in $props {
         @each $variant, $variant-list in $variants {
             @each $val in $vals {

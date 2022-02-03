@@ -146,5 +146,7 @@ $-modifier-prefix: '--' !default;
 /// @todo example - Robby my test is failing
 /// Wrapper for bem mixin with slightly more contextual naming
 @mixin element($name, $modifier: '', $pseudo: '', $block: null) {
-    @include bem($name, $modifier, $pseudo, $block);
+    @include bem($name, $modifier, $pseudo, $block) {
+        @content;
+    }
 }

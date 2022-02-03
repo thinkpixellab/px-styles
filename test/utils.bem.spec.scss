@@ -58,18 +58,20 @@
         }
     }
     /// @todo Robby need help with this
-    // @include test('element mixin') {
-    //     @include assert {
-    //         // test
-    //         @include output {
-    //             @include element(my-component, red, before);
-    //         }
-    //         // expect output
-    //         @include expect {
-    //             .test-output__my-component--modifier:before {
-    //                 color: red;
-    //             }
-    //         }
-    //     }
-    // }
+    @include test('element mixin') {
+        @include assert {
+            // test
+            @include output {
+                @include element(my-component, modifier, before) {
+                    color: red;
+                }
+            }
+            // expect output
+            @include expect {
+                .test-output__my-component--modifier:before {
+                    color: red;
+                }
+            }
+        }
+    }
 }
