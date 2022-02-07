@@ -1694,11 +1694,11 @@ window.pxstyles = {
                         },
                         {
                             "type": "scss",
-                            "code": "box-shadow: transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
+                            "code": "box-shadow: transition(transform opacity, fast); // => transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
-                            "code": "box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => Robby, same here."
+                            "code": "box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         }
                     ],
                     "parameter": [

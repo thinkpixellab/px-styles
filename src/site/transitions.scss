@@ -28,7 +28,8 @@
     }
     @return unquote(list-join($transitions, ', '));
 }
-/// @todo Is this different as a mixin? Examples? (Are they above?)
+///
+/// @example @include transition(transform opacity, fast) // => transition: transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 @mixin transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
     transition: transition($proplist, $name, $dur, $ease, $delay);
 }
@@ -141,7 +142,28 @@
 // }
 
 // // slide and fade
-/// @todo Robby: example - I'm getting an error saying $lookup is an undefined variable
+/// @example @include vue-transition-slide-fade() // =>
+/// .class .slide-leave-active,
+/// .class .slide-enter-active {
+///   transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1);
+/// }
+/// .class .slide-enter {
+///   opacity: 0;
+///   transform: translateY(100px);
+/// }
+/// .class .slide-leave-to {
+///   opacity: 0;
+///   transform: translateY(-100px);
+/// }
+/// .class .slide-enter-active {
+///   position: relative;
+/// }
+/// .class .slide-leave-active {
+///   position: absolute;
+///   top: 0;
+///   left: 0;
+///   width: 100%;
+/// }
 @mixin vue-transition-slide-fade(
     $name: 'slide',
     $lookup: null,
