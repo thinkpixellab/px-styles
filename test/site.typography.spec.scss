@@ -5,4 +5,29 @@
     @include test('fs') {
         @include assert-equal(fs(base), 15px);
     }
+    @include test('mixin type-style') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include type-style(
+                        headings,
+                        (
+                            font-size: fs(7),
+                        )
+                    );
+                }
+            }
+            // output
+            @include expect {
+                .class {
+                    font-weight: 700;
+                    line-height: 1;
+                    margin-top: 0.75em;
+                    margin-bottom: 0.75em;
+                    font-size: 54px;
+                }
+            }
+        }
+    }
 }

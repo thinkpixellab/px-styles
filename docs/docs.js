@@ -289,7 +289,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": ""
+                            "code": "@include atoms-spacers(12px) // => lots of classes"
                         }
                     ],
                     "access": "public",
