@@ -1694,11 +1694,11 @@ window.pxstyles = {
                         },
                         {
                             "type": "scss",
-                            "code": "box-shadow: transition(transform opacity, 500ms); // => Robby, I'm getting an error message"
+                            "code": "box-shadow: transition(transform opacity, fast); // => transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         },
                         {
                             "type": "scss",
-                            "code": "box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => Robby, same here."
+                            "code": "box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
                         }
                     ],
                     "parameter": [
@@ -1802,27 +1802,7 @@ window.pxstyles = {
                     "name": "type-style",
                     "docName": "type-style()",
                     "type": "mixin",
-                    "description": "Generate a type style from a site base style (as defined in the config setting 'type-bases').\n",
-                    "example": [
-                        {
-                            "type": "type",
-                            "code": "",
-                            "description": "style()"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string",
-                            "name": "base-name",
-                            "description": "A string that correlate to the name of a base in the config settings 'type-bases'"
-                        },
-                        {
-                            "type": "map",
-                            "name": "props",
-                            "default": "()",
-                            "description": "A map of css properties that will override the properties in the base"
-                        }
-                    ],
+                    "description": " Generate a type style from a site base style (as defined in the config setting 'type-bases').\n @example type-style(headings, (font-size: fs(7) // =>\n.class {\n    font-weight: 700;\n    line-height: 1;\n    margin-top: 0.75em;\n    margin-bottom: 0.75em;\n    font-size: 54px;\n  }\n\n @param {string} $base-name A string that correlate to the name of a base in the config settings 'type-bases'\n @param {map} $props [()] A map of css properties that will override the properties in the base\n",
                     "access": "public",
                     "path": "site/typography.scss"
                 },
