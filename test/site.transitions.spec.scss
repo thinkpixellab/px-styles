@@ -1,8 +1,17 @@
 @use 'px' as *;
 @use 'true' as *;
 
-/// @todo test
+/// @todo test - Robby - getting an error
 @include test-module('site.transitions') {
+    // @include test('function transition') {
+    //     @include assert-equal(
+    //         transition(transform opacity),
+    //         (
+    //             transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms
+    //         )
+    //     );
+    // }
     @include test('mixin transition') {
         @include assert {
             // test
@@ -16,7 +25,7 @@
             }
         }
     }
-    /// @todo Robby: test not working/running?
+
     @include test('mixin vue-transition-fade') {
         @include assert {
             // test
@@ -39,6 +48,42 @@
                 .class .fade-enter,
                 .class .fade-leave-to {
                     opacity: 0;
+                }
+            }
+        }
+    }
+
+    @include test('mixin vue-transition-slide-fade') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include vue-transition-slide-fade();
+                }
+            }
+            // output
+            @include expect {
+                .class .slide-leave-active,
+                .class .slide-enter-active {
+                    transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1),
+                        opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                }
+                .class .slide-enter {
+                    opacity: 0;
+                    transform: translateY(100px);
+                }
+                .class .slide-leave-to {
+                    opacity: 0;
+                    transform: translateY(-100px);
+                }
+                .class .slide-enter-active {
+                    position: relative;
+                }
+                .class .slide-leave-active {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
                 }
             }
         }
