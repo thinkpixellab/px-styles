@@ -143,7 +143,12 @@ $-modifier-prefix: '--' !default;
         @content;
     }
 }
-/// @todo example - Robby my test is failing
+/// @example @include element(my-component, modifier, before) {
+/// color: red;
+/// } // =>
+/// .test-output__my-component--modifier:before {
+///   color: red;
+/// }
 /// Wrapper for bem mixin with slightly more contextual naming
 @mixin element($name, $modifier: '', $pseudo: '', $block: null) {
     @include bem($name, $modifier, $pseudo, $block) {

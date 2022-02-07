@@ -2212,6 +2212,13 @@ window.pxstyles = {
                     "docName": "element()",
                     "type": "mixin",
                     "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "color: red;\n} // =>\n.test-output__my-component--modifier:before {\n  color: red;\n}\nWrapper for bem mixin with slightly more contextual naming",
+                            "description": "element(my-component, modifier, before) {"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/bem.scss"
                 }

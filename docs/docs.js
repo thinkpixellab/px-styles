@@ -1735,7 +1735,13 @@ window.pxstyles = {
                     "name": "transition",
                     "docName": "transition()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include transition(transform opacity, fast) // => transition: transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/transitions.scss"
                 },
@@ -1763,6 +1769,13 @@ window.pxstyles = {
                     "docName": "vue-transition-slide-fade()",
                     "type": "mixin",
                     "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": ".class .slide-leave-active,\n.class .slide-enter-active {\n  transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n.class .slide-enter {\n  opacity: 0;\n  transform: translateY(100px);\n}\n.class .slide-leave-to {\n  opacity: 0;\n  transform: translateY(-100px);\n}\n.class .slide-enter-active {\n  position: relative;\n}\n.class .slide-leave-active {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n}",
+                            "description": "vue-transition-slide-fade() // =>"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/transitions.scss"
                 }
@@ -2198,7 +2211,7 @@ window.pxstyles = {
                     "name": "element",
                     "docName": "element()",
                     "type": "mixin",
-                    "description": "",
+                    "description": " @example @include element(my-component, modifier, before) {\n color: red;\n } // =>\n.test-output__my-component--modifier:before {\n   color: red;\n}\n Wrapper for bem mixin with slightly more contextual naming\n",
                     "access": "public",
                     "path": "utils/bem.scss"
                 }
