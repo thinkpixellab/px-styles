@@ -339,8 +339,24 @@ window.pxstyles = {
                     "description": "Extract an accent color from any of the properties in $accent-props, with a fallback value of\n'controls:accent' (note: last property in list wins)\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "get-control-accent()"
+                            "type": "get",
+                            "code": "",
+                            "description": "control-accent()"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "overrides"
+                        },
+                        {
+                            "type": "*",
+                            "name": "accent-props..."
+                        },
+                        {
+                            "type": "*",
+                            "name": "{$accent",
+                            "default": "get('controls:accent'"
                         }
                     ],
                     "access": "public",
@@ -2211,7 +2227,14 @@ window.pxstyles = {
                     "name": "element",
                     "docName": "element()",
                     "type": "mixin",
-                    "description": " @example @include element(my-component, modifier, before) {\n color: red;\n } // =>\n.test-output__my-component--modifier:before {\n   color: red;\n}\n Wrapper for bem mixin with slightly more contextual naming\n",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "include",
+                            "code": "color: red;\n} // =>\n.test-output__my-component--modifier:before {\n  color: red;\n}\nWrapper for bem mixin with slightly more contextual naming",
+                            "description": "element(my-component, modifier, before) {"
+                        }
+                    ],
                     "access": "public",
                     "path": "utils/bem.scss"
                 }

@@ -2,6 +2,15 @@
 @use 'true' as *;
 
 @include test-module('modules.controls') {
+    @include test('function control-focus-style') {
+        @include assert-equal(
+            control-focus-style('outline', red),
+            (
+                outline-offset: 0px,
+                outline: 1px dashed red,
+            )
+        );
+    }
     // test needed: get-control-accent
     @include test('mixin toggle-helper') {
         @include assert {
@@ -24,14 +33,45 @@
             }
         }
     }
-
-    @include test('function control-focus-style') {
+    @include test('function control-reset') {
         @include assert-equal(
-            control-focus-style('outline', red),
+            control-reset(),
             (
-                outline-offset: 0px,
-                outline: 1px dashed red,
+                appearance: none,
+                box-sizing: border-box,
+                position: relative,
+                outline: none,
+                border: none,
+                white-space: nowrap,
+                font-size: inherit,
+                font-family: sans-serif,
+                font-weight: 400,
             )
         );
+    }
+
+    @include test('mixin control-reset') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include control-reset();
+                }
+            }
+            // output
+            @include expect {
+                .class {
+                    appearance: none;
+                    box-sizing: border-box;
+                    position: relative;
+                    outline: none;
+                    border: none;
+                    white-space: nowrap;
+                    font-size: inherit;
+                    font-family: sans-serif;
+                    font-weight: 400;
+                }
+            }
+        }
     }
 }

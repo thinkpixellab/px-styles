@@ -49,8 +49,13 @@
 
 /// Extract an accent color from any of the properties in $accent-props, with a fallback value of
 /// 'controls:accent' (note: last property in list wins)
-/// @todo: testing, etc. Robby, can you explain what the $overrides are?
+/// @todo: testing, etc. Robby, can you define the variables?
 /// @example get-control-accent()
+///
+/// @param {*} $overrides
+/// @param {*} $accent-props...
+/// @param {*} {$accent [get('controls:accent']
+
 @function get-control-accent($overrides, $accent-props...) {
     $accent: get('controls:accent');
     @each $prop in $accent-props {
@@ -157,7 +162,18 @@
 /// Completely resets the appearance of controls with some opinionated defaults (see source or
 /// output for details).
 ///
-/// @example control-reset() // => outputs an in
+/// @example @include control-reset() // =>
+/// .class {
+///     appearance: none;
+///     box-sizing: border-box;
+///     position: relative;
+///     outline: none;
+///     border: none;
+///     white-space: nowrap;
+///     font-size: inherit;
+///     font-family: sans-serif;
+///     font-weight: 400;
+///   }
 
 @mixin control-reset() {
     @include css-map(control-reset());
@@ -318,7 +334,6 @@
 ///
 /// @param {map} $overrides [()]  A map containing css key/value pairs.
 ///
-/// @todo Robby how do we test the example below? the curly braces throw an error in scratch.
 /// @example
 ///     @include button-icon() => creates a button that can wrap an icon
 
