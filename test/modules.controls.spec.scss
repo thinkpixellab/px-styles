@@ -74,4 +74,193 @@
             }
         }
     }
+    @include test('mixin button') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include button();
+                }
+            }
+            // output
+            @include expect {
+                .class {
+                    appearance: none;
+                    box-sizing: border-box;
+                    position: relative;
+                    outline: none;
+                    border: none;
+                    white-space: nowrap;
+                    font-size: inherit;
+                    font-family: sans-serif;
+                    font-weight: 400;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-overflow: ellipsis;
+                    user-select: none;
+                    padding: 0 1em;
+                    border-radius: 3px;
+                    min-width: 6em;
+                    min-height: 2.25em;
+                    cursor: pointer;
+                    background-color: #0099fd;
+                    box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.2295),
+                        0 3.5px 4px 0px rgba(0, 0, 0, 0.03425), 0 1px 5px 1px rgba(0, 0, 0, 0.072);
+                    color: white;
+                    transition: background 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+                        color 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+                        box-shadow 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
+                }
+                .class:hover {
+                    background-color: #1aa3fd;
+                    box-shadow: 0 2.5px 4px -1.5px rgba(0, 0, 0, 0.258),
+                        0 5.5px 7.5px 0px rgba(0, 0, 0, 0.067),
+                        0 2px 10px 1.5px rgba(0, 0, 0, 0.093);
+                }
+                .class:active {
+                    background-color: #007aca;
+                    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 1px 0px 0px rgba(0, 0, 0, 0),
+                        0 0px 0px 0px rgba(0, 0, 0, 0.05);
+                }
+                .class:focus-visible {
+                    box-shadow: 0 0 0 3px rgba(0, 153, 253, 0.33);
+                }
+                .class:disabled,
+                .class:disabled:hover,
+                .class:disabled:active,
+                .class:disabled[aria-checked] {
+                    cursor: not-allowed;
+                    background-color: rgba(173, 179, 183, 0.5);
+                    color: #7a8389;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+    /// @todo Robby test failing
+    // @include test('function button') {
+    //     @include assert-equal(
+    //         button(
+    //             (
+    //                 background-color: green,
+    //             )
+    //         ),
+    //         (
+    //             appearance: none,
+    //             box-sizing: border-box,
+    //             position: relative,
+    //             outline: none,
+    //             border: none,
+    //             white-space: nowrap,
+    //             font-size: inherit,
+    //             font-family: sans-serif,
+    //             font-weight: 400,
+    //             display: inline-flex,
+    //             align-items: center,
+    //             justify-content: center,
+    //             text-overflow: ellipsis,
+    //             user-select: none,
+    //             padding: 0 1em,
+    //             border-radius: 3px,
+    //             min-width: 6em,
+    //             min-height: 2.25em,
+    //             cursor: pointer,
+    //             disabled: (
+    //                 'cursor': not-allowed,
+    //                 'background-color': rgba(173, 179, 183, 0.5),
+    //                 'color': #7a8389,
+    //                 'box-shadow': none,
+    //             ),
+    //             background-color: green,
+    //             box-shadow: (
+    //                 0 1px 2px -0.5px rgba(0, 0, 0, 0.2295),
+    //                 0 3.5px 4px 0px rgba(0, 0, 0, 0.03425),
+    //                 0 1px 5px 1px rgba(0, 0, 0, 0.072),
+    //             ),
+    //             color: white,
+    //             transition: background 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             color 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             box-shadow 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             hover: (
+    //                 'background-color': #1a8d1a,
+    //                 'box-shadow': (
+    //                     0 2.5px 4px -1.5px rgba(0, 0, 0, 0.258),
+    //                     0 5.5px 7.5px 0px rgba(0, 0, 0, 0.067),
+    //                     0 2px 10px 1.5px rgba(0, 0, 0, 0.093),
+    //                 ),
+    //             ),
+    //             active: (
+    //                 'background-color': #006600,
+    //                 'box-shadow': (
+    //                     0 0px 0px 0px rgba(0, 0, 0, 0.2),
+    //                     0 1px 0px 0px rgba(0, 0, 0, 0),
+    //                     0 0px 0px 0px rgba(0, 0, 0, 0.05),
+    //                 ),
+    //             ),
+    //             focus: (
+    //                 'box-shadow': 0 0 0 3px rgba(0, 128, 0, 0.33),
+    //             ),
+    //         )
+    //     );
+    // }
+
+    // @include test('function button-outline') {
+    //     @include assert-equal(
+    //         button-outline(
+    //             (
+    //                 border-color: blue,
+    //             )
+    //         ),
+    //         (
+    //             appearance: none,
+    //             box-sizing: border-box,
+    //             position: relative,
+    //             outline: none,
+    //             border: none,
+    //             white-space: nowrap,
+    //             font-size: inherit,
+    //             font-family: sans-serif,
+    //             font-weight: 400,
+    //             display: inline-flex,
+    //             align-items: center,
+    //             justify-content: center,
+    //             text-overflow: ellipsis,
+    //             user-select: none,
+    //             padding: 0 1em,
+    //             border-radius: 3px,
+    //             min-width: 6em,
+    //             min-height: 2.25em,
+    //             cursor: pointer,
+    //             disabled: (
+    //                 'cursor': not-allowed,
+    //                 'background': #ccd0d2,
+    //                 'color': #7a8389,
+    //                 'box-shadow': none,
+    //             ),
+    //             color: #0099fd,
+    //             border-color: blue,
+    //             border-width: 2px,
+    //             border-style: solid,
+    //             background: rgba(0, 153, 253, 0),
+    //             hover: (
+    //                 'color': #33adfd,
+    //                 'background': rgba(51, 173, 253, 0.05),
+    //                 'border-color': #33adfd,
+    //             ),
+    //             active: (
+    //                 'color': #008ae4,
+    //                 'background': rgba(0, 138, 228, 0.1),
+    //                 'border-color': #008ae4,
+    //             ),
+    //             transition: background 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             color 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             border 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             box-shadow 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms,
+    //             focus: (
+    //                 'box-shadow': 0 0 0 3px rgba(0, 153, 253, 0.33),
+    //             ),
+    //         )
+    //     );
+    // }
 }

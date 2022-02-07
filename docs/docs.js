@@ -395,8 +395,9 @@ window.pxstyles = {
                     "description": "Completely resets the appearance of controls with some opinionated defaults (see source or\noutput for details).\n\n",
                     "example": [
                         {
-                            "type": "scss",
-                            "code": "control-reset() // => outputs an in"
+                            "type": "include",
+                            "code": ".class {\n    appearance: none;\n    box-sizing: border-box;\n    position: relative;\n    outline: none;\n    border: none;\n    white-space: nowrap;\n    font-size: inherit;\n    font-family: sans-serif;\n    font-weight: 400;\n  }",
+                            "description": "control-reset() // =>"
                         }
                     ],
                     "access": "public",
@@ -425,6 +426,22 @@ window.pxstyles = {
                             "name": "overrides",
                             "default": "()",
                             "description": "A map containing css key / value pairs. Just about any css is valid\n(currently transitions can't be overriden) including supported state specific values (see\ndefaults in css-map). If background or background-color is set, it will be adapted for other\nstates unless also override for those states\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "button",
+                    "docName": "button()",
+                    "type": "function",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "button((background-color: green)) // => Robby, testing is failing"
                         }
                     ],
                     "access": "public",

@@ -434,6 +434,22 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
+                    "name": "button",
+                    "docName": "button()",
+                    "type": "function",
+                    "description": "",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "button((background-color: green)) // => Robby, testing is failing"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
                     "name": "button-outline",
                     "docName": "button-outline()",
                     "type": "mixin",
@@ -456,6 +472,16 @@ window.pxstyles = {
                             "description": "A map containing css key/value pairs. Just about any css is valid\n(currently transitions can't be overriden) including supported state specific values: hover,\nactive, disabled. The outline color is derived from the border color. The properties\nborder-color and color can be specified as shades (numbers relative to the border-color or\nprimary accent color).\n\n"
                         }
                     ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "button-outline",
+                    "docName": "button-outline()",
+                    "type": "function",
+                    "description": "",
                     "access": "public",
                     "path": "modules/controls.scss"
                 },
