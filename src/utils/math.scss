@@ -4,19 +4,13 @@
 ///built in math module
 @use 'sass:math';
 
-/// Calculate a number raised to the power of the provided exponent.
+/// Calculate a number raised to the power of the provided exponent. (Wrapper for math.pow)
 /// @param {*} $base The base number
 /// @param {*} $exp The exponent used to raise the base
 ///@example pow(2, 3)
 
 @function pow($base, $exp) {
-    $value: 1;
-    @if $exp > 0 {
-        @for $i from 1 through $exp {
-            $value: $value * $base;
-        }
-    }
-    @return $value;
+    @return math.pow($base, $exp);
 }
 
 /// Round a number using the specified number of decimals.
