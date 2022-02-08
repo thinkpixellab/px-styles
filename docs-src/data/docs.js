@@ -164,12 +164,22 @@ window.pxstyles = {
                         {
                             "name": "'shadows:levels'",
                             "value": "20",
-                            "description": "_shadows_ Number of distinct levels for both parameters ($depth, $color) of the\nstandardized shadow function / mixin.\n"
+                            "description": "_shadows_ Number of distinct levels for depth shadows.\n"
                         },
                         {
                             "name": "'shadows:color'",
                             "value": "black",
-                            "description": "_shadows_ Color or range for the standardized shadow.\n"
+                            "description": "_shadows_ Color or range used for default shadows.\n"
+                        },
+                        {
+                            "name": "'shadows:ratio'",
+                            "value": "0.4",
+                            "description": "_shadows_ A ratio between the blur and y offset for a default shadow (e.g. y: 2px / blur: 5px = 0.4)\n"
+                        },
+                        {
+                            "name": "'shadows:growth'",
+                            "value": "1.25",
+                            "description": "_shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)\n"
                         },
                         {
                             "name": "'shadows:umbra'",
@@ -1357,16 +1367,6 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.shadows",
-                    "name": "-shadow-from-ranges",
-                    "docName": "-shadow-from-ranges()",
-                    "type": "function",
-                    "description": "\n",
-                    "access": "private",
-                    "path": "site/shadows.scss"
-                },
-                {
-                    "namespace": "site",
-                    "group": "site.shadows",
                     "name": "depth-shadow",
                     "docName": "depth-shadow()",
                     "type": "function",
@@ -1400,7 +1400,7 @@ window.pxstyles = {
                     "name": "shadow",
                     "docName": "shadow()",
                     "type": "function",
-                    "description": "Returns a standardized box shadow\n",
+                    "description": "Returns a standardized box shadow\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -1885,7 +1885,7 @@ window.pxstyles = {
                     "name": "pow",
                     "docName": "pow()",
                     "type": "function",
-                    "description": " Calculate a number raised to the power of the provided exponent.\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n",
+                    "description": " Calculate a number raised to the power of the provided exponent. (Wrapper for math.pow)\n @param {*} $base The base number\n @param {*} $exp The exponent used to raise the base\n",
                     "example": [
                         {
                             "type": "scss",

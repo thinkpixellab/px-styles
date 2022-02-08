@@ -296,12 +296,17 @@
     // Shadows
     // ----------------------------------------------------------------------
 
-    /// _shadows_ Number of distinct levels for both parameters ($depth, $color) of the
-    /// standardized shadow function / mixin.
+    /// _shadows_ Number of distinct levels for depth shadows.
     @include default('shadows:levels', 20);
 
-    /// _shadows_ Color or range for the standardized shadow.
+    /// _shadows_ Color or range used for default shadows.
     @include default('shadows:color', black);
+
+    /// _shadows_ A ratio between the blur and y offset for a default shadow (e.g. y: 2px / blur: 5px = 0.4)
+    @include default('shadows:ratio', 0.4);
+
+    /// _shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)
+    @include default('shadows:growth', 1.25);
 
     // prettier-ignore
     $umbra: (

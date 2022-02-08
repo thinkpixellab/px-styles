@@ -5,22 +5,6 @@
 @use 'sass:math';
 @use '../utils' as *;
 
-///
-///
-@function -shadow-from-ranges($depth, $color) {
-    $color: clamp-number($color, 0, 1);
-
-    $x: 60 ($depth, get('shadows:range-x'));
-    $y: intp($depth, get('shadows:range-y'));
-    $b: 0.5 ($depth, get('shadows:range-blur'));
-    $s: intp($depth, get('shadows:range-spread'));
-    $color-range: get('shadows:range-color');
-
-    $c: mix(nth-or-val($color-range, 1), nth-or-val($color-range, 2), (1-$color) * 100%);
-
-    @return #{$x} #{$y} #{$b} #{$s} #{$c};
-}
-
 /// Creates the syntax for a multi-level shadow
 /// @param {*} $depth
 /// @param {*} $level
@@ -67,17 +51,20 @@
 }
 
 /// Returns a standardized box shadow
+///
 /// @example shadow(2) // => 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);
-@function shadow($depth, $level: 0, $color: black) {
-    @return depth-shadow($depth, $level, $color);
-    // $depth: math.div(if-null($depth, 2), get('shadows:levels'));
-    // $color: math.div(if-null($color, $depth), get('shadows:levels'));
-    // @return -shadow-from-ranges($depth, $color);
+
+@function shadow($depth, $alpha: 0.15) {
+    $blur: $depth;
+    $y: $depth * get('shadows:ratio');
+    $y: pow($y, get('shadows:growth'));
+    @return 0 #{$y}px #{$blur}px rgba(get('shadows:color'), $alpha);
 }
 
 /// Create a standard box-shadow
 ///
 /// @example shadow(2, black) // => box-shadow: 0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06);
+
 @mixin shadow($depth: 5, $color: null) {
     box-shadow: shadow($depth);
 }
@@ -86,6 +73,7 @@
 /// non-rectangular shadows on any content)
 ///
 /// @example shadow-effect(2, gray) // => filter: drop-shadow(0 1px 2px -0.5px rgba(0, 0, 0, 0.21), 0 3.5px 4px 0px rgba(0, 0, 0, 0.015), 0 1px 5px 1px rgba(0, 0, 0, 0.06));
+
 @mixin shadow-effect($depth: null, $color: null) {
     filter: drop-shadow(shadow($depth));
 }
