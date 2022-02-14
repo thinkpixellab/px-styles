@@ -228,9 +228,6 @@
                     font-weight: 400;
                     line-height: normal;
                     letter-spacing: normal;
-                    font-smooth: always;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
                     background-color: white;
                     color: #2e3b43;
                 }
@@ -302,7 +299,7 @@
                 .class pre,
                 .class code {
                     font-family: Menlo, Monaco, Consolas, monospace;
-                    font-size: 0.8666666667rem;
+                    font-size: 13px;
                 }
                 .class hr {
                     height: 0;
@@ -329,7 +326,7 @@
                 .class .container {
                     width: 100%;
                     max-width: 1200px;
-                    padding: 0 2.4rem;
+                    padding: 0 36px;
                     margin: 0 auto;
                     position: relative;
                 }

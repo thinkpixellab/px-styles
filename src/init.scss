@@ -55,7 +55,7 @@
     @include default('font-size-base', 15px);
 
     /// Global default value for spacing functions
-    @include default('spacer', rems(12px));
+    @include default('spacer', 12px);
 
     /// The total number of available shades in the shade and color functions (value of 20 produces a range of shades from -10, 10)
     @include default('shade-steps', 20);
@@ -103,7 +103,11 @@
     ///     Inter: (googleFont: true, weight: 500, style: normal),
     ///
     ///     // local font
-    ///     Circular: (src: '../assets/fonts/circular', weight: 500, style: normal)
+    ///     circular:
+    ///     (
+    ///         (src: '../assets/fonts/circular', weight: 500, style: normal),
+    ///         (src: '../assets/fonts/circular', weight: 500, style: normal)
+    ///     )
     /// ));
     /// ```
     @include default('fonts', ());
@@ -114,14 +118,14 @@
     /// _boilerplate_ Default / fallback font-weight for the site
     @include default('font-weight', 400);
 
-    /// _boilerplate_ Whether to enable font-smoothing
-    @include default('font-smoothing', true);
+    /// _boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)
+    @include default('font-smoothing', false);
 
     /// _boilerplate_ Default code / mono font family (used as the default font for pre and code elements)
     @include default('code-font-family', (Menlo, Monaco, Consolas, monospace));
 
     /// _boilerplate_ Default code / mono font size (used as the default font for pre and code elements)
-    @include default('code-font-size', rems(13px));
+    @include default('code-font-size', 13px);
 
     /// _boilerplate_ Default / fallback line-height for standard text
     @include default('line-height', normal);
@@ -478,9 +482,19 @@
         'focus',
         (
             selector: ':focus-visible',
+            style: 'shadow',
             shadow-color: accent($alpha: 0.33),
             shadow-width: 3px,
             outline-color: accent(),
+        )
+    );
+
+    // placeholder defaults
+    @include default(
+        'controls:placeholder',
+        (
+            color: currentColor,
+            opacity: 0.5,
         )
     );
 

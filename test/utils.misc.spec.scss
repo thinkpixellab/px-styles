@@ -147,7 +147,7 @@
         @include assert {
             // test
             @include output {
-                @include css-map(
+                @include css-map-dpr(
                     (
                         color: blue,
                         background-color: green,

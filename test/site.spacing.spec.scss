@@ -3,6 +3,6 @@
 
 @include test-module('site.spacing') {
     @include test('sp') {
-        @include assert-equal(sp(36), 28.8rem);
+        @include assert-equal(sp(3), 36px);
     }
 }

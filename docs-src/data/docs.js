@@ -28,7 +28,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'spacer'",
-                            "value": "rems(12px)",
+                            "value": "12px",
                             "description": "Global default value for spacing functions\n"
                         },
                         {
@@ -89,7 +89,7 @@ window.pxstyles = {
                         {
                             "name": "'fonts'",
                             "value": "()",
-                            "description": "_boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    Circular: (src: '../assets/fonts/circular', weight: 500, style: normal)\n));\n```\n"
+                            "description": "_boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    circular:\n    (\n        (src: '../assets/fonts/circular', weight: 500, style: normal),\n        (src: '../assets/fonts/circular', weight: 500, style: normal)\n    )\n));\n```\n"
                         },
                         {
                             "name": "'font-family'",
@@ -103,8 +103,8 @@ window.pxstyles = {
                         },
                         {
                             "name": "'font-smoothing'",
-                            "value": "true",
-                            "description": "_boilerplate_ Whether to enable font-smoothing\n"
+                            "value": "false",
+                            "description": "_boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)\n"
                         },
                         {
                             "name": "'code-font-family'",
@@ -113,7 +113,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'code-font-size'",
-                            "value": "rems(13px)",
+                            "value": "13px",
                             "description": "_boilerplate_ Default code / mono font size (used as the default font for pre and code elements)\n"
                         },
                         {
@@ -558,16 +558,6 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
-                    "name": "textbox",
-                    "docName": "textbox()",
-                    "type": "mixin",
-                    "description": "\n",
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
                     "name": "scrollbar",
                     "docName": "scrollbar()",
                     "type": "mixin",
@@ -852,7 +842,7 @@ window.pxstyles = {
                         {
                             "type": "string or list",
                             "name": "paths",
-                            "description": "The path (string) list of paths (list) where the setting should\nbe found. Each path is one or more keys separated by colons (e.g. 'colors:accent' would find the\nvalue accent in the colors map). If a list of strings is provided, they will searched in order\nand the first non-null value will be returned.\n"
+                            "description": "The path (string) or list of paths (list) where the setting should\nbe found. Each path is one or more keys separated by colons (e.g. 'colors:accent' would find the\nvalue accent in the colors map). If a list of strings is provided, they will searched in order\nand the first non-null value will be returned.\n"
                         },
                         {
                             "type": "*",
@@ -1879,6 +1869,29 @@ window.pxstyles = {
             "description": "",
             "variables": [],
             "items": [
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "grid-art",
+                    "docName": "grid-art()",
+                    "type": "mixin",
+                    "description": "Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to visualize.\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "// prettier-ignore\n@include grid-art(\n    '250px   | auto    |      ',\n    'header  | header  | auto ',\n    'sidebar | main    | 1fr  ',\n    'footer  | footer  | auto  '\n);"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "grid",
+                            "description": "The grid definition (see exampl)\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/gridart.scss"
+                },
                 {
                     "namespace": "other",
                     "group": "undefined",
@@ -3312,15 +3325,15 @@ window.pxstyles = {
                 {
                     "namespace": "utils",
                     "group": "utils.misc",
-                    "name": "css-map",
-                    "docName": "css-map()",
+                    "name": "css-map-dpr",
+                    "docName": "css-map-dpr()",
                     "type": "mixin",
                     "description": "Generates css from a map of properties and values. Properties can be remapped with aliases or\nignored with a start pattern.\n\n",
                     "example": [
                         {
                             "type": "include",
                             "code": "color: blue;\nbackground-color: green;\nfont-family: sans-serif;",
-                            "description": "css-map(( color: blue, background-color: green, font-family: sans-serif)); // =>"
+                            "description": "css-map-dpr(( color: blue, background-color: green, font-family: sans-serif)); // =>"
                         }
                     ],
                     "parameter": [
@@ -3496,6 +3509,29 @@ window.pxstyles = {
                             "type": "String",
                             "name": "start",
                             "description": "A string that $str must start with\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/strings.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.strings",
+                    "name": "trim",
+                    "docName": "trim()",
+                    "type": "function",
+                    "description": "Trims whitespace from the beinning and end of a string\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "trim('  abc ') => 'abc'"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "String",
+                            "name": "string",
+                            "description": "the string to trim"
                         }
                     ],
                     "access": "public",
