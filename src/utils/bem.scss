@@ -93,6 +93,7 @@ $-modifier-prefix: '--' !default;
 
 @mixin block($name, $modifier: '', $pseudo: '') {
     @include -bem-base($name, $modifier, $pseudo, $-block-prefix) {
+        $bem-block: $name !global;
         @content;
     }
 }
@@ -133,13 +134,8 @@ $-modifier-prefix: '--' !default;
 ///     // => .block__element1, block__element2 { ... }
 
 @mixin bem($name, $modifier: '', $pseudo: '', $block: null) {
-    $bem-block: if-null($block, get-block-name(&)) !global;
-    @include -bem-base(
-        $name,
-        $modifier,
-        $pseudo,
-        #{$-block-prefix + $bem-block + $-element-prefix}
-    ) {
+    $block: if-null($block, get-block-name(&));
+    @include -bem-base($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix}) {
         @content;
     }
 }
