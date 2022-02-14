@@ -1,0 +1,87 @@
+@use '../utils' as *;
+
+// example
+
+// @include grid-art(
+//     '250px   | auto    |      ',
+//     'header  | header  | auto ',
+//     'sidebar | main    | 1fr  ',
+//     'footer  | footer  | auto  '
+// );
+
+/// Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to visualize.
+/// @param {*} $grid - The grid definition (see exampl)
+///
+/// @example
+///     // prettier-ignore
+///     @include grid-art(
+///         '250px   | auto    |      ',
+///         'header  | header  | auto ',
+///         'sidebar | main    | 1fr  ',
+///         'footer  | footer  | auto  '
+///     );
+
+@mixin grid-art($grid) {
+    display: grid;
+    grid-template-columns: -grid-art-cols($grid);
+    grid-template-rows: -grid-art-rows($grid);
+    grid-template-areas: grid-art-areas($grid);
+}
+
+@function -grid-art-prep($grid) {
+    // remove white space and separators
+    $strings: ();
+
+    @each $str in $grid {
+        $list: str-split($str, '|');
+        $list: list-map($list, get-function(trim));
+
+        $strings: append($strings, trim(list-join($list, ' ')));
+    }
+
+    @return $strings;
+}
+
+@function -grid-art-cols($grid) {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // cols is just the first row in the grid
+    @return unquote(nth($grid, 1));
+}
+
+@function -grid-art-rows($grid) {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // skip the first row
+    $grid: list-remove($grid, 1);
+
+    $row-def: ();
+
+    // extract the last item in every row and add it to row defs
+    @each $str in $grid {
+        $row: str-split($str, ' ');
+        $row-def: append($row-def, nth($row, length($row)));
+    }
+
+    @return unquote(list-join($row-def, ' '));
+}
+
+@function grid-art-areas($grid) {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // skip the first row (col defs)
+    $grid: list-remove($grid, 1);
+    $areas: ();
+
+    @each $str in $grid {
+        // remove the last item
+        $row: str-split($str, ' ');
+        $row: list-remove($row, length($row));
+        $areas: append($areas, list-join($row, ' '));
+    }
+
+    @return $areas;
+}

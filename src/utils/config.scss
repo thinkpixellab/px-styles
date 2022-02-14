@@ -16,7 +16,7 @@ $config: () !default;
 
 /// Retrieve a configuration setting.
 ///
-/// @param {string or list} $paths The path (string) list of paths (list) where the setting should
+/// @param {string or list} $paths The path (string) or list of paths (list) where the setting should
 /// be found. Each path is one or more keys separated by colons (e.g. 'colors:accent' would find the
 /// value accent in the colors map). If a list of strings is provided, they will searched in order
 /// and the first non-null value will be returned.

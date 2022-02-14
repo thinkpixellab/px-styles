@@ -125,3 +125,28 @@
     }
     @return true;
 }
+
+// Trims the start/left of the string:
+@function -trimStart($str) {
+    @if (str-slice($str, 1, 1) == ' ') {
+        @return -trimStart(str-slice($str, 2));
+    } @else {
+        @return $str;
+    }
+}
+
+// Trims the end/right of the string:
+@function -trimEnd($str) {
+    @if (str-slice($str, str-length($str), -1) == ' ') {
+        @return -trimEnd(str-slice($str, 1, -2));
+    } @else {
+        @return $str;
+    }
+}
+
+/// Trims whitespace from the beinning and end of a string
+/// @param {String} $string - the string to trim
+/// @example trim('  abc ') => 'abc'
+@function trim($str) {
+    @return -trimStart(-trimEnd($str));
+}
