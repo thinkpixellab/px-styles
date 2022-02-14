@@ -64,7 +64,7 @@
 @mixin type-style($base-name, $props: ()) {
     $base-props: get('type-bases:' + $base-name);
     $props: map-merge($base-props, $props);
-    @include css-map($props);
+    @include css-map-dpr($props);
 }
 
 /// @todo this is only used by reading module and should be refactored to use type-style

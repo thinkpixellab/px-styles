@@ -14,7 +14,7 @@
     $config: flat-merge(get('reading'), $overrides);
 
     // base styles
-    @include css-map(flat-get($config, 'base'));
+    @include css-map-dpr(flat-get($config, 'base'));
 
     // should we reevaluate this?
     a,
@@ -94,7 +94,7 @@
     @if ($links) {
         a,
         #{$link-selector} {
-            @include css-map($links);
+            @include css-map-dpr($links);
         }
     }
 }

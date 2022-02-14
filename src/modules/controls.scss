@@ -35,7 +35,9 @@
 ///
 /// @example control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed red)
 
-@function control-focus-style($style, $color: null) {
+@function control-focus-style($style: null, $color: null) {
+    $style: if-null($style, get('focus:style'));
+
     @if ($style == 'shadow') {
         $color: if-null($color, get('focus:shadow-color'));
         $width: get('focus:shadow-width');
@@ -45,6 +47,10 @@
         $color: if-null($color, get('focus:outline-color'));
         @return (outline-offset: 0px, outline: 1px dashed $color);
     }
+}
+
+@function control-placeholder-style($overrides) {
+    @return flat-merge(get('controls:placeholder'), $overrides);
 }
 
 /// Extract an accent color from any of the properties in $accent-props, with a fallback value of
@@ -132,7 +138,7 @@
 }
 
 @mixin -focus-style($style, $color: null) {
-    @include css-map(-focus-style($style, $color));
+    @include css-map-dpr(-focus-style($style, $color));
 }
 
 @mixin -focus($style, $color: null) {
@@ -176,7 +182,7 @@
 ///   }
 
 @mixin control-reset() {
-    @include css-map(control-reset());
+    @include css-map-dpr(control-reset());
 }
 
 // ----------------------------------------------------------------------------
@@ -233,26 +239,28 @@
     // get button defaults from global config
     $config: get('controls:button', null, false);
 
-    // standard button styleing
+    // standard button styling
     $button: (
         background-color: $accent,
-        box-shadow: shadow(2, 0.5),
+        box-shadow: shadow(2, 0.15),
         color: contrast-color($accent),
         transition: transition(background color box-shadow, get('controls:transition', 'fast')),
         hover: (
             background-color: shade($accent, 1),
-            box-shadow: shadow(4, 1),
+            box-shadow: shadow(4, 0.25),
+            color: contrast-color(shade($accent, 1)),
         ),
         active: (
             background-color: shade($accent, -2),
             box-shadow: shadow(0),
+            color: contrast-color(shade($accent, -2)),
         ),
         disabled: (
             background-color: rgba(gray(2), 0.5),
             color: gray(-2),
             box-shadow: none,
         ),
-        focus: control-focus-style('shadow', rgba($accent, 0.33)),
+        focus: control-focus-style(),
     );
 
     // merge and return all the css
@@ -281,7 +289,7 @@
 ///     @include button-outline({border-color: blue}); // => creates a blue outline button
 
 @mixin button-outline($overrides: ()) {
-    @include css-map(button-outline($overrides));
+    @include css-map-dpr(button-outline($overrides));
 }
 /// @todo SARAH - example and testing
 @function button-outline($overrides) {
@@ -297,7 +305,7 @@
     // standard button styleing
     $button: (
         color: $accent,
-        border-color: currentColor,
+        border-color: $accent,
         border-width: 2px,
         border-style: solid,
         background: rgba($accent, 0),
@@ -318,7 +326,7 @@
         ),
         transition:
             transition(background color border box-shadow, get('controls:transition', 'fast')),
-        focus: control-focus-style('shadow', rgba($accent, 0.33)),
+        focus: control-focus-style(),
     );
 
     // merge and return all the css
@@ -338,7 +346,7 @@
 ///     @include button-icon() => creates a button that can wrap an icon
 
 @mixin button-icon($overrides: ()) {
-    @include css-map(button-icon($overrides));
+    @include css-map-dpr(button-icon($overrides));
 }
 
 @function button-icon($overrides: ()) {
@@ -386,7 +394,7 @@
 
 @mixin button-dropdown($overrides: (), $items-overrides: (), $arrow-svg: null) {
     // output the css
-    @include css-map(dropdown-button($overrides, $arrow-svg));
+    @include css-map-dpr(dropdown-button($overrides, $arrow-svg));
 
     // restore the default background on child options
     $items: (
@@ -394,7 +402,7 @@
         color: clr(page-fg),
     );
     > option {
-        @include css-map(flat-merge($items, $items-overrides));
+        @include css-map-dpr(flat-merge($items, $items-overrides));
     }
 }
 
@@ -403,7 +411,7 @@
     $arrow-svg: if-null-get($arrow-svg, 'svg:dropdown', true);
 
     // get button-dropdown defaults from global config
-    $config: get('controls:button-dropdown', (), false);
+    $config: get('controls:dropdown', (), false);
 
     // get the button css as a base
     $button: button(flat-merge($config, $overrides));
@@ -441,40 +449,35 @@
         min-height: get('controls:min-height'),
         font-weight: get('controls:font-weight'),
         font-family: get('controls:font-family'),
-        border: none,
-        background-color: rgba(gray(6), 0.33),
+        border: 1px solid gray(6),
+        background-color: clr('page-bg'),
         color: clr('page-fg'),
         padding: 0 0.5em,
         disabled: (
             cursor: not-allowed,
-        )
+        ),
+        focus: control-focus-style()
     );
 }
-///
-/// @todo Robby: examples, etc.
+
 @mixin textbox($overrides: ()) {
     // textbox base css
     $textbox: -textbox-base();
 
     // config
-    $config: get('controls:textbox', null, false);
+    $config: get('controls:textbox', (), false);
 
     // merge all the css
     $css: flat-merge(control-reset(), $textbox, $config, $overrides);
 
-    // // add placeholder styles
-    // $placeholder: flat-get($css, '-px-placeholder');
-    // @if ($placeholder) {
-    //     @include placeholder {
-    //         color: $placeholder;
-    //     }
-    // }
-
     // output the css
-    @include css-map($css, $map-states: (hover active disabled));
+    @include css-map($css);
 
-    // add focus selector
-    @include -focus('shadow');
+    // add a placeholder
+    $placeholder: control-placeholder-style(flat-get($css, '--placeholder'));
+    @include placeholder {
+        @include css-map($placeholder);
+    }
 }
 
 // ----------------------------------------------------------------------------
@@ -561,7 +564,7 @@
         visibility: hidden;
         opacity: 0;
 
-        @include css-map($tooltip);
+        @include css-map-dpr($tooltip);
 
         @include transition(visibility opacity transform, $dur: 200ms, $delay: $hide-delay);
     }
@@ -657,7 +660,7 @@
     $css: toggle-switch($overrides);
 
     // default (remove map states, we'll handle them after)
-    @include css-map2(
+    @include css-map(
         $css,
         $aliases: (
             '--track': $track-selector,

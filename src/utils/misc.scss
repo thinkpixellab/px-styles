@@ -198,12 +198,12 @@
 ///
 /// @todo need a better description of all of these weird parameters and why they exist (or else better api)
 ///
-/// @example @include css-map(( color: blue, background-color: green, font-family: sans-serif)); // =>
+/// @example @include css-map-dpr(( color: blue, background-color: green, font-family: sans-serif)); // =>
 /// color: blue;
 /// background-color: green;
 /// font-family: sans-serif;
 
-@mixin css-map(
+@mixin css-map-dpr(
     $map,
     $aliases: (),
     $map-states: (hover active focus disabled readonly),
@@ -243,16 +243,16 @@
             @if (map-has-key($remap, $state)) {
                 $state-css: map-get($remap, $state);
                 &:#{$state} {
-                    @include css-map($state-css, $aliases, $ignore-start-pattern);
+                    @include css-map-dpr($state-css, $aliases, $ignore-start-pattern);
                 }
             }
         }
     }
 }
 
-// newer, better version fo css-map (just need to convert now)
+// newer, better version of css-map (just need to convert now)
 
-@mixin css-map2($map, $aliases: (), $ignore: '--', $auto-alias-common-states: true) {
+@mixin css-map($map, $aliases: (), $ignore: '--', $auto-alias-common-states: true) {
     @if ($auto-alias-common-states) {
         $common-states: (
             hover: '&:hover',
@@ -292,7 +292,7 @@
             $state-map: map-get($remap, $key);
             $state-key: unquote($key);
             #{$state-key} {
-                @include css-map2($state-map, $aliases, $ignore);
+                @include css-map($state-map, $aliases, $ignore);
             }
         }
     }
@@ -302,7 +302,7 @@
     //         @if (map-has-key($remap, $state)) {
     //             $state-css: map-get($remap, $state);
     //             #{$state} {
-    //                 @include css-map($state-css, $aliases, $ignore-start-pattern);
+    //                 @include css-map-dpr($state-css, $aliases, $ignore-start-pattern);
     //             }
     //         }
     //     }

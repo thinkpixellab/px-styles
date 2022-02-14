@@ -11,7 +11,7 @@
     @if (get('fonts')) {
         // local fonts
         @each $font-name, $variants in get('fonts') {
-            $variants-list: if(is-list($variants), $variants, ($variants));
+            $variants-list: if(is-map($variants), ($variants, ()), $variants);
             @each $options in $variants-list {
                 @if (map-has-key($options, src)) {
                     $src: map-get($options, src);
@@ -25,7 +25,7 @@
 
         // google fonts
         @each $font-name, $variants in get('fonts') {
-            $variants-list: if(is-list($variants), $variants, ($variants));
+            $variants-list: if(is-map($variants), ($variants, ()), $variants);
             @each $options in $variants-list {
                 @if (map-has-key($options, googleFont) and map-get($options, googleFont)) {
                     $weight: map-get-default($options, 'weight', '400');
@@ -94,7 +94,7 @@
     // link styles
     @if (get('links:--selector')) {
         #{get('links:--selector')} {
-            @include css-map(get('links'));
+            @include css-map-dpr(get('links'));
         }
     }
 
