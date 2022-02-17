@@ -456,7 +456,8 @@
         disabled: (
             cursor: not-allowed,
         ),
-        focus: control-focus-style()
+        focus: control-focus-style(),
+        white-space: null
     );
 }
 
@@ -468,16 +469,7 @@
     $config: get('controls:textbox', (), false);
 
     // merge all the css
-    $css: flat-merge(
-        control-reset(
-            (
-                white-space: null,
-            )
-        ),
-        $textbox,
-        $config,
-        $overrides
-    );
+    $css: flat-merge(control-reset(), $textbox, $config, $overrides);
 
     // output the css
     @include css-map($css);
