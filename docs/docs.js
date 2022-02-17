@@ -103,8 +103,8 @@ window.pxstyles = {
                         },
                         {
                             "name": "'font-smoothing'",
-                            "value": "true",
-                            "description": "_boilerplate_ Whether to enable font-smoothing\n"
+                            "value": "false",
+                            "description": "_boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)\n"
                         },
                         {
                             "name": "'code-font-family'",
@@ -552,16 +552,6 @@ window.pxstyles = {
                             "description": "An svg string that will be used for the icon (note that\nwidth/height must be specified instead of viewbox)\n"
                         }
                     ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "textbox",
-                    "docName": "textbox()",
-                    "type": "mixin",
-                    "description": "\n",
                     "access": "public",
                     "path": "modules/controls.scss"
                 },
