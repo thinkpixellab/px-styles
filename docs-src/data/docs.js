@@ -3185,6 +3185,22 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "utils/layout.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.layout",
+                    "name": "flex-pseudo-center",
+                    "docName": "flex-pseudo-center()",
+                    "type": "mixin",
+                    "description": "Adds before and after pseudo elements to a flex container to allow centering content to\nnon-perfect values for more natural looking centered layouts\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include flex-pseudo-center(33%);"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/layout.scss"
                 }
             ]
         },

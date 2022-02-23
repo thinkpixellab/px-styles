@@ -1318,7 +1318,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size;"
+                            "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vw, 36px)"
                         }
                     ],
                     "access": "public",
