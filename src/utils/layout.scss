@@ -148,6 +148,7 @@
     left: $l;
     top: $t;
 }
+
 /// @example @include right-top($r: 0, $t: 0) // =>
 /// position: absolute;
 /// right: 0;
@@ -157,6 +158,7 @@
     right: $r;
     top: $t;
 }
+
 /// @example @include left-bottom($l: 0, $b: 0) // =>
 /// position: absolute;
 /// left: 0;
@@ -166,6 +168,7 @@
     left: $l;
     bottom: $b;
 }
+
 /// @example @include right-bottom($r: 0, $b: 0) // =>
 /// position: absolute;
 /// left: 0;
@@ -175,6 +178,7 @@
     right: $r;
     bottom: $b;
 }
+
 /// @example @include abs-fill() // =>
 /// position: absolute;
 /// top: 0;
@@ -188,6 +192,7 @@
     width: 100%;
     height: 100%;
 }
+
 /// @example @include center($left: 50%, $top: 50%, $position: absolute)
 /// position: absolute;
 /// left: 50%;
@@ -199,6 +204,7 @@
     top: $top;
     transform: translate(-$left, -$top);
 }
+
 /// @example @include center-x($left: 50%, $position: absolute) // =>
 /// position: absolute;
 /// left: 50%;
@@ -208,6 +214,7 @@
     left: $left;
     transform: translateX(-$left);
 }
+
 /// @example @include center-y($top: 50%, $position: absolute) // =>
 /// position: absolute;
 /// top: 50%;
@@ -216,4 +223,22 @@
     position: $position;
     top: $top;
     transform: translateY(-$top);
+}
+
+/// Adds before and after pseudo elements to a flex container to allow centering content to
+/// non-perfect values for more natural looking centered layouts
+///
+/// @example @include flex-pseudo-center(33%);
+
+@mixin flex-pseudo-center($center: 40%) {
+    &:before {
+        content: '';
+        display: block;
+        flex: math.div($center, 100%);
+    }
+    &:after {
+        content: '';
+        display: block;
+        flex: math.div(100% - $center, 100%);
+    }
 }

@@ -35,7 +35,6 @@
     @each $str in $grid {
         $list: str-split($str, '|');
         $list: list-map($list, get-function(trim));
-
         $strings: append($strings, trim(list-join($list, ' ')));
     }
 

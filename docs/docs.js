@@ -1307,6 +1307,22 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "scale-vw",
+                    "docName": "scale-vw()",
+                    "type": "function",
+                    "description": "Creates a css clamp value that scales in vw units from $min to $max. The vw value is calculated\nsuch that it will have the $max value when the screen is $at-width wide.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size;"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
                 }
             ]
         },
