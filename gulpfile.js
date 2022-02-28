@@ -47,6 +47,9 @@ exports.copyDocFiles = copyDocFiles;
 exports.scratch = scratch;
 exports.docs = gulp.series(sassDoc, docStyles, copyDocFiles);
 
+// run this before publishing
+exports.prep = gulp.series(sassDoc, docStyles, copyDocFiles, verToSass);
+
 exports.default = function () {
     let docWatch = [
         './docs-src/src/styles.scss',

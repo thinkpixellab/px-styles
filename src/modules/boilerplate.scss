@@ -7,7 +7,7 @@
 @use '../site' as *;
 @use 'sanitize' as *;
 
-@mixin boilerplate() {
+@mixin boilerplate($env: vue) {
     @if (get('fonts')) {
         // local fonts
         @each $font-name, $variants in get('fonts') {
@@ -219,5 +219,10 @@
         #{$selector} {
             @include type-style($base-name, $props);
         }
+    }
+
+    // vue-specific helpers
+    @if ($env == 'vue') {
+        @include vue-transition-fade('fade');
     }
 }
