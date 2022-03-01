@@ -1,5 +1,5 @@
 {
-    "name": "@thinkpixellab/px-styles",
+    "name": "@thinkpixellab-public/px-styles",
     "version": "2.1.2",
     "description": "Shared scss library",
     "main": "index.scss",
@@ -24,11 +24,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/thinkpixellab/pxstyles.git"
+        "url": "git+https://github.com/thinkpixellab/px-styles.git"
     },
     "author": "Pixel Lab",
     "bugs": {
-        "url": "https://github.com/thinkpixellab/pxstyles/issues"
+        "url": "https://github.com/thinkpixellab/px-styles/issues"
     },
-    "homepage": "https://github.com/thinkpixellab/pxstyles#readme"
+    "homepage": "https://github.com/thinkpixellab/px-styles#readme"
 }

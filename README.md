@@ -6,9 +6,9 @@ approach to styling that encourages reuse and best practices while maintaing fle
 
 ## Useful Links
 
--   Repository: [https://github.com/thinkpixellab/pxstyles](https://github.com/thinkpixellab/pxstyles)
--   API Documentation: [https://thinkpixellab.github.io/pxstyles](https://thinkpixellab.github.io/pxstyles)
--   NPM Package: [https://www.npmjs.com/package/@thinkpixellab/pxstyles](https://www.npmjs.com/package/@thinkpixellab/pxstyles)
+-   Repository: [https://github.com/thinkpixellab/px-styles](https://github.com/thinkpixellab/px-styles)
+-   API Documentation: [https://thinkpixellab.github.io/px-styles](https://thinkpixellab.github.io/px-styles)
+-   NPM Package: [https://www.npmjs.com/package/@thinkpixellab/px-styles](https://www.npmjs.com/package/@thinkpixellab/px-styles)
 
 ## Install
 
@@ -17,7 +17,7 @@ approach to styling that encourages reuse and best practices while maintaing fle
 First, add the package to the project using npm.
 
 ```
-npm install @thinkpixellab/pxstyles --save
+npm install @thinkpixellab/px-styles --save
 ```
 
 ##### Create a Shared Loader / Configuration File
@@ -32,10 +32,10 @@ then @use that file knowing px-styles has been properly configured. Here's a sam
 */
 
 // forward the library (this has to come first per scss)
-@forward '~@thinkpixellab/pxstyles';
+@forward '~@thinkpixellab/px-styles';
 
 // import the library (so we can configure it)
-@use '~@thinkpixellab/pxstyles' as px;
+@use '~@thinkpixellab/px-styles' as px;
 
 // site config
 
@@ -88,8 +88,8 @@ global css. Typically these would be in a separate file that only gets loaded on
 All of the configuration settings for px-styles exist within a single map. Because of that, two distinct "instances" of px-styles can be loaded within the same context using the following pattern:
 
 ```scss
-@use '~@thinkpixellab/pxstyles' as px-one;
-@use '~@thinkpixellab/pxstyles' as px-two;
+@use '~@thinkpixellab/px-styles' as px-one;
+@use '~@thinkpixellab/px-styles' as px-two;
 
 // give each version a distinct map
 px-one.$config: ();
@@ -207,7 +207,7 @@ To kickoff a docs build just run `gulp docs`
 
 The project is setup so that you can play with the library from a file in the root called `scratch.scss`. Run `gulp scratch` to build this file once you've created it. After building, the output will be available as `scratch.css` (note the prefix of 'css' instead of 'scss`). These files have also been added to .gitignore so you should be able to play with them freely.
 
-Here is a sample scratch file that will load pxstyles from local source:
+Here is a sample scratch file that will load px-styles from local source:
 
 ```scss
 // load px
@@ -227,7 +227,7 @@ Here is a sample scratch file that will load pxstyles from local source:
 #### Possible Enhancements (not ordered)
 
 -   Better version management. It would be great to inlude a mixin like ensure-version($version)
-    that would make sure that you're using a compatible version of pxstyles. Maybe package
+    that would make sure that you're using a compatible version of px-styles. Maybe package
     versioning is enough but it seems like we could do a little more to prevent breaks.
 -   Are we actually done with old school 12x column based grids? Should we add that back?
 -   Make easing variables available via function or else cleanup the docs to filter them somehow
