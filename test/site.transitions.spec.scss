@@ -36,7 +36,8 @@
             }
             // output
             @include expect {
-                .class .fade-enter-active .fade-leave-active {
+                .class .fade-enter-active,
+                .class .fade-leave-active {
                     transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
                 }
                 .class .fade-enter-active {

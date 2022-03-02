@@ -198,7 +198,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'container'",
-                            "value": "(\n    width: 1200px,\n    gutter: sp(3),\n    selector: '.container',\n)",
+                            "value": "(\n    width: 1200px,\n    gutter: sp(3),\n    gutter-mobile: sp(1.5),\n    selector: '.container',\n)",
                             "description": "_boilerplate_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
                         },
                         {

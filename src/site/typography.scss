@@ -65,7 +65,7 @@
     $base-props: $base-name-or-map;
 
     @if is-string($base-name-or-map) {
-        $base-props: get('type-bases:' + $base-name);
+        $base-props: get('type-bases:' + $base-name-or-map);
     }
 
     $props: map-merge($base-props, $props);

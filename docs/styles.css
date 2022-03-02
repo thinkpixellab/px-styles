@@ -381,6 +381,12 @@ sup {
   margin: 0 auto;
   position: relative;
 }
+@media screen and (max-width: 768px) {
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
 
 .visually-hidden {
   position: absolute !important;

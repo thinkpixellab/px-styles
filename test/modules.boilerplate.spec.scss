@@ -12,17 +12,19 @@
             }
             // output
             @include expect {
-                .class *,
-                .class ::before,
-                .class ::after {
+                .test-output .class *,
+                .test-output .class ::before,
+                .test-output .class ::after {
                     box-sizing: border-box;
                 }
-                .class ::before,
-                .class ::after {
+
+                .test-output .class ::before,
+                .test-output .class ::after {
                     text-decoration: inherit;
                     vertical-align: inherit;
                 }
-                .class html {
+
+                .test-output .class html {
                     cursor: default;
                     line-height: 1.5;
                     -moz-tab-size: 4;
@@ -32,126 +34,155 @@
                     -webkit-text-size-adjust: 100%;
                     word-break: break-word;
                 }
-                .class body {
+
+                .test-output .class body {
                     margin: 0;
                 }
-                .class dl dl,
-                .class dl ol,
-                .class dl ul,
-                .class ol dl,
-                .class ul dl {
+
+                .test-output .class dl dl,
+                .test-output .class dl ol,
+                .test-output .class dl ul,
+                .test-output .class ol dl,
+                .test-output .class ul dl {
                     margin: 0;
                 }
-                .class ol ol,
-                .class ol ul,
-                .class ul ol,
-                .class ul ul {
+
+                .test-output .class ol ol,
+                .test-output .class ol ul,
+                .test-output .class ul ol,
+                .test-output .class ul ul {
                     margin: 0;
                 }
-                .class hr {
+
+                .test-output .class hr {
                     height: 0;
                     overflow: visible;
                 }
-                .class nav ol,
-                .class nav ul {
+
+                .test-output .class nav ol,
+                .test-output .class nav ul {
                     list-style: none;
                     padding: 0;
                 }
-                .class code,
-                .class kbd,
-                .class samp,
-                .class pre {
+
+                .test-output .class code,
+                .test-output .class kbd,
+                .test-output .class samp,
+                .test-output .class pre {
                     font-family: monospace, monospace;
                     font-size: 1em;
                 }
-                .class abbr[title] {
+
+                .test-output .class abbr[title] {
                     text-decoration: underline;
                     text-decoration: underline dotted;
                 }
-                .class b,
-                .class strong {
+
+                .test-output .class b,
+                .test-output .class strong {
                     font-weight: 700;
                 }
-                .class small {
+
+                .test-output .class small {
                     font-size: 80%;
                 }
-                .class audio,
-                .class canvas,
-                .class iframe,
-                .class img,
-                .class svg,
-                .class video {
+
+                .test-output .class audio,
+                .test-output .class canvas,
+                .test-output .class iframe,
+                .test-output .class img,
+                .test-output .class svg,
+                .test-output .class video {
                     vertical-align: middle;
                 }
-                .class audio:not([controls]) {
+
+                .test-output .class audio:not([controls]) {
                     display: none;
                     height: 0;
                 }
-                .class iframe {
+
+                .test-output .class iframe {
                     border-style: none;
                 }
-                .class table {
+
+                .test-output .class table {
                     border-collapse: collapse;
                 }
-                .class button,
-                .class input,
-                .class select {
+
+                .test-output .class button,
+                .test-output .class input,
+                .test-output .class select {
                     margin: 0;
                 }
-                .class button {
+
+                .test-output .class button {
                     text-transform: none;
                 }
-                .class button,
-                .class [type='button'],
-                .class [type='reset'],
-                .class [type='submit'] {
+
+                .test-output .class button,
+                .test-output .class [type='button'],
+                .test-output .class [type='reset'],
+                .test-output .class [type='submit'] {
                     -webkit-appearance: button;
                 }
-                .class progress {
+
+                .test-output .class progress {
                     display: inline-block;
                     vertical-align: baseline;
                 }
-                .class select {
+
+                .test-output .class select {
                     text-transform: none;
                 }
-                .class textarea {
+
+                .test-output .class textarea {
                     margin: 0;
                     overflow: auto;
                     resize: vertical;
                 }
-                .class [type='search'] {
+
+                .test-output .class [type='search'] {
                     -webkit-appearance: textfield;
                     outline-offset: -2px;
                 }
-                .class ::-webkit-inner-spin-button,
-                .class ::-webkit-outer-spin-button {
+
+                .test-output .class ::-webkit-inner-spin-button,
+                .test-output .class ::-webkit-outer-spin-button {
                     height: auto;
                 }
-                .class ::-webkit-input-placeholder {
+
+                .test-output .class ::-webkit-input-placeholder {
                     color: inherit;
                     opacity: 0.54;
                 }
-                .class ::-webkit-search-decoration {
+
+                .test-output .class ::-webkit-search-decoration {
                     -webkit-appearance: none;
                 }
-                .class ::-webkit-file-upload-button {
+
+                .test-output .class ::-webkit-file-upload-button {
                     -webkit-appearance: button;
                     font: inherit;
                 }
-                .class ::-moz-focus-inner {
+
+                .test-output .class ::-moz-focus-inner {
                     border-style: none;
                     padding: 0;
                 }
-                .class :-moz-focusring {
+
+                .test-output .class :-moz-focusring {
                     outline: 1px dotted ButtonText;
                 }
-                .class :-moz-ui-invalid {
+
+                .test-output .class :-moz-ui-invalid {
                     box-shadow: none;
                 }
-                .class details {
+
+                .test-output .class details {
                     display: block;
                 }
-                .class dialog {
+
+                .test-output .class dialog {
                     background-color: white;
                     border: solid;
                     color: black;
@@ -168,62 +199,77 @@
                     width: -webkit-fit-content;
                     width: fit-content;
                 }
-                .class dialog:not([open]) {
+
+                .test-output .class dialog:not([open]) {
                     display: none;
                 }
-                .class summary {
+
+                .test-output .class summary {
                     display: list-item;
                 }
-                .class canvas {
+
+                .test-output .class canvas {
                     display: inline-block;
                 }
-                .class template {
+
+                .test-output .class template {
                     display: none;
                 }
-                .class area,
-                .class button,
-                .class input,
-                .class label,
-                .class select,
-                .class summary,
-                .class textarea,
-                .class [tabindex] {
+
+                .test-output .class area,
+                .test-output .class button,
+                .test-output .class input,
+                .test-output .class label,
+                .test-output .class select,
+                .test-output .class summary,
+                .test-output .class textarea,
+                .test-output .class [tabindex] {
                     -ms-touch-action: manipulation;
                     touch-action: manipulation;
                 }
-                .class [hidden] {
+
+                .test-output .class [hidden] {
                     display: none;
                 }
-                .class [aria-busy='true'] {
+
+                .test-output .class [aria-busy='true'] {
                     cursor: progress;
                 }
-                .class [aria-controls] {
+
+                .test-output .class [aria-controls] {
                     cursor: pointer;
                 }
-                .class [aria-disabled='true'],
-                .class [disabled] {
+
+                .test-output .class [aria-disabled='true'],
+                .test-output .class [disabled] {
                     cursor: not-allowed;
                 }
-                .class [aria-hidden='false'][hidden] {
+
+                .test-output .class [aria-hidden='false'][hidden] {
                     display: initial;
                 }
-                .class [aria-hidden='false'][hidden]:not(:focus) {
+
+                .test-output .class [aria-hidden='false'][hidden]:not(:focus) {
                     clip: rect(0, 0, 0, 0);
                     position: absolute;
                 }
-                .class html {
+
+                .test-output .class html {
                     font-size: 15px;
                 }
+
                 @media screen and (max-width: 1366px) {
-                    .class html {
+                    .test-output .class html {
                         font-size: -1;
                     }
                 }
-                .class body {
+
+                .test-output .class body {
                     font-size: 1rem;
                 }
-                .class html,
-                .class body {
+
+                .test-output .class html,
+                .test-output .class body {
                     font-family: sans-serif;
                     font-weight: 400;
                     line-height: normal;
@@ -231,42 +277,51 @@
                     background-color: white;
                     color: #2e3b43;
                 }
-                .class ::selection {
+
+                .test-output .class ::selection {
                     background: #005c98;
                     color: white;
                 }
-                .class a {
+
+                .test-output .class a {
                     color: inherit;
                 }
-                .class a,
-                .class a:hover {
+
+                .test-output .class a,
+                .test-output .class a:hover {
                     text-decoration: inherit;
                 }
-                .class .link {
+
+                .test-output .class .link {
                     color: #0099fd;
                     text-decoration: none;
+                    -selector: '.link';
                 }
-                .class .link:hover {
+
+                .test-output .class .link:hover {
                     background-color: rgba(0, 153, 253, 0.1);
                     text-decoration: underline;
                 }
-                .class h1,
-                .class h2,
-                .class h3,
-                .class h4,
-                .class h5,
-                .class h6 {
+
+                .test-output .class h1,
+                .test-output .class h2,
+                .test-output .class h3,
+                .test-output .class h4,
+                .test-output .class h5,
+                .test-output .class h6 {
                     font-size: inherit;
                     margin: 0;
                     padding: 0;
                     line-height: normal;
                 }
-                .class p {
+
+                .test-output .class p {
                     font-size: inherit;
                     padding: 0;
                     margin: 0;
                 }
-                .class button {
+
+                .test-output .class button {
                     appearance: none;
                     display: block;
                     outline: none;
@@ -285,59 +340,75 @@
                     font-family: inherit;
                     font-size: inherit;
                 }
-                .class ul,
-                .class ol {
+
+                .test-output .class ul,
+                .test-output .class ol {
                     padding: 0;
                     margin: 0;
                     list-style: none;
                 }
-                .class ul li,
-                .class ol li {
+
+                .test-output .class ul li,
+                .test-output .class ol li {
                     padding: 0;
                     margin: 0;
                 }
-                .class pre,
-                .class code {
+
+                .test-output .class pre,
+                .test-output .class code {
                     font-family: Menlo, Monaco, Consolas, monospace;
                     font-size: 13px;
                 }
-                .class hr {
+
+                .test-output .class hr {
                     height: 0;
                     margin: 2rem 0;
                     padding: 0;
                     border: none;
                     border-top: 1px solid #2e3b43;
                 }
-                .class sup {
+
+                .test-output .class sup {
                     line-height: 0.5;
                 }
-                .class .svg-icon path,
-                .class .svg-icon circle,
-                .class .svg-icon rect,
-                .class .svg-icon polygon,
-                .class .svg-icon ellipse,
-                .class .svg-icon svg path,
-                .class .svg-icon svg circle,
-                .class .svg-icon svg rect,
-                .class .svg-icon svg polygon,
-                .class .svg-icon svg ellipse {
+
+                .test-output .class .svg-icon path,
+                .test-output .class .svg-icon circle,
+                .test-output .class .svg-icon rect,
+                .test-output .class .svg-icon polygon,
+                .test-output .class .svg-icon ellipse,
+                .test-output .class .svg-icon svg path,
+                .test-output .class .svg-icon svg circle,
+                .test-output .class .svg-icon svg rect,
+                .test-output .class .svg-icon svg polygon,
+                .test-output .class .svg-icon svg ellipse {
                     fill: currentColor;
                 }
-                .class .container {
+
+                .test-output .class .container {
                     width: 100%;
                     max-width: 1200px;
                     padding: 0 36px;
                     margin: 0 auto;
                     position: relative;
                 }
-                .class .visually-hidden {
+
+                @media screen and (max-width: 768px) {
+                    .test-output .class .container {
+                        padding-left: 18px;
+                        padding-right: 18px;
+                    }
+                }
+
+                .test-output .class .visually-hidden {
                     position: absolute !important;
                     height: 1px;
                     width: 1px;
                     overflow: hidden;
                     clip: rect(1px, 1px, 1px, 1px);
                 }
-                .class .display1 {
+
+                .test-output .class .display1 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -345,7 +416,8 @@
                     font-size: 54px;
                     -base: 'headings';
                 }
-                .class .display2 {
+
+                .test-output .class .display2 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -353,7 +425,8 @@
                     font-size: 42px;
                     -base: 'headings';
                 }
-                .class .h1 {
+
+                .test-output .class .h1 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -361,7 +434,8 @@
                     font-size: 36px;
                     -base: 'headings';
                 }
-                .class .h2 {
+
+                .test-output .class .h2 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -369,7 +443,8 @@
                     font-size: 28px;
                     -base: 'headings';
                 }
-                .class .h3 {
+
+                .test-output .class .h3 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -377,7 +452,8 @@
                     font-size: 24px;
                     -base: 'headings';
                 }
-                .class .h4 {
+
+                .test-output .class .h4 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -385,7 +461,8 @@
                     font-size: 20px;
                     -base: 'headings';
                 }
-                .class .h5 {
+
+                .test-output .class .h5 {
                     font-weight: 700;
                     line-height: 1;
                     margin-top: 0.75em;
@@ -393,23 +470,44 @@
                     font-size: 18px;
                     -base: 'headings';
                 }
-                .class .sh1 {
+
+                .test-output .class .sh1 {
                     line-height: 1.15;
                     margin-bottom: 0.5em;
                     font-size: 20px;
                     -base: 'sub-headings';
                 }
-                .class .sh2 {
+
+                .test-output .class .sh2 {
                     line-height: 1.15;
                     margin-bottom: 0.5em;
                     font-size: 18px;
                     -base: 'sub-headings';
                 }
-                .class .sh3 {
+
+                .test-output .class .sh3 {
                     line-height: 1.15;
                     margin-bottom: 0.5em;
                     font-size: 15px;
                     -base: 'sub-headings';
+                }
+
+                .test-output .class .fade-enter-active,
+                .test-output .class .fade-leave-active {
+                    transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                }
+
+                .test-output .class .fade-enter-active {
+                    transition-delay: 0;
+                }
+
+                .test-output .class .fade-leave-active {
+                    transition-delay: 0;
+                }
+
+                .test-output .class .fade-enter,
+                .test-output .class .fade-leave-to {
+                    opacity: 0;
                 }
             }
         }
