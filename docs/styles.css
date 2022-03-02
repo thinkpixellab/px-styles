@@ -286,6 +286,7 @@ a:hover {
 .link {
   color: #0099fd;
   text-decoration: none;
+  -selector: ".link";
 }
 .link:hover {
   background-color: rgba(0, 153, 253, 0.1);
@@ -860,11 +861,14 @@ strong {
   margin-bottom: 0.75em;
   font-size: 18px;
 }
-.markdown a {
+.markdown a,
+.markdown .link {
   color: #0099fd;
   text-decoration: underline;
+  -selector: ".link";
 }
-.markdown a:hover {
+.markdown a:hover,
+.markdown .link:hover {
   background-color: rgba(0, 153, 253, 0.1);
   text-decoration: underline;
 }

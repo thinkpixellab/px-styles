@@ -208,7 +208,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'links'",
-                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    --selector: '.link',\n)",
+                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    -selector: '.link',\n)",
                             "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
@@ -1864,7 +1864,7 @@ window.pxstyles = {
                     "name": "type-style",
                     "docName": "type-style()",
                     "type": "mixin",
-                    "description": " Generate a type style from a site base style (as defined in the config setting 'type-bases').\n @example type-style(headings, (font-size: fs(7) // =>\n.class {\n    font-weight: 700;\n    line-height: 1;\n    margin-top: 0.75em;\n    margin-bottom: 0.75em;\n    font-size: 54px;\n  }\n\n @param {string} $base-name A string that correlate to the name of a base in the config settings 'type-bases'\n @param {map} $props [()] A map of css properties that will override the properties in the base\n",
+                    "description": " Generate a type style from a site base style (as defined in the config setting 'type-bases').\n @example type-style(headings, (font-size: fs(7) // =>\n.class {\n    font-weight: 700;\n    line-height: 1;\n    margin-top: 0.75em;\n    margin-bottom: 0.75em;\n    font-size: 54px;\n  }\n\n @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'\n @param {map} $props [()] A map of css properties that will override the properties in the base\n",
                     "access": "public",
                     "path": "site/typography.scss"
                 },
@@ -1874,7 +1874,25 @@ window.pxstyles = {
                     "name": "type-styles",
                     "docName": "type-styles()",
                     "type": "mixin",
-                    "description": "",
+                    "description": "Generates a series of type styles based on a base style and an overrides map.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include type-styles(\n    (\n        'h1, .h1': (\n            'font-size': fs(7),\n        ),\n        'h2, .h2': (\n            'font-size': fs(6),\n        ),\n    ),\n    (\n        margin-bottom: 0.5em,\n    )\n);"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "styles",
+                            "description": "A map of styles to be generated (see example)"
+                        },
+                        {
+                            "type": "string",
+                            "name": "base-name-or-map",
+                            "description": "Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'\n"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/typography.scss"
                 }

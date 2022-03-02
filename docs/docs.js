@@ -208,7 +208,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'links'",
-                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    --selector: '.link',\n)",
+                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    -selector: '.link',\n)",
                             "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
