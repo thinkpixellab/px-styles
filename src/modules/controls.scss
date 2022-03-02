@@ -231,7 +231,9 @@
 @mixin button($overrides: ()) {
     @include css-map(button($overrides));
 }
+
 /// @example button((background-color: green)) // => Robby, testing is failing
+
 @function button($overrides) {
     // extract an accent color
     $accent: get-control-accent($overrides, background, background-color);

@@ -58,23 +58,44 @@
 ///    font-size: 54px;
 ///  }
 ///
-/// @param {string} $base-name A string that correlate to the name of a base in the config settings 'type-bases'
+/// @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'
 /// @param {map} $props [()] A map of css properties that will override the properties in the base
 
-@mixin type-style($base-name, $props: ()) {
-    $base-props: get('type-bases:' + $base-name);
+@mixin type-style($base-name-or-map, $props: ()) {
+    $base-props: $base-name-or-map;
+
+    @if is-string($base-name-or-map) {
+        $base-props: get('type-bases:' + $base-name);
+    }
+
     $props: map-merge($base-props, $props);
     @include css-map-dpr($props);
 }
 
-/// @todo this is only used by reading module and should be refactored to use type-style
-/// above...thie ambiguous naming here isn't worth the shortcut in reading
-/// @todo no need to test
+/// Generates a series of type styles based on a base style and an overrides map.
+///
+/// @param {map} $styles A map of styles to be generated (see example)
+/// @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'
+///
+/// @example
+///    @include type-styles(
+///        (
+///            'h1, .h1': (
+///                'font-size': fs(7),
+///            ),
+///            'h2, .h2': (
+///                'font-size': fs(6),
+///            ),
+///        ),
+///        (
+///            margin-bottom: 0.5em,
+///        )
+///    );
 
-@mixin type-styles($styles, $base-name) {
+@mixin type-styles($styles, $base-name-or-map) {
     @each $selector, $props in $styles {
         #{$selector} {
-            @include type-style($base-name, $props);
+            @include type-style($base-name-or-map, $props);
         }
     }
 }
