@@ -218,7 +218,7 @@
 
     // create type styles
     @each $selector, $props in get('type-styles') {
-        $base-name: map-get-default($props, '-base', ());
+        $base-name: map-get-default($props, '--base', ());
 
         #{$selector} {
             @include type-style($base-name, $props);

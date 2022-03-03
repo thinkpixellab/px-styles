@@ -69,7 +69,7 @@
     }
 
     $props: map-merge($base-props, $props);
-    @include css-map-dpr($props);
+    @include css-map($props);
 }
 
 /// Generates a series of type styles based on a base style and an overrides map.

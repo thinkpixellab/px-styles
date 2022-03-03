@@ -1043,6 +1043,42 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "site/grids.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.grid",
+                    "name": "card-grid-max-row",
+                    "docName": "card-grid-max-row()",
+                    "type": "mixin",
+                    "description": "Creates a grid layout that can be used for card-like content where we limit the number of cards\nto a max number per row and a minimum size. Cards will grow indefinitely in size once the\nmaximum number per row has been reached.\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "card-max-per-row",
+                            "default": "4",
+                            "description": "The maximum number of cards in the row"
+                        },
+                        {
+                            "type": "*",
+                            "name": "card-min-width",
+                            "default": "240px",
+                            "description": "The minimum size of a card"
+                        },
+                        {
+                            "type": "*",
+                            "name": "gap",
+                            "default": "24px",
+                            "description": "Gap between cards (using grid-gap)"
+                        },
+                        {
+                            "type": "*",
+                            "name": "card-height",
+                            "default": "auto",
+                            "description": "The card height (leave as auto if using aspect or another mechanism to determine height)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/grids.scss"
                 }
             ]
         },

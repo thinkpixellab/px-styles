@@ -204,43 +204,43 @@
         (
             '.display1': (
                 font-size: fs(7),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.display2': (
                 font-size: fs(6),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.h1': (
                 font-size: fs(5),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.h2': (
                 font-size: fs(4),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.h3': (
                 font-size: fs(3),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.h4': (
                 font-size: fs(2),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.h5': (
                 font-size: fs(1),
-                -base: 'headings',
+                --base: 'headings',
             ),
             '.sh1': (
                 font-size: fs(2),
-                -base: 'sub-headings',
+                --base: 'sub-headings',
             ),
             '.sh2': (
                 font-size: fs(1),
-                -base: 'sub-headings',
+                --base: 'sub-headings',
             ),
             '.sh3': (
                 font-size: fs(0),
-                -base: 'sub-headings',
+                --base: 'sub-headings',
             ),
         )
     );
