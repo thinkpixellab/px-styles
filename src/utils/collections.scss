@@ -187,6 +187,31 @@
     @return $sortedMap;
 }
 
+/// returns a copy of a map with the items in the reverse order of the original
+@function map-reverse($map) {
+    $keys: ();
+    $values: ();
+    $reverse: ();
+
+    @each $key, $val in $map {
+        $keys: append($keys, $key);
+        $values: append($values, $val);
+    }
+
+    @for $i from length($map) to 0 {
+        $key: nth($keys, $i);
+        $value: nth($values, $i);
+        $reverse: map-merge(
+            $reverse,
+            (
+                $key: $value,
+            )
+        );
+    }
+
+    @return $reverse;
+}
+
 /// Creates a new list with the results of calling a function once for every
 /// item in this list. Equivalent to Array.map in JavaScript. Must use get-function to retrieve the function used for the $fn parameter. See example.
 ///

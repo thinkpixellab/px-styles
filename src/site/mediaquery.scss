@@ -182,12 +182,13 @@
 }
 
 /// A convenience mixin that is equivalent to media-until($mobile-breakpoint).
-/// @example @include media-until-mobile() {color: red} // =>
-/// @media screen and (max-width: 768px) {
-///  .class {
-///    color: red;
+/// @example
+///  @include media-until-mobile() {color: red} // =>
+///  @media screen and (max-width: 768px) {
+///     .class {
+///         color: red;
+///     }
 ///  }
-///}
 ///
 
 @mixin media-until-mobile() {
@@ -196,8 +197,42 @@
     }
 }
 
-/// Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest
+/// Returns a sorted list of site breakpoints from smallest to largest
 /// @example  // => (xs: 640px, mobile: 768px, sm: 1024px, md: 1366px, lg: 1600px, xl: 1920px)
 @function breakpoints-asc() {
-    @return map-sort-by-values(get(breakpoints));
+    @return map-sort-by-values(get('breakpoints'));
+}
+
+/// Returns a sorted list of site breakpoints from largest to smallest
+/// @example  // => (xl: 1920px, lg: 1600px, md: 1366px, sm: 1024px, mobile: 768px, xs: 640px)
+@function breakpoints-desc() {
+    @return map-reverse(map-sort-by-values(get('breakpoints')));
+}
+
+/// Generates css variables that update according to the current breakpoint. These can be accessed from
+/// JavaScript with code like this:
+/// ```javascript
+///     window.addEventListener('resize', () => {
+///         let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint');
+///         document.querySelector('.js span').innerHTML = breakpoint;
+///     });
+/// ```
+@mixin media-breakpoint-vars(
+    $var-breakpoint: '--breakpoint',
+    $var-breakpoint-str: '--breakpoint-str',
+    $var-breakpoint-width: '--breakpoint-width',
+    $var-is-mobile: '--is-mobile'
+) {
+    $breakpoints: breakpoints-desc();
+    $mobile: get-breakpoint(get(mobile-breakpoint));
+    :root {
+        @each $break, $width in $breakpoints {
+            @include media-until($break) {
+                #{$var-breakpoint}: #{$break};
+                #{$var-breakpoint-str}: '#{$break}';
+                #{$var-breakpoint-width}: #{$width};
+                #{$var-is-mobile}: #{if($width <= $mobile, true, false)};
+            }
+        }
+    }
 }

@@ -1233,7 +1233,13 @@ window.pxstyles = {
                     "name": "media-until-mobile",
                     "docName": "media-until-mobile()",
                     "type": "mixin",
-                    "description": " A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n @example @include media-until-mobile() {color: red} // =>\n @media screen and (max-width: 768px) {\n  .class {\n    color: red;\n  }\n}\n\n",
+                    "description": "A convenience mixin that is equivalent to media-until($mobile-breakpoint).\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include media-until-mobile() {color: red} // =>\n@media screen and (max-width: 768px) {\n   .class {\n       color: red;\n   }\n}"
+                        }
+                    ],
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 },
@@ -1243,13 +1249,39 @@ window.pxstyles = {
                     "name": "breakpoints-asc",
                     "docName": "breakpoints-asc()",
                     "type": "function",
-                    "description": "Returns a sorted list of site breakpoints ($breakpoints) from smallest to largest\n",
+                    "description": "Returns a sorted list of site breakpoints from smallest to largest\n",
                     "example": [
                         {
                             "type": "scss",
                             "code": "// => (xs: 640px, mobile: 768px, sm: 1024px, md: 1366px, lg: 1600px, xl: 1920px)"
                         }
                     ],
+                    "access": "public",
+                    "path": "site/mediaquery.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.mediaquery",
+                    "name": "breakpoints-desc",
+                    "docName": "breakpoints-desc()",
+                    "type": "function",
+                    "description": "Returns a sorted list of site breakpoints from largest to smallest\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "// => (xl: 1920px, lg: 1600px, md: 1366px, sm: 1024px, mobile: 768px, xs: 640px)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/mediaquery.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.mediaquery",
+                    "name": "media-breakpoint-vars",
+                    "docName": "media-breakpoint-vars()",
+                    "type": "mixin",
+                    "description": "Generates css variables that update according to the current breakpoint. These can be accessed from\nJavaScript with code like this:\n```javascript\n    window.addEventListener('resize', () => {\n        let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint');\n        document.querySelector('.js span').innerHTML = breakpoint;\n    });\n```\n",
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 }
@@ -2496,6 +2528,16 @@ window.pxstyles = {
                             "code": "map-sort-by-values((a:1, b:2, d:4, c:3)) // => ((a: 1, b: 2, c: 3, d: 4))"
                         }
                     ],
+                    "access": "public",
+                    "path": "utils/collections.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.collections",
+                    "name": "map-reverse",
+                    "docName": "map-reverse()",
+                    "type": "function",
+                    "description": "returns a copy of a map with the items in the reverse order of the original\n",
                     "access": "public",
                     "path": "utils/collections.scss"
                 },
