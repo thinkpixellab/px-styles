@@ -29,11 +29,11 @@ By convention px-styles is configured in a file in the project root called `px-s
 Configuring px-styles consists of setting any desired configuration using the `config()` mixin and then filling in any missing configuration with a call to the `init()` mixin.
 
 ```scss
-/*
-    px-styles.scss
-    Github: https://github.com/thinkpixellab/px-styles
-    Docs: https://thinkpixellab.github.io/px-styles/
-*/
+// ----------------------------------------------------------------------------
+// px-styles.scss
+// Github: https://github.com/thinkpixellab/px-styles
+// Docs: https://thinkpixellab.github.io/px-styles/
+// ----------------------------------------------------------------------------
 
 // forward and use
 @forward '@thinkpixellab-public/px-styles';
@@ -53,9 +53,9 @@ Configuring px-styles consists of setting any desired configuration using the `c
 The config file can be imported directly but most projects benefit from having a single non-emitting .scss file that, in addition to px-styles config, includes other shared project-specific variables, functions and mixins. This file can be included in any other component or scss file knowing that all shared scss will be available. By convention we call this file `include.scss`.
 
 ```scss
-/*
-    include.scss
-*/
+// ----------------------------------------------------------------------------
+// include.scss
+// ----------------------------------------------------------------------------
 
 // forward and use
 @forward '/px-styles.scss';
@@ -71,9 +71,9 @@ $my-var: 123;
 This convention is outside of the scope of px-styles but worth noting. We typically place an css that needs to be generated for the entire site in a file called global.scss. This would include all site / page setup and boilerplate as well any shared styles. A typical file might look like this:
 
 ```scss
-/*
-    global.scss
-*/
+// ----------------------------------------------------------------------------
+// global.scss
+// ----------------------------------------------------------------------------
 
 @use 'include.scss' as *;
 
