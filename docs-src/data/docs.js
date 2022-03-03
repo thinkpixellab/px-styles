@@ -880,7 +880,7 @@ window.pxstyles = {
                     "parameter": [
                         {
                             "type": "string or list",
-                            "name": "paths",
+                            "name": "value",
                             "description": "The value to check for null"
                         },
                         {
@@ -1281,7 +1281,7 @@ window.pxstyles = {
                     "name": "media-breakpoint-vars",
                     "docName": "media-breakpoint-vars()",
                     "type": "mixin",
-                    "description": "Generates css variables that update according to the current breakpoint. These can be accessed from\nJavaScript with code like this:\n```javascript\n    window.addEventListener('resize', () => {\n        let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint');\n        document.querySelector('.js span').innerHTML = breakpoint;\n    });\n```\n",
+                    "description": "Generates css variables that update according to the current breakpoint. These can be accessed from\nJavaScript with code like this:\n```javascript\n    window.addEventListener('resize', () => {\n        let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint').trim();\n        document.querySelector('.js span').innerHTML = breakpoint;\n    });\n```\n",
                     "access": "public",
                     "path": "site/mediaquery.scss"
                 }

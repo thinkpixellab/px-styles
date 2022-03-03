@@ -213,7 +213,7 @@
 /// JavaScript with code like this:
 /// ```javascript
 ///     window.addEventListener('resize', () => {
-///         let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint');
+///         let breakpoint = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint').trim();
 ///         document.querySelector('.js span').innerHTML = breakpoint;
 ///     });
 /// ```

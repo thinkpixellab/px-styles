@@ -54,7 +54,7 @@ $config: () !default;
 
 /// Retrieve a configuration setting if and only if the provided $value is null.
 ///
-/// @param {string or list} $paths The value to check for null
+/// @param {string or list} $value The value to check for null
 /// @param {string or list} $paths Path for the value to retrieve if $value is null (see details for get())
 /// @param {*} $throw-not-found [null] Whether to throw an errow if the value can't be retrieved
 ///

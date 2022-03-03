@@ -1,85 +1,88 @@
 # px-styles
 
-This is a simple SCSS framework that provides basic site setup and some common functionality for web
-projects. The goal is to create a simple to understand boilerplate coupled with a consistent
-approach to styling that encourages reuse and best practices while maintaing flexibility.
+This is a simple SCSS framework that provides basic site setup and some common functionality for web projects. The goal is to create a simple to understand boilerplate coupled with a consistent approach to styling that encourages reuse and best practices while maintaing flexibility.
 
 ## Useful Links
 
 -   Repository: [https://github.com/thinkpixellab/px-styles](https://github.com/thinkpixellab/px-styles)
 -   API Documentation: [https://thinkpixellab.github.io/px-styles](https://thinkpixellab.github.io/px-styles)
--   NPM Package: [https://www.npmjs.com/package/@thinkpixellab/px-styles](https://www.npmjs.com/package/@thinkpixellab/px-styles)
+-   NPM Package: [https://www.npmjs.com/package/@thinkpixellab-public/px-styles](https://www.npmjs.com/package/@thinkpixellab-public/px-styles)
 
 ## Install
 
-##### Install the package
+#### Install the package
 
 First, add the package to the project using npm.
 
 ```
-npm install @thinkpixellab/px-styles --save
+npm install @thinkpixellab-public/px-styles --save
 ```
 
-##### Create a Shared Loader / Configuration File
+#### Create a Shared Loader / Configuration File
 
-You could import the package directly using @import or @use but in most cases you will want to
-create a file that forwards the library after first configuring it. Other files in the project can
-then @use that file knowing px-styles has been properly configured. Here's a sample file:
+A typical setup might consist of the following:
+
+##### px-styles.scss
+
+By convention px-styles is configured in a file in the project root called `px-styles.scss`. By placing this file in a known location all packages that use px-styles can access the same configuration by importing / using the same configuration.
+
+Configuring px-styles consists of setting any desired configuration using the `config()` mixin and then filling in any missing configuration with a call to the `init()` mixin.
 
 ```scss
 /*
-    px.scss
+    px-styles.scss
+    Github: https://github.com/thinkpixellab/px-styles
+    Docs: https://thinkpixellab.github.io/px-styles/
 */
 
-// forward the library (this has to come first per scss)
-@forward '~@thinkpixellab/px-styles';
-
-// import the library (so we can configure it)
-@use '~@thinkpixellab/px-styles' as px;
+// forward and use
+@forward '@thinkpixellab-public/px-styles';
+@use '@thinkpixellab-public/px-styles' as *;
 
 // site config
-
-@include px.config('colors:accent', #00dc82);
-@include px.config('colors:page-bg', #011e26);
-@include px.config('colors:page-fg', white);
+@include config('colors:accent', #00dc82);
+@include config('colors:page-bg', #011e26);
+@include config('colors:page-fg', white);
 
 // initialize and load defaults (required)
-
-@include px.init();
+@include init();
 ```
 
-That file can then be imported by other .scss files and components.
+##### include.scss
+
+The config file can be imported directly but most projects benefit from having a single non-emitting .scss file that, in addition to px-styles config, includes other shared project-specific variables, functions and mixins. This file can be included in any other component or scss file knowing that all shared scss will be available. By convention we call this file `include.scss`.
 
 ```scss
 /*
-    component.scss
+    include.scss
 */
 
-@use '~/styles/px.scss' as px;
+// forward and use
+@forward '/px-styles.scss';
+@use '/px-styles.scss' as *;
 
-.my-button {
-    @include px.button();
-}
+// shared site stuff
+@mixin my-mixin() { ... }
+$my-var: 123;
 ```
 
-##### Site / Global CSS
+##### global.scss
 
-There are a handful of mixins that generally need only be called once per site to create boilerplate
-global css. Typically these would be in a separate file that only gets loaded once.
+This convention is outside of the scope of px-styles but worth noting. We typically place an css that needs to be generated for the entire site in a file called global.scss. This would include all site / page setup and boilerplate as well any shared styles. A typical file might look like this:
 
 ```scss
 /*
-    site.scss
+    global.scss
 */
 
-@use '~/styles/px.scss' as px;
+@use 'include.scss' as *;
 
-// initialize the site
-@include px.boilerplate();
+// basic site setup
+@include boilerplate();
 
 // other global css
 .button {
-    @include px.button();
+    @include button();
 }
 ```
 
@@ -88,8 +91,8 @@ global css. Typically these would be in a separate file that only gets loaded on
 All of the configuration settings for px-styles exist within a single map. Because of that, two distinct "instances" of px-styles can be loaded within the same context using the following pattern:
 
 ```scss
-@use '~@thinkpixellab/px-styles' as px-one;
-@use '~@thinkpixellab/px-styles' as px-two;
+@use '@thinkpixellab-public/px-styles' as px-one;
+@use '@thinkpixellab-public/px-styles' as px-two;
 
 // give each version a distinct map
 px-one.$config: ();
@@ -111,21 +114,16 @@ px-two.$config: ();
 
 ## API Documentation
 
-API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should
-run fine from the local file system). All of the documentation is generated dynamically using
-sassdoc and output to a json file (which the page uses as a data source).
+API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should run fine from the local file system). All of the documentation is generated dynamically using sassdoc and output to a json file (which the page uses as a data source).
 
 Learn more about sassdoc annotations here: [SassDoc Annotations](http://sassdoc.com/annotations/).
 
 ## Goals / Guiding Principles
 
--   Only emit emit on demand. This library only contains functions and mixins (even big actions like
-    initializing a site are done through mixins) so it can be included without any concern about
-    creating bulk or having an impact on runtime performance.
+-   Only emit emit on demand. This library only contains functions and mixins (even big actions like initializing a site are done through mixins) so it can be included without any concern about creating bulk or having an impact on runtime performance.
 -   Make it easy to initialize a project/site.
 -   Simplify common css use cases. Make complex syntax easier to remember / understand.
--   Encourage consistency by making common values available via shared functions and settings for
-    things like sizing, color, spacing, breakpoints, etc.
+-   Encourage consistency by making common values available via shared functions and settings for things like sizing, color, spacing, breakpoints, etc.
 -   Make css easier to read, write and understand. Make it easier to infer intent from code.
 
 ## File Structure
@@ -134,10 +132,7 @@ Learn more about sassdoc annotations here: [SassDoc Annotations](http://sassdoc.
 -   `/site` Contains utility mixins and functions that depend on site configuration
 -   `/modules` Contains purpose-built mixins that generate css related to a specific task or goal
 -   `/controls` Contains mixins for generating consistent control styles
--   `defaults.scss` Contains all default values. Generally mixins and functions shouldn't declare
-    new defaults for parameters or vars (although there is probably some remaining work to remove
-    these). Use this to see what can be customized and to determine where a particular setting is
-    coming from.
+-   `defaults.scss` Contains all default values. Generally mixins and functions shouldn't declare new defaults for parameters or vars (although there is probably some remaining work to remove these). Use this to see what can be customized and to determine where a particular setting is coming from.
 
 ## Config / Customization
 
@@ -148,17 +143,13 @@ file should only be loaded once and so it could emit CSS but for safety, the rul
 
 #### No default global variables
 
-Decision: px does not set globals nor do modules uses configurable local variables. Globals
-introduce predictability issues due to ordering dependencies. Configurable module variables have to
-all be set at once and therefore can't easily be derived from other variables or by using functions.
+Decision: px does not set globals nor do modules uses configurable local variables. Globals introduce predictability issues due to ordering dependencies. Configurable module variables have to all be set at once and therefore can't easily be derived from other variables or by using functions.
 
-Instead all configuration settings are stored in a global map that can be accessed with the get,
-config and default defined in /utils/config.scss.
+Instead all configuration settings are stored in a global map that can be accessed with the get, config and default defined in /utils/config.scss.
 
 #### Access settings using functions
 
-Instead of using the global `get` function, some common settings can be accessed using domain
-specific functions (where applicable) or a standard function that retrieves any setting.
+Instead of using the global `get` function, some common settings can be accessed using domain specific functions (where applicable) or a standard function that retrieves any setting.
 
 Domain specific functions include:
 
@@ -229,13 +220,12 @@ Here is a sample scratch file that will load px-styles from local source:
 -   Better version management. It would be great to inlude a mixin like ensure-version($version)
     that would make sure that you're using a compatible version of px-styles. Maybe package
     versioning is enough but it seems like we could do a little more to prevent breaks.
--   Are we actually done with old school 12x column based grids? Should we add that back?
+
 -   Make easing variables available via function or else cleanup the docs to filter them somehow
 -   Better CSS Grid helpers
 -   Mixin for cover(url, centerx, centery)
 -   Mixin for contain(url, centerx, centery)
 -   Helpers for CSS vars?
--   Fix shadow() - hard to remember how it works, and need a simple box-shadow version
 -   Transforms mixins?
 -   Make use of interesting css units (beyond viewport)
 -   Simple animations? (like animate.css)
