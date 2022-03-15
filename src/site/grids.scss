@@ -59,7 +59,7 @@
     $gap: 24px,
     $card-height: auto
 ) {
-    $card-width-percent: 100% / ($card-max-per-row + 1);
+    $card-width-percent: divide(100%, ($card-max-per-row + 1));
     $card-max-width: 1fr;
     display: grid;
     grid-template-columns: repeat(
