@@ -1454,11 +1454,11 @@ window.pxstyles = {
                     "parameter": [
                         {
                             "type": "*",
-                            "name": "depth"
+                            "name": "blur"
                         },
                         {
                             "type": "*",
-                            "name": "level"
+                            "name": "alpha"
                         },
                         {
                             "type": "*",

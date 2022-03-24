@@ -1454,17 +1454,37 @@ window.pxstyles = {
                     "parameter": [
                         {
                             "type": "*",
-                            "name": "depth"
+                            "name": "blur"
                         },
                         {
                             "type": "*",
-                            "name": "level"
+                            "name": "alpha"
                         },
                         {
                             "type": "*",
                             "name": "color"
                         }
                     ],
+                    "access": "public",
+                    "path": "site/shadows.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.shadows",
+                    "name": "depth-shadow",
+                    "docName": "depth-shadow()",
+                    "type": "mixin",
+                    "description": "Generates a depth shadow using the box-shadow property\n",
+                    "access": "public",
+                    "path": "site/shadows.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.shadows",
+                    "name": "depth-shadow-effect",
+                    "docName": "depth-shadow-effect()",
+                    "type": "mixin",
+                    "description": "Generates a depth shadow using the filter property\n",
                     "access": "public",
                     "path": "site/shadows.scss"
                 },
