@@ -5,69 +5,71 @@
 @use 'sass:math';
 @use '../utils' as *;
 
+$umbra-y: (0px, 12px);
+$umbra-blur: (0px, 15px);
+$umbra-spread: (0px, -4px);
+$umbra-opacity: (0.05, 0.25);
+
+$penumbra-y: (1px, 24px);
+$penumbra-blur: (0px, 38px);
+$penumbra-spread: (0px, 0px);
+$penumbra-opacity: (0, 0.15);
+
+$ambient-y: (0px, 9px);
+$ambient-blur: (0px, 50px);
+$ambient-spread: (0px, 0px);
+$ambient-opacity: (0.05, 0.1);
+
 /// Creates the syntax for a multi-level shadow
 /// @param {*} $blur
 /// @param {*} $alpha
 /// @param {*} $color
 /// @example depth-shadow(2, 0.5, purple) // => shadow: 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)
-@function depth-shadow($blur: 8, $alpha: 0.2, $color: black, $suppress-spread: false) {
-    $blur: math.div($blur, get('shadows:levels'));
+@function depth-shadow($level: 5, $alpha: 0.2, $color: black, $suppress-spread: false) {
+    $level: math.div($level, get('shadows:levels'));
     $ease: false;
     $round: 2;
 
     $alpha: $alpha * alpha($color);
 
-    $umbra-opacity: intp($blur, get('shadows:umbra:opacity'));
-    $penumbra-opacity: intp($blur, get('shadows:penumbra:opacity'));
-    $ambient-opacity: intp($blur, get('shadows:ambient:opacity'));
+    //@debug $alpha;
 
-    // level adjustments
-    /// @todo Robby, we are getting an error for line 41
-    @if ($alpha) {
-        // @if ($alpha > 0) {
-        //     $umbra-opacity: $umbra-opacity + ((0.6 - $umbra-opacity) * math.div($alpha, 10));
-        //     $penumbra-opacity: $penumbra-opacity +
-        //         ((0.4 - $penumbra-opacity) * math.div($alpha, 10));
-        //     $ambient-opacity: $ambient-opacity + ((0.3 - $ambient-opacity) * math.div($alpha, 10));
-        // }
-        // @if ($alpha < 0) {
-        //     $umbra-opacity: $umbra-opacity + ($umbra-opacity * math.div($alpha, 10));
-        //     $penumbra-opacity: $penumbra-opacity + ($penumbra-opacity * math.div($alpha, 10));
-        //     $ambient-opacity: $ambient-opacity + ($ambient-opacity * math.div($alpha, 10));
-        // }
+    $umbra-opacity: intp($level, $umbra-opacity) * (5 * $alpha);
+    $penumbra-opacity: intp($level, $penumbra-opacity) * (3 * $alpha);
+    $ambient-opacity: intp($level, $ambient-opacity) * (3 * $alpha);
 
-        $umbra-opacity: ($umbra-opacity * ($alpha * 5));
-        $penumbra-opacity: ($penumbra-opacity * ($alpha * 2));
-        $ambient-opacity: ($ambient-opacity * ($alpha * 3));
-    }
-
-    $umbra: 0 intp($blur, get('shadows:umbra:y'), $ease, $round)
-        intp($blur, get('shadows:umbra:blur'), $ease, $round)
-        if($suppress-spread, #{''}, intp($blur, get('shadows:umbra:spread'), $ease, $round))
+    // prettier-ignore
+    $umbra: 0
+        intp($level, $umbra-y, $ease, $round) * if($suppress-spread, 1.1, 1)
+        intp($level, $umbra-blur, $ease, $round) * if($suppress-spread, 0.6, 1)
+        if($suppress-spread, #{''}, intp($level, $umbra-spread, $ease, $round))
         rgba($color, $umbra-opacity);
 
-    $penumbra: 0 intp($blur, get('shadows:penumbra:y'), $ease, $round)
-        intp($blur, get('shadows:penumbra:blur'), $ease, $round)
-        if($suppress-spread, #{''}, intp($blur, get('shadows:penumbra:spread'), $ease, $round))
-        rgba($color, $penumbra-opacity);
+    $penumbra: 0 intp($level, $penumbra-y, $ease, $round)
+        intp($level, $penumbra-blur, $ease, $round)
+        if($suppress-spread, #{''}, intp($level, $penumbra-spread, $ease, $round))
+        rgba($color, $penumbra-opacity * if($suppress-spread, 0.75, 1));
 
-    $ambient: 0 intp($blur, get('shadows:ambient:y'), $ease, $round)
-        intp($blur, get('shadows:ambient:blur'), $ease, $round)
-        if($suppress-spread, #{''}, intp($blur, get('shadows:ambient:spread'), $ease, $round))
+    $ambient: 0 intp($level, $ambient-y, $ease, $round) intp($level, $ambient-blur, $ease, $round)
+        if($suppress-spread, #{''}, intp($level, $ambient-spread, $ease, $round))
         rgba($color, $ambient-opacity);
 
     @return (#{$umbra}, #{$penumbra}, #{$ambient});
 }
 
 /// Generates a depth shadow using the box-shadow property
-@mixin depth-shadow($blur: 8, $alpha: 0.2, $color: black) {
-    box-shadow: depth-shadow($blur, $alpha, $color);
+@mixin depth-shadow($level: 5, $alpha: 0.2, $color: black) {
+    box-shadow: depth-shadow($level, $alpha, $color);
+}
+
+@function depth-shadow-effect($level: 5, $alpha: 0.2, $color: black) {
+    $shadow: depth-shadow($level, $alpha, $color, true);
+    @return drop-shadow(nth($shadow, 1)) drop-shadow(nth($shadow, 2)) drop-shadow(nth($shadow, 3));
 }
 
 /// Generates a depth shadow using the filter property
-@mixin depth-shadow-effect($blur: 8, $alpha: 0.2, $color: black) {
-    $shadow: depth-shadow($blur, $alpha, $color, true);
-    filter: drop-shadow(nth($shadow, 1)) drop-shadow(nth($shadow, 2)) drop-shadow(nth($shadow, 3));
+@mixin depth-shadow-effect($level: 5, $alpha: 0.2, $color: black) {
+    filter: depth-shadow-effect($level, $alpha, $color);
 }
 
 /// Returns a standardized box shadow

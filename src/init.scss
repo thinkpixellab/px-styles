@@ -312,42 +312,6 @@
     /// _shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)
     @include default('shadows:growth', 1.25);
 
-    // prettier-ignore
-    $umbra: (
-        y: ( 0px, 12px ),
-        blur: (0px, 20px),
-        spread: (0px, -7px),
-        opacity: (0.2, 0.3),
-    );
-
-    // prettier-ignore
-    $penumbra:        (
-        y: (1px, 24px),
-        blur: (0px, 38px),
-        spread: (0px, 0px),
-        opacity: (0, 0.15),
-    );
-
-    // prettier-ignore
-    $ambient: (
-        y: (0px, 9px ),
-        blur: (0px, 50px),
-        spread: (0px, 8px),
-        opacity: (0.05, 0.15),
-    );
-
-    /// _shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can
-    /// be configured using flat-map syntax.
-    @include default('shadows:umbra', $umbra);
-
-    /// _shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can
-    /// be configured using flat-map syntax.
-    @include default('shadows:penumbra', $penumbra);
-
-    /// _shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties
-    /// can be configured using flat-map syntax.
-    @include default('shadows:ambient', $ambient);
-
     // ----------------------------------------------------------------------
     // Site Basics
     // ----------------------------------------------------------------------

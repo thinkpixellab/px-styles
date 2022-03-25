@@ -182,21 +182,6 @@ window.pxstyles = {
                             "description": "_shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)\n"
                         },
                         {
-                            "name": "'shadows:umbra'",
-                            "value": "$umbra",
-                            "description": "_shadows_ Dark portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
-                        },
-                        {
-                            "name": "'shadows:penumbra'",
-                            "value": "$penumbra",
-                            "description": "_shadows_ Soft portion of the key shadow in the 'depth-shadow' mixin. Note: individual properties can\nbe configured using flat-map syntax.\n"
-                        },
-                        {
-                            "name": "'shadows:ambient'",
-                            "value": "$ambient",
-                            "description": "_shadows_ Ambient light portion of the shadow in the 'depth-shadow' mixin. Note: individual properties\ncan be configured using flat-map syntax.\n"
-                        },
-                        {
                             "name": "'container'",
                             "value": "(\n    width: 1200px,\n    gutter: sp(3),\n    gutter-mobile: sp(1.5),\n    selector: '.container',\n)",
                             "description": "_boilerplate_ Settings related to the default outer content container. Note: individual settings\ncan be configured using flat map syntax.\n"
