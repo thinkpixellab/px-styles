@@ -2,6 +2,8 @@
 /// @group site.grid
 ////
 
+@use '../utils' as *;
+
 /// Create a CSS grid that mimics a table where columns are specified and rows are added as needed.
 /// @param {column definitions} $columns Column definitions
 /// @param {row definition} $row-height [auto] The height of each row
