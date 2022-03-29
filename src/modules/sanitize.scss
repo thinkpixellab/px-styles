@@ -30,7 +30,6 @@
         line-height: 1.5;
 
         // use a 4-space tab width in all browsers (opinionated).
-        -moz-tab-size: 4;
         tab-size: 4;
 
         // remove the grey highlight on links in iOS (opinionated).
@@ -122,12 +121,6 @@
     svg,
     video {
         vertical-align: middle;
-    }
-
-    // add the correct display in iOS 4-7.
-    audio:not([controls]) {
-        display: none;
-        height: 0;
     }
 
     // remove the border on iframes in all browsers (opinionated).

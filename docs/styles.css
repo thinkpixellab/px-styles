@@ -19,7 +19,6 @@
 html {
   cursor: default;
   line-height: 1.5;
-  -moz-tab-size: 4;
   tab-size: 4;
   -webkit-tap-highlight-color: transparent;
   -ms-text-size-adjust: 100%;
@@ -86,11 +85,6 @@ img,
 svg,
 video {
   vertical-align: middle;
-}
-
-audio:not([controls]) {
-  display: none;
-  height: 0;
 }
 
 iframe {
@@ -274,75 +268,6 @@ body {
   color: white;
 }
 
-a {
-  color: inherit;
-}
-
-a,
-a:hover {
-  text-decoration: inherit;
-}
-
-.link {
-  color: #0099fd;
-  text-decoration: none;
-  -selector: ".link";
-}
-.link:hover {
-  background-color: rgba(0, 153, 253, 0.1);
-  text-decoration: underline;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  margin: 0;
-  padding: 0;
-  line-height: normal;
-}
-
-p {
-  font-size: inherit;
-  padding: 0;
-  margin: 0;
-}
-
-button {
-  appearance: none;
-  display: block;
-  outline: none;
-  border: none;
-  border-radius: 0;
-  background: none transparent;
-  background-color: transparent;
-  padding: 0;
-  width: auto;
-  height: auto;
-  border-spacing: 0;
-  text-align: left;
-  text-indent: 0;
-  line-height: 1;
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-}
-
-ul,
-ol {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-ul li,
-ol li {
-  padding: 0;
-  margin: 0;
-}
-
 pre,
 code {
   font-family: Menlo, Monaco, Consolas, monospace;
@@ -394,6 +319,65 @@ sup {
   width: 1px;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
+}
+
+a {
+  color: inherit;
+}
+
+a,
+a:hover {
+  text-decoration: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+
+p {
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  appearance: none;
+  display: block;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  background: none transparent;
+  background-color: transparent;
+  padding: 0;
+  width: auto;
+  height: auto;
+  border-spacing: 0;
+  text-align: left;
+  text-indent: 0;
+  line-height: 1;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+ul li,
+ol li {
+  padding: 0;
+  margin: 0;
 }
 
 .display1 {
@@ -468,6 +452,16 @@ sup {
   line-height: 1.15;
   margin-bottom: 0.5em;
   font-size: 15px;
+}
+
+.link {
+  color: #0099fd;
+  text-decoration: none;
+  -selector: ".link";
+}
+.link:hover {
+  background-color: rgba(0, 153, 253, 0.1);
+  text-decoration: underline;
 }
 
 .fade-enter-active,

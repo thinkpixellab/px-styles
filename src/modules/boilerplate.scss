@@ -7,6 +7,80 @@
 @use '../site' as *;
 @use 'sanitize' as *;
 
+@mixin resets($force-reset-all: false) {
+    // reset links
+    @if ($force-reset-all or get('reset:link')) {
+        a {
+            color: inherit;
+        }
+        a,
+        a:hover {
+            text-decoration: inherit;
+        }
+    }
+
+    // headings reset
+    @if ($force-reset-all or get('reset:headings')) {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: inherit;
+            margin: 0;
+            padding: 0;
+            line-height: get('line-height');
+        }
+    }
+
+    // paragraph reset
+    @if ($force-reset-all or get('reset:paragraph')) {
+        p {
+            font-size: inherit;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    // button reset
+    @if ($force-reset-all or get('reset:button')) {
+        button {
+            appearance: none;
+            display: block;
+            outline: none;
+            border: none;
+            border-radius: 0;
+            background: none transparent;
+            background-color: transparent;
+            padding: 0;
+            width: auto;
+            height: auto;
+            border-spacing: 0;
+            text-align: left;
+            text-indent: 0;
+            line-height: 1;
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+        }
+    }
+
+    // list reset
+    @if ($force-reset-all or get('reset:lists')) {
+        ul,
+        ol {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            li {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+
 @mixin boilerplate($env: vue) {
     @if (get('fonts')) {
         // local fonts
@@ -80,85 +154,6 @@
         color: get('colors:selection-fg');
     }
 
-    // reset links
-    @if (get('reset:link')) {
-        a {
-            color: inherit;
-        }
-        a,
-        a:hover {
-            text-decoration: inherit;
-        }
-    }
-
-    // link styles
-    @if (get('links:-selector')) {
-        #{get('links:-selector')} {
-            @include css-map-dpr(get('links'));
-        }
-    }
-
-    // headings reset
-    @if (get('reset:headings')) {
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-size: inherit;
-            margin: 0;
-            padding: 0;
-            line-height: get('line-height');
-        }
-    }
-
-    // paragraph reset
-    @if (get('reset:paragraph')) {
-        p {
-            font-size: inherit;
-            padding: 0;
-            margin: 0;
-        }
-    }
-
-    // button reset
-    @if (get('reset:button')) {
-        button {
-            appearance: none;
-            display: block;
-            outline: none;
-            border: none;
-            border-radius: 0;
-            background: none transparent;
-            background-color: transparent;
-            padding: 0;
-            width: auto;
-            height: auto;
-            border-spacing: 0;
-            text-align: left;
-            text-indent: 0;
-            line-height: 1;
-            color: inherit;
-            font-family: inherit;
-            font-size: inherit;
-        }
-    }
-
-    // list reset
-    @if (get('reset:lists')) {
-        ul,
-        ol {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            li {
-                padding: 0;
-                margin: 0;
-            }
-        }
-    }
-
     // code, pre
     pre,
     code {
@@ -216,12 +211,22 @@
         clip: rect(1px, 1px, 1px, 1px);
     }
 
+    // resets
+    @include resets();
+
     // create type styles
     @each $selector, $props in get('type-styles') {
         $base-name: map-get-default($props, '--base', ());
 
         #{$selector} {
             @include type-style($base-name, $props);
+        }
+    }
+
+    // link styles
+    @if (get('links:-selector')) {
+        #{get('links:-selector')} {
+            @include css-map-dpr(get('links'));
         }
     }
 
