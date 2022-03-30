@@ -1,25 +1,17 @@
 @use '../utils' as *;
 
-// example
-
-// @include grid-art(
-//     '250px   | auto    |      ',
-//     'header  | header  | auto ',
-//     'sidebar | main    | 1fr  ',
-//     'footer  | footer  | auto  '
-// );
-
-/// Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to visualize.
+/// Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to
+/// understand and visualize.
+///
 /// @param {*} $grid - The grid definition (see exampl)
 ///
 /// @example
-///     // prettier-ignore
-///     @include grid-art(
-///         '250px   | auto    |      ',
-///         'header  | header  | auto ',
-///         'sidebar | main    | 1fr  ',
-///         'footer  | footer  | auto  '
-///     );
+///   @include grid-art((
+///       'minmax(250px, 20vw) | auto    |      ',
+///       'header              | header  | auto ',
+///       'sidebar             | main    | 1fr  ',
+///       'footer              | footer  | auto '
+///   ));
 
 @mixin grid-art($grid) {
     display: grid;
@@ -35,7 +27,7 @@
     @each $str in $grid {
         $list: str-split($str, '|');
         $list: list-map($list, get-function(trim));
-        $strings: append($strings, trim(list-join($list, ' ')));
+        $strings: append($strings, trim(list-join($list, '|')));
     }
 
     @return $strings;
@@ -46,7 +38,7 @@
     $grid: -grid-art-prep($grid);
 
     // cols is just the first row in the grid
-    @return unquote(nth($grid, 1));
+    @return str-split(unquote(nth($grid, 1)), '|');
 }
 
 @function -grid-art-rows($grid) {
@@ -60,14 +52,14 @@
 
     // extract the last item in every row and add it to row defs
     @each $str in $grid {
-        $row: str-split($str, ' ');
+        $row: str-split($str, '|');
         $row-def: append($row-def, nth($row, length($row)));
     }
 
     @return unquote(list-join($row-def, ' '));
 }
 
-@function grid-art-areas($grid) {
+@function grid-art-areas($grid, $join: ' ') {
     // prepare the grid
     $grid: -grid-art-prep($grid);
 
@@ -77,10 +69,76 @@
 
     @each $str in $grid {
         // remove the last item
-        $row: str-split($str, ' ');
+        $row: str-split($str, '|');
         $row: list-remove($row, length($row));
-        $areas: append($areas, list-join($row, ' '));
+        $areas: append($areas, list-join($row, $join));
     }
 
     @return $areas;
+}
+
+/// Convert a named grid area to the grid-line syntax (e.g. 2 / 1 / 2 / 4).
+///
+/// @param {*} $grid A variable that represents the grid-art format of the grid.
+/// @param {*} $area-name The name of the area that should be converted to lines
+/// @param {*} $separator [' / '] The separator that should be used between the lines (use false or null to get a list back)
+
+@function grid-art-lines($grid, $area-name, $separator: ' / ') {
+    $start-row: null;
+    $start-col: null;
+    $end-row: null;
+    $end-col: null;
+    $r: 0;
+    $c: 0;
+
+    $areas: grid-art-areas($grid, '|');
+
+    @each $row in $areas {
+        $r: $r + 1;
+        $c: 0;
+        @each $name in str-split($row, '|') {
+            $c: $c + 1;
+            @if ($name == $area-name) {
+                @if ($start-row == null) {
+                    $start-row: $r;
+                    $start-col: $c;
+                }
+                $end-row: $r;
+                $end-col: $c;
+            }
+        }
+    }
+
+    $lines: ($start-row $start-col $end-row $end-col);
+
+    @if ($separator) {
+        @return list-join($lines, $separator);
+    } @else {
+        @return $lines;
+    }
+}
+
+/// Get the grid line syntax (e.g. 2 / 1 / 2 / 4) of a rectangular that spans two named grid areas.
+///
+/// @param {*} $grid A variable that represents the grid-art format of the grid.
+/// @param {*} $start-area The name of the area that represents the top left corner of the span
+/// @param {*} $end-area The name of the area that represents the bottom right corner of the span
+/// @param {*} $separator [' / '] The separator that should be used between the lines (use false or null to get a list back)
+
+@function grid-art-span($grid, $start-area, $end-area, $separator: ' / ') {
+    $start-lines: grid-art-lines($grid, $start-area, false);
+    $end-lines: grid-art-lines($grid, $end-area, false);
+
+    $start-row: min(nth($start-lines, 1), nth($end-lines, 1));
+    $start-col: min(nth($start-lines, 2), nth($end-lines, 2));
+    $end-row: max(nth($start-lines, 3), nth($end-lines, 3));
+    $end-col: max(nth($start-lines, 4), nth($end-lines, 4));
+
+    $lines: ($start-row $start-col $end-row $end-col);
+
+    @if ($separator) {
+        @return list-join($lines, $separator);
+    } @else {
+        @return $lines;
+    }
 }

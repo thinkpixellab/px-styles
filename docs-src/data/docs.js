@@ -2002,6 +2002,67 @@ window.pxstyles = {
                 {
                     "namespace": "other",
                     "group": "undefined",
+                    "name": "grid-art-lines",
+                    "docName": "grid-art-lines()",
+                    "type": "function",
+                    "description": "Convert a named grid area to the grid-line syntax (e.g. 2 / 1 / 2 / 4).\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "grid",
+                            "description": "A variable that represents the grid-art format of the grid."
+                        },
+                        {
+                            "type": "*",
+                            "name": "area-name",
+                            "description": "The name of the area that should be converted to lines"
+                        },
+                        {
+                            "type": "*",
+                            "name": "separator",
+                            "default": "' / '",
+                            "description": "The separator that should be used between the lines (use false or null to get a list back)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/gridart.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
+                    "name": "grid-art-span",
+                    "docName": "grid-art-span()",
+                    "type": "function",
+                    "description": "Get the grid line syntax (e.g. 2 / 1 / 2 / 4) of a rectangular that spans two named grid areas.\n\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "grid",
+                            "description": "A variable that represents the grid-art format of the grid."
+                        },
+                        {
+                            "type": "*",
+                            "name": "start-area",
+                            "description": "The name of the area that represents the top left corner of the span"
+                        },
+                        {
+                            "type": "*",
+                            "name": "end-area",
+                            "description": "The name of the area that represents the bottom right corner of the span"
+                        },
+                        {
+                            "type": "*",
+                            "name": "separator",
+                            "default": "' / '",
+                            "description": "The separator that should be used between the lines (use false or null to get a list back)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "modules/gridart.scss"
+                },
+                {
+                    "namespace": "other",
+                    "group": "undefined",
                     "name": "pow",
                     "docName": "pow()",
                     "type": "function",
