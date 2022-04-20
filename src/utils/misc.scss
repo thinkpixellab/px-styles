@@ -264,6 +264,10 @@
             read-only: '&:read-only, &:read-only:hover, &:read-only:active',
             before: '&:before',
             after: '&:after',
+            first-child: '&:first-child',
+            last-child: '&:last-child',
+            nth-even: '&:nth-child(even)',
+            nth-odd: '&:nth-child(odd)',
         );
         $aliases: map-merge($common-states, $aliases);
     }
