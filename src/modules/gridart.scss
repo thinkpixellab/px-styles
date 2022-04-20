@@ -1,16 +1,14 @@
 @use '../utils' as *;
 
 /// Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to
-/// understand and visualize.
+/// understand and visualize. The first row represents column size and the last column represents
+/// row sizing.
 ///
 /// @param {*} $grid - The grid definition (see exampl)
 ///
 /// @example
-///   @include grid-art((
-///       'minmax(250px, 20vw) | auto    |      ',
-///       'header              | header  | auto ',
-///       'sidebar             | main    | 1fr  ',
-///       'footer              | footer  | auto '
+///   @include grid-art(( 'minmax(250px, 20vw) | auto    |      ', 'header              | header  |
+///       auto ', 'sidebar             | main    | 1fr  ', 'footer              | footer  | auto '
 ///   ));
 
 @mixin grid-art($grid) {
@@ -100,39 +98,14 @@
             $c: $c + 1;
             @if ($name == $area-name) {
                 @if ($start-row == null) {
-                    $start-row: $r;
                     $start-col: $c;
+                    $start-row: $r;
                 }
-                $end-row: $r;
                 $end-col: $c;
+                $end-row: $r;
             }
         }
     }
-
-    $lines: ($start-row $start-col $end-row $end-col);
-
-    @if ($separator) {
-        @return list-join($lines, $separator);
-    } @else {
-        @return $lines;
-    }
-}
-
-/// Get the grid line syntax (e.g. 2 / 1 / 2 / 4) of a rectangular that spans two named grid areas.
-///
-/// @param {*} $grid A variable that represents the grid-art format of the grid.
-/// @param {*} $start-area The name of the area that represents the top left corner of the span
-/// @param {*} $end-area The name of the area that represents the bottom right corner of the span
-/// @param {*} $separator [' / '] The separator that should be used between the lines (use false or null to get a list back)
-
-@function grid-art-span($grid, $start-area, $end-area, $separator: ' / ') {
-    $start-lines: grid-art-lines($grid, $start-area, false);
-    $end-lines: grid-art-lines($grid, $end-area, false);
-
-    $start-row: min(nth($start-lines, 1), nth($end-lines, 1));
-    $start-col: min(nth($start-lines, 2), nth($end-lines, 2));
-    $end-row: max(nth($start-lines, 3), nth($end-lines, 3));
-    $end-col: max(nth($start-lines, 4), nth($end-lines, 4));
 
     $lines: ($start-row $start-col $end-row $end-col);
 
