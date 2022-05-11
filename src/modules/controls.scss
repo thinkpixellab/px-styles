@@ -165,8 +165,8 @@
     );
 }
 
-/// Completely resets the appearance of controls with some opinionated defaults (see source or
-/// output for details).
+/// Resets the appearance of controls with some opinionated defaults (see source or
+/// output for details). Typically used as part of restyling a component.
 ///
 /// @example @include control-reset() // =>
 /// .class {
@@ -183,6 +183,36 @@
 
 @mixin control-reset() {
     @include css-map-dpr(control-reset());
+}
+
+/// Resets the style of control much more aggressively than regular control-reset. Really cleans
+/// things out!
+
+@mixin control-reset-hard($overrides: ()) {
+    @include css-map(
+        map-merge(
+            (
+                appearance: none,
+                display: block,
+                outline: none,
+                border: none,
+                border-radius: 0,
+                background: none transparent,
+                background-color: transparent,
+                padding: 0,
+                width: auto,
+                height: auto,
+                border-spacing: 0,
+                text-align: left,
+                text-indent: 0,
+                line-height: 1,
+                color: inherit,
+                font-family: inherit,
+                font-size: inherit,
+            ),
+            $overrides
+        )
+    );
 }
 
 // ----------------------------------------------------------------------------

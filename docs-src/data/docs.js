@@ -387,7 +387,7 @@ window.pxstyles = {
                     "name": "control-reset",
                     "docName": "control-reset()",
                     "type": "mixin",
-                    "description": "Completely resets the appearance of controls with some opinionated defaults (see source or\noutput for details).\n\n",
+                    "description": "Resets the appearance of controls with some opinionated defaults (see source or\noutput for details). Typically used as part of restyling a component.\n\n",
                     "example": [
                         {
                             "type": "include",
@@ -395,6 +395,16 @@ window.pxstyles = {
                             "description": "control-reset() // =>"
                         }
                     ],
+                    "access": "public",
+                    "path": "modules/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "control-reset-hard",
+                    "docName": "control-reset-hard()",
+                    "type": "mixin",
+                    "description": "Resets the style of control much more aggressively than regular control-reset. Really cleans\nthings out!\n",
                     "access": "public",
                     "path": "modules/controls.scss"
                 },
@@ -1982,11 +1992,11 @@ window.pxstyles = {
                     "name": "grid-art",
                     "docName": "grid-art()",
                     "type": "mixin",
-                    "description": "Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to visualize.\n",
+                    "description": "Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to\nunderstand and visualize. The first row represents column size and the last column represents\nrow sizing.\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// prettier-ignore\n@include grid-art(\n    '250px   | auto    |      ',\n    'header  | header  | auto ',\n    'sidebar | main    | 1fr  ',\n    'footer  | footer  | auto  '\n);"
+                            "code": "@include grid-art(( 'minmax(250px, 20vw) | auto    |      ', 'header              | header  |\n    auto ', 'sidebar             | main    | 1fr  ', 'footer              | footer  | auto '\n));"
                         }
                     ],
                     "parameter": [
@@ -2016,39 +2026,6 @@ window.pxstyles = {
                             "type": "*",
                             "name": "area-name",
                             "description": "The name of the area that should be converted to lines"
-                        },
-                        {
-                            "type": "*",
-                            "name": "separator",
-                            "default": "' / '",
-                            "description": "The separator that should be used between the lines (use false or null to get a list back)"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/gridart.scss"
-                },
-                {
-                    "namespace": "other",
-                    "group": "undefined",
-                    "name": "grid-art-span",
-                    "docName": "grid-art-span()",
-                    "type": "function",
-                    "description": "Get the grid line syntax (e.g. 2 / 1 / 2 / 4) of a rectangular that spans two named grid areas.\n\n",
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "grid",
-                            "description": "A variable that represents the grid-art format of the grid."
-                        },
-                        {
-                            "type": "*",
-                            "name": "start-area",
-                            "description": "The name of the area that represents the top left corner of the span"
-                        },
-                        {
-                            "type": "*",
-                            "name": "end-area",
-                            "description": "The name of the area that represents the bottom right corner of the span"
                         },
                         {
                             "type": "*",
