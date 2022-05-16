@@ -18,11 +18,17 @@
     grid-template-areas: grid-art-areas($grid);
 }
 
+@mixin grid($args...) {
+    @include grid-art($args);
+}
+
 @function -grid-art-prep($grid) {
     // remove white space and separators
     $strings: ();
 
     @each $str in $grid {
+        $str: str-replace($str, '#', 'minmax');
+
         $list: str-split($str, '|');
         $list: list-map($list, get-function(trim));
         $strings: append($strings, trim(list-join($list, '|')));
