@@ -48,6 +48,9 @@
 /// font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vw, 36px)
 
 @function scale-vw($min, $max, $at-width: null) {
-    $at-width: if-null($at-width, get('container:width'));
+    @if (not is-length($at-width)) {
+        $at-width: if-null($at-width, get('container:width'));
+    }
+
     @return clamp($min, ($max / $at-width) * 100vw, $max);
 }
