@@ -249,10 +249,6 @@ html {
   }
 }
 
-body {
-  font-size: 1rem;
-}
-
 html,
 body {
   font-family: Inter, sans-serf;
@@ -261,6 +257,10 @@ body {
   letter-spacing: normal;
   background-color: white;
   color: #2e3b43;
+}
+
+body {
+  font-size: 1rem;
 }
 
 ::selection {

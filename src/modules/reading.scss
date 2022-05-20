@@ -21,8 +21,8 @@
     span,
     p {
         font-family: flat-get($config, 'p:font-family', inherit);
-        font-size: flat-get($config, 'p:line-height', inherit);
-        font-weight: flat-get($config, 'p:line-height', inherit);
+        font-size: flat-get($config, 'p:font-size', inherit);
+        font-weight: flat-get($config, 'p:font-weight', inherit);
         line-height: flat-get($config, 'p:line-height', inherit);
     }
 

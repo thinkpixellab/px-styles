@@ -81,7 +81,35 @@
     }
 }
 
-@mixin boilerplate($env: vue) {
+// body and root styles setup fonts, page background, etc.
+
+@mixin -root-styles() {
+    // set the root font size (must be in px, sets the basis for rems)
+    font-size: get(font-size-base);
+
+    // set the font size at the specified breakpoints
+    @each $break, $font-size in get(font-size-breaks) {
+        @include media-until($break) {
+            font-size: $font-size;
+        }
+    }
+}
+
+@mixin -body-root-styles() {
+    font-family: get(font-family);
+    font-weight: get(font-weight);
+    line-height: get(line-height);
+    letter-spacing: get(letter-spacing);
+
+    @if (get(font-smoothing)) {
+        @include font-smoothing-on();
+    }
+
+    background-color: clr(page-bg);
+    color: clr(page-fg);
+}
+
+@mixin boilerplate($env: vue, $scoped: false) {
     @if (get('fonts')) {
         // local fonts
         @each $font-name, $variants in get('fonts') {
@@ -115,37 +143,27 @@
         @include sanitize();
     }
 
-    html {
-        // set the root font size (must be in px, sets the basis for rems)
-        font-size: get(font-size-base);
-
-        // set the font size at the specified breakpoints
-        @each $break, $font-size in get(font-size-breaks) {
-            @include media-until($break) {
-                font-size: $font-size;
-            }
-        }
+    // if $scoped, we generate font directly within the element
+    @if ($scoped) {
+        @include -root-styles();
+        @include -body-root-styles();
     }
 
-    // set the body font size to be 1rem
-    body {
-        font-size: 1rem;
-    }
-
-    // font-family, color, line-height, etc.
-    html,
-    body {
-        font-family: get(font-family);
-        font-weight: get(font-weight);
-        line-height: get(line-height);
-        letter-spacing: get(letter-spacing);
-
-        @if (get(font-smoothing)) {
-            @include font-smoothing-on();
+    // otherwise, generate within root elements
+    @else {
+        html {
+            @include -root-styles();
         }
 
-        background-color: clr(page-bg);
-        color: clr(page-fg);
+        html,
+        body {
+            @include -body-root-styles();
+        }
+
+        // set the body font size to be 1rem
+        body {
+            font-size: 1rem;
+        }
     }
 
     // customize the text selection color
