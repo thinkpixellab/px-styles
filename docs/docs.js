@@ -1887,11 +1887,11 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Create a fade transition by definining just the css transition and the hidden state."
+                            "code": "// Create a fade transition by definining just the css transition and the hidden state.\n @include vue-transition(fade) {\n\n    // define the transition\n    @include vt-transition {\n        transition: opacity 500ms;\n    }\n\n    // define the hidden state (the non-hidden state is implicty -- the normal state)\n    @include vt-hidden {\n        opacity: 0;\n    }\n};"
                         },
                         {
                             "type": "scss",
-                            "code": "// Create a slide and fade transition by"
+                            "code": "// Create a slide and fade transition by\n @include vue-transition(slide-x) {\n\n    // define the hidden state (the non-hidden state is implicty -- the normal state)\n    @include vt-transition {\n        transition: opacity 500ms;\n    }\n\n    // the hidden state before entering\n    @include vt-hidden-enter {\n        transform: translateY(-100px);\n        opacity: 0;\n    }\n\n    // the hidden after exiting\n    @include vt-hidden-leave {\n        transform: translateY(100px);\n        opacity: 0;\n    }\n};"
                         }
                     ],
                     "parameter": [
