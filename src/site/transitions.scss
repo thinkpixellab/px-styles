@@ -34,6 +34,130 @@
     transition: transition($proplist, $name, $dur, $ease, $delay);
 }
 
+/// Set of mixins that generates classes for a vue transition. These dot not expose the full power of
+/// vue transitions but it does simplify the creation of many by using simplified naming and grouping classes
+/// that are commonly defined together. The outer mixin contains the inner (vt-*) mixins.
+///
+/// @param {string} $name The name of the transition
+///
+/// @example
+/// // Create a fade transition by definining just the css transition and the hidden state.
+///  @include vue-transition(fade) {
+///
+///     // define the transition
+///     @include vt-transition {
+///         transition: opacity 500ms;
+///     }
+///
+///     // define the hidden state (the non-hidden state is implicty -- the normal state)
+///     @include vt-hidden {
+///         opacity: 0;
+///     }
+/// };
+///
+/// @example
+/// // Create a slide and fade transition by
+///  @include vue-transition(slide-x) {
+///
+///     // define the hidden state (the non-hidden state is implicty -- the normal state)
+///     @include vt-transition {
+///         transition: opacity 500ms;
+///     }
+///
+///     // the hidden state before entering
+///     @include vt-hidden-enter {
+///         transform: translateY(-100px);
+///         opacity: 0;
+///     }
+///
+///     // the hidden after exiting
+///     @include vt-hidden-leave {
+///         transform: translateY(100px);
+///         opacity: 0;
+///     }
+/// };
+
+@mixin vue-transition($name) {
+    .#{$name} {
+        @content;
+    }
+}
+
+/// Defines the transition property definition for a vue transition. Use in the content area of the
+/// vue-transition mixin.
+
+@mixin vt-transition() {
+    &-enter-active,
+    &-enter-leave {
+        @content;
+    }
+}
+
+/// Defines the hidden state when that state is shared as the element is added and also removed from
+/// the DOM. Use in the content area of the vue-transition mixin.
+
+@mixin vt-hidden() {
+    &-enter,
+    &-leave-to {
+        @content;
+    }
+}
+
+/// Defines the hidden state as an element is added into the DOM. Use in the content area of the
+/// vue-transition mixin.
+@mixin vt-hidden-enter() {
+    &-enter {
+        @content;
+    }
+}
+
+/// Defines a hidden state when an element is removed from the DOM. Use in the content area of the
+/// vue-transition mixin.
+@mixin vt-hidden-leave() {
+    &-leave-to {
+        @content;
+    }
+}
+
+/// Defines the state as an element is actively transitioning when the state is shared for both
+/// enter and leave. Use in the content area of the vue-transition mixin.
+@mixin vt-active() {
+    &-enter-active,
+    &-leave-active {
+        @content;
+    }
+}
+
+/// Defines the active transition state as an element is being added to the DOM. Use in the content
+/// area of the vue-transition mixin.
+@mixin vt-entering() {
+    &-enter-active {
+        @content;
+    }
+}
+
+/// Defines the the active transition state as element is begin removed from the DOM. Use in the
+/// content area of the vue-transition mixin.
+@mixin vt-leaving() {
+    &-leave-active {
+        @content;
+    }
+}
+
+/// Simple helper that pins an object as it is being removed from the DOM (to make room for the
+/// incoming element). In some cases just absolute positioning is enough, but in others you may need
+/// to provide additional support (like a width or height) as @content or specific top/left values.
+/// It also might be better to use a grid as a container where multiple elements can easily occupy
+/// the same space but still size naturally and impact the layout of other elments.
+@mixin vt-pin($top: 0, $left: 0) {
+    &-leave-active {
+        position: absolute;
+        top: $top;
+        left: $left;
+        @content;
+    }
+}
+
 /// @example vue-transition-fade() // =>
 ///  .fade-enter-active .fade-leave-active {
 ///   transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);

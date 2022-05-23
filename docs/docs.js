@@ -1880,6 +1880,113 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.transitions",
+                    "name": "vue-transition",
+                    "docName": "vue-transition()",
+                    "type": "mixin",
+                    "description": "Set of mixins that generates classes for a vue transition. These dot not expose the full power of\nvue transitions but it does simplify the creation of many by using simplified naming and grouping classes\nthat are commonly defined together. The outer mixin contains the inner (vt-*) mixins.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "// Create a fade transition by definining just the css transition and the hidden state."
+                        },
+                        {
+                            "type": "scss",
+                            "code": "// Create a slide and fade transition by"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "name",
+                            "description": "The name of the transition\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-transition",
+                    "docName": "vt-transition()",
+                    "type": "mixin",
+                    "description": "Defines the transition property definition for a vue transition. Use in the content area of the\nvue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-hidden",
+                    "docName": "vt-hidden()",
+                    "type": "mixin",
+                    "description": "Defines the hidden state when that state is shared as the element is added and also removed from\nthe DOM. Use in the content area of the vue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-hidden-enter",
+                    "docName": "vt-hidden-enter()",
+                    "type": "mixin",
+                    "description": "Defines the hidden state as an element is added into the DOM. Use in the content area of the\nvue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-hidden-leave",
+                    "docName": "vt-hidden-leave()",
+                    "type": "mixin",
+                    "description": "Defines a hidden state when an element is removed from the DOM. Use in the content area of the\nvue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-active",
+                    "docName": "vt-active()",
+                    "type": "mixin",
+                    "description": "Defines the state as an element is actively transitioning when the state is shared for both\nenter and leave. Use in the content area of the vue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-entering",
+                    "docName": "vt-entering()",
+                    "type": "mixin",
+                    "description": "Defines the active transition state as an element is being added to the DOM. Use in the content\narea of the vue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-leaving",
+                    "docName": "vt-leaving()",
+                    "type": "mixin",
+                    "description": "Defines the the active transition state as element is begin removed from the DOM. Use in the\ncontent area of the vue-transition mixin.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
+                    "name": "vt-pin",
+                    "docName": "vt-pin()",
+                    "type": "mixin",
+                    "description": "Simple helper that pins an object as it is being removed from the DOM (to make room for the\nincoming element). In some cases just absolute positioning is enough, but in others you may need\nto provide additional support (like a width or height) as @content or specific top/left values.\nIt also might be better to use a grid as a container where multiple elements can easily occupy\nthe same space but still size naturally and impact the layout of other elments.\n",
+                    "access": "public",
+                    "path": "site/transitions.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.transitions",
                     "name": "vue-transition-fade",
                     "docName": "vue-transition-fade()",
                     "type": "mixin",
