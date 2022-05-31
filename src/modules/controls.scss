@@ -49,6 +49,10 @@
     }
 }
 
+@mixin control-focus-style($style: null, $color: null) {
+    @include css-map(control-focus-style($style, $color));
+}
+
 @function control-placeholder-style($overrides) {
     @return flat-merge(get('controls:placeholder'), $overrides);
 }
