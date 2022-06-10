@@ -83,9 +83,7 @@
     }
 }
 
-/// Defines the transition property definition for a vue transition. Use in the content area of the
-/// vue-transition mixin.
-
+/// Defines the transition  definition for a vue transition.
 @mixin vt-transition() {
     &-enter-active,
     &-leave-active {
@@ -95,7 +93,6 @@
 
 /// Defines the hidden state when that state is shared as the element is added and also removed from
 /// the DOM. Use in the content area of the vue-transition mixin.
-
 @mixin vt-hidden() {
     &-enter,
     &-leave-to {
@@ -103,16 +100,14 @@
     }
 }
 
-/// Defines the hidden state as an element is added into the DOM. Use in the content area of the
-/// vue-transition mixin.
+/// Defines the hidden state as an element is added into the DOM. Removed one frame after element is inserted.
 @mixin vt-hidden-enter() {
     &-enter {
         @content;
     }
 }
 
-/// Defines a hidden state when an element is removed from the DOM. Use in the content area of the
-/// vue-transition mixin.
+/// Defines a hidden state when an element is removed from the DOM.
 @mixin vt-hidden-leave() {
     &-leave-to {
         @content;
