@@ -2,8 +2,6 @@
 /// @group utils.typography
 ////
 
-@use 'sass:math' as sass-math;
-
 @use 'math.scss' as math;
 @use 'collections.scss' as collections;
 @use 'units.scss' as units;
@@ -15,15 +13,15 @@
 /// @link  https://www.modularscale.com/
 
 $typescale-ratios: (
-    minor-second: sass-math.div(16, 15),
+    minor-second: 1.06667,
     major-second: 9 * 0.125,
     minor-third: 6 * 0.2,
     major-third: 5 * 0.25,
-    perfect-fourth: sass-math.div(4, 3),
-    aug-fourth: sass-math.div(1.4142, 1),
+    perfect-fourth: 1.33333,
+    aug-fourth: 1.4142,
     perfect-fifth: 3 * 0.5,
     minor-sixth: 8 * 0.2,
-    golden-section: sass-math.div(1.1618, 1),
+    golden-section: 1.1618,
 );
 
 /// Generate a modular type size
@@ -47,7 +45,7 @@ $typescale-ratios: (
     @if ($step >= 0) {
         $size: $base * (math.pow($ratio, $step));
     } @else {
-        $size: sass-math.div($base, math.pow($ratio, abs($step)));
+        $size: math.divide($base, math.pow($ratio, abs($step)));
     }
 
     @return $size;
@@ -129,7 +127,7 @@ $typescale-ratios: (
         // convert to rems if specified (this will also round)
         @if ($rems) {
             //$size: -rems($size, $remsfs, $round);
-            $size: sass-math.div($size, $remsfs) * 1rem;
+            $size: math.divide($size, $remsfs) * 1rem;
             $size: if($round > 0, math.round-f($size, $round), $size);
         }
 

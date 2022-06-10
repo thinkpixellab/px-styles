@@ -1277,6 +1277,16 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.mediaquery",
+                    "name": "media-after-mobile",
+                    "docName": "media-after-mobile()",
+                    "type": "mixin",
+                    "description": "A convenience mixin that is equivalent to media-after($mobile-breakpoint).\n",
+                    "access": "public",
+                    "path": "site/mediaquery.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.mediaquery",
                     "name": "breakpoints-asc",
                     "docName": "breakpoints-asc()",
                     "type": "function",
@@ -1382,6 +1392,22 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vw, 36px)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "scale-vh",
+                    "docName": "scale-vh()",
+                    "type": "function",
+                    "description": "Creates a css clamp value that scales in vh units from $min to $max. The vh value is calculated\nsuch that it will have the $max value when the screen is $at-height height.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)"
                         }
                     ],
                     "access": "public",
@@ -1910,7 +1936,7 @@ window.pxstyles = {
                     "name": "vt-transition",
                     "docName": "vt-transition()",
                     "type": "mixin",
-                    "description": "Defines the transition property definition for a vue transition. Use in the content area of the\nvue-transition mixin.\n",
+                    "description": "Defines the transition  definition for a vue transition.\n",
                     "access": "public",
                     "path": "site/transitions.scss"
                 },
@@ -1930,7 +1956,7 @@ window.pxstyles = {
                     "name": "vt-hidden-enter",
                     "docName": "vt-hidden-enter()",
                     "type": "mixin",
-                    "description": "Defines the hidden state as an element is added into the DOM. Use in the content area of the\nvue-transition mixin.\n",
+                    "description": "Defines the hidden state as an element is added into the DOM. Removed one frame after element is inserted.\n",
                     "access": "public",
                     "path": "site/transitions.scss"
                 },
@@ -1940,7 +1966,7 @@ window.pxstyles = {
                     "name": "vt-hidden-leave",
                     "docName": "vt-hidden-leave()",
                     "type": "mixin",
-                    "description": "Defines a hidden state when an element is removed from the DOM. Use in the content area of the\nvue-transition mixin.\n",
+                    "description": "Defines a hidden state when an element is removed from the DOM.\n",
                     "access": "public",
                     "path": "site/transitions.scss"
                 },

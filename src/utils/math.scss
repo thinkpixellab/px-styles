@@ -2,7 +2,7 @@
 /// @group utils.math
 ////
 ///built in math module
-@use 'sass:math';
+@use 'sass:math' as math;
 
 /// Calculate a number raised to the power of the provided exponent. (Wrapper for math.pow)
 /// @param {*} $base The base number
@@ -23,7 +23,7 @@
     $p: pow(10, $dec);
     $r: round($n * $p);
     @warn $n $dec $p $r;
-    @return math.div(round($n * $p), $p);
+    @return divide(round($n * $p), $p);
 }
 
 /// Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)
@@ -33,7 +33,7 @@
 ///@example $val: round-f(3.3333, 2) // => 3.5
 @function round-f($n, $frac: 8) {
     @if ($frac) {
-        @return math.div(round($n * $frac), $frac);
+        @return divide(round($n * $frac), $frac);
     } @else {
         @return round($n);
     }
@@ -188,7 +188,10 @@
 ///
 ///@example divide(10, 2) // => 5
 @function divide($num1, $num2) {
-    @return math.div($num1, $num2);
+    @if (function-exists('div', 'math')) {
+        @return math.div($num1, $num2);
+    }
+    @return (($num1 / $num2) * 1);
 }
 
 /// Convience function that divides two numbers and the multiples the result by 100%
@@ -199,5 +202,5 @@
 ///
 ///@example percent(10, 3, 2) // => 333.33%
 @function percent($num1, $num2, $round: 3) {
-    @return round-d(math.div($num1, $num2) * 100%, $round);
+    @return round-d(divide($num1, $num2) * 100%, $round);
 }

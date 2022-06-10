@@ -27,7 +27,7 @@
     $aspect: units.aspect-to-number($aspect);
     display: $display;
     width: 100%;
-    padding-bottom: 100% * math.div(1, $aspect);
+    padding-bottom: 100% * divide(1, $aspect);
 }
 ///
 /// @example @include aspect-before(1.333, $display: block) // =>
@@ -234,11 +234,11 @@
     &:before {
         content: '';
         display: block;
-        flex: math.div($center, 100%);
+        flex: divide($center, 100%);
     }
     &:after {
         content: '';
         display: block;
-        flex: math.div(100% - $center, 100%);
+        flex: divide(100% - $center, 100%);
     }
 }

@@ -2,7 +2,6 @@
 /// @group utils.units
 ////
 
-@use 'sass:math' as sass-math;
 @use 'math.scss' as math;
 @use 'strings.scss' as strings;
 
@@ -14,7 +13,7 @@
 
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
-        @return sass-math.div($number, $number * 0 + 1);
+        @return math.divide($number, $number * 0 + 1);
     }
     @return $number;
 }
@@ -61,7 +60,7 @@
             $result: $result * 10 + map-get($numbers, $character);
         } @else {
             $digits: $digits * 10;
-            $result: $result + sass-math.div(map-get($numbers, $character), $digits);
+            $result: $result + math.divide(map-get($numbers, $character), $digits);
         }
     }
 
@@ -432,5 +431,5 @@
     $split: strings.str-split($aspect, ':');
     $w: to-number(nth($split, 1));
     $h: to-number(nth($split, 2));
-    @return sass-math.div($w, $h);
+    @return math.divide($w, $h);
 }

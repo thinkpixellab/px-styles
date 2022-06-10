@@ -23,8 +23,8 @@
 
 @function shade($color: null, $shade: 0, $shade-range: null) {
     $shade-steps: get(shade-steps);
-    $shade-amount: math.div(100%, $shade-steps) * 2;
-    $shade: clamp-number($shade, math.div($shade-steps, -2), $shade-steps * 0.5);
+    $shade-amount: divide(100%, $shade-steps) * 2;
+    $shade: clamp-number($shade, divide($shade-steps, -2), $shade-steps * 0.5);
     $shade-range: if-null($shade-range, get(shade-range));
 
     @if ($color == null) {
