@@ -335,3 +335,13 @@ $-once-keys: ();
         @content;
     }
 }
+
+// safari only
+
+@mixin only-safari() {
+    @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) {
+            @content;
+        }
+    }
+}
