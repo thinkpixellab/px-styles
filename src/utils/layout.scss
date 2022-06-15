@@ -3,7 +3,7 @@
 /// @todo Needs documentation
 ////
 
-@use 'sass:math';
+@use 'math.scss' as *;
 @use 'units.scss' as units;
 
 /// Creates css to force an element to maintain a particular aspect (based on width) using the
