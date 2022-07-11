@@ -69,8 +69,8 @@
 
 @mixin before($content: '', $display: block) {
     &:before {
-        content: '';
-        display: block;
+        content: $content;
+        display: $display;
         @content;
     }
 }
@@ -87,8 +87,8 @@
 
 @mixin after($content: '', $display: block) {
     &:after {
-        content: '';
-        display: block;
+        content: $content;
+        display: $display;
         @content;
     }
 }
