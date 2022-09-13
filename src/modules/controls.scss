@@ -714,3 +714,20 @@
         )
     );
 }
+
+// ----------------------------------------------------------------------------
+// popup
+// ----------------------------------------------------------------------------
+
+@function popup($overrides: ()) {
+    // get button defaults from global config
+    $config: get('controls:popup', null, false);
+    $popup: (
+        background-color: clr(page-bg),
+        border-radius: get('controls:border-radius'),
+        box-shadow: shadow(15),
+    );
+
+    // merge and return all the css
+    @return flat-merge($popup, $config, $overrides);
+}
