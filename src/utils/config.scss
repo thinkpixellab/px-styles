@@ -76,7 +76,7 @@ $config: () !default;
 /// @param {*} $val [null] The value to be added.
 
 @mixin config($path, $val) {
-    $config: flat-set($config, $path, $val) !global;
+    $config: flat-set($config, $path + '', $val) !global;
 }
 
 /// Add a default configuration setting (provides the same functionality as config, but will not
