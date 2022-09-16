@@ -10,7 +10,7 @@
             // test
             @include output {
                 .class {
-                    @include type-style(
+                    @include type-base-expand(
                         headings,
                         (
                             font-size: fs(7),

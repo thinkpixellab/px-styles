@@ -210,7 +210,7 @@
         #{get('container:selector')} {
             width: 100%;
             max-width: get('container:width');
-            padding: 0 get('container:gutter');
+            padding: 0 get('container:padding', get('container:gutter'));
             margin: 0 auto;
             position: relative;
             @include media-until-mobile() {
@@ -237,7 +237,7 @@
         $base-name: map-get-default($props, '--base', ());
 
         #{$selector} {
-            @include type-style($base-name, $props);
+            @include type-base-expand($base-name, $props);
         }
     }
 

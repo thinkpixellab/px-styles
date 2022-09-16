@@ -48,8 +48,19 @@
     @error '[fs] Argument is unusable. Must be a string or a number.';
 }
 
-/// Generate a type style from a site base style (as defined in the config setting 'type-bases').
-/// @example type-style(headings, (font-size: fs(7) // =>
+@function type-base-expand($base-name-or-map, $props: ()) {
+    $base-props: $base-name-or-map;
+
+    @if is-string($base-name-or-map) {
+        $base-props: get('type-bases:' + $base-name-or-map);
+    }
+
+    $props: map-merge($base-props, $props);
+    @return $props;
+}
+
+/// Generate a type style from a site base (as defined in the config setting 'type-bases').
+/// @example type-base-expand(headings, (font-size: fs(7) // =>
 ///.class {
 ///    font-weight: 700;
 ///    line-height: 1;
@@ -61,15 +72,8 @@
 /// @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'
 /// @param {map} $props [()] A map of css properties that will override the properties in the base
 
-@mixin type-style($base-name-or-map, $props: ()) {
-    $base-props: $base-name-or-map;
-
-    @if is-string($base-name-or-map) {
-        $base-props: get('type-bases:' + $base-name-or-map);
-    }
-
-    $props: map-merge($base-props, $props);
-    @include css-map($props);
+@mixin type-base-expand($base-name-or-map, $props: ()) {
+    @include css-map(type-base-expand($base-name-or-map, $props));
 }
 
 /// Generates a series of type styles based on a base style and an overrides map.
@@ -95,7 +99,22 @@
 @mixin type-styles($styles, $base-name-or-map) {
     @each $selector, $props in $styles {
         #{$selector} {
-            @include type-style($base-name-or-map, $props);
+            @include type-base-expand($base-name-or-map, $props);
         }
     }
+}
+
+@function type-style($selector) {
+    $base-style: get('type-styles:' + $selector);
+    $base-name: map-get-default($base-style, '--base', ());
+
+    @if ($base-style and $base-name) {
+        @return type-base-expand($base-name, $base-style);
+    }
+
+    @return ();
+}
+
+@mixin type-style($selector) {
+    @include css-map(type-style($selector));
 }
