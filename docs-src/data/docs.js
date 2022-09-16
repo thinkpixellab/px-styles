@@ -1583,6 +1583,63 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "site.theme",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "site",
+                    "group": "site.theme",
+                    "name": "theme-vars",
+                    "docName": "theme-vars()",
+                    "type": "mixin",
+                    "description": "Outputs the css variables associated with a theme.\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "theme"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/theme.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.theme",
+                    "name": "theme-var",
+                    "docName": "theme-var()",
+                    "type": "function",
+                    "description": "Outputs the syntax for a css variable value and does a couple of useful things in the process:\n\n1) it will lookup the name of the variable and make sure that it has been defined in the base\n   theme's config,\n2) If the var is a color you can inlcude a value for alpha and it will\n   generate the syntax for producing an alpha version of that variable.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "\n// This is a pretty comprehensive example that shows both a ligth and dark version of a theme.\n\n@include config(\n    'themes:fluent',\n    (\n        prefix: fluent,\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n        vars: (\n            bg: white,\n            fg: black,\n            sec: #eee,\n        ),\n    )\n);\n\n@include config(\n    'themes:fluent-dark',\n    (\n        prefix: fluent,\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n        vars: (\n            bg: #222,\n            fg: white,\n            sec: #333,\n        ),\n    )\n);\n\n.base {\n    @include theme-vars(fluent);\n}\n\n.dark {\n    @include theme-vars(fluent-dark);\n}\n\n.my-class {\n    //background: theme-var(fluent, section-bg-lightgrad);\n    color: theme-var(fluent, fg, 0.5);\n\n    // this will throw an error unless 'themes:throw-not-found' has been configured as false\n    color: theme-var(fluent, green);\n}"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "themeOrPrefix",
+                            "description": "The name of the theme (typically you create a base theme using a name\n(e.g. fluent) and then themes in the same family (e.g. fluent-dark) have the same prefix. This\nis needed only for lookup and it only checks in the base theme.\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "name",
+                            "description": "The name of the variable\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "alpha",
+                            "default": "false",
+                            "description": "An alpha value that can be appled to colors.\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/theme.scss"
+                }
+            ]
+        },
+        {
             "name": "site.transitions",
             "description": "",
             "variables": [
@@ -2077,10 +2134,10 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.typography",
-                    "name": "type-style",
-                    "docName": "type-style()",
+                    "name": "type-base-expand",
+                    "docName": "type-base-expand()",
                     "type": "mixin",
-                    "description": " Generate a type style from a site base style (as defined in the config setting 'type-bases').\n @example type-style(headings, (font-size: fs(7) // =>\n.class {\n    font-weight: 700;\n    line-height: 1;\n    margin-top: 0.75em;\n    margin-bottom: 0.75em;\n    font-size: 54px;\n  }\n\n @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'\n @param {map} $props [()] A map of css properties that will override the properties in the base\n",
+                    "description": " Generate a type style from a site base (as defined in the config setting 'type-bases').\n @example type-base-expand(headings, (font-size: fs(7) // =>\n.class {\n    font-weight: 700;\n    line-height: 1;\n    margin-top: 0.75em;\n    margin-bottom: 0.75em;\n    font-size: 54px;\n  }\n\n @param {string} $base-name-or-map Either a map that represents css properties for the base or a string that correlates to the name of a base in the config settings 'type-bases'\n @param {map} $props [()] A map of css properties that will override the properties in the base\n",
                     "access": "public",
                     "path": "site/typography.scss"
                 },

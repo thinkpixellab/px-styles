@@ -1,0 +1,138 @@
+////
+/// @group site.theme
+////
+
+@use '../utils' as *;
+
+/// Outputs the css variables associated with a theme.
+/// @param {*} $theme
+
+@mixin theme-vars($theme) {
+    // get the theme from config
+    $options: get('themes:' + $theme);
+
+    // prefix to use for generated vars in this theme (allows multiple themes to share names)
+    $prefix: map-get-default($options, prefix, $theme);
+
+    // whether to generate rgb for color values which will allow for dynamic alpha in colors
+    $rgb: map-get-default($options, rgb, true);
+
+    // a map of color shades that will be generated for color values
+    $shades: map-get-default(
+        $options,
+        shades,
+        (
+            lighter: 10%,
+            darker: -10%,
+        )
+    );
+
+    // map of variables to generate
+    $vars: map-get($options, vars);
+
+    @each $name, $value in $vars {
+        // output the variable
+        --#{$prefix}-#{"" + $name}: #{$value};
+
+        @if is-color($value) {
+            // create the rgb values version of the var that can be used for generating alpha versions
+            --#{$prefix}-#{"" + $name}-rgb: #{red($value)}, #{green($value)}, #{blue($value)};
+
+            // create the shades version of the var
+            @if ($rgb) {
+                @each $shade-name, $shade in $shades {
+                    $shade-value: adjust-color($value, $lightness: $shade);
+                    --#{$prefix}-#{"" + $name}-#{$shade-name}: #{$shade-value};
+                }
+            }
+        }
+    }
+}
+
+/// Outputs the syntax for a css variable value and does a couple of useful things in the process:
+///
+/// 1) it will lookup the name of the variable and make sure that it has been defined in the base
+///    theme's config,
+/// 2) If the var is a color you can inlcude a value for alpha and it will
+///    generate the syntax for producing an alpha version of that variable.
+///
+/// @param {*} $themeOrPrefix The name of the theme (typically you create a base theme using a name
+/// (e.g. fluent) and then themes in the same family (e.g. fluent-dark) have the same prefix. This
+/// is needed only for lookup and it only checks in the base theme.
+///
+/// @param {*} $name The name of the variable
+///
+/// @param {*} $alpha [false] An alpha value that can be appled to colors.
+///
+/// @example
+///
+///     // This is a pretty comprehensive example that shows both a ligth and dark version of a theme.
+///
+///     @include config(
+///         'themes:fluent',
+///         (
+///             prefix: fluent,
+///             shades: (
+///                 lighter: 10%,
+///                 darker: -10%,
+///             ),
+///             vars: (
+///                 bg: white,
+///                 fg: black,
+///                 sec: #eee,
+///             ),
+///         )
+///     );
+///
+///     @include config(
+///         'themes:fluent-dark',
+///         (
+///             prefix: fluent,
+///             shades: (
+///                 lighter: 10%,
+///                 darker: -10%,
+///             ),
+///             vars: (
+///                 bg: #222,
+///                 fg: white,
+///                 sec: #333,
+///             ),
+///         )
+///     );
+///
+///     .base {
+///         @include theme-vars(fluent);
+///     }
+///
+///     .dark {
+///         @include theme-vars(fluent-dark);
+///     }
+///
+///     .my-class {
+///         //background: theme-var(fluent, section-bg-lightgrad);
+///         color: theme-var(fluent, fg, 0.5);
+///
+///         // this will throw an error unless 'themes:throw-not-found' has been configured as false
+///         color: theme-var(fluent, green);
+///     }
+
+@function theme-var($themeOrPrefix, $name, $alpha: false) {
+    // you can disable theme warnings by setting this to false
+    $throw-not-found: get('themes:throw-not-found', true);
+    $value: false;
+
+    @if ($throw-not-found) {
+        $path: 'themes:' + $themeOrPrefix + ':vars:' + $name;
+        $value: get($path, false, false);
+
+        @if not($value) {
+            @error 'No theme variable with the name #{$name} has be defined for #{$themeOrPrefix}.';
+        }
+    }
+
+    @if ($alpha and ((not $throw-not-found) or ($value and is-color($value)))) {
+        @return rgba(var(--#{$themeOrPrefix}-#{$name}-rgb), $alpha);
+    }
+
+    @return var(--#{$themeOrPrefix}-#{$name});
+}
