@@ -1570,7 +1570,7 @@ window.pxstyles = {
                     "name": "sp",
                     "docName": "sp()",
                     "type": "function",
-                    "description": "for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'\n",
+                    "description": "for $spacer: 12px, sp(3) returns '36px' and  sp(3,3) returns '36px 36px'\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -1610,12 +1610,6 @@ window.pxstyles = {
                     "docName": "theme-var()",
                     "type": "function",
                     "description": "Outputs the syntax for a css variable value and does a couple of useful things in the process:\n\n1) it will lookup the name of the variable and make sure that it has been defined in the base\n   theme's config,\n2) If the var is a color you can inlcude a value for alpha and it will\n   generate the syntax for producing an alpha version of that variable.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "\n// This is a pretty comprehensive example that shows both a ligth and dark version of a theme.\n\n@include config(\n    'themes:fluent',\n    (\n        prefix: fluent,\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n        vars: (\n            bg: white,\n            fg: black,\n            sec: #eee,\n        ),\n    )\n);\n\n@include config(\n    'themes:fluent-dark',\n    (\n        prefix: fluent,\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n        vars: (\n            bg: #222,\n            fg: white,\n            sec: #333,\n        ),\n    )\n);\n\n.base {\n    @include theme-vars(fluent);\n}\n\n.dark {\n    @include theme-vars(fluent-dark);\n}\n\n.my-class {\n    //background: theme-var(fluent, section-bg-lightgrad);\n    color: theme-var(fluent, fg, 0.5);\n\n    // this will throw an error unless 'themes:throw-not-found' has been configured as false\n    color: theme-var(fluent, green);\n}"
-                        }
-                    ],
                     "parameter": [
                         {
                             "type": "*",
@@ -1631,7 +1625,7 @@ window.pxstyles = {
                             "type": "*",
                             "name": "alpha",
                             "default": "false",
-                            "description": "An alpha value that can be appled to colors.\n"
+                            "description": "An alpha value that can be appled to colors."
                         }
                     ],
                     "access": "public",

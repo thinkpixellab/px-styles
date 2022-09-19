@@ -184,8 +184,8 @@
 ///
 /// @example is-map((red: #f00, blue: #00f)) // => true
 
-@function is-map($value) {
-    @return type-of($value) == 'map' or (is-list($value) and length($value) == 0);
+@function is-map($value, $strict: false) {
+    @return type-of($value) == 'map' or (not $strict and is-list($value) and length($value) == 0);
 }
 
 /// Return true if the provided value is a string
