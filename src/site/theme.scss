@@ -7,6 +7,8 @@
 /// Outputs the css variables associated with a theme.
 /// @param {*} $theme
 ///
+/// @param {*} $variant
+///
 /// @example Here's a pretty comprehensive demo of the whole system...
 ///
 ///    // prettier-ignore
@@ -61,12 +63,10 @@
 ///    /* output the theme variables */
 ///    body {
 ///        @include theme-vars(mytheme);
-///        @debug if-map(white, 'yup', 'nope');
 ///    }
 ///
 ///    .dark {
 ///        @include theme-vars(mytheme, dark);
-///        @debug if-map(white, 'yup', 'nope');
 ///    }
 ///
 ///    /* use the theme variables */
@@ -158,17 +158,19 @@
 @function theme-var($name, $alpha: false, $theme: null) {
     $theme: if-null($theme, get('theme-default', null, false));
 
-    // if theme isn't specified, use the
+    // if theme isn't specified, use the first theme
     @if (not $theme) {
         $theme: nth(nth(get('themes'), 1), 1);
     }
 
+    // prefix to use for generated vars in this theme (allows multiple themes to share names)
+    $prefix: get('themes:' + $theme + ':prefix', $theme, false);
     $path: 'themes:' + $theme + ':vars:' + $name;
     $value: get($path, false, false);
 
     @if ($alpha and $value) {
-        @return rgba(var(--#{$theme}-#{$name}-rgb), $alpha);
+        @return rgba(var(--#{$prefix}-#{$name}-rgb), $alpha);
     }
 
-    @return var(--#{$theme}-#{$name});
+    @return var(--#{$prefix}-#{$name});
 }
