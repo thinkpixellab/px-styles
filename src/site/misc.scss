@@ -64,3 +64,13 @@
 @function scale-vh($min, $max, $at-width) {
     @return clamp(#{$min}, #{divide($max, $at-width) * 100vh}, #{$max});
 }
+
+/// Gets a z-index value from preconfigured options.
+///
+/// @example
+/// font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)
+
+@function z($layerName, $offset: 0) {
+    $z: get('z:' + $layerName, 0, false);
+    @return $z + $offset;
+}
