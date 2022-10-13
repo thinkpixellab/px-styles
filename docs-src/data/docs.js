@@ -1412,6 +1412,22 @@ window.pxstyles = {
                     ],
                     "access": "public",
                     "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "z",
+                    "docName": "z()",
+                    "type": "function",
+                    "description": "Gets a z-index value from preconfigured options.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
                 }
             ]
         },
@@ -1597,7 +1613,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "Here",
-                            "code": "// prettier-ignore\n@include config(\n    'themes:mytheme',\n    (\n        // customize the prefix used (otherwise theme name)\n        prefix: theme,\n\n        // whether to generate rgb number values fro colors that can be used for alpha vars\n        rgb: true,\n\n        // specificy shades that get generated for color values\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n\n        vars: (\n            // basic color\n            basic-color: (\n                base: white,\n                dark: black,\n            ),\n\n            // basic non-color (no shades or rgb generated)\n            non-color: (\n                base: linear-gradient(gold, red),\n            ),\n\n            // only defined for the base (dark will get the base value)\n            base-only: (\n                base: white,\n            ),\n\n            // customize the lighter and darker shades for the dark variant (generated for base)\n            custom-shade: (\n                base: teal,\n                dark: (\n                    base: cyan,\n                    lighter: white,\n                    darker: black\n                )\n            )\n        ),\n    )\n);\n\n// set the default theme so we don't need to specify when using theme-var\n@include config('theme-default', mytheme);\n\n/* output the theme variables */\nbody {\n    @include theme-vars(mytheme);\n    @debug if-map(white, 'yup', 'nope');\n}\n\n.dark {\n    @include theme-vars(mytheme, dark);\n    @debug if-map(white, 'yup', 'nope');\n}\n\n/* use the theme variables */\n\n.myclass {\n    // common usage: no theme specified so it uses the default\n    background-color: theme-var(custom-shade);\n\n    // get an alpha version of the color\n    background-color: theme-var(custom-shade, $alpha: 0.5);\n\n    // if we want a specific theme, need to ask for it\n    background-color: theme-var(custom-shade, $theme: other-theme);\n}",
+                            "code": "// prettier-ignore\n@include config(\n    'themes:mytheme',\n    (\n        // customize the prefix used (otherwise theme name)\n        prefix: theme,\n\n        // whether to generate rgb number values fro colors that can be used for alpha vars\n        rgb: true,\n\n        // specificy shades that get generated for color values\n        shades: (\n            lighter: 10%,\n            darker: -10%,\n        ),\n\n        vars: (\n            // basic color\n            basic-color: (\n                base: white,\n                dark: black,\n            ),\n\n            // basic non-color (no shades or rgb generated)\n            non-color: (\n                base: linear-gradient(gold, red),\n            ),\n\n            // only defined for the base (dark will get the base value)\n            base-only: (\n                base: white,\n            ),\n\n            // customize the lighter and darker shades for the dark variant (generated for base)\n            custom-shade: (\n                base: teal,\n                dark: (\n                    base: cyan,\n                    lighter: white,\n                    darker: black\n                )\n            )\n        ),\n    )\n);\n\n// set the default theme so we don't need to specify when using theme-var\n@include config('theme-default', mytheme);\n\n/* output the theme variables */\nbody {\n    @include theme-vars(mytheme);\n}\n\n.dark {\n    @include theme-vars(mytheme, dark);\n}\n\n/* use the theme variables */\n\n.myclass {\n    // common usage: no theme specified so it uses the default\n    background-color: theme-var(custom-shade);\n\n    // get an alpha version of the color\n    background-color: theme-var(custom-shade, $alpha: 0.5);\n\n    // if we want a specific theme, need to ask for it\n    background-color: theme-var(custom-shade, $theme: other-theme);\n}",
                             "description": "'s a pretty comprehensive demo of the whole system..."
                         }
                     ],
@@ -1605,6 +1621,10 @@ window.pxstyles = {
                         {
                             "type": "*",
                             "name": "theme"
+                        },
+                        {
+                            "type": "*",
+                            "name": "variant"
                         }
                     ],
                     "access": "public",
