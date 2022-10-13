@@ -174,7 +174,9 @@
     $ease: null,
     $enter-delay: 0,
     $leave-delay: 0,
-    $pin: false
+    $pin: false,
+    $leave-pointer-events: null,
+    // none
 ) {
     $lookup: if-null($lookup, 'default');
     $dur: if-null($dur, get('transitions:' + $lookup + ':dur'));
@@ -208,6 +210,12 @@
             top: 0;
             left: 0;
             width: 100%;
+        }
+    }
+
+    @if ($leave-pointer-events) {
+        .#{$name}-leave-active {
+            pointer-events: $leave-pointer-events;
         }
     }
 }
