@@ -11,11 +11,32 @@
 ///       auto ', 'sidebar             | main    | 1fr  ', 'footer              | footer  | auto '
 ///   ));
 
-@mixin grid-art($grid) {
+@mixin grid-art($grid, $area-names: true, $area-classes: false, $prefix: '.') {
     display: grid;
     grid-template-columns: -grid-art-cols($grid);
     grid-template-rows: -grid-art-rows($grid);
-    grid-template-areas: grid-art-areas($grid);
+
+    @if ($area-names) {
+        grid-template-areas: grid-art-areas($grid);
+    }
+
+    @if ($area-classes) {
+        $names: grid-art-area-names($grid);
+
+        @each $area in $names {
+            #{$prefix}#{$area} {
+                @if ($area-names) {
+                    grid-area: $area;
+                } @else {
+                    grid-area: grid-art-lines($grid, $area);
+                }
+            }
+        }
+    }
+}
+
+@mixin grid-bem($grid, $prefix: '&__') {
+    @include grid-art($grid, $area-names: true, $area-classes: true, $prefix: $prefix);
 }
 
 @mixin grid($args...) {
@@ -61,6 +82,19 @@
     }
 
     @return unquote(list-join($row-def, ' '));
+}
+
+@function grid-art-area-names($grid) {
+    $areas: str-split(list-join(grid-art-areas($grid, '|'), '|'), '|');
+    $unique-areas: ();
+    @each $area in $areas {
+        @if (not list-contains($unique-areas, $area)) {
+            @if ($area != '.') {
+                $unique-areas: append($unique-areas, $area);
+            }
+        }
+    }
+    @return $unique-areas;
 }
 
 @function grid-art-areas($grid, $join: ' ') {
@@ -116,7 +150,42 @@
     $lines: ($start-row $start-col $end-row $end-col);
 
     @if ($separator) {
-        @return list-join($lines, $separator);
+        @return unquote(list-join($lines, $separator));
+    } @else {
+        @return $lines;
+    }
+}
+
+@function grid-art-spans($grid, $area-name, $separator: ' / ') {
+    $start-row: null;
+    $start-col: null;
+    $end-row: null;
+    $end-col: null;
+    $r: 0;
+    $c: 0;
+
+    $areas: grid-art-areas($grid, '|');
+
+    @each $row in $areas {
+        $r: $r + 1;
+        $c: 0;
+        @each $name in str-split($row, '|') {
+            $c: $c + 1;
+            @if ($name == $area-name) {
+                @if ($start-row == null) {
+                    $start-col: $c;
+                    $start-row: $r;
+                }
+                $end-col: $c;
+                $end-row: $r;
+            }
+        }
+    }
+
+    $lines: ($start-row $start-col $end-row $end-col);
+
+    @if ($separator) {
+        @return unquote(list-join($lines, $separator));
     } @else {
         @return $lines;
     }
