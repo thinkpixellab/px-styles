@@ -155,22 +155,50 @@
 ///
 /// @param {*} $alpha [false] An alpha value that can be appled to colors.
 
-@function theme-var($name, $alpha: false, $theme: null) {
-    $theme: if-null($theme, get('theme-default', null, false));
+@function theme-var($name, $alpha: false, $theme-name: null) {
+    $theme: -get-theme($theme-name);
+    $valid: -is-valid-theme-var($name, $theme-name);
+    $prefix: map-get-default($theme, prefix, false);
 
-    // if theme isn't specified, use the first theme
-    @if (not $theme) {
-        $theme: nth(nth(get('themes'), 1), 1);
+    @if (not $valid) {
+        @debug #{'The theme variable' $name 'has not been defined.'};
     }
 
-    // prefix to use for generated vars in this theme (allows multiple themes to share names)
-    $prefix: get('themes:' + $theme + ':prefix', $theme, false);
-    $path: 'themes:' + $theme + ':vars:' + $name;
-    $value: get($path, false, false);
-
-    @if ($alpha and $value) {
+    @if ($alpha) {
+        $alpha-name: #{$name}-rgb;
         @return rgba(var(--#{$prefix}-#{$name}-rgb), $alpha);
     }
 
     @return var(--#{$prefix}-#{$name});
+}
+
+// Utils
+
+@function -get-theme($name: null) {
+    $name: if-null($name, get('theme-default', null, false));
+
+    // if theme isn't specified, use the first theme
+    @if (not $name) {
+        $name: nth(nth(get('themes'), 1), 1);
+    }
+
+    @return get('themes:' + $name);
+}
+
+@function -is-valid-theme-var($name, $theme-name: null) {
+    $valid-vars: -valid-theme-vars($theme-name);
+    @return list-contains($valid-vars, $name);
+}
+
+@function -valid-theme-vars($theme) {
+    $theme: -get-theme($theme);
+    $shades: map-get-default($theme, shades, ());
+    $var-names: ();
+    @each $name, $val in map-get($theme, 'vars') {
+        $var-names: append($var-names, $name);
+        @each $shade, $shade-val in $shades {
+            $var-names: append($var-names, $name + '-' + $shade);
+        }
+    }
+    @return $var-names;
 }
