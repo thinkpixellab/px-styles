@@ -69,7 +69,8 @@
 @function get-control-accent($overrides, $accent-props...) {
     $accent: get('controls:accent');
     @each $prop in $accent-props {
-        $accent: map-get-default($overrides, $prop, $accent);
+        $clr: map-get-default($overrides, $prop, $accent);
+        $accent: if-color($clr, $clr, $accent);
     }
     @return $accent;
 }
@@ -96,7 +97,7 @@
 /// for that state.
 ///
 /// @example
-/// .my-checkbox {
+/// .my-toggle {
 ///
 ///     // do the basic setup (hide inputs, etc.)
 ///     @include toggle-helper(base);
@@ -140,6 +141,10 @@
         }
     }
 }
+
+// ----------------------------------------------------------------------------
+// focus helpers
+// ----------------------------------------------------------------------------
 
 @mixin -focus-style($style, $color: null) {
     @include css-map-dpr(-focus-style($style, $color));
@@ -271,6 +276,11 @@
 @function button($overrides) {
     // extract an accent color
     $accent: get-control-accent($overrides, background, background-color);
+    $accent-fg: if-color($accent, contrast-color($accent), null);
+    $accent-hover: if-color($accent, shade($accent, 1), null);
+    $accent-hover-fg: if-color($accent-hover, contrast-color($accent-hover), null);
+    $accent-active: if-color($accent, shade($accent, -2), null);
+    $accent-active-fg: if-color($accent-active, contrast-color($accent-active), null);
 
     // get button defaults from global config
     $config: get('controls:button', null, false);
@@ -278,18 +288,18 @@
     // standard button styling
     $button: (
         background-color: $accent,
+        color: $accent-fg,
         box-shadow: shadow(2, 0.15),
-        color: contrast-color($accent),
         transition: transition(background color box-shadow, get('controls:transition', 'fast')),
         hover: (
-            background-color: shade($accent, 1),
+            background-color: $accent-hover,
+            color: $accent-hover-fg,
             box-shadow: shadow(4, 0.25),
-            color: contrast-color(shade($accent, 1)),
         ),
         active: (
-            background-color: shade($accent, -2),
+            background-color: $accent-active,
+            color: $accent-active-fg,
             box-shadow: shadow(0),
-            color: contrast-color(shade($accent, -2)),
         ),
         disabled: (
             background-color: rgba(gray(2), 0.5),
