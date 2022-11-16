@@ -236,7 +236,7 @@
     // link styles
     @if (get('links:-selector')) {
         #{get('links:-selector')} {
-            @include css-map-dpr(get('links'));
+            @include link();
         }
     }
 

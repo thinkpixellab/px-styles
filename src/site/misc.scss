@@ -91,3 +91,11 @@
         padding-right: get('container:gutter-mobile', null, false);
     }
 }
+
+/// Creates a standardized link based on site settings
+///
+/// @example
+/// @include link();
+@mixin link() {
+    @include css-map-dpr(get('links'));
+}
