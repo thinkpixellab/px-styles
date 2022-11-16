@@ -268,6 +268,23 @@
     @include default('mobile-breakpoint', 'mobile');
 
     // ----------------------------------------------------------------------
+    // Z-indices
+    // ----------------------------------------------------------------------
+    @include default(
+        'z',
+        (
+            // ui that floats above other screen elements on the main layer (like a sticky nav)
+            float: 999,
+
+            // dialogs boxes, message boxes, etc.
+            dialog: 9999,
+
+            // popups and dropdowns
+            popups: 99999
+        )
+    );
+
+    // ----------------------------------------------------------------------
     // Transitions
     // ----------------------------------------------------------------------
 
@@ -426,11 +443,6 @@
                 '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="6"><path d="m8.781.5-4 4.8-4-4.8z" fill="currentColor" fill-rule="evenodd"/></svg>',
         )
     );
-
-    // ---------------------------------------------------------------------
-    // ZIndex Layers
-    // ---------------------------------------------------------------------
-    @include default('z', (obi dialog: 1000000, popup: 10000000));
 
     // ---------------------------------------------------------------------
     // Control
