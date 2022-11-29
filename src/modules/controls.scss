@@ -730,13 +730,15 @@
 // ----------------------------------------------------------------------------
 
 @function popup($overrides: ()) {
-    // get button defaults from global config
-    $config: get('controls:popup', null, false);
+    // defaults
     $popup: (
         background-color: clr(page-bg),
         border-radius: get('controls:border-radius'),
         box-shadow: shadow(15),
     );
+
+    // global config
+    $config: get('controls:popup', null, false);
 
     // merge and return all the css
     @return flat-merge($popup, $config, $overrides);
