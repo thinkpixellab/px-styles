@@ -256,7 +256,9 @@
     @if ($auto-alias-common-states) {
         $common-states: (
             hover: '&:hover',
+            hover-enabled: '&:hover:enabled',
             active: '&:active',
+            active-enabled: '&:active:enabled',
             focus: '&:focus-visible',
             disabled: '&:disabled, &:disabled:hover, &:disabled:active, &:disabled[aria-checked]',
             checked: '&:checked, &[aria-checked]',
