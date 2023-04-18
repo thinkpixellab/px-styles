@@ -94,7 +94,11 @@
 /// Defines the hidden state when that state is shared as the element is added and also removed from
 /// the DOM. Use in the content area of the vue-transition mixin.
 @mixin vt-hidden() {
+    // vue2
     &-enter,
+
+    // vue3
+    &-enter-from,
     &-leave-to {
         @content;
     }
@@ -102,7 +106,11 @@
 
 /// Defines the hidden state as an element is added into the DOM. Removed one frame after element is inserted.
 @mixin vt-hidden-enter() {
-    &-enter {
+    // vue 2
+    &-enter,
+
+    // vue 3
+    &-enter-from {
         @content;
     }
 }
@@ -200,6 +208,7 @@
     }
 
     .#{$name}-enter,
+    .#{$name}-enter-from,
     .#{$name}-leave-to {
         opacity: 0;
     }
@@ -220,7 +229,7 @@
     }
 }
 
-// [name]-enter
+// [name]-enter-from
 // Starting state for enter. Added before element is inserted, removed one frame
 // after element is inserted.
 
@@ -235,7 +244,7 @@
 // after element is inserted (at the same time [name]-enter is removed), removed
 // when transition/animation finishes.
 
-// [name]-leave
+// [name]-leave-from
 // Starting state for leave. Added immediately when a leaving transition is
 // triggered, removed after one frame.
 
@@ -313,7 +322,9 @@
     .#{$name}-enter-active {
         transition: transform $dur $ease, opacity $dur $ease;
     }
-    .#{$name}-enter {
+    .#{$name}-enter, // vue 2
+    .#{$name}-enter-from {
+        // vue 3
         opacity: 0;
         @if ($axis == 'X' or $axis == 'x') {
             transform: translateX($distance);
