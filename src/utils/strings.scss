@@ -123,7 +123,21 @@
     @if ($str and str-length($str)) {
         @return str-index($str, $start) == 1;
     }
-    @return true;
+    @return false;
+}
+
+/// Returns true if a string ends withs another string. Returns false if $str is null or 0 length.
+///
+/// @param {String} $str A string that will be tested for the $start string
+/// @param {String} $start A string that $str must start with
+///
+/// @example starts-with('abc', 'a') // => true
+
+@function ends-with($str, $end) {
+    @if ($str and str-length($str)) {
+        @return str-index($str, $end) == (str-length($str) - str-length($end) + 1);
+    }
+    @return false;
 }
 
 // Trims the start/left of the string:
