@@ -1,0 +1,55 @@
+////
+/// @group site.variables
+////
+
+@use '../utils' as *;
+
+///
+/// @param {*} $vars A map containing value pairs which will be output as css variables. Any color
+/// variable that ends with -hsla will will also get h/s/l/a component variables.
+///
+/// @param {*} $prefix An optional prefix to add the variables that are output.
+
+@mixin css-vars($vars, $prefix: '') {
+    @each $name, $value in $vars {
+        // convert vars that end with '-hsla' to individual hsla variables
+        @if (is-color($value) and ends-with($name, '-hsla')) {
+            $name: str-replace($name, '-hsla');
+            $hsla-name: --#{$prefix}-#{'' + $name};
+            #{$hsla-name}-h: #{hue($value)};
+            #{$hsla-name}-s: #{saturation($value)};
+            #{$hsla-name}-l: #{lightness($value)};
+            #{$hsla-name}-a: #{alpha($value)};
+            #{$hsla-name}-hsla: hsla(
+                var(#{$hsla-name}-h),
+                var(#{$hsla-name}-s),
+                var(#{$hsla-name}-l),
+                var(#{$hsla-name}-a)
+            );
+        }
+
+        // output the variable
+        --#{$prefix}-#{"" + $name}: #{$value};
+    }
+}
+
+@mixin site-vars() {
+    $vars: get('variables', (), false);
+    $prefix: get('variables-prefix', 'site', false);
+    :root {
+        @include css-vars($vars, $prefix);
+    }
+}
+
+@function site-var($name) {
+    $vars: get('variables', (), false);
+    $prefix: get('variables-prefix', 'site', false);
+
+    @if (map-has-key($vars, $name)) {
+        $varname: --#{$prefix}-#{'' + $name};
+        @return var(#{$varname});
+    } @else {
+        @debug #{'The site variable' $name 'has not been defined.'};
+        @return '';
+    }
+}
