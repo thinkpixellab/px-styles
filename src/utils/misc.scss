@@ -68,7 +68,7 @@
 ///display: block;
 
 @mixin before($content: '', $display: block) {
-    &:before {
+    &::before {
         content: $content;
         display: $display;
         @content;
@@ -86,7 +86,7 @@
 ///display: block;
 
 @mixin after($content: '', $display: block) {
-    &:after {
+    &::after {
         content: $content;
         display: $display;
         @content;
@@ -264,8 +264,8 @@
             checked: '&:checked, &[aria-checked]',
             readonly: '&:read-only, &:read-only:hover, &:read-only:active',
             read-only: '&:read-only, &:read-only:hover, &:read-only:active',
-            before: '&:before',
-            after: '&:after',
+            before: '&::before',
+            after: '&::after',
             first-child: '&:first-child',
             last-child: '&:last-child',
             nth-even: '&:nth-child(even)',

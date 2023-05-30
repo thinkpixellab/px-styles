@@ -2540,7 +2540,7 @@ window.pxstyles = {
                         },
                         {
                             "type": "include",
-                            "code": ".my-component--red:before {color: red;}",
+                            "code": ".my-component--red::before {color: red;}",
                             "description": "block(my-component, red, before) { color: red } // =>"
                         }
                     ],
@@ -2584,7 +2584,7 @@ window.pxstyles = {
                         },
                         {
                             "type": "scss",
-                            "code": ".block { @include bem(element, $pseudo:after) { ... } }\n// => block__element:after { ... }"
+                            "code": ".block { @include bem(element, $pseudo::after) { ... } }\n// => block__element::after { ... }"
                         },
                         {
                             "type": "scss",
@@ -2627,7 +2627,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "include",
-                            "code": "color: red;\n} // =>\n.test-output__my-component--modifier:before {\n  color: red;\n}\nWrapper for bem mixin with slightly more contextual naming",
+                            "code": "color: red;\n} // =>\n.test-output__my-component--modifier::before {\n  color: red;\n}\nWrapper for bem mixin with slightly more contextual naming",
                             "description": "element(my-component, modifier, before) {"
                         }
                     ],

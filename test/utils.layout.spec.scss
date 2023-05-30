@@ -47,7 +47,7 @@
             }
             // output
             @include expect {
-                &:before {
+                &::before {
                     content: '';
                     display: block;
                     width: 100%;
@@ -64,7 +64,7 @@
             }
             // output
             @include expect {
-                &:after {
+                &::after {
                     content: '';
                     display: block;
                     width: 100%;

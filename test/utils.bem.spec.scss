@@ -15,7 +15,7 @@
             }
             // expect output
             @include expect {
-                .my-component--red:before {
+                .my-component--red::before {
                     color: red;
                 }
             }
@@ -68,7 +68,7 @@
             }
             // expect output
             @include expect {
-                .test-output__my-component--modifier:before {
+                .test-output__my-component--modifier::before {
                     color: red;
                 }
             }

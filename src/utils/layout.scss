@@ -35,7 +35,7 @@
 /// width: 100%;
 /// padding-bottom: 75.0187546887%;
 @mixin aspect-before($aspect, $display: block) {
-    &:before {
+    &::before {
         content: '';
         @include aspect($aspect, $display);
     }
@@ -46,7 +46,7 @@
 /// width: 100%;
 /// padding-bottom: 75.0187546887%;
 @mixin aspect-after($aspect, $display: block) {
-    &:after {
+    &::after {
         content: '';
         @include aspect($aspect, $display);
     }
@@ -231,12 +231,12 @@
 /// @example @include flex-pseudo-center(33%);
 
 @mixin flex-pseudo-center($center: 40%) {
-    &:before {
+    &::before {
         content: '';
         display: block;
         flex: divide($center, 100%);
     }
-    &:after {
+    &::after {
         content: '';
         display: block;
         flex: divide(100% - $center, 100%);

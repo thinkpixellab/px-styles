@@ -89,7 +89,7 @@ $-modifier-prefix: '--' !default;
 ///     }
 /// }
 /// @example @include block(my-component, red, before) { color: red } // =>
-/// .my-component--red:before {color: red;}
+/// .my-component--red::before {color: red;}
 
 @mixin block($name, $modifier: '', $pseudo: '') {
     @include -bem-base($name, $modifier, $pseudo, $-block-prefix) {
@@ -122,8 +122,8 @@ $-modifier-prefix: '--' !default;
 ///     // => block__element--modifier { ... }
 ///
 /// @example
-///     .block { @include bem(element, $pseudo:after) { ... } }
-///     // => block__element:after { ... }
+///     .block { @include bem(element, $pseudo::after) { ... } }
+///     // => block__element::after { ... }
 ///
 /// @example
 ///     .block { @include bem,(element, modifier) { @include bem(child) { ... } } }
@@ -142,7 +142,7 @@ $-modifier-prefix: '--' !default;
 /// @example @include element(my-component, modifier, before) {
 /// color: red;
 /// } // =>
-/// .test-output__my-component--modifier:before {
+/// .test-output__my-component--modifier::before {
 ///   color: red;
 /// }
 /// Wrapper for bem mixin with slightly more contextual naming
