@@ -236,7 +236,7 @@
         background-color: white;
         border: solid;
         color: black;
-        display: block;
+        display: none;
         height: -moz-fit-content;
         height: -webkit-fit-content;
         height: fit-content;
@@ -250,8 +250,8 @@
         width: fit-content;
     }
 
-    dialog:not([open]) {
-        display: none;
+    dialog[open] {
+        display: block;
     }
 
     // add the correct display in all browsers.
