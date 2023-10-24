@@ -392,7 +392,7 @@
 ///     @include button-icon() => creates a button that can wrap an icon
 
 @mixin button-icon($overrides: ()) {
-    @include css-map-dpr(button-icon($overrides));
+    @include css-map(button-icon($overrides));
 }
 
 @function button-icon($overrides: ()) {
@@ -404,6 +404,7 @@
         transition: transition(transform, fast),
         'hover:transform': translateY(-1px),
         'active:transform': translateY(1px),
+        focus: control-focus-style(),
         'disabled': (
             opacity: 0.5,
         ),
