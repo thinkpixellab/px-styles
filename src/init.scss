@@ -105,8 +105,8 @@
     ///     // local font
     ///     circular:
     ///     (
-    ///         (src: '../assets/fonts/circular', weight: 500, style: normal),
-    ///         (src: '../assets/fonts/circular', weight: 500, style: normal)
+    ///         (src: '../assets/fonts/circular', weight: 400, style: normal, exts: woff2 woff ttf),
+    ///         (src: '../assets/fonts/circular-bold', weight: 700, style: normal, exts: woff2 woff ttf)
     ///     )
     /// ));
     /// ```
