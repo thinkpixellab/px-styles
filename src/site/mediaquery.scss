@@ -228,12 +228,20 @@
     $var-breakpoint: '--breakpoint',
     $var-breakpoint-str: '--breakpoint-str',
     $var-breakpoint-width: '--breakpoint-width',
-    $var-is-mobile: '--is-mobile'
+    $var-is-mobile: '--is-mobile',
+    $var-breakpoint-names: '--breakpoint-names',
+    $var-breakpoint-sizes: '--breakpoint-sizes'
 ) {
     $breakpoints: breakpoints-desc();
     $mobile: get-breakpoint(get(mobile-breakpoint));
     :root {
+        $breakpoint-names: ();
+        $breakpoint-sizes: ();
+
         @each $break, $width in $breakpoints {
+            $breakpoint-names: append($breakpoint-names, $break);
+            $breakpoint-sizes: append($breakpoint-sizes, $width);
+
             @include media-until($break) {
                 #{$var-breakpoint}: #{$break};
                 #{$var-breakpoint-str}: '#{$break}';
@@ -241,5 +249,8 @@
                 #{$var-is-mobile}: #{if($width <= $mobile, true, false)};
             }
         }
+
+        #{$var-breakpoint-names}: $breakpoint-names;
+        #{$var-breakpoint-sizes}: $breakpoint-sizes;
     }
 }
