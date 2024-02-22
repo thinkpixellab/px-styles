@@ -11,7 +11,7 @@
 /// .item { @include focus() {...} }  => .item:focus-visible {...}
 
 @mixin focus() {
-    &#{get('focus:selector')} {
+    &#{get('focus.selector')} {
         @content;
     }
 }
@@ -50,7 +50,7 @@
 
 @function scale-vw($min, $max, $at-width: null) {
     @if (not is-length($at-width)) {
-        $at-width: if-null($at-width, get('container:width'));
+        $at-width: if-null($at-width, get('container.width'));
     }
 
     @return clamp(#{$min}, #{divide($max, $at-width) * 100vw}, #{$max});
@@ -72,30 +72,30 @@
 /// font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)
 
 @function z($layerName, $offset: 0) {
-    $z: get('z:' + $layerName, 0, false);
+    $z: get('z.' + $layerName, 0, false);
     @return $z + $offset;
 }
 
 /// Creates a standardized container based on site container settings.
 ///
 /// @example
-/// @include container();
+///  @include container();
 @mixin container() {
     width: 100%;
-    max-width: get('container:width');
-    padding: 0 get('container:padding', get('container:gutter'));
+    max-width: get('container.width');
+    padding: 0 get('container.padding', get('container.gutter'));
     margin: 0 auto;
     position: relative;
     @include media-until-mobile() {
-        padding-left: get('container:gutter-mobile', null, false);
-        padding-right: get('container:gutter-mobile', null, false);
+        padding-left: get('container.gutter-mobile', null);
+        padding-right: get('container.gutter-mobile', null);
     }
 }
 
 /// Creates a standardized link based on site settings
 ///
 /// @example
-/// @include link();
+///  @include link();
 @mixin link() {
     @include css-map-dpr(get('links'));
 }

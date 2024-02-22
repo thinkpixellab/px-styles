@@ -87,7 +87,7 @@
     /* #{$theme}-#{$variant} */
 
     // get the theme from config
-    $options: get('themes:' + $theme);
+    $options: get('themes.' + $theme);
 
     // prefix to use for generated vars in this theme (allows multiple themes to share names)
     $prefix: map-get-default($options, prefix, $theme);
@@ -182,7 +182,7 @@
         $name: nth(nth(get('themes'), 1), 1);
     }
 
-    @return get('themes:' + $name);
+    @return get('themes.' + $name);
 }
 
 @function -is-valid-theme-var($name, $theme-name: null) {

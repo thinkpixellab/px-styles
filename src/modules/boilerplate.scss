@@ -9,7 +9,7 @@
 
 @mixin resets($force-reset-all: false) {
     // reset links
-    @if ($force-reset-all or get('reset:link')) {
+    @if ($force-reset-all or get('reset.link')) {
         a {
             color: inherit;
         }
@@ -20,7 +20,7 @@
     }
 
     // headings reset
-    @if ($force-reset-all or get('reset:headings')) {
+    @if ($force-reset-all or get('reset.headings')) {
         h1,
         h2,
         h3,
@@ -35,7 +35,7 @@
     }
 
     // paragraph reset
-    @if ($force-reset-all or get('reset:paragraph')) {
+    @if ($force-reset-all or get('reset.paragraph')) {
         p {
             font-size: inherit;
             padding: 0;
@@ -44,7 +44,7 @@
     }
 
     // button reset
-    @if ($force-reset-all or get('reset:button')) {
+    @if ($force-reset-all or get('reset.button')) {
         button {
             appearance: none;
             display: block;
@@ -67,7 +67,7 @@
     }
 
     // list reset
-    @if ($force-reset-all or get('reset:lists')) {
+    @if ($force-reset-all or get('reset.lists')) {
         ul,
         ol {
             padding: 0;
@@ -105,8 +105,8 @@
         @include font-smoothing-on();
     }
 
-    background-color: clr(page-bg);
-    color: clr(page-fg);
+    background-color: color(page-bg);
+    color: color(page-fg);
 }
 
 @mixin boilerplate($env: vue, $scoped: false) {
@@ -139,7 +139,7 @@
     }
 
     // run sanitize (general page reset)
-    @if (get('reset:sanitize')) {
+    @if (get('reset.sanitize')) {
         @include sanitize();
     }
 
@@ -168,8 +168,8 @@
 
     // customize the text selection color
     ::selection {
-        background: get('colors:selection-bg');
-        color: get('colors:selection-fg');
+        background: get('colors.selection-bg');
+        color: get('colors.selection-fg');
     }
 
     // code, pre
@@ -185,7 +185,7 @@
         margin: 2rem 0;
         padding: 0;
         border: none;
-        border-top: 1px solid clr(page-fg);
+        border-top: 1px solid color(page-fg);
     }
 
     // prevent sup from affecting line-height
@@ -206,8 +206,8 @@
     }
 
     // create a basic content container (centered div with a max size and padding)
-    @if (get('container:selector')) {
-        #{get('container:selector')} {
+    @if (get('container.selector')) {
+        #{get('container.selector')} {
             @include container();
         }
     }
@@ -234,8 +234,8 @@
     }
 
     // link styles
-    @if (get('links:-selector')) {
-        #{get('links:-selector')} {
+    @if (get('links.-selector')) {
+        #{get('links.-selector')} {
             @include link();
         }
     }

@@ -20,10 +20,10 @@
     a,
     span,
     p {
-        font-family: flat-get($config, 'p:font-family', inherit);
-        font-size: flat-get($config, 'p:font-size', inherit);
-        font-weight: flat-get($config, 'p:font-weight', inherit);
-        line-height: flat-get($config, 'p:line-height', inherit);
+        font-family: flat-get($config, 'p.font-family', inherit);
+        font-size: flat-get($config, 'p.font-size', inherit);
+        font-weight: flat-get($config, 'p.font-weight', inherit);
+        line-height: flat-get($config, 'p.line-height', inherit);
     }
 
     strong {
@@ -90,7 +90,7 @@
     // link styles
 
     $links: flat-get($config, 'links');
-    $link-selector: flat-get($config, 'links:-selector');
+    $link-selector: flat-get($config, 'links.-selector');
     @if ($links) {
         a,
         #{$link-selector} {

@@ -42,54 +42,59 @@ window.pxstyles = {
                             "description": "The default range for color shading\n"
                         },
                         {
-                            "name": "'colors:accent'",
-                            "value": "#0099fd",
+                            "name": "'colors.accent'",
+                            "value": "#018ee6",
                             "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
                         },
                         {
-                            "name": "'colors:gray'",
+                            "name": "'colors.gray'",
                             "value": "(mix(#a0a0a0, accent(), 95%), accent(-9), white)",
                             "description": "Default base gray color. Optionally include a list of three values to override shading.\n"
                         },
                         {
-                            "name": "'colors:select'",
+                            "name": "'colors.select'",
                             "value": "accent(-4)",
                             "description": "Default text selection color\n"
                         },
                         {
-                            "name": "'colors:page-bg'",
+                            "name": "'colors.disabled'",
+                            "value": "gray(2)",
+                            "description": "Default text selection color\n"
+                        },
+                        {
+                            "name": "'colors.page-bg'",
                             "value": "white",
                             "description": "Default page background color\n"
                         },
                         {
-                            "name": "'colors:page-fg'",
+                            "name": "'colors.page-fg'",
                             "value": "gray(-7)",
                             "description": "Default page foreground\n"
                         },
                         {
-                            "name": "'colors:contrast-light'",
-                            "value": "clr(page-bg)",
+                            "name": "'colors.contrast-light'",
+                            "value": "color(page-bg)",
                             "description": "Default light color used when computing contrast colors\n"
                         },
                         {
-                            "name": "'colors:contrast-dark'",
-                            "value": "clr(page-fg)",
+                            "name": "'colors.contrast-dark'",
+                            "value": "color(page-fg)",
                             "description": "Default light color used when computing contrast colors\n"
                         },
                         {
-                            "name": "'colors:selection-bg'",
-                            "value": "clr(select)",
+                            "name": "'colors.selection-bg'",
+                            "value": "color(select)",
                             "description": "Default background color for selected text\n"
                         },
                         {
-                            "name": "'colors:selection-fg'",
-                            "value": "contrast-color(clr(select))",
+                            "name": "'colors.selection-fg'",
+                            "value": "contrast-color(color(select))",
                             "description": "Default foreground color for selected text\n"
                         },
                         {
                             "name": "'fonts'",
                             "value": "()",
-                            "description": "_boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    circular:\n    (\n        (src: '../assets/fonts/circular', weight: 500, style: normal),\n        (src: '../assets/fonts/circular', weight: 500, style: normal)\n    )\n));\n```\n"
+                            "description": "_boilerplate_ A list of font faces that should be loaded by the `basics` mixin. Example of the\nsyntax for this map:\n```\n@include config('fonts', (\n\n    // google font\n    Inter: (googleFont: true, weight: 500, style: normal),\n\n    // local font\n    circular:\n    (\n        (src: '../assets/fonts/circular', weight: 400, style: normal, exts: woff2 woff ttf),\n        (src: '../assets/fonts/circular-bold', weight: 700, style: normal, exts: woff2 woff ttf)\n    )\n));\n```\n"
                         },
                         {
                             "name": "'font-family'",
@@ -162,22 +167,22 @@ window.pxstyles = {
                             "description": "Collection of named transitions. The keys in this map can be used as the second argument in\nthe `transition` mixin to help create consistent css transitions.  Note: individual settings\ncan be configured using flat map syntax.\n"
                         },
                         {
-                            "name": "'shadows:levels'",
+                            "name": "'shadows.levels'",
                             "value": "20",
                             "description": "_shadows_ Number of distinct levels for depth shadows.\n"
                         },
                         {
-                            "name": "'shadows:color'",
+                            "name": "'shadows.color'",
                             "value": "black",
                             "description": "_shadows_ Color or range used for default shadows.\n"
                         },
                         {
-                            "name": "'shadows:ratio'",
+                            "name": "'shadows.ratio'",
                             "value": "0.4",
                             "description": "_shadows_ A ratio between the blur and y offset for a default shadow (e.g. y: 2px / blur: 5px = 0.4)\n"
                         },
                         {
-                            "name": "'shadows:growth'",
+                            "name": "'shadows.growth'",
                             "value": "1.25",
                             "description": "_shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)\n"
                         },
@@ -193,7 +198,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'links'",
-                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        background-color: rgba(accent(), 0.1),\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    -selector: '.link',\n)",
+                            "value": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n    -selector: '.link',\n)",
                             "description": "_boilerplate_ Setings related to the default rendering of hyperlinks.\n"
                         }
                     ]
@@ -300,122 +305,15 @@ window.pxstyles = {
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
-                    "name": "control-focus-style",
-                    "docName": "control-focus-style()",
-                    "type": "function",
-                    "description": "Generates one of a number of \"canned\" / common focus styles as a css map (which can be combined\nwith the css-map function to generate the correct focus visual css)\n\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed red)"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "shadow | outline",
-                            "name": "style",
-                            "description": "A named style."
-                        },
-                        {
-                            "type": "color",
-                            "name": "color",
-                            "default": "null"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "get-control-accent",
-                    "docName": "get-control-accent()",
-                    "type": "function",
-                    "description": "Extract an accent color from any of the properties in $accent-props, with a fallback value of\n'controls:accent' (note: last property in list wins)\n",
-                    "example": [
-                        {
-                            "type": "get",
-                            "code": "",
-                            "description": "control-accent()"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "*",
-                            "name": "overrides"
-                        },
-                        {
-                            "type": "*",
-                            "name": "accent-props..."
-                        },
-                        {
-                            "type": "*",
-                            "name": "{$accent",
-                            "default": "get('controls:accent'"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "toggle-helper",
-                    "docName": "toggle-helper()",
-                    "type": "mixin",
-                    "description": "Mixin to help create toggle components (checkbox, radiobutton, toggle, togglebutton, etc.) using\nthe common input+label structure. The basic idea behind this pattern is to use an <input> and a\n<label> component together as follows:\n\n```html\n<div class=\"my-checkbox\">\n    <input type=\"checkbox\" id=\"cb\" />\n    <label for=\"cb\">Toggle Me</label>\n</div>\n```\n\nThe label and input are bound together by the for property on the label (which refers to the\ninput by id), making the label a proxy for the input. The label can be styled much more readily\nthan the input, so the common practice is to hide the input and style the label but the css\nrules that allow us to manage states in this situation can be difficult to remember and can be a\nlittle complex. This mixin helps to generate those rules.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": ".my-checkbox {\n\n    // do the basic setup (hide inputs, etc.)\n    @include toggle-helper(base);\n\n    @include toggle-helper {\n        // default state\n    }\n    @include toggle-helper(checked) {\n        // checked state\n    }\n    @include toggle-helper(hover) {\n        // hover state\n    }\n}"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "string",
-                            "name": "state",
-                            "default": "null",
-                            "description": "The name of the state (e.g. hover, checked, indeterminate, etc.) under\nwhich the css in the @content area should apply. The mixin will generate the appropriate rule\nfor that state.\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "control-reset",
-                    "docName": "control-reset()",
-                    "type": "mixin",
-                    "description": "Resets the appearance of controls with some opinionated defaults (see source or\noutput for details). Typically used as part of restyling a component.\n\n",
-                    "example": [
-                        {
-                            "type": "include",
-                            "code": ".class {\n    appearance: none;\n    box-sizing: border-box;\n    position: relative;\n    outline: none;\n    border: none;\n    white-space: nowrap;\n    font-size: inherit;\n    font-family: sans-serif;\n    font-weight: 400;\n  }",
-                            "description": "control-reset() // =>"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "control-reset-hard",
-                    "docName": "control-reset-hard()",
-                    "type": "mixin",
-                    "description": "Resets the style of control much more aggressively than regular control-reset. Really cleans\nthings out!\n",
-                    "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
                     "name": "button",
                     "docName": "button()",
-                    "type": "mixin",
-                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\nDefaults can be configured with the key 'controls:button'.\n\n",
+                    "type": "function",
+                    "description": "Generates a button style based on the site's button settings. The default button is pretty\nopinionated. All sizing is in ems (so setting the font size will scale the button). See the\nsource for more details.\n\nDefaults can be configured with the key 'controls.button'.\n\n",
                     "example": [
+                        {
+                            "type": "scss",
+                            "code": "$button: button((background-color: green))"
+                        },
                         {
                             "type": "scss",
                             "code": "@include button() => creates a standard, default button"
@@ -434,31 +332,15 @@ window.pxstyles = {
                         }
                     ],
                     "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button",
-                    "docName": "button()",
-                    "type": "function",
-                    "description": "",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "button((background-color: green)) // => Robby, testing is failing"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
+                    "path": "controls/button.scss"
                 },
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
                     "name": "button-outline",
                     "docName": "button-outline()",
-                    "type": "mixin",
-                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's control / button\nsettings. Behaves a lot like the `button` mixin so see that for more detail. Global config with\n'controls:button' and 'controls:button-outline'.\n\n",
+                    "type": "function",
+                    "description": "Generates a (somewhat opinionated) outlined button style based on the site's control / button\nsettings. Behaves a lot like the `button` mixin so see that for more detail. Global config with\n'controls.button' and 'controls.button-outline'.\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -478,25 +360,15 @@ window.pxstyles = {
                         }
                     ],
                     "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button-outline",
-                    "docName": "button-outline()",
-                    "type": "function",
-                    "description": "",
-                    "access": "public",
-                    "path": "modules/controls.scss"
+                    "path": "controls/button.scss"
                 },
                 {
                     "namespace": "modules",
                     "group": "modules.controls",
                     "name": "button-icon",
                     "docName": "button-icon()",
-                    "type": "mixin",
-                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text with\n basic transitions for hover and active.\n\n",
+                    "type": "function",
+                    "description": "Generates a simple button with very little styling that can be used to wrap an icon or text with\nbasic transitions for hover and active.\n\n\n",
                     "example": [
                         {
                             "type": "scss",
@@ -512,43 +384,7 @@ window.pxstyles = {
                         }
                     ],
                     "access": "public",
-                    "path": "modules/controls.scss"
-                },
-                {
-                    "namespace": "modules",
-                    "group": "modules.controls",
-                    "name": "button-dropdown",
-                    "docName": "button-dropdown()",
-                    "type": "mixin",
-                    "description": "Generates a button style that is equivalent to the button() mixin with an arrow to indiciate\nthat the button is intended to be used a dropdown. It is expected that this style would be\napplied to a select element and because of that this will also generate styles that reset the\nappearance of > option elements.\n\n",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "// markup\n<select class=\"button-dropdown\"> <option>...</option> </select>\n\n// scss\n.dropdown { @include button-dropdown(); }"
-                        }
-                    ],
-                    "parameter": [
-                        {
-                            "type": "map",
-                            "name": "overrides",
-                            "default": "()",
-                            "description": "See the button mixin for details.\n"
-                        },
-                        {
-                            "type": "map",
-                            "name": "items-overrides",
-                            "default": "()",
-                            "description": "Overrides for the child options (> option)\n"
-                        },
-                        {
-                            "type": "map",
-                            "name": "arrow-svg",
-                            "default": "()",
-                            "description": "An svg string that will be used for the icon (note that\nwidth/height must be specified instead of viewbox)\n"
-                        }
-                    ],
-                    "access": "public",
-                    "path": "modules/controls.scss"
+                    "path": "controls/button.scss"
                 },
                 {
                     "namespace": "modules",
@@ -600,7 +436,127 @@ window.pxstyles = {
                         }
                     ],
                     "access": "public",
-                    "path": "modules/controls.scss"
+                    "path": "controls/controls.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "control-reset",
+                    "docName": "control-reset()",
+                    "type": "function",
+                    "description": "Resets the appearance of controls with some opinionated defaults (see source or\noutput for details). Typically used as part of restyling a component.\n",
+                    "access": "public",
+                    "path": "controls/helpers.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "control-reset-hard",
+                    "docName": "control-reset-hard()",
+                    "type": "function",
+                    "description": "Resets the style of control much more aggressively than regular control-reset. Really cleans\nthings out!\n",
+                    "access": "public",
+                    "path": "controls/helpers.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "get-control-accent",
+                    "docName": "get-control-accent()",
+                    "type": "function",
+                    "description": "Extract an accent color from any of the properties in $accent-props, with a fallback value of\n'controlsaccent' (note: last property in list wins)\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "get-control-accent()"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "overrides"
+                        },
+                        {
+                            "type": "*",
+                            "name": "accent-props..."
+                        },
+                        {
+                            "type": "*",
+                            "name": "{$accent",
+                            "default": "get('controls.accent'"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "controls/helpers.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "control-focus-style",
+                    "docName": "control-focus-style()",
+                    "type": "function",
+                    "description": "Generates one of a number of common focus styles as a css map (which can be combined with the\ncss-map function to generate the correct focus visual css)\n\n",
+                    "example": [
+                        {
+                            "type": "control",
+                            "code": "red)",
+                            "description": "focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "shadow | outline",
+                            "name": "style",
+                            "description": "A named style."
+                        },
+                        {
+                            "type": "color",
+                            "name": "color",
+                            "default": "null"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "controls/helpers.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "control-placeholder-style",
+                    "docName": "control-placeholder-style()",
+                    "type": "function",
+                    "description": "Generates a css map for a control's placeholder style based on the global config.\n\n",
+                    "parameter": [
+                        {
+                            "type": "map",
+                            "name": "overrides"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "controls/helpers.scss"
+                },
+                {
+                    "namespace": "modules",
+                    "group": "modules.controls",
+                    "name": "toggle-helper",
+                    "docName": "toggle-helper()",
+                    "type": "mixin",
+                    "description": "Mixin to help create toggle components (checkbox, radiobutton, toggle, togglebutton, etc.) using\nthe common input+label structure. The basic idea behind this pattern is to use an <input> and a\n<label> component together as follows:\n\n```html\n<div class=\"my-checkbox\">\n    <input type=\"checkbox\" id=\"cb\" />\n    <label for=\"cb\">Toggle Me</label>\n</div>\n```\n\nThe label and input are bound together by the for property on the label (which refers to the\ninput by id), making the label a proxy for the input. The label can be styled much more readily\nthan the input, so the common practice is to hide the input and style the label but the css\nrules that allow us to manage states in this situation can be difficult to remember and can be a\nlittle complex. This mixin helps to generate those rules.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": ".my-toggle {\n\n    // do the basic setup (hide inputs, etc.)\n    @include toggle-helper(base);\n\n    @include toggle-helper {\n        // default state\n    }\n    @include toggle-helper(checked) {\n        // checked state\n    }\n    @include toggle-helper(hover) {\n        // hover state\n    }\n}"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "string",
+                            "name": "state",
+                            "default": "null",
+                            "description": "The name of the state (e.g. hover, checked, indeterminate, etc.) under\nwhich the css in the @content area should apply. The mixin will generate the appropriate rule\nfor that state.\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "controls/helpers.scss"
                 }
             ]
         },
@@ -754,14 +710,14 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.color",
-                    "name": "clr",
-                    "docName": "clr()",
+                    "name": "color",
+                    "docName": "color()",
                     "type": "function",
                     "description": "Lookup a color by name and optionally get a shade of it\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\nclr(purple) => #C578DD\nclr(purple, -1) => (#b16cc7)\nclr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))"
+                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\ncolor(purple) => #C578DD\ncolor(purple, -1) => (#b16cc7)\ncolor(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))"
                         }
                     ],
                     "parameter": [
@@ -830,7 +786,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "$value: get('colors:mycolor', red);"
+                            "code": "$value: get('colors.mycolor', red);"
                         }
                     ],
                     "parameter": [
@@ -927,7 +883,7 @@ window.pxstyles = {
                         {
                             "type": "*",
                             "name": "path",
-                            "description": "The path of the setting with keys separated by colons (e.g. 'colors:accent'\nwould set the value accent in the colors map).\n"
+                            "description": "The path of the setting with keys separated by colons (e.g. 'colors.accent'\nwould set the value accent in the colors map).\n"
                         },
                         {
                             "type": "*",
@@ -949,7 +905,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "\n// configure px with a blue accent and initialize\n @include config('colors:accent', blue);\n @include init();\n\n .px-og-class1 {\n     /* should be blue */\n     color: accent();\n }\n\n @include scoped-config() {\n      configure px with a green accent and initialize\n     @include config('colors:accent', green);\n     @include init();\n     .px-scope-class {\n         /* should be green */\n         color: accent();\n     }\n }\n\n .px-og-class2 {\n     /* should be blue */\n     color: accent();\n }"
+                            "code": "\n// configure px with a blue accent and initialize\n @include config('colors.accent', blue);\n @include init();\n\n .px-og-class1 {\n     /* should be blue */\n     color: accent();\n }\n\n @include scoped-config() {\n      configure px with a green accent and initialize\n     @include config('colors:accent', green);\n     @include init();\n     .px-scope-class {\n         /* should be green */\n         color: accent();\n     }\n }\n\n .px-og-class2 {\n     /* should be blue */\n     color: accent();\n }"
                         }
                     ],
                     "access": "public",
@@ -1424,6 +1380,38 @@ window.pxstyles = {
                         {
                             "type": "scss",
                             "code": "font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "container",
+                    "docName": "container()",
+                    "type": "mixin",
+                    "description": "Creates a standardized container based on site container settings.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include container();"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/misc.scss"
+                },
+                {
+                    "namespace": "site",
+                    "group": "site.misc",
+                    "name": "link",
+                    "docName": "link()",
+                    "type": "mixin",
+                    "description": "Creates a standardized link based on site settings\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include link();"
                         }
                     ],
                     "access": "public",
@@ -2193,6 +2181,35 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "site.variables",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "namespace": "site",
+                    "group": "site.variables",
+                    "name": "css-vars",
+                    "docName": "css-vars()",
+                    "type": "mixin",
+                    "description": "\n",
+                    "parameter": [
+                        {
+                            "type": "*",
+                            "name": "vars",
+                            "description": "A map containing value pairs which will be output as css variables. Any color\nvariable that ends with -hsla will will also get h/s/l/a component variables.\n"
+                        },
+                        {
+                            "type": "*",
+                            "name": "prefix",
+                            "description": "An optional prefix to add the variables that are output."
+                        }
+                    ],
+                    "access": "public",
+                    "path": "site/variables.scss"
+                }
+            ]
+        },
+        {
             "name": "undefined",
             "description": "",
             "variables": [],
@@ -2497,7 +2514,7 @@ window.pxstyles = {
         },
         {
             "name": "utils.bem",
-            "description": "Provides a series of functions and mixins that make it easier to generate\n[bem](http://getbem.com/) style class names. Modified from the great thinking done\n[here](https://codepen.io/gionkunz/pen/rkswl?editors=010).\n\nUnlike many bem mixins, there is no specific mixin for creating modifier classes. Instead,\nmodifiers and pseudo classes can be included directly in the call to the block or element mixin.",
+            "description": "Provides a series of functions and mixins that make it easier to generate\n[bem](http://getbem.com/) style class names.",
             "variables": [],
             "items": [
                 {
@@ -2539,9 +2556,8 @@ window.pxstyles = {
                             "code": "// An intentionally complex example:\n @include block(block, modifier) {\n    @include bem(element, modifier) {\n        @media only screen and (max-width: 800px) {\n            @include bem(element) { ... }\n        }\n    }\n}"
                         },
                         {
-                            "type": "include",
-                            "code": ".my-component--red::before {color: red;}",
-                            "description": "block(my-component, red, before) { color: red } // =>"
+                            "type": "scss",
+                            "code": "@include block(my-component, red, before) { color: red } // =>\n.my-component--red::before {color: red;}"
                         }
                     ],
                     "parameter": [
@@ -2939,7 +2955,7 @@ window.pxstyles = {
                         {
                             "type": "string",
                             "name": "path",
-                            "description": "The path where the value is found, expressed as a list of keys separated\nby colons (e.g. 'colors:accent')\n"
+                            "description": "The path where the value is found, expressed as a list of keys separated\nby commas (e.g. 'colors.accent')\n"
                         },
                         {
                             "type": "*",
@@ -3875,6 +3891,34 @@ window.pxstyles = {
                     "docName": "starts-with()",
                     "type": "function",
                     "description": "Returns true if a string begins withs another string. Returns false if $str is null or 0 length.\n\n",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "starts-with('abc', 'a') // => true"
+                        }
+                    ],
+                    "parameter": [
+                        {
+                            "type": "String",
+                            "name": "str",
+                            "description": "A string that will be tested for the $start string"
+                        },
+                        {
+                            "type": "String",
+                            "name": "start",
+                            "description": "A string that $str must start with\n"
+                        }
+                    ],
+                    "access": "public",
+                    "path": "utils/strings.scss"
+                },
+                {
+                    "namespace": "utils",
+                    "group": "utils.strings",
+                    "name": "ends-with",
+                    "docName": "ends-with()",
+                    "type": "function",
+                    "description": "Returns true if a string ends withs another string. Returns false if $str is null or 0 length.\n\n",
                     "example": [
                         {
                             "type": "scss",

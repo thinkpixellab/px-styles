@@ -64,31 +64,34 @@
     @include default('shade-range', (black, white));
 
     /// Global default primary color. Optionally include a list of three values to override shading.
-    @include default('colors:accent', #0099fd);
+    @include default('colors.accent', #018ee6);
 
     /// Default base gray color. Optionally include a list of three values to override shading.
-    @include default('colors:gray', (mix(#a0a0a0, accent(), 95%), accent(-9), white));
+    @include default('colors.gray', (mix(#a0a0a0, accent(), 95%), accent(-9), white));
 
     /// Default text selection color
-    @include default('colors:select', accent(-4));
+    @include default('colors.select', accent(-4));
+
+    /// Default text selection color
+    @include default('colors.disabled', gray(2));
 
     /// Default page background color
-    @include default('colors:page-bg', white);
+    @include default('colors.page-bg', white);
 
     /// Default page foreground
-    @include default('colors:page-fg', gray(-7));
+    @include default('colors.page-fg', gray(-7));
 
     /// Default light color used when computing contrast colors
-    @include default('colors:contrast-light', clr(page-bg));
+    @include default('colors.contrast-light', color(page-bg));
 
     /// Default light color used when computing contrast colors
-    @include default('colors:contrast-dark', clr(page-fg));
+    @include default('colors.contrast-dark', color(page-fg));
 
     /// Default background color for selected text
-    @include default('colors:selection-bg', clr(select));
+    @include default('colors.selection-bg', color(select));
 
     /// Default foreground color for selected text
-    @include default('colors:selection-fg', contrast-color(clr(select)));
+    @include default('colors.selection-fg', contrast-color(color(select)));
 
     // ----------------------------------------------------------------------
     // Typography
@@ -318,16 +321,16 @@
     // ----------------------------------------------------------------------
 
     /// _shadows_ Number of distinct levels for depth shadows.
-    @include default('shadows:levels', 20);
+    @include default('shadows.levels', 20);
 
     /// _shadows_ Color or range used for default shadows.
-    @include default('shadows:color', black);
+    @include default('shadows.color', black);
 
     /// _shadows_ A ratio between the blur and y offset for a default shadow (e.g. y: 2px / blur: 5px = 0.4)
-    @include default('shadows:ratio', 0.4);
+    @include default('shadows.ratio', 0.4);
 
     /// _shadows_ A growth factor applied to the blur of shadows as they get larger (offset to grow faster than blur so things appear to be further off the page)
-    @include default('shadows:growth', 1.25);
+    @include default('shadows.growth', 1.25);
 
     // ----------------------------------------------------------------------
     // Site Basics
@@ -387,20 +390,20 @@
     // ----------------------------------------------------------------------
 
     // reading: font weight for <strong> text
-    @include default('reading:font-weight-strong', 600);
+    @include default('reading.font-weight-strong', 600);
 
     // reading: default vertical spacing between block elements (set as a margin-bottom)
-    @include default('reading:blocks', (p, iframe, ul, ol, form, section, table, pre));
-    @include default('reading:block-spacing', 1em);
+    @include default('reading.blocks', (p, iframe, ul, ol, form, section, table, pre));
+    @include default('reading.block-spacing', 1em);
 
     // reading: list / list item (li) customization
-    @include default('reading:list-padding', 1.25em);
-    @include default('reading:list-item-padding', 0.25em);
-    @include default('reading:list-item-spacing', 0.25em);
+    @include default('reading.list-padding', 1.25em);
+    @include default('reading.list-item-padding', 0.25em);
+    @include default('reading.list-item-spacing', 0.25em);
 
     // reading: links
     @include default(
-        'reading:links',
+        'reading.links',
         flat-merge(
             get('links'),
             (
@@ -410,9 +413,9 @@
     );
 
     // reading: type styles
-    @include default('reading:styles-base', 'headings');
+    @include default('reading.styles-base', 'headings');
     @include default(
-        'reading:styles',
+        'reading.styles',
         (
             'h1, .h1': (
                 'font-size': fs(5),
@@ -473,7 +476,7 @@
 
     // placeholder defaults
     @include default(
-        'controls:placeholder',
+        'placeholder',
         (
             color: currentColor,
             opacity: 0.5,
@@ -481,10 +484,12 @@
     );
 
     // button defaults
-    @include default('controls:button', ());
+    @include default('button', ());
+    @include default('button-outline', ());
 
+    // slider defaults
     @include default(
-        'controls:slider',
+        'slider',
         (
             track-height: 4px,
             track-max-width: 200px,
@@ -502,21 +507,21 @@
     );
 
     // checkbox
-    @include default('controls:checkbox', ());
+    @include default('checkbox', ());
 
     // radio
-    @include default('controls:radio', ());
+    @include default('radio', ());
 
     // toggle
-    @include default('controls:toggle', ());
+    @include default('toggle', ());
 
     // toggle-button
-    @include default('controls:toggle-button', ());
+    @include default('toggle-button', ());
 
     // tooltip
 
     @include default(
-        'controls:tooltip',
+        'tooltip',
         (
             // background-color: #fae9c8,
             // border: 1px solid #e3ba71,
@@ -526,16 +531,16 @@
             // display: flex,
             // align-items: center,
             // padding: 0 0.75em,
-            // border-radius: get('controls:base:-px-radius'),
+            // border-radius: get('controls.base:-px-radius'),
         )
     );
 
     // flag as initialized
-    @include config('px:init', true);
+    @include config('px.init', true);
 }
 
 // @include default(
-//     'controls:dropdown',
+//     'controls.dropdown',
 //     (
 //         cursor: pointer,
 //         padding: 0 0.5em,
@@ -577,7 +582,7 @@ $-px-version-patch: to-number(nth-if-length($-px-version, 3, 0));
 /// Returns true if px-styles has been initialized, otherwise false.
 
 @function px-is-init() {
-    @return get('px:init', false);
+    @return get('px.init', false);
 }
 
 /// Throws an error if px-styles hasn't been initialized by including the init mixin hasn't been

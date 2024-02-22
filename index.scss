@@ -8,7 +8,7 @@
 @forward 'src/modules';
 
 // Standalone modules for generating controls (depends on both utils and site)
-// @forward 'controls';
+@forward 'src/controls';
 
 // All defaults
 @forward 'src/init';

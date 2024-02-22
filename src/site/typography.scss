@@ -21,7 +21,7 @@
 @function fs($lookup: 'base') {
     // if lookup is a string, find the size by name
     @if (type-of($lookup) == 'string') {
-        $size: get('type-scale:' + $lookup);
+        $size: get('type-scale.' + $lookup);
         @if ($size) {
             @return $size;
         }
@@ -52,7 +52,7 @@
     $base-props: $base-name-or-map;
 
     @if is-string($base-name-or-map) {
-        $base-props: get('type-bases:' + $base-name-or-map);
+        $base-props: get('type-bases.' + $base-name-or-map);
     }
 
     $props: map-merge($base-props, $props);
@@ -105,7 +105,7 @@
 }
 
 @function type-style($selector) {
-    $base-style: get('type-styles:' + $selector);
+    $base-style: get('type-styles.' + $selector);
     $base-name: map-get-default($base-style, '--base', ());
 
     @if ($base-style and $base-name) {

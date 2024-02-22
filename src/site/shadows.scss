@@ -26,7 +26,7 @@ $ambient-opacity: (0.05, 0.1);
 /// @param {*} $color
 /// @example depth-shadow(2, 0.5, purple) // => shadow: 0 1px 2px -0.5px rgba(128, 0, 128, 0.2295), 0 3.5px 4px 0px rgba(128, 0, 128, 0.03425), 0 1px 5px 1px rgba(128, 0, 128, 0.072)
 @function depth-shadow($level: 5, $alpha: 0.2, $color: black, $suppress-spread: false) {
-    $level: divide($level, get('shadows:levels'));
+    $level: divide($level, get('shadows.levels'));
     $ease: false;
     $round: 2;
 
@@ -78,9 +78,9 @@ $ambient-opacity: (0.05, 0.1);
 
 @function shadow($depth, $alpha: 0.15) {
     $blur: $depth;
-    $y: $depth * get('shadows:ratio');
-    $y: pow($y, get('shadows:growth'));
-    @return 0 #{$y}px #{$blur}px rgba(get('shadows:color'), $alpha);
+    $y: $depth * get('shadows.ratio');
+    $y: pow($y, get('shadows.growth'));
+    @return 0 #{$y}px #{$blur}px rgba(get('shadows.color'), $alpha);
 }
 
 /// Create a standard box-shadow

@@ -74,7 +74,7 @@
             // output
             @include expect {
                 &::before {
-                    content: '';
+                    content: 'hello, world';
                     display: block;
                 }
             }
@@ -89,7 +89,7 @@
             // output
             @include expect {
                 &::after {
-                    content: '';
+                    content: 'hello, world';
                     display: block;
                 }
             }

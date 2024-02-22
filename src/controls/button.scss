@@ -1,0 +1,201 @@
+////
+/// @group modules.controls
+////
+
+@use '../utils' as *;
+@use '../site' as *;
+@use 'helpers.scss' as *;
+
+// ----------------------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------------------
+
+@function button-base() {
+    @return flat-merge(
+        control-reset(),
+        (
+            display: inline-flex,
+            align-items: center,
+            justify-content: center,
+            text-overflow: ellipsis,
+            user-select: none,
+            padding: 0 1em,
+            border-radius: get('controls.border-radius'),
+            min-width: get('controls.min-width'),
+            min-height: get('controls.min-height'),
+            cursor: pointer,
+            disabled: (
+                cursor: not-allowed,
+            ),
+        )
+    );
+}
+
+// ----------------------------------------------------------------------------
+// Default Button
+// ----------------------------------------------------------------------------
+
+/// Generates a button style based on the site's button settings. The default button is pretty
+/// opinionated. All sizing is in ems (so setting the font size will scale the button). See the
+/// source for more details.
+///
+/// Defaults can be configured with the key 'controls.button'.
+///
+/// @param {map} $overrides [()] A map containing css key / value pairs. Just about any css is valid
+/// (currently transitions can't be overriden) including supported state specific values (see
+/// defaults in css-map). If background or background-color is set, it will be adapted for other
+/// states unless also override for those states
+///
+/// @example
+///     $button: button((background-color: green))
+///
+/// @example
+///     @include button() => creates a standard, default button
+///
+/// @example
+///     @include button((font-size: 12px)) => creates a smaller button with a font-size of 12px
+
+@function button($overrides) {
+    // extract an accent color
+    $accent: get-control-accent($overrides, background, background-color);
+    $accent-fg: if-color($accent, contrast-color($accent), null);
+    $accent-hover: if-color($accent, shade($accent, 1), null);
+    $accent-hover-fg: if-color($accent-hover, contrast-color($accent-hover), null);
+    $accent-active: if-color($accent, shade($accent, -2), null);
+    $accent-active-fg: if-color($accent-active, contrast-color($accent-active), null);
+
+    // get button defaults from global config
+    $config: get('button', null);
+
+    // standard button styling
+    $button: (
+        background-color: $accent,
+        color: $accent-fg,
+        box-shadow: shadow(2, 0.15),
+        transition: transition(background color box-shadow, get('controls.transition', 'fast')),
+        hover: (
+            background-color: $accent-hover,
+            color: $accent-hover-fg,
+            box-shadow: shadow(4, 0.25),
+        ),
+        active: (
+            background-color: $accent-active,
+            color: $accent-active-fg,
+            box-shadow: shadow(0),
+        ),
+        disabled: (
+            background-color: rgba(gray(2), 0.5),
+            color: gray(-2),
+            box-shadow: none,
+        ),
+        focus: control-focus-style(),
+    );
+
+    // merge and return all the css
+    @return flat-merge(button-base(), $button, $config, $overrides);
+}
+
+@mixin button($overrides: ()) {
+    @include css-map(button($overrides));
+}
+
+// ----------------------------------------------------------------------------
+// Outline Button
+// ----------------------------------------------------------------------------
+
+/// Generates a (somewhat opinionated) outlined button style based on the site's control / button
+/// settings. Behaves a lot like the `button` mixin so see that for more detail. Global config with
+/// 'controls.button' and 'controls.button-outline'.
+///
+/// @param {map} $overrides [()] A map containing css key/value pairs. Just about any css is valid
+/// (currently transitions can't be overriden) including supported state specific values: hover,
+/// active, disabled. The outline color is derived from the border color. The properties
+/// border-color and color can be specified as shades (numbers relative to the border-color or
+/// primary accent color).
+///
+///
+/// @example
+///     @include button-outline(); // => creates a standard outline button
+///
+/// @example
+///     @include button-outline({border-color: blue}); // => creates a blue outline button
+
+@function button-outline($overrides) {
+    // extract an accent color
+    $accent: get-control-accent($overrides, background, background-color);
+
+    // get button / button-outline defaults from global config
+    $config: flat-merge(get('button', ()), get('button-outline', ()));
+
+    // standard button styleing
+    $button: (
+        color: $accent,
+        border-color: $accent,
+        border-width: 2px,
+        border-style: solid,
+        background: rgba($accent, 0),
+        hover: (
+            color: shade($accent, 2),
+            background: rgba(shade($accent, 2), 0.05),
+            border-color: shade($accent, 2),
+        ),
+        active: (
+            color: shade($accent, -1),
+            background: rgba(shade($accent, -1), 0.1),
+            border-color: shade($accent, -1),
+        ),
+        disabled: (
+            background: gray(5),
+            color: gray(-2),
+            box-shadow: none,
+        ),
+        transition:
+            transition(background color border box-shadow, get('controls.transition', 'fast')),
+        focus: control-focus-style(),
+    );
+
+    // merge and return all the css
+    @return flat-merge(button-base(), $button, $config, $overrides);
+}
+
+@mixin button-outline($overrides: ()) {
+    @include css-map-dpr(button-outline($overrides));
+}
+
+// ----------------------------------------------------------------------------
+// Icon Button
+// ----------------------------------------------------------------------------
+
+/// Generates a simple button with very little styling that can be used to wrap an icon or text with
+/// basic transitions for hover and active.
+///
+///
+/// @param {map} $overrides [()]  A map containing css key/value pairs.
+///
+/// @example
+///     @include button-icon() => creates a button that can wrap an icon
+
+@function button-icon($overrides: ()) {
+    // button css
+    $button: (
+        min-width: 0,
+        background-color: transparent,
+        padding: 0.5em,
+        transition: transition(transform, fast),
+        focus: control-focus-style(),
+        'hover.transform': translateY(-1px),
+        'active.transform': translateY(1px),
+        'disabled': (
+            opacity: 0.5,
+        ),
+    );
+
+    // merge all the css
+    $css: flat-merge(button-base(), $button, $overrides);
+
+    @return $css;
+}
+
+@mixin button-icon($overrides: ()) {
+    @include css-map(button-icon($overrides));
+}

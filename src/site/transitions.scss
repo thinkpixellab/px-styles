@@ -19,8 +19,8 @@
 
 @function transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
     $name: if-null($name, 'default');
-    $dur: if-null($dur, get('transitions:' + $name + ':dur'));
-    $ease: if-null($ease, get('transitions:' + $name + ':ease'));
+    $dur: if-null($dur, get('transitions.' + $name + '.dur'));
+    $ease: if-null($ease, get('transitions.' + $name + '.ease'));
     $transitions: ();
 
     @each $prop in $proplist {
@@ -187,8 +187,8 @@
     // none
 ) {
     $lookup: if-null($lookup, 'default');
-    $dur: if-null($dur, get('transitions:' + $lookup + ':dur'));
-    $ease: if-null($ease, get('transitions:' + $lookup + ':ease'));
+    $dur: if-null($dur, get('transitions.' + $lookup + '.dur'));
+    $ease: if-null($ease, get('transitions.' + $lookup + '.ease'));
 
     .#{$name}-enter-active,
     .#{$name}-leave-active {
@@ -315,8 +315,8 @@
     $pin: true
 ) {
     $lookup: if-null($lookup, 'default');
-    $dur: if-null($dur, get('transitions:' + $lookup + ':dur'));
-    $ease: if-null($ease, get('transitions:' + $lookup + ':ease'));
+    $dur: if-null($dur, get('transitions.' + $lookup + '.dur'));
+    $ease: if-null($ease, get('transitions.' + $lookup + '.ease'));
 
     .#{$name}-leave-active,
     .#{$name}-enter-active {

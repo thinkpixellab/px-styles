@@ -13,7 +13,7 @@
 /// @param {map} $map An existing map that serves as the lookup source
 ///
 /// @param {string} $path The path where the value is found, expressed as a list of keys separated
-/// by colons (e.g. 'colors:accent')
+/// by commas (e.g. 'colors.accent')
 ///
 /// @param {*} $fallback [null] An optional fallback value that will be returned in the value isn't
 /// found
@@ -23,7 +23,13 @@
 /// ==> #F00
 
 @function flat-get($map, $path, $fallback: null) {
-    $keys: str-split($path, ':');
+    // TEMPORARY: replace colons with periods for backwards compatibility
+    @if (str-index($path, ':') != null) {
+        @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
+        $path: str-replace($path, ':', '.');
+    }
+
+    $keys: str-split($path, '.');
     @each $key in $keys {
         @if (map-has-key($map, $key)) {
             $map: map-get($map, $key);
@@ -57,9 +63,16 @@
 /// $map: flat-set((colors: (clr1: #F00)), 'colors:clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
 
 @function flat-set($map, $path, $val, $merge-maps: false) {
-    $keys: str-split($path, ':');
+    // TEMPORARY: replace colons with periods for backwards compatibility
+    @if (str-index($path, ':') != null) {
+        @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
+        $path: str-replace($path, ':', '.');
+    }
+
+    $keys: str-split($path, '.');
     $key: nth($keys, 1);
-    $next-path: list-join(list-remove($keys, 1), ':');
+
+    $next-path: list-join(list-remove($keys, 1), '.');
     $merge: ();
 
     @if (map-has-key($map, $key)) {
@@ -126,7 +139,7 @@
         @if (type-of($value) == 'map') {
             $fmap: flatten-map($value);
             @each $fkey, $fvalue in $fmap {
-                $flat: map-merge($flat, (#{$key + ':' + $fkey}: $fvalue));
+                $flat: map-merge($flat, (#{$key + '.' + $fkey}: $fvalue));
             }
         } @else {
             $flat: map-merge(

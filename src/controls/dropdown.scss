@@ -1,0 +1,67 @@
+// // ----------------------------------------------------------------------------
+// // dropdowns
+// // ----------------------------------------------------------------------------
+
+// /// Generates a button style that is equivalent to the button() mixin with an arrow to indiciate
+// /// that the button is intended to be used a dropdown. It is expected that this style would be
+// /// applied to a select element and because of that this will also generate styles that reset the
+// /// appearance of > option elements.
+// ///
+// /// @param {map} $overrides [()] See the button mixin for details.
+// ///
+// /// @param {map} $items-overrides [()] Overrides for the child options (> option)
+// ///
+// /// @param {map} $arrow-svg [()] An svg string that will be used for the icon (note that
+// /// width/height must be specified instead of viewbox)
+// ///
+// /// @example
+// ///     // markup
+// ///     <select class="button-dropdown"> <option>...</option> </select>
+// ///
+// ///     // scss
+// ///     .dropdown { @include button-dropdown(); }
+
+// @function dropdown-button($overrides, $arrow-svg) {
+//     // get the default arrow svg if not provided
+//     $arrow-svg: if-null-get($arrow-svg, 'svg:dropdown', true);
+
+//     // get button-dropdown defaults from global config
+//     $config: get('dropdown', (), false);
+
+//     // get the button css as a base
+//     $button: button(flat-merge($config, $overrides));
+
+//     // extract the color we'll need for the icon
+//     $icon-color: flat-get($button, color);
+//     $icon-url: inline-svg(
+//         $arrow-svg,
+//         (
+//             currentColor: $icon-color,
+//         )
+//     );
+
+//     // dropdown css (button + overrides)
+//     $dropdown: (
+//         padding-right: 2.5em,
+//         background-image: $icon-url,
+//         background-position: calc(100% - 1em) center,
+//         background-repeat: no-repeat,
+//     );
+
+//     // merge all the css
+//     @return flat-merge($button, $dropdown, $overrides);
+// }
+
+// @mixin dropdown-button($overrides: (), $items-overrides: (), $arrow-svg: null) {
+//     // output the css
+//     @include css-map-dpr(button-dropdown($overrides, $arrow-svg));
+
+//     // restore the default background on child options
+//     $items: (
+//         background-color: color(page-bg),
+//         color: color(page-fg),
+//     );
+//     > option {
+//         @include css-map-dpr(flat-merge($items, $items-overrides));
+//     }
+// }

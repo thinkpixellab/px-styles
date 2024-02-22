@@ -10,7 +10,7 @@
 /// Style the placeholder text for a text input element
 /// @example
 /// input {
-///     @include placeholder {
+///     %%include placeholder {
 ///         /* styles for placeholder here */
 ///     }
 /// }
@@ -152,7 +152,7 @@
 /// @param {*} $color [#c8c8c8] The first of two colors in the check pattern
 /// @param {*} $color-alt [transparent] The second of two colors in the check pattern
 ///
-/// @example @include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px
+/// @example %%include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px
 
 @mixin checkered-background($width: 12px, $color: rgba(black, 0.1), $color-alt: transparent) {
     background-size: #{$width * 2} #{$width * 2};
@@ -198,7 +198,7 @@
 ///
 /// @todo need a better description of all of these weird parameters and why they exist (or else better api)
 ///
-/// @example @include css-map-dpr(( color: blue, background-color: green, font-family: sans-serif)); // =>
+/// @example %%include css-map-dpr(( color: blue, background-color: green, font-family: sans-serif)); // =>
 /// color: blue;
 /// background-color: green;
 /// font-family: sans-serif;
@@ -270,6 +270,12 @@
             last-child: '&:last-child',
             nth-even: '&:nth-child(even)',
             nth-odd: '&:nth-child(odd)',
+            visited: '&:visited',
+            required: '&:required',
+            valid: '&:valid',
+            invalid: '&:invalid',
+            optional: '&:optional',
+            placeholder: '&::placeholder',
         );
         $aliases: map-merge($common-states, $aliases);
     }
@@ -302,17 +308,6 @@
             }
         }
     }
-
-    // @if is-list($map-states) {
-    //     @each $state in $states {
-    //         @if (map-has-key($remap, $state)) {
-    //             $state-css: map-get($remap, $state);
-    //             #{$state} {
-    //                 @include css-map-dpr($state-css, $aliases, $ignore-start-pattern);
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 /// Generates a loud striped background gradient that can be used when debugging (especially helpful for scrolling)

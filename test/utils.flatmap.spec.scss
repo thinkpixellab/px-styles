@@ -10,7 +10,7 @@
                         somecolor: #f00,
                     ),
                 ),
-                'colors:somecolor'
+                'colors.somecolor'
             ),
             #f00
         );
@@ -24,7 +24,7 @@
                         clr1: #f00,
                     ),
                 ),
-                'colors:clr2',
+                'colors.clr2',
                 #00f
             ),
             (
@@ -44,7 +44,7 @@
                         clr1: #f00,
                     ),
                 ),
-                'colors:clr2',
+                'colors.clr2',
                 #00f
             ),
             (
@@ -67,8 +67,8 @@
                 )
             ),
             (
-                'colors:red': #f00,
-                'colors:blue': #00f,
+                'colors.red': #f00,
+                'colors.blue': #00f,
             )
         );
     }
@@ -77,8 +77,8 @@
         @include assert-equal(
             unflatten-map(
                 (
-                    'colors:clr1': #f00,
-                    'colors:clr2': #00f,
+                    'colors.clr1': #f00,
+                    'colors.clr2': #00f,
                 )
             ),
             (
@@ -94,10 +94,10 @@
         @include assert-equal(
             flat-merge(
                 (
-                    'clr:main': blue,
+                    'clr.main': blue,
                 ),
                 (
-                    'clr:main': red,
+                    'clr.main': red,
                 )
             ),
             (
@@ -111,8 +111,8 @@
         @include assert-equal(
             unflatten-map(
                 (
-                    'colors:clr1': #f00,
-                    'colors:clr2': #00f,
+                    'colors.clr1': #f00,
+                    'colors.clr2': #00f,
                 )
             ),
             (
@@ -134,7 +134,7 @@
                         blue: #00f,
                     ),
                 ),
-                'colors:blue'
+                'colors.blue'
             ),
             true
         );

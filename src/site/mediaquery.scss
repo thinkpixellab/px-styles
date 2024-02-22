@@ -70,7 +70,7 @@
     @if is-number($break) {
         @return $break;
     } @else {
-        $bp: get('breakpoints:' + $break);
+        $bp: get('breakpoints.' + $break);
         @if ($bp) {
             @return $bp;
         } @else {

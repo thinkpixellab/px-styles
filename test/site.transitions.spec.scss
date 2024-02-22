@@ -47,6 +47,7 @@
                     transition-delay: 0;
                 }
                 .class .fade-enter,
+                .class .fade-enter-from,
                 .class .fade-leave-to {
                     opacity: 0;
                 }
@@ -69,7 +70,8 @@
                     transition: transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1),
                         opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1);
                 }
-                .class .slide-enter {
+                .class .slide-enter,
+                .class .slide-enter-from {
                     opacity: 0;
                     transform: translateY(100px);
                 }

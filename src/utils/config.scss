@@ -26,9 +26,9 @@ $config: () !default;
 /// @param {*} $throw-not-found [null] Whether to throw an errow if the value can't be retrieved
 ///
 /// @example
-/// $value: get('colors:mycolor', red);
+/// $value: get('colors.mycolor', red);
 
-@function get($paths, $fallback: null, $throw-not-found: true) {
+@function get($paths, $fallback: 'INVALID_FALLBACK') {
     // $paths is a list
     @if (type-of($paths) == 'list') {
         @each $path in $paths {
@@ -44,12 +44,12 @@ $config: () !default;
         }
     }
 
-    @if ($throw-not-found) {
-        $path-str: if(type-of($paths) == 'list', list-join($paths, ':'), $paths);
-        @error 'Could not find required config value for path "#{$path-str}". This could mean that px-styles wasn\'t properly configured using the init() mixin. If you are seeing this error during a call to config, then you are likely using a function that requires configuration. You can fix this by also configuring the missing value.';
+    @if ($fallback != 'INVALID_FALLBACK') {
+        @return $fallback;
     }
 
-    @return $fallback;
+    $path-str: if(type-of($paths) == 'list', list-join($paths, '.'), $paths);
+    @error 'Could not find required config value for path "#{$path-str}". This could mean that px-styles wasn\'t properly configured using the init() mixin. If you are seeing this error during a call to config, then you are likely using a function that requires configuration. You can fix this by also configuring the missing value.';
 }
 
 /// Retrieve a configuration setting if and only if the provided $value is null.
@@ -82,7 +82,7 @@ $config: () !default;
 /// Add a default configuration setting (provides the same functionality as config, but will not
 /// overwrite an existing setting).
 ///
-/// @param {*} $path The path of the setting with keys separated by colons (e.g. 'colors:accent'
+/// @param {*} $path The path of the setting with keys separated by colons (e.g. 'colors.accent'
 /// would set the value accent in the colors map).
 ///
 /// @param {*} $val [null] The value to be added.
@@ -112,7 +112,7 @@ $config: () !default;
 /// @example
 ///
 ///    // configure px with a blue accent and initialize
-///     @include config('colors:accent', blue);
+///     @include config('colors.accent', blue);
 ///     @include init();
 ///
 ///     .px-og-class1 {

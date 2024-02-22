@@ -1,5 +1,12 @@
 # px-styles
 
+## BREAKING CHANGES
+
+-   `clr` has been renamed `color`
+-   css maps now use periods as a separator instead of colons (so `button.background` instead of `button:backround`)
+-   Any settings related to controls are now just the name of the component (e.g. `controls:button:background` is now just `button:background`)
+-
+
 This is a simple SCSS framework that provides basic site setup and some common functionality for web projects. The goal is to create a simple to understand boilerplate coupled with a consistent approach to styling that encourages reuse and best practices while maintaing flexibility.
 
 ## Useful Links
@@ -40,9 +47,9 @@ Configuring px-styles consists of setting any desired configuration using the `c
 @use '@thinkpixellab-public/px-styles' as *;
 
 // site config
-@include config('colors:accent', #00dc82);
-@include config('colors:page-bg', #011e26);
-@include config('colors:page-fg', white);
+@include config('colors.accent', #00dc82);
+@include config('colors.page-bg', #011e26);
+@include config('colors.page-fg', white);
 
 // initialize and load defaults (required)
 @include init();
@@ -156,7 +163,7 @@ Domain specific functions include:
 -   `fs($name)` - gets a font-size from the type ramp
 -   `sp($n)` - gets a spacing value derived from the common spacer value
 -   `rems($px)` - convert px value to rems based on the sites base font-size
--   `clr($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of
+-   `color($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of
     that color
 -   `gray($scaler)` // gets a derived a gray value
 -   `shadow($level)` // creates a box shadow
@@ -171,7 +178,7 @@ Sample code that retrieves a bunch of common values:
     font-size: fs(md);
 
     // get the color called accent:
-    color: clr(accent);
+    color: color(accent);
 
     // get the variable for the headings font-family
     font-family: get(heading-font-family);
@@ -181,7 +188,7 @@ Sample code that retrieves a bunch of common values:
 
     &:hover {
         // set the color called accent but one level darker
-        color: clr(accent, -1);
+        color: color(accent, -1);
     }
 }
 ```

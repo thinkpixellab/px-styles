@@ -12,7 +12,7 @@
 );
 
 @include config('font-family', (Inter, sans-serf));
-@include config('type-styles:.h1:font-weight', 900);
+@include config(('type-styles', '.h1', 'font-weight'), 900);
 
 @include init();
 @include boilerplate();
@@ -190,7 +190,7 @@ body {
     &:hover {
         > span,
         > div {
-            background-color: clr(select, $alpha: 0.05);
+            background-color: color(select, $alpha: 0.05);
         }
         .item-default-name::after {
             opacity: 1;
@@ -206,8 +206,8 @@ body {
 }
 
 .item-default-default {
-    border-radius: get('controls:border-radius');
-    background-color: gray(5, $alpha: 0.1);
+    border-radius: get('controls.border-radius');
+    background-color: gray(5, 0.1);
     padding: sp(0.75);
     margin: sp(1 0);
 
@@ -230,7 +230,7 @@ body {
 
 pre {
     margin: 0;
-    border-radius: get('controls:border-radius');
+    border-radius: get('controls.border-radius');
     background-color: gray(5, $alpha: 0.1);
     display: block;
     padding: sp(0.25 0.5);
@@ -246,7 +246,7 @@ pre {
 code {
     background-color: gray(5, $alpha: 0.2);
     padding: sp(0.25 0.5);
-    border-radius: get('controls:border-radius');
+    border-radius: get('controls.border-radius');
 }
 
 strong {
@@ -288,12 +288,12 @@ strong {
         position: absolute;
         width: 14px;
         height: 14px;
-        color: clr(select);
+        color: color(select);
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
         background-image: inline-svg(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 19"><g fill="#{clr(page-fg)}" fill-rule="nonzero"><path d="M7 0a2.99 2.99 0 0 0-2.816 2H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H9.816A2.99 2.99 0 0 0 7 0Zm0 2a1 1 0 0 1 .389 1.922L7 4l-.389-.078A1.002 1.002 0 0 1 7 2ZM2 4h2v1a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V4h2v10H2V4Z"/><path d="M14 5h1a2 2 0 0 1 1.995 1.85L17 7v10a2 2 0 0 1-1.85 1.995L15 19H5a2 2 0 0 1-1.995-1.85L3 17v-1h2v1h10V7h-1V5Z"/></g></svg>'
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 19"><g fill="#{color(page-fg)}" fill-rule="nonzero"><path d="M7 0a2.99 2.99 0 0 0-2.816 2H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H9.816A2.99 2.99 0 0 0 7 0Zm0 2a1 1 0 0 1 .389 1.922L7 4l-.389-.078A1.002 1.002 0 0 1 7 2ZM2 4h2v1a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V4h2v10H2V4Z"/><path d="M14 5h1a2 2 0 0 1 1.995 1.85L17 7v10a2 2 0 0 1-1.85 1.995L15 19H5a2 2 0 0 1-1.995-1.85L3 17v-1h2v1h10V7h-1V5Z"/></g></svg>'
         );
         @include transition(opacity, fast);
         opacity: 0;

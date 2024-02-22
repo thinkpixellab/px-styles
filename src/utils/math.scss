@@ -22,7 +22,6 @@
 @function round-d($n, $dec: 2) {
     $p: pow(10, $dec);
     $r: round($n * $p);
-    @warn $n $dec $p $r;
     @return divide(round($n * $p), $p);
 }
 
