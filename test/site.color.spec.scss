@@ -17,7 +17,7 @@
         @include assert-equal(accent(2, 0.5), rgba(52, 165, 235, 0.5));
     }
     @include test('clr') {
-        @include assert-equal(color(purple, -1), #b16cc7);
+        @include assert-equal(clr(purple, -1), #b16cc7);
     }
     @include test('yiq') {
         @include assert-equal(yiq(purple), 52.864);

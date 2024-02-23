@@ -228,7 +228,7 @@
 @function popup($overrides: ()) {
     // defaults
     $popup: (
-        background-color: color(page-bg),
+        background-color: clr(page-bg),
         border-radius: get('controls.border-radius'),
         box-shadow: shadow(15),
     );

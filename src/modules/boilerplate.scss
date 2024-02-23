@@ -105,8 +105,8 @@
         @include font-smoothing-on();
     }
 
-    background-color: color(page-bg);
-    color: color(page-fg);
+    background-color: clr(page-bg);
+    color: clr(page-fg);
 }
 
 @mixin boilerplate($env: vue, $scoped: false) {
@@ -185,7 +185,7 @@
         margin: 2rem 0;
         padding: 0;
         border: none;
-        border-top: 1px solid color(page-fg);
+        border-top: 1px solid clr(page-fg);
     }
 
     // prevent sup from affecting line-height

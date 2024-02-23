@@ -51,7 +51,7 @@
 /// @example gray(2, 0.5) // => rgba(173, 179, 183, 0.5)
 
 @function gray($shade: 0, $alpha: 1) {
-    @return color(gray, $shade, $alpha);
+    @return clr(gray, $shade, $alpha);
     //@return shade($color: get('colors:gray'), $shade: $shade, $shade-range: get(('gray-range')));
 }
 
@@ -67,7 +67,7 @@
 /// @example accent(2, 0.5) // => rgba(51, 173, 253, 0.5)
 
 @function accent($shade: 0, $alpha: 1) {
-    @return color(accent, $shade, $alpha);
+    @return clr(accent, $shade, $alpha);
 }
 
 /// Lookup a color by name and optionally get a shade of it
@@ -84,11 +84,11 @@
 /// config('colors:purple', #C578DD);
 ///
 /// // Retrieve the color
-/// color(purple) => #C578DD
-/// color(purple, -1) => (#b16cc7)
-/// color(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))
+/// clr(purple) => #C578DD
+/// clr(purple, -1) => (#b16cc7)
+/// clr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))
 
-@function color($name, $shade: 0, $alpha: 1) {
+@function clr($name, $shade: 0, $alpha: 1) {
     $color: get('colors.' + $name);
 
     @if ($color == null) {
@@ -142,14 +142,9 @@
     $contrast-threshold: 128
 ) {
     @if (not(is-color($bg))) {
-        $bg: color($bg);
+        $bg: clr($bg);
     }
     @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
 }
 
 // BACKWARDS COMPATIBILITY
-
-@function clr($name, $shade: 0, $alpha: 1) {
-    @warn 'The clr() function is deprecated. Use color() instead.';
-    @return color($name, $shade, $alpha);
-}

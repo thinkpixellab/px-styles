@@ -82,16 +82,16 @@
     @include default('colors.page-fg', gray(-7));
 
     /// Default light color used when computing contrast colors
-    @include default('colors.contrast-light', color(page-bg));
+    @include default('colors.contrast-light', clr(page-bg));
 
     /// Default light color used when computing contrast colors
-    @include default('colors.contrast-dark', color(page-fg));
+    @include default('colors.contrast-dark', clr(page-fg));
 
     /// Default background color for selected text
-    @include default('colors.selection-bg', color(select));
+    @include default('colors.selection-bg', clr(select));
 
     /// Default foreground color for selected text
-    @include default('colors.selection-fg', contrast-color(color(select)));
+    @include default('colors.selection-fg', contrast-color(clr(select)));
 
     // ----------------------------------------------------------------------
     // Typography

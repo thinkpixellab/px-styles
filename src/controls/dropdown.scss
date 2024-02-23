@@ -58,8 +58,8 @@
 
 //     // restore the default background on child options
 //     $items: (
-//         background-color: color(page-bg),
-//         color: color(page-fg),
+//         background-color: clr(page-bg),
+//         color: clr(page-fg),
 //     );
 //     > option {
 //         @include css-map-dpr(flat-merge($items, $items-overrides));

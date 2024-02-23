@@ -21,8 +21,8 @@
             font-weight: get('controls.font-weight'),
             font-family: get('controls.font-family'),
             border: 1px solid gray(6),
-            background-color: color('page-bg'),
-            color: color('page-fg'),
+            background-color: clr('page-bg'),
+            color: clr('page-fg'),
             padding: 0 0.5em,
             disabled: (
                 cursor: not-allowed,

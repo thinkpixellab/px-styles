@@ -178,7 +178,7 @@ Sample code that retrieves a bunch of common values:
     font-size: fs(md);
 
     // get the color called accent:
-    color: color(accent);
+    color: clr(accent);
 
     // get the variable for the headings font-family
     font-family: get(heading-font-family);
