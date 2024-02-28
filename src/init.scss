@@ -64,7 +64,7 @@
     @include default('shade-range', (black, white));
 
     /// Global default primary color. Optionally include a list of three values to override shading.
-    @include default('colors.accent', #018ee6);
+    @include default('colors.accent', #5d5897);
 
     /// Default base gray color. Optionally include a list of three values to override shading.
     @include default('colors.gray', (mix(#a0a0a0, accent(), 95%), accent(-9), white));
