@@ -17,10 +17,14 @@
 /// @example box-shadow: transition(transform opacity, fast); // => transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 /// @example box-shadow: transition(transform opacity, $ease: $ease-out-quart); // => transform 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
 
-@function transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
-    $name: if-null($name, 'default');
-    $dur: if-null($dur, get('transitions.' + $name + '.dur'));
-    $ease: if-null($ease, get('transitions.' + $name + '.ease'));
+@function transition($proplist, $dur: null, $ease: null, $delay: 0ms) {
+    $dur: if-null($dur, 'default');
+
+    @if (is-string($dur)) {
+        $ease: if-null($ease, get('transitions.' + $dur + '.ease'));
+        $dur: get('transitions.' + $dur + '.dur');
+    }
+
     $transitions: ();
 
     @each $prop in $proplist {
@@ -28,10 +32,11 @@
     }
     @return unquote(list-join($transitions, ', '));
 }
+
 ///
 /// @example @include transition(transform opacity, fast) // => transition: transform 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms, opacity 100ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;
-@mixin transition($proplist, $name: null, $dur: null, $ease: null, $delay: 0ms) {
-    transition: transition($proplist, $name, $dur, $ease, $delay);
+@mixin transition($proplist, $dur: null, $ease: null, $delay: 0ms) {
+    transition: transition($proplist, $dur, $ease, $delay);
 }
 
 /// Set of mixins that generates classes for a vue transition. These dot not expose the full power of
