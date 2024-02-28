@@ -5,6 +5,22 @@
 @use './mediaquery' as *;
 @use '../utils' as *;
 
+/// Helper for a hover state selector that only applies hover styles when not disabled.
+
+@mixin hover() {
+    &:hover:not(:disabled) {
+        @content;
+    }
+}
+
+/// Helper for an active state selector that only applies hover styles when not disabled.
+
+@mixin active() {
+    &:active:not(:disabled) {
+        @content;
+    }
+}
+
 /// Adds a site-specific focus selector use the value defined by `focus:selector`
 ///
 /// @example
