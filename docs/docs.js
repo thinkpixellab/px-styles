@@ -43,7 +43,7 @@ window.pxstyles = {
                         },
                         {
                             "name": "'colors.accent'",
-                            "value": "#018ee6",
+                            "value": "#df8c27",
                             "description": "Global default primary color. Optionally include a list of three values to override shading.\n"
                         },
                         {
@@ -73,22 +73,22 @@ window.pxstyles = {
                         },
                         {
                             "name": "'colors.contrast-light'",
-                            "value": "color(page-bg)",
+                            "value": "clr(page-bg)",
                             "description": "Default light color used when computing contrast colors\n"
                         },
                         {
                             "name": "'colors.contrast-dark'",
-                            "value": "color(page-fg)",
+                            "value": "clr(page-fg)",
                             "description": "Default light color used when computing contrast colors\n"
                         },
                         {
                             "name": "'colors.selection-bg'",
-                            "value": "color(select)",
+                            "value": "clr(select)",
                             "description": "Default background color for selected text\n"
                         },
                         {
                             "name": "'colors.selection-fg'",
-                            "value": "contrast-color(color(select))",
+                            "value": "contrast-color(clr(select))",
                             "description": "Default foreground color for selected text\n"
                         },
                         {
@@ -710,14 +710,14 @@ window.pxstyles = {
                 {
                     "namespace": "site",
                     "group": "site.color",
-                    "name": "color",
-                    "docName": "color()",
+                    "name": "clr",
+                    "docName": "clr()",
                     "type": "function",
                     "description": "Lookup a color by name and optionally get a shade of it\n\n",
                     "example": [
                         {
                             "type": "scss",
-                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\ncolor(purple) => #C578DD\ncolor(purple, -1) => (#b16cc7)\ncolor(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))"
+                            "code": "// Add the color to the global configuration\nconfig('colors:purple', #C578DD);\n\n// Retrieve the color\nclr(purple) => #C578DD\nclr(purple, -1) => (#b16cc7)\nclr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))"
                         }
                     ],
                     "parameter": [

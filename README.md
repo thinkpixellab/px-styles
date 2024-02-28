@@ -2,8 +2,7 @@
 
 ## BREAKING CHANGES
 
--   `clr` has been renamed `color`
--   css maps now use periods as a separator instead of colons (so `button.background` instead of `button:backround`)
+-   Css maps now use periods as a separator instead of colons (so `button.background` instead of `button:backround`)
 -   Any settings related to controls are now just the name of the component (e.g. `controls:button:background` is now just `button:background`)
 -
 
