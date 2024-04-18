@@ -1,0 +1,39 @@
+////
+/// @group modules.controls
+////
+
+@use '../../site' as *;
+@use '../../utils' as *;
+@use 'helpers.scss' as *;
+
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    'popup': (
+        background-color: clr(page-bg),
+        border-radius: get('controls.border-radius'),
+        box-shadow: depth-shadow(20, 0.1),
+    ),
+);
+
+@include defaults($-defaults);
+
+// ---------------------------------------------------------------------------
+// PUBLIC API
+// ---------------------------------------------------------------------------
+
+@function popup($overrides: ()) {
+    // global config
+    $config: get('popup', null);
+
+    // merge and return all the css
+    @return flat-merge($config, $overrides);
+}
+
+@mixin popup($overrides: ()) {
+    @include css-map(popup($overrides));
+}

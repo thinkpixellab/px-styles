@@ -6,8 +6,8 @@ describe('Sass', () => {
     // Find all of the Sass files that end in `*.spec.scss` in any directory of this project.
     // I use path.resolve because True requires absolute paths to compile test files.
 
-    const singleFile = '';
-    // const singleFile = 'modules.boilerplate.spec.scss';
+    //const singleFile = '';
+    const singleFile = 'site.typography.spec.scss';
 
     const sassTestFiles = glob.sync(
         path.resolve(process.cwd(), `test/**/${singleFile || '*.spec.scss'}`)

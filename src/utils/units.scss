@@ -416,7 +416,7 @@
 
 /// Converts an aspect string (like '16:9') to a number (the equivalent of 16/9)
 ///
-/// @param {string | number} The string representation of the aspect (should be two numbers
+/// @param {string | number} $aspect The string representation of the aspect (should be two numbers
 /// separated by a colon, e.g. '16:9'). Alternatively, if the input is a number then it will be
 /// returned directly. This makes it possible to use the function as a safety where a number is
 /// expected but a string could be used for convenience.

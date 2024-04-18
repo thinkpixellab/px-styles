@@ -2,61 +2,12 @@
 /// @group site.misc
 ////
 
-@use './mediaquery' as *;
 @use '../utils' as *;
+@use './media-query' as *;
+@use './color' as *;
+@use 'config' as *;
 
-/// Helper for a hover state selector that only applies hover styles when not disabled.
-
-@mixin hover() {
-    &:hover:not(:disabled) {
-        @content;
-    }
-}
-
-/// Helper for an active state selector that only applies hover styles when not disabled.
-
-@mixin active() {
-    &:active:not(:disabled) {
-        @content;
-    }
-}
-
-/// Adds a site-specific focus selector use the value defined by `focus:selector`
-///
-/// @example
-/// .item { @include focus() {...} }  => .item:focus-visible {...}
-
-@mixin focus() {
-    &#{get('focus.selector')} {
-        @content;
-    }
-}
-
-/// Shortcut for checked state (and a reminder to use aria to manage this)
-///
-/// @example
-/// .item { @include aria-checked() {...} }  => .item:[aria-checked] {...}
-
-@mixin aria-checked() {
-    &[aria-checked] {
-        @content;
-    }
-}
-
-/// Shortcut for checked state (and a reminder to use aria to manage this)
-///
-/// @example
-/// .item { @include disabled() {...} }  =>
-/// .item:disabled, .item:disabled:hover, .item:disabled:active, .item:disabled[aria-checked] {...}
-
-@mixin disabled() {
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active,
-    &:disabled[aria-checked] {
-        @content;
-    }
-}
+/// PUBLIC API
 
 /// Creates a css clamp value that scales in vw units from $min to $max. The vw value is calculated
 /// such that it will have the $max value when the screen is $at-width wide.
@@ -86,6 +37,7 @@
 ///
 /// @example
 /// font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)
+// ---------------------------------------------------------------------------
 
 @function z($layerName, $offset: 0) {
     $z: get('z.' + $layerName, 0, false);
@@ -96,6 +48,7 @@
 ///
 /// @example
 ///  @include container();
+
 @mixin container() {
     width: 100%;
     max-width: get('container.width');
@@ -112,6 +65,7 @@
 ///
 /// @example
 ///  @include link();
+
 @mixin link() {
-    @include css-map-dpr(get('links'));
+    @include css-map(get('links'));
 }

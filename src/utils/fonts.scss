@@ -1,0 +1,76 @@
+////
+/// @group utils.fonts
+////
+
+/// Simplified syntax for generating a font-face at-rule for loading custom
+/// fonts.
+///
+/// @param {String} $name - Name of the font (as referenced in css)
+///
+/// @param {String} $path - The url path used to load the font (do not include
+/// the extension, it will be appended)
+///
+/// @param {String} $weight - The weight associated with this variation of the
+/// font
+///
+/// @param {String} $style (optional) The styles associated with this variation
+/// of the font
+///
+/// @param {String} $exts [woff ttf] - (optional) The full list of extensions to
+/// be loaded (added to path), no period
+///
+/// @example @include font-face('circular','~assets/fonts/circular/circular-book', 400, null, woff woff2 otf);
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff ttf) {
+    $src: null;
+
+    $extmods: (
+        eot: '?',
+        svg: '#' + str-replace($name, ' ', '_'),
+    );
+
+    $formats: (
+        otf: 'opentype',
+        ttf: 'truetype',
+    );
+
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + '.' + $extmod)) format(quote($format)), comma);
+    }
+
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}
+
+/// Turn font smoothing on (makes type appear thinner and lighter on Mac and more closely
+/// resembles type rendering on Windows)
+///
+/// @example @include font-smoothing-on() // =>
+///
+///     font-smooth: always;
+///     -webkit-font-smoothing: antialiased;
+///     -moz-osx-font-smoothing: grayscale;
+
+@mixin font-smoothing-on() {
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/// Restore font-smoothing to it's default value.
+/// @example @include font-smoothing-off() // =>
+/// font-smooth: initial;
+/// -webkit-font-smoothing: initial;
+/// -moz-osx-font-smoothing: initial;
+
+@mixin font-smoothing-off() {
+    font-smooth: initial;
+    -webkit-font-smoothing: initial;
+    -moz-osx-font-smoothing: initial;
+}

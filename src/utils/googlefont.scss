@@ -1,8 +1,6 @@
 ////
-/// @group utils.typography
+/// @group utils.fonts
 ////
-
-// Based on this: https://codepen.io/jakob-e/pen/LVVXjO
 
 @function __gf__list-unique($list) {
     $result: ();
@@ -33,11 +31,10 @@
     @return $list;
 }
 
-/// The font subset to loaded. Note that the latin subset is always included if
-/// available and need not be specified. Also, if a client browser supports
-/// supports unicode-range then this subset parameter is igored and the browser
-/// will select from the subsets supported by the font to get what it needs to
-/// render the text.
+/// The font subset to load. Note that the latin subset is always included if available and need not
+/// be specified. Also, if a client browser supports supports unicode-range then this subset
+/// parameter is igored and the browser will select from the subsets supported by the font to get
+/// what it needs to render the text.
 
 $google-font-subsets: (
     'arabic': false,

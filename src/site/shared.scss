@@ -1,0 +1,68 @@
+////
+/// @group site.shared
+////
+
+@use '../utils' as *;
+@use 'config' as *;
+@use 'color' as *;
+
+// ---------------------------------------------------------------------------
+// DEFAULTS
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    /// Base font size (set on the body, used for rems calculations)
+    'font-size-base': 15px,
+
+    /// If provided, we'll assume scalable font-size at the root that gets adjusted based on the
+    /// screen width. This will also result in a scalable value for the mean of 1rem. Rems will
+    /// still be calculated internally based on the value of font-size-base, but the actual size of
+    /// 1rem will vary with the screen width. Leave the at parameter as null to use container.width
+    /// (the same behavior as the scale-vw function). Set to null to disable this behavior.
+    'font-size-scale':
+        (
+            min: 13px,
+            max: 18px,
+            max-at: null,
+        ),
+
+    /// _boilerplate_ Default / fallback font family for the site
+    'font-family': sans-serif,
+
+    /// _boilerplate_ Default / fallback font-weight for the site
+    'font-weight': 400,
+
+    /// _boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)
+    'font-smoothing': false,
+
+    /// _boilerplate_ Default / fallback line-height for standard text
+    'line-height': normal,
+
+    /// _boilerplate_ Default / fallback letter spacing for the site
+    'letter-spacing': normal,
+
+    /// Default settings for links
+    'links':
+        (
+            color: adjust-color(accent(), $saturation: 40%),
+            text-decoration: none,
+            text-decoration-color: null,
+            hover: (
+                color: null,
+                text-decoration: underline,
+                text-decoration-color: null,
+            ),
+        ),
+
+    /// Default container settings
+    'container':
+        (
+            width: 1200px,
+            gutter: 2rem,
+            gutter-mobile: 1rem,
+        )
+);
+
+@include defaults($-defaults);

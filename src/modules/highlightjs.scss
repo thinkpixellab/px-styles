@@ -1,8 +1,41 @@
+////
+/// @group modules.highlightjs
+////
+
 // highlight.js theme generator
 @use '../utils' as *;
 @use '../site' as *;
 
-$default-colors: (
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    /// Default colors for syntax highlighting using highlight.js
+    'highlightjs.colors':
+        (
+            fg: #abb2bf,
+            bg: #282c34,
+            comment: #7f848e,
+            keyword: #c678dd,
+            name: #e06c75,
+            literal: #56b6c2,
+            symbol: #61aeee,
+            string: #98c379,
+            variable: #d19a66,
+            class: #e6c07b,
+        )
+);
+
+@include defaults($-defaults);
+
+// ---------------------------------------------------------------------------
+// API
+// ---------------------------------------------------------------------------
+
+$-default-colors: (
     fg: #abb2bf,
     bg: #282c34,
     comment: #7f848e,
@@ -15,7 +48,7 @@ $default-colors: (
     class: #e6c07b,
 );
 
-@mixin highlightjs($colors: $default-colors, $prefix: hljs) {
+@mixin highlightjs($colors: $-default-colors, $prefix: hljs) {
     color: map-get($colors, fg);
     background: map-get($colors, bg);
 

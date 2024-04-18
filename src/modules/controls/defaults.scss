@@ -1,0 +1,39 @@
+////
+/// @group modules.controls
+////
+
+@use '../../site' as *;
+
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    'controls': (
+        accent: accent(),
+        border-radius: 0.25em,
+        font-family: get(font-family),
+        font-size: inherit,
+        font-weight: 400,
+        min-height: 2.25em,
+        min-width: 6em,
+        padding: 0 1em,
+    ),
+    'button': (
+        cursor: pointer,
+    ),
+    'focus': (
+        //selector: ':focus-visible',
+        style: 'shadow',
+        shadow-color:
+            accent(
+                $alpha: 0.33,
+            ),
+        shadow-width: 3px,
+        outline-color: accent(),
+    ),
+);
+
+@include defaults($-defaults);

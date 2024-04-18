@@ -1,61 +1,15 @@
 ////
 /// @group utils.layout
-/// @todo Needs documentation
 ////
 
 @use 'math.scss' as *;
 @use 'units.scss' as units;
 
-/// Creates css to force an element to maintain a particular aspect (based on width) using the
-/// padding bottom trick. Note: padding bottom is calculated relative to the parent width, so it's
-/// common to use this on a pseudo element and set the width on the element itself. Check out
-/// aspect-before / aspect-after.
-///
-/// @param {string or number} $aspect A number (like 1.333) or string (like '16:9') that represents the aspect
-/// ratio
-///
-/// @param {string} $display [block] The value of the display property to be set on the element
-///
-/// @example @include aspect('16:9') // produces the correct css for an aspect ratio of 16:9// =>
-/// display: block;
-/// width: 100%;
-/// padding-bottom: 56.25%;
-///
-/// @example @include aspect(divide(4,3))  // produces the correct css for an aspect ratio of 4:3
-
-@mixin aspect($aspect, $display: block) {
-    $aspect: units.aspect-to-number($aspect);
-    display: $display;
-    width: 100%;
-    padding-bottom: 100% * divide(1, $aspect);
-}
-///
-/// @example @include aspect-before(1.333, $display: block) // =>
-/// display: block;
-/// width: 100%;
-/// padding-bottom: 75.0187546887%;
-@mixin aspect-before($aspect, $display: block) {
-    &::before {
-        content: '';
-        @include aspect($aspect, $display);
-    }
-}
-///
-/// @example @include aspect-after(1.333, $display: block) // =>
-/// display: block;
-/// width: 100%;
-/// padding-bottom: 75.0187546887%;
-@mixin aspect-after($aspect, $display: block) {
-    &::after {
-        content: '';
-        @include aspect($aspect, $display);
-    }
-}
-
 /// Convenience mixin to inherit the border-radius of a parent based on child position (first child
 /// inherits top left/right radius, last child inherits bottom left/right radius)
 ///
-/// @example @include first-last-radius()
+/// @example
+///     @include first-last-radius()
 
 @mixin first-last-radius {
     &:first-child {
@@ -109,82 +63,98 @@
     }
 }
 
-/// @example @include rel($t: null, $r: null, $b: null, $l: null) // =>
-/// position: relative;
-/// top: 0;
-/// right: 0;
-/// bottom: 0;
-/// left: 0;
+/// @example
+///     @include rel($t: null, $r: null, $b: null, $l: null) // =>
+///     position: relative;
+///     top: 0;
+///     right: 0;
+///     bottom: 0;
+///     left: 0;
+
 @mixin rel($t: null, $r: null, $b: null, $l: null) {
     @include -pos(relative, $t, $r, $b, $l);
 }
 
-/// @example @include abs($t: null, $r: null, $b: null, $l: null) // =>
-/// position: absolute;
-/// top: 0;
-/// right: 0;
-/// bottom: 0;
-/// left: 0;
+/// @example
+///     @include abs($t: null, $r: null, $b: null, $l: null) // =>
+///     position: absolute;
+///     top: 0;
+///     right: 0;
+///     bottom: 0;
+///     left: 0;
+
 @mixin abs($t: null, $r: null, $b: null, $l: null) {
     @include -pos(absolute, $t, $r, $b, $l);
 }
 
-/// @example @include fixed($t: null, $r: null, $b: null, $l: null) // =>
-/// position: fixed;
-/// top: 0;
-/// right: 0;
-/// bottom: 0;
-/// left: 0;
+/// @example
+///     @include fixed($t: null, $r: null, $b: null, $l: null) // =>
+///     position: fixed;
+///     top: 0;
+///     right: 0;
+///     bottom: 0;
+///     left: 0;
+
 @mixin fixed($t: null, $r: null, $b: null, $l: null) {
     @include -pos(fixed, $t, $r, $b, $l);
 }
 
-/// @example @include left-top($l: 0, $t: 0) // =>
-/// position: absolute;
-/// left: 0;
-/// top: 0;
+/// @example
+///     @include left-top($l: 0, $t: 0) // =>
+///     position: absolute;
+///     left: 0;
+///     top: 0;
+
 @mixin left-top($l: 0, $t: 0) {
     position: absolute;
     left: $l;
     top: $t;
 }
 
-/// @example @include right-top($r: 0, $t: 0) // =>
-/// position: absolute;
-/// right: 0;
-/// top: 0;
+/// @example
+///     @include right-top($r: 0, $t: 0) // =>
+///     position: absolute;
+///     right: 0;
+///     top: 0;
+
 @mixin right-top($r: 0, $t: 0) {
     position: absolute;
     right: $r;
     top: $t;
 }
 
-/// @example @include left-bottom($l: 0, $b: 0) // =>
-/// position: absolute;
-/// left: 0;
-/// bottom: 0;
+/// @example
+///     @include left-bottom($l: 0, $b: 0) // =>
+///         position: absolute;
+///         left: 0;
+///         bottom: 0;
+
 @mixin left-bottom($l: 0, $b: 0) {
     position: absolute;
     left: $l;
     bottom: $b;
 }
 
-/// @example @include right-bottom($r: 0, $b: 0) // =>
-/// position: absolute;
-/// left: 0;
-/// bottom: 0;
+/// @example
+///     @include right-bottom($r: 0, $b: 0) // =>
+///         position: absolute;
+///         left: 0;
+///         bottom: 0;
+
 @mixin right-bottom($r: 0, $b: 0) {
     position: absolute;
     right: $r;
     bottom: $b;
 }
 
-/// @example @include abs-fill() // =>
-/// position: absolute;
-/// top: 0;
-/// left: 0;
-/// width: 100%;
-/// height: 100%;
+/// @example
+///     @include abs-fill() // =>
+///     position: absolute;
+///     top: 0;
+///     left: 0;
+///     width: 100%;
+///     height: 100%;
+
 @mixin abs-fill() {
     position: absolute;
     top: 0;
@@ -193,11 +163,14 @@
     height: 100%;
 }
 
-/// @example @include center($left: 50%, $top: 50%, $position: absolute)
-/// position: absolute;
-/// left: 50%;
-/// top: 50%;
-/// transform: translate(-50%, -50%);
+/// Center the item using a mix of positioning and a transform
+/// @example
+///     @include center($left: 50%, $top: 50%, $position: absolute)
+///     position: absolute;
+///     left: 50%;
+///     top: 50%;
+///     transform: translate(-50%, -50%);
+
 @mixin center($left: 50%, $top: 50%, $position: absolute) {
     position: $position;
     left: $left;
@@ -205,20 +178,26 @@
     transform: translate(-$left, -$top);
 }
 
-/// @example @include center-x($left: 50%, $position: absolute) // =>
-/// position: absolute;
-/// left: 50%;
-/// transform: translateX(-50%);
+/// Center the item horizontally using a mix of positioning and a transform
+/// @example
+///     @include center-x($left: 50%, $position: absolute) // =>
+///     position: absolute;
+///     left: 50%;
+///     transform: translateX(-50%);
+
 @mixin center-x($left: 50%, $position: absolute) {
     position: $position;
     left: $left;
     transform: translateX(-$left);
 }
 
-/// @example @include center-y($top: 50%, $position: absolute) // =>
-/// position: absolute;
-/// top: 50%;
-/// transform: translateY(-50%);
+/// Center the item vertically using a mix of positioning and a transform
+/// @example
+///     include center-y($top: 50%, $position: absolute) // =>
+///     position: absolute;
+///     top: 50%;
+///     transform: translateY(-50%);
+
 @mixin center-y($top: 50%, $position: absolute) {
     position: $position;
     top: $top;
@@ -228,7 +207,8 @@
 /// Adds before and after pseudo elements to a flex container to allow centering content to
 /// non-perfect values for more natural looking centered layouts
 ///
-/// @example @include flex-pseudo-center(33%);
+/// @example
+///     @include flex-pseudo-center(33%);
 
 @mixin flex-pseudo-center($center: 40%) {
     &::before {

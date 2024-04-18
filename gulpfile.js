@@ -16,7 +16,7 @@ function verToSass(done) {
 // compile documentation with sassdoc
 function sassDoc(done) {
     gulp.src('./src/**/*.scss').pipe(sassdoc());
-    //gulp.src('./src/defaults.scss').pipe(sassdoc());
+    //gulp.src('./scratch.scss').pipe(sassdoc());
     done();
 }
 
@@ -36,7 +36,9 @@ function copyDocFiles(done) {
 
 // build a file called scratch.scss in the root and output as scratch.css
 function scratch(done) {
-    gulp.src('./scratch.scss').pipe(sass().on('error', sass.logError)).pipe(gulp.dest('./'));
+    gulp.src('./scratch/scratch.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./scratch/'));
     done();
 }
 
@@ -51,14 +53,14 @@ exports.docs = gulp.series(sassDoc, docStyles, copyDocFiles);
 exports.prep = gulp.series(sassDoc, docStyles, copyDocFiles, verToSass);
 
 exports.default = function () {
-    let docWatch = [
-        './docs-src/src/styles.scss',
-        './docs-src/theme/*.*',
-        './docs-src/src/*.*',
-        './src/**/*.scss',
-        './init.scss',
-    ];
-    gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles, scratch));
+    // let docWatch = [
+    //     './docs-src/src/styles.scss',
+    //     './docs-src/theme/*.*',
+    //     './docs-src/src/*.*',
+    //     './src/**/*.scss',
+    //     './init.scss',
+    // ];
+    // gulp.watch(docWatch, gulp.series(sassDoc, docStyles, copyDocFiles, scratch));
 
-    gulp.watch(['./scratch.scss'], gulp.series(scratch));
+    gulp.watch(['./scratch/*.scss', './scratch.scss', './src/**/*.scss'], gulp.series(scratch));
 };

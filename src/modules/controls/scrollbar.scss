@@ -1,0 +1,68 @@
+////
+/// @group modules.controls
+////
+
+@use '../../utils' as *;
+@use '../../site' as *;
+@use 'helpers.scss' as *;
+
+// ----------------------------------------------------------------------------
+// scrollbar
+// ----------------------------------------------------------------------------
+
+/// Customize the appearance of a scrollbar. Good support in modern webkit and chromium based
+/// browsers. Has the effect of making scrollbars always visible even if the operating system would
+/// normally hide them. There is no way to make the track full transparent. Set $nested to false if
+/// apply to all scrollbars (this will remove the parent join).
+///
+/// @param {*} $size The overall width of the scrollbar
+///
+/// @param {*} $color The color of the scrollbar thumb (and background is derived from this if not
+/// provided)
+///
+/// @param {*} $radius [0] The border radius of the scrollbar thumb
+///
+/// @param {*} $background [null] The color of the scrollbar track area (defaults to $color mixed
+/// with 50% white if not provided)
+///
+/// @param {*} $padding [null] Padding around the scrollbar thumb (created artificially with a hack
+/// since this isn't supported by the css)
+///
+/// @param {true} $nested [null] Set to false if this is using outside of a parent selector (to
+/// apply to all scrollbars).
+///
+/// @example @include scrollbar(100%, blue)
+
+@mixin scrollbar($size, $color, $radius: null, $background: null, $padding: null, $nested: true) {
+    $background: if-null($background, mix($color, white));
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-thumb {
+        border-radius: $radius;
+
+        // if $padding is defined, we use a shadow to create the background and
+        // a transparent border to create the padding
+        @if ($padding) {
+            box-shadow: inset 0 0 $size $size $color;
+            border: solid $padding transparent;
+        } @else {
+            background: $color;
+        }
+    }
+
+    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-track {
+        background: $background;
+    }
+}
+
+@mixin invisible-scrollbar() {
+    @include scrollbar(0px, rgba(white, 0), 0, rgba(white, 0), 0);
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

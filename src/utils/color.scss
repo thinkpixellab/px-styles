@@ -1,0 +1,77 @@
+////
+/// @group utils.color
+////
+
+@use 'math.scss' as *;
+
+///
+/// Produce a shade (a lighter or darker version) of a color based on the value
+/// of $shade and an optional darkest to lightest shade range.
+///
+/// @param {color} $color [null] The color to be shaded. If not provided, it will be
+/// calculated as the middle value within $shade-range.
+///
+/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {(color, color)} $shade-range [null] The range of colors will be produced
+/// as a list (darkest, lightest).
+///
+/// @example $color: shade(red, 5, null) // => #ff8080
+///
+
+@function color-shade(
+    $color: null,
+    $shade: 0,
+    $shade-range: (
+        black,
+        white,
+    )
+) {
+    $shade-steps: 20;
+    $shade-amount: divide(100%, $shade-steps) * 2;
+    $shade: clamp-number($shade, divide($shade-steps, -2), $shade-steps * 0.5);
+
+    @if ($color == null) {
+        $color: mix(nth($shade-range, 1), nth($shade-range, 2));
+    }
+
+    @if ($shade < 0) {
+        $color1: nth($shade-range, 1);
+        @return mix($color1, $color, ($shade * $shade-amount) * -1);
+    }
+
+    @if ($shade > 0) {
+        @return mix(nth($shade-range, 2), $color, ($shade * $shade-amount));
+    }
+
+    @return $color;
+}
+
+/// Choose a contrasting foreground based on the contrast between a background and two foreground
+/// options (a light and dark).
+///
+/// @example contrast-color(rgb(233, 229, 31), rgb(199, 192, 192), rgb(133, 133, 231)) // => #8585e7
+
+@function color-contrast($bg, $light-fg: white, $dark-fg: black, $contrast-threshold: 128) {
+    @if (not(is-color($bg))) {
+        $bg: clr($bg);
+    }
+    @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
+}
+
+/// Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used
+/// for determining the relative contrast between two colors.
+///
+/// @example yiq(purple) // => 52.864
+
+@function yiq($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
+
+    // 0 (black) - 255 (white)
+    @return $yiq;
+}

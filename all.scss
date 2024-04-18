@@ -1,0 +1,43 @@
+// ----------------------------------------------------------------------------
+// DESCRIPTION
+// ----------------------------------------------------------------------------
+//
+// Load this file in your main Sass file to include all the utilities, mixins, and modules. There is
+// essentially no tree-shaking in Sass, so you will get everything in this package. In complex sites
+// it probably makes sense to be more strategic about loading.
+//
+// In many cases you'll want to load index.scss instead of this file (which don't include modules or
+// controls but just utils and common site aware mixins and functions).
+//
+// USAGE: @use '@thinkpixellab-public/px-styles/all' as *;
+
+// ----------------------------------------------------------------------------
+// DEFAULTS / CONFIG
+// ----------------------------------------------------------------------------
+
+@use 'defaults' as defaults;
+
+$config: defaults.$config !default;
+
+@use 'src/config' as * with (
+    $-config: $config
+);
+
+// ----------------------------------------------------------------------------
+// FORWARDS
+// ----------------------------------------------------------------------------
+
+// Configuration library (manages a shared config between all modules)
+@forward 'src/config';
+
+// Reusuable utils (functions, mixins) that have no dependency on site configuration settings
+@forward 'src/utils';
+
+// Mixins / functions that have configuration settings / site awareness
+@forward 'src/site';
+
+// Standalone modules (depends on both utils and site)
+@forward 'src/modules';
+
+// Standalone modules for generating controls (depends on both utils and site)
+@forward 'src/controls';

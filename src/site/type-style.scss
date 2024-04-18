@@ -1,0 +1,148 @@
+////
+/// @group modules.typography
+////
+
+@use '../utils' as *;
+@use 'type-size' as *;
+@use 'config' as *;
+
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    /// Full set of type styles. Each style consists of an optional base (which references a different
+    /// style in the list) and a set of css properties (using css-map syntax for states if required).
+    'typography.type-styles':
+        (
+            heading: (
+                font-family: null,
+                font-weight: 700,
+                line-height: 1,
+                letter-spacing: null,
+                color: null,
+                margin-top: 0.75em,
+                margin-bottom: 0.75em,
+            ),
+            subheading: (
+                font-family: null,
+                font-weight: null,
+                line-height: 1.15,
+                letter-spacing: null,
+                color: null,
+                margin-bottom: 0.5em,
+            ),
+            code: (
+                // prettier-ignore
+                font-family: (menlo, monaco, consolas, monospace),
+                font-size: 13px,
+                font-weight: 400,
+                line-height: 1.4,
+            ),
+            d1: (
+                __base: heading,
+                __selector: '.d1',
+                font-size: fs(8),
+            ),
+            d2: (
+                __base: heading,
+                __selector: '.d2',
+                font-size: fs(7),
+            ),
+            d3: (
+                __base: heading,
+                __selector: '.d3',
+                font-size: fs(6),
+            ),
+            h1: (
+                __base: heading,
+                __selector: '.h1',
+                font-size: fs(5),
+            ),
+            h2: (
+                __base: heading,
+                __selector: '.h2',
+                font-size: fs(4),
+            ),
+            h3: (
+                __base: heading,
+                __selector: '.h3',
+                font-size: fs(3),
+            ),
+            h4: (
+                __base: heading,
+                __selector: '.h4',
+                font-size: fs(2),
+            ),
+            h5: (
+                __base: heading,
+                __selector: '.h5',
+                font-size: fs(1),
+            ),
+            sh1: (
+                __base: subheading,
+                __selector: '.sh1',
+                font-size: fs(2),
+            ),
+            sh2: (
+                __base: subheading,
+                __selector: '.sh2',
+                font-size: fs(1),
+            ),
+            sh3: (
+                __base: subheading,
+                __selector: '.sh3',
+                font-size: fs(0),
+            ),
+        )
+);
+
+@include defaults($-defaults);
+
+$-type-styles: get('typography.type-styles') !default;
+
+@function type-style($name, $base-prop: '__base', $type-styles: $-type-styles) {
+    $style: map-get($type-styles, $name);
+
+    @if (not $style) {
+        @error '[type-style] Could not find a style named #{$name} in the type-styles.';
+        @return null;
+    }
+
+    $base-name: map-get($style, $base-prop);
+    $base: if($base-name, type-style($base-name), null);
+
+    @if ($style and $base) {
+        @return map-merge($base, $style);
+    }
+
+    @if ($base) {
+        @return $base;
+    }
+
+    @if ($style) {
+        @return $style;
+    }
+
+    @return null;
+}
+
+@mixin type-style($name, $base-prop: '__base', $type-styles: $-type-styles) {
+    @include css-map(type-style($name, $base-prop, $type-styles), $ignore: '__');
+}
+
+@mixin type-styles($type-styles, $base-prop: '__base', $selector-prop: '__selector') {
+    @each $name, $props in $type-styles {
+        $selector: $name;
+
+        @if (map-has-key($props, $selector-prop)) {
+            $selector: map-get($props, $selector-prop);
+        }
+
+        #{$selector} {
+            @include type-style($name, $type-styles: $type-styles);
+        }
+    }
+}

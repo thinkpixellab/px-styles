@@ -1,9 +1,5 @@
 ////
 /// @group utils.bem
-///
-/// Provides a series of functions and mixins that make it easier to generate
-/// [bem](http://getbem.com/) style class names.
-///
 ////
 
 @use 'units' as *;
@@ -12,7 +8,11 @@ $-block-prefix: '' !default;
 $-element-prefix: '__' !default;
 $-modifier-prefix: '--' !default;
 
-@function bem-class($blockOrElement: false, $modifier: '', $pseudo: '', $prefix: '') {
+// ----------------------------------------------------------------------------
+// PRIVATE HELPERS
+// ----------------------------------------------------------------------------
+
+@function -bem-class($blockOrElement: false, $modifier: '', $pseudo: '', $prefix: '') {
     @if (not $blockOrElement) {
         @error "Missing block or element name.";
     }
@@ -28,17 +28,17 @@ $-modifier-prefix: '--' !default;
     @return #{'.' + $prefix + $blockOrElement + $modifier + $pseudo};
 }
 
-@mixin bem-class($nameOrNames: false, $modifier: '', $pseudo: '', $prefix: '') {
+@mixin -bem-class($nameOrNames: false, $modifier: '', $pseudo: '', $prefix: '') {
     $selector: false;
 
     @if is-list($nameOrNames) {
         $selector: ();
 
         @each $n in $nameOrNames {
-            $selector: append($selector, bem-class($n, $modifier, $pseudo, $prefix), comma);
+            $selector: append($selector, -bem-class($n, $modifier, $pseudo, $prefix), comma);
         }
     } @else {
-        $selector: bem-class($nameOrNames, $modifier, $pseudo, $prefix);
+        $selector: -bem-class($nameOrNames, $modifier, $pseudo, $prefix);
     }
     #{$selector} {
         @content;
@@ -62,38 +62,6 @@ $-modifier-prefix: '--' !default;
     $pseudo-index: if-null(str-index($selector, ':'), $inf);
     $min-index: min($space-index, $modifier-index, $element-index, $pseudo-index);
     @return str-slice($selector, $dot-index + 1, $min-index - 1);
-}
-
-/// Creates a block class selector using the bem approach to class naming. This is often unecessary
-/// since elements can be nested under the block class using a normal declation.
-///
-/// @param {string} $name - The block name string
-/// @param {string} $modifier [''] - An optional modifier string. Use this to indicate that the
-/// block is in a modified state (e.g. selected).
-///
-/// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
-/// (e.g. hover or after)
-///
-/// @example
-/// // An intentionally complex example:
-///  @include block(block, modifier) {
-///     @include bem(element, modifier) {
-///         @media only screen and (max-width: 800px) {
-///             @include bem(element) { ... }
-///         }
-///     }
-/// }
-/// @example
-///     @include block(my-component, red, before) { color: red } // =>
-///     .my-component--red::before {color: red;}
-
-@mixin block($name, $modifier: '', $pseudo: '') {
-    $bem-block: $name !global;
-    @content;
-    $bem-block: false !global;
-
-    @include bem-class($name, $modifier, $pseudo, $-block-prefix) {
-    }
 }
 
 /// Creates a element--modifier class name using the bem approach to class naming. Can be used
@@ -133,37 +101,20 @@ $-modifier-prefix: '--' !default;
 
 @mixin bem($name, $modifier: '', $pseudo: '', $block: null) {
     $block: if-null($block, get-block-name(&));
-    @include bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix}) {
+    @include -bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix}) {
         @content;
     }
 }
 
 @function bem($name, $modifier: '', $pseudo: '', $block: null) {
     $block: if-null($block, get-block-name(&));
-    @return bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix});
+    @return -bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix});
 }
 
-/// @example @include element(my-component, modifier, before) {
-/// color: red;
-/// } // =>
-/// .test-output__my-component--modifier::before {
-///   color: red;
-/// }
 /// Wrapper for bem mixin with slightly more contextual naming
+
 @mixin element($name, $modifier: '', $pseudo: '', $block: null) {
     @include bem($name, $modifier, $pseudo, $block) {
-        @content;
-    }
-}
-
-@function mod($modifier, $block: null) {
-    $block: if-null($block, get-block-name(&));
-    @return #{$block}#{$block}--#{$modifier};
-}
-
-@mixin mod($modifier, $block: null) {
-    $mod: mod($modifier, $block);
-    #{$mod} {
         @content;
     }
 }

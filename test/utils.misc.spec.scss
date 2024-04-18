@@ -2,6 +2,64 @@
 @use 'true' as *;
 
 @include test-module('utils.misc') {
+    @include test('mixin focus') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include focus() {
+                        background: red;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                .class:focus-visible {
+                    background: red;
+                }
+            }
+        }
+    }
+
+    @include test('mixin aria-checked') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include aria-checked() {
+                        background: red;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                .class[aria-checked] {
+                    background: red;
+                }
+            }
+        }
+    }
+    @include test('mixin disabled') {
+        @include assert {
+            // test
+            @include output {
+                .class {
+                    @include disabled() {
+                        background: red;
+                    }
+                }
+            }
+            // output
+            @include expect {
+                .class:disabled,
+                .class:disabled:hover,
+                .class:disabled:active,
+                .class:disabled[aria-checked] {
+                    background: red;
+                }
+            }
+        }
+    }
     @include test('mixin no-select') {
         @include assert {
             // test
@@ -147,7 +205,7 @@
         @include assert {
             // test
             @include output {
-                @include css-map-dpr(
+                @include css-map(
                     (
                         color: blue,
                         background-color: green,

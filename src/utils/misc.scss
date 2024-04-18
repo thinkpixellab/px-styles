@@ -7,6 +7,59 @@
 @use 'strings.scss' as *;
 @use 'units.scss' as *;
 
+/// Helper for a hover state selector that only applies hover styles when not disabled.
+
+@mixin hover() {
+    &:hover:not(:disabled) {
+        @content;
+    }
+}
+
+/// Helper for an active state selector that only applies hover styles when not disabled.
+
+@mixin active() {
+    &:active:not(:disabled) {
+        @content;
+    }
+}
+
+/// Adds a focus-visible state selector to the element
+///
+/// @example
+/// .item { @include focus() {...} }  => .item:focus-visible {...}
+
+@mixin focus() {
+    &:focus-visible {
+        @content;
+    }
+}
+
+/// Shortcut for checked state (and a reminder to use aria to manage this)
+///
+/// @example
+/// .item { @include aria-checked() {...} }  => .item:[aria-checked] {...}
+
+@mixin aria-checked() {
+    &[aria-checked] {
+        @content;
+    }
+}
+
+/// Shortcut for checked state (and a reminder to use aria to manage this)
+///
+/// @example
+/// .item { @include disabled() {...} }  =>
+/// .item:disabled, .item:disabled:hover, .item:disabled:active, .item:disabled[aria-checked] {...}
+
+@mixin disabled() {
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active,
+    &:disabled[aria-checked] {
+        @content;
+    }
+}
+
 /// Style the placeholder text for a text input element
 /// @example
 /// input {
@@ -34,7 +87,7 @@
 }
 
 /// Disable text selection on an element
-///@example no-select // =>
+
 @mixin no-select {
     -webkit-touch-callout: none;
     user-select: none;
@@ -45,11 +98,12 @@
 ///
 /// @param {number} $lines The maximum number of lines to be shown
 ///
-///@example line-clamp(3) // =>
-///display: -webkit-box;
-///-webkit-line-clamp: 3;
-///-webkit-box-orient: vertical;
-///overflow: hidden;
+/// @example  line-clamp(3) // =>
+/// display: -webkit-box;
+/// -webkit-line-clamp: 3;
+/// -webkit-box-orient: vertical;
+/// overflow: hidden;
+
 @mixin line-clamp($lines) {
     display: -webkit-box;
     -webkit-line-clamp: $lines;
@@ -63,9 +117,9 @@
 /// @param {*} $content [''] The value for the content property.
 /// @param {*} $display [block] The value for the display property.
 ///
-///@example before('hello, world') // =>
-///content: "";
-///display: block;
+/// @example  before('hello, world') // =>
+/// content: "";
+/// display: block;
 
 @mixin before($content: '', $display: block) {
     &::before {
@@ -81,9 +135,9 @@
 /// @param {*} $content [''] The value for the content property.
 /// @param {*} $display [block] The value for the display property.
 ///
-///@example after('goodbye, world') // =>
-///content: "";
-///display: block;
+/// @example  after('goodbye, world') // =>
+/// content: "";
+/// display: block;
 
 @mixin after($content: '', $display: block) {
     &::after {
@@ -100,12 +154,7 @@
 /// @param {length} $height The height of the arrow
 /// @param {length} $width  The width of the arrow
 ///
-/// @example triangle('up', 'red', 10px, 2px) // =>
-///border-style: solid;
-/// height: 0;
-/// width: 0;
-/// border-color: transparent transparent "red" transparent;
-/// border-width: 0 1px 10px 1px;
+/// @example triangle('up', 'red', 10px, 2px)
 
 @mixin triangle($direction, $color, $height, $width) {
     border-style: solid;
@@ -152,7 +201,7 @@
 /// @param {*} $color [#c8c8c8] The first of two colors in the check pattern
 /// @param {*} $color-alt [transparent] The second of two colors in the check pattern
 ///
-/// @example %%include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px
+/// @example @include checkered-background(20px, green) // => creates a green and transparent checkered background where each square is 20px x 20px
 
 @mixin checkered-background($width: 12px, $color: rgba(black, 0.1), $color-alt: transparent) {
     background-size: #{$width * 2} #{$width * 2};
@@ -198,61 +247,9 @@
 ///
 /// @todo need a better description of all of these weird parameters and why they exist (or else better api)
 ///
-/// @example %%include css-map-dpr(( color: blue, background-color: green, font-family: sans-serif)); // =>
-/// color: blue;
-/// background-color: green;
-/// font-family: sans-serif;
+/// @example @include css-map-dpr(( color: blue, background-color: green, font-family: sans-serif));
 
-@mixin css-map-dpr(
-    $map,
-    $aliases: (),
-    $map-states: (hover active focus disabled readonly),
-    $use-smart-aliases: true,
-    $ignore-start-pattern: '--'
-) {
-    @if ($use-smart-aliases) {
-        $smart-aliases: (
-            disabled: 'disabled, &:disabled:hover, &:disabled:active, &:disabled[aria-checked]',
-            readonly: 'read-only, &:read-only:hover, &:read-only:active',
-            read-only: 'read-only, &:read-only:hover, &:read-only:active',
-            focus: 'focus-visible',
-        );
-        $aliases: flat-merge($smart-aliases, $aliases);
-    }
-
-    // walk through $map and replace any aliases with their counterparts
-    $remap: map-key-replace($map, $aliases);
-
-    // replace $map-states with their aliases
-    $map-states: list-replace($map-states, $aliases);
-
-    // output non-states first
-    @each $key, $val in $remap {
-        @if not((starts-with($key, $ignore-start-pattern))) {
-            @if (is-map($val) or (is-list($val) and length($val) == 0)) {
-                // do nothing (this is a map or an empty list)
-            } @else {
-                #{$key}: $val;
-            }
-        }
-    }
-
-    // now output mapped states
-    @if is-list($map-states) {
-        @each $state in $map-states {
-            @if (map-has-key($remap, $state)) {
-                $state-css: map-get($remap, $state);
-                &:#{$state} {
-                    @include css-map-dpr($state-css, $aliases, $ignore-start-pattern);
-                }
-            }
-        }
-    }
-}
-
-// newer, better version of css-map (just need to convert now)
-
-@mixin css-map($map, $aliases: (), $ignore: '--', $auto-alias-common-states: true) {
+@mixin css-map($map, $aliases: (), $ignore: '__', $auto-alias-common-states: true) {
     @if ($auto-alias-common-states) {
         $common-states: (
             hover: '&:hover',
@@ -261,7 +258,7 @@
             active-enabled: '&:active:enabled',
             focus: '&:focus-visible',
             disabled: '&:disabled, &:disabled:hover, &:disabled:active, &:disabled[aria-checked]',
-            checked: '&:checked, &[aria-checked]',
+            checked: '&:checked, &[aria-checked="true"]',
             readonly: '&:read-only, &:read-only:hover, &:read-only:active',
             read-only: '&:read-only, &:read-only:hover, &:read-only:active',
             before: '&::before',
@@ -315,25 +312,12 @@
 /// @param {*} $color1 [yellowgreen] The first color in the gradient
 /// @param {*} $color2 [gold] The second color in the gradient
 /// @example debug-zebra() // =>
-///background-image: repeating-linear-gradient(-45deg, yellowgreen 0 20px, gold 20px 40px);
 
 @mixin debug-zebra($color1: yellowgreen, $color2: gold) {
     background-image: repeating-linear-gradient(-45deg, $color1 0 20px, $color2 20px 40px);
 }
 
-$-once-keys: ();
-
-/// Mixin that ensures that the wrapped @content will only be included once per $key.
-/// @param {*} $key
-
-@mixin once($key) {
-    @if (index($-once-keys, $key) == null) {
-        $-once-keys: append($-once-keys, $key) !global;
-        @content;
-    }
-}
-
-// safari only
+/// Rule that only includes the content when the browser is Safari
 
 @mixin only-safari() {
     @media not all and (min-resolution: 0.001dpcm) {
@@ -341,4 +325,14 @@ $-once-keys: ();
             @content;
         }
     }
+}
+
+/// Produces a css calc expression that adds two values (or subtracts if the second value is
+/// negative)
+
+@function calc-add($a, $b) {
+    @if ($b > 0) {
+        @return calc(#{$a} + #{$b});
+    }
+    @return calc(#{$a} - #{$b * -1});
 }

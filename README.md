@@ -1,124 +1,194 @@
 # px-styles
 
-## BREAKING CHANGES
+## Install the Package
 
--   Css maps now use periods as a separator instead of colons (so `button.background` instead of `button:backround`)
--   Any settings related to controls are now just the name of the component (e.g. `controls:button:background` is now just `button:background`)
--
-
-This is a simple SCSS framework that provides basic site setup and some common functionality for web projects. The goal is to create a simple to understand boilerplate coupled with a consistent approach to styling that encourages reuse and best practices while maintaing flexibility.
-
-## Useful Links
-
--   Repository: [https://github.com/thinkpixellab/px-styles](https://github.com/thinkpixellab/px-styles)
--   API Documentation: [https://thinkpixellab.github.io/px-styles](https://thinkpixellab.github.io/px-styles)
--   NPM Package: [https://www.npmjs.com/package/@thinkpixellab-public/px-styles](https://www.npmjs.com/package/@thinkpixellab-public/px-styles)
-
-## Install
-
-#### Install the package
-
-First, add the package to the project using npm.
+Just dd the package to your project using npm.
 
 ```
 npm install @thinkpixellab-public/px-styles --save
 ```
 
-#### Create a Shared Loader / Configuration File
+## Load the Module
 
-A typical setup might consist of the following:
+### General loading
 
-##### px-styles.scss
+There are different ways that px-styles can be loaded depending on which functionality you need.
 
-By convention px-styles is configured in a file in the project root called `px-styles.scss`. By placing this file in a known location all packages that use px-styles can access the same configuration by importing / using the same configuration.
+#### utils (no configuration)
 
-Configuring px-styles consists of setting any desired configuration using the `config()` mixin and then filling in any missing configuration with a call to the `init()` mixin.
+If you just want utilities and don't want to use site-level configuration, you can load the basic utils functionality direction.
+
+```
+@use '@thinkpixellab-public/px-styles/utils' as *
+```
+
+#### site (default)
+
+If you want to access the site-configured utilities you can load the default library with a $-config object. (See configuration notes below).
+
+```
+@use '@thinkpixellab-public/px-styles' as * with (
+    $-config: ( ... )
+)
+```
+
+#### modules
+
+You can Load individual modules after loading the configured library.
+
+```
+// load px-styles
+@use '@thinkpixellab-public/px-styles' as * with (
+    $-config: ( ... )
+)
+
+// load the module
+@use '@thinkpixellab-public/px-styles/src/modules/boilerplate' as *;
+```
+
+Or, you can load the module directly (this accomplishes the same thing as above but the syntax is a little confusing).
+
+```
+// load the boilerplate module
+@use '@thinkpixellab-public/px-styles/src/modules/boilerplate' as * with (
+    $-config: ( ... )
+)
+```
+
+### Create a Shared Loader / Configuration File
+
+If you have multiple components or files that need to access a shared configuration, it might make sense to create a shared loader / configuration file. A typical setup might consist of the following:
+
+```
+// px.scss
+
+@forward '@thinkpixellab-public/px-styles' with (
+    $-config: (...)
+)
+
+// my-file.scss
+
+@use 'px' as *;
+
+```
+
+Optionally, you could also create a utils only loader to make loading utils seem a bit cleaner (so you don't have to include the long package name every time). This might also encourage loading the simpler utils which require no configuration or config parsing.
+
+```
+// px-utils.scss
+
+@forward '@thinkpixellab-public/px-styles/utils';
+
+
+// my-simple-file.scss
+
+@use 'px-utils' as *;
+
+```
+
+## Defauls, Config, Variables, etc.
+
+There are so many potential sources for any given value that tt seems worth mentioning some guiding principles about where the value should come from and when and how convenient defaults should be provided (and then where those defaults come from).
+
+-   **hardcoded values** should be used when the value is absolute and unchanging.
+-   **SCSS variables** make sense when a hardcoded value would suffice but we're trying to keep the code DRY. See the node about module configuration below for a small exception to this.
+-   **mixin or function parameters** should be exposed when the value changes on each use (this is probably pretty obvious).
+-   **site / module "config" values** make sense when the value can/should be configured at the site level and is expected to be constant at runtime.
+-   **CSS variables** (or custom properties) make sense when the value might change during runtime (either in code or based on DOM location) or when we want to otherwise expose some kind of CSS accessible configuration. There is some runtime cost to this flexibility as well as potential complexity in the CSS itself. Also, CSS variables are difficult to work with inside of a framework because the only way to manipulate them is with calc() functions (e.g. it's not possible to multiply two css variables except using calc()).
+
+That all seems pretty straightforward, but the devil is in the details. In real world usage, things can be a bit muddier so let's address some common scenarios where there may be some ambiguity.
+
+#### General Thoughts About Config and Defaults
+
+A major purpose of a CSS framework like pxstyles is to simplify syntax and produce more consistent / better tested output but that needs to be balanced with flexibility.
+
+That said, multple levels of defaults can also become a bit unruly and it can become difficult to know where a value is ultimately coming from.
+
+A common pattern might be something like:
 
 ```scss
-// ----------------------------------------------------------------------------
-// px-styles.scss
-// Github: https://github.com/thinkpixellab/px-styles
-// Docs: https://thinkpixellab.github.io/px-styles/
-// ----------------------------------------------------------------------------
+/* pxstyles */
 
-// forward and use
-@forward '@thinkpixellab-public/px-styles';
+// this will set a value in config for default-background only if no has been configured already
+@include default('default-background', orange);
+
+@mixin dark-background($color: null) {
+    // lookup the site configured background
+    $color: if-null($color, get('default-background'));
+
+    background: darken($color, 10%);
+}
+
+/* user code (no config) */
+
 @use '@thinkpixellab-public/px-styles' as *;
+@include dark-background(); // outputs dark orange
+@include dark-background(green); // outputs dark green
 
-// site config
-@include config('colors.accent', #00dc82);
-@include config('colors.page-bg', #011e26);
-@include config('colors.page-fg', white);
+/* user code (with config) */
 
-// initialize and load defaults (required)
-@include init();
+$site-config: (
+    'default-background': purple,
+);
+
+@use '@thinkpixellab-public/px-styles' as * with (
+    $-config: $site-config
+);
+
+@include dark-background(); // outputs dark purple
+@include dark-background(green); // outputs dark green
 ```
 
-##### include.scss
-
-The config file can be imported directly but most projects benefit from having a single non-emitting .scss file that, in addition to px-styles config, includes other shared project-specific variables, functions and mixins. This file can be included in any other component or scss file knowing that all shared scss will be available. By convention we call this file `include.scss`.
+This seems pretty useful, but even with just a couple of layers of redirection it can get pretty confusing to figure out where the value is coming from. And some examples might get even more complex. Imagine now that we're using the `dark-background()` mixin inside of a button mixin. The button mixin has it's own background configuration.
 
 ```scss
-// ----------------------------------------------------------------------------
-// include.scss
-// ----------------------------------------------------------------------------
+/* pxstyles */
 
-// forward and use
-@forward '/px-styles.scss';
-@use '/px-styles.scss' as *;
+@mixin button($accent: null) {
+    $accent: if-null($accent, get('button.accent'));
 
-// shared site stuff
-@mixin my-mixin() { ... }
-$my-var: 123;
-```
+    background-color: $accent;
+    &:active {
+        @include dark-background($accent);
+    }
+}
 
-##### global.scss
+/* user code (with config for button accent) */
 
-This convention is outside of the scope of px-styles but worth noting. We typically place an css that needs to be generated for the entire site in a file called global.scss. This would include all site / page setup and boilerplate as well any shared styles. A typical file might look like this:
+$site-config: (
+    'button.background': blue,
+);
 
-```scss
-// ----------------------------------------------------------------------------
-// global.scss
-// ----------------------------------------------------------------------------
+@use '@thinkpixellab-public/px-styles' as * with (
+    $-config: $site-config
+);
 
-@use 'include.scss' as *;
-
-// basic site setup
-@include boilerplate();
-
-// other global css
 .button {
-    @include button();
+    @include button(); // background will be blue / darker blue (when active)
 }
 ```
 
-### Pattern for Multiple Configurations
+I don't think we should go deeper than this.
 
-All of the configuration settings for px-styles exist within a single map. Because of that, two distinct "instances" of px-styles can be loaded within the same context using the following pattern:
+#### Config in Utils vs. Site vs. Modules
 
-```scss
-@use '@thinkpixellab-public/px-styles' as px-one;
-@use '@thinkpixellab-public/px-styles' as px-two;
+In a hope to simplify the configuration of a pretty complex library, we rely on a single map that stores all config values. This can be initialized with a simple map object or maniuplated using mixins and function in `/src/site/config.scss`.
 
-// give each version a distinct map
-px-one.$config: ();
-px-two.$config: ();
+This is stated above, but worth mentioning again that the library is organized by whether the code relies on that config map. The `utils` module is configuration free. Functions and mixins may have smart defaults for parameters but there is no concept of a shared configuration. All functionaly is standalone. The `site` module relies on a shared config object. Other modules like `controls` and `typography` rely on the configured `site` module and also expose their own config.
 
-@include px-one.config('colors:accent', blue);
-@include px-one.init();
-.px-one-class {
-    color: px-one.accent();
-}
+#### Module Configuration
 
-// px-two test
-@include px-two.config('colors:accent', green);
-@include px-two.init();
-.px-two-class {
-    color: px-two.accent();
-}
-```
+#### Mixin Parameter Defaults
 
-## API Documentation
+#### Controls Mixins / Managing Opinionated Styles
+
+#### Components and CSS Variables
+
+#### CSS Variables in Config
+
+No work has been done to guarantee that site/
+
+### API Documentation
 
 API Documentation can be found in the docs folder. Just open `index.html` in a browser (it should run fine from the local file system). All of the documentation is generated dynamically using sassdoc and output to a json file (which the page uses as a data source).
 
@@ -244,3 +314,17 @@ Here is a sample scratch file that will load px-styles from local source:
 -   ~~Rename defaults() => init()~~
 -   ~~Make sanitize a module and optionally called by the boilerplate mixin~~
 -   ~~Bem helpers?~~
+
+## BREAKING CHANGES
+
+-   Css maps now use periods as a separator instead of colons (so `button.background` instead of `button:backround`)
+-   Any settings related to controls are now just the name of the component (e.g. `controls:button:background` is now just `button:background`)
+-
+
+This is a simple SCSS framework that provides basic site setup and some common functionality for web projects. The goal is to create a simple to understand boilerplate coupled with a consistent approach to styling that encourages reuse and best practices while maintaing flexibility.
+
+## Useful Links
+
+-   Repository: [https://github.com/thinkpixellab/px-styles](https://github.com/thinkpixellab/px-styles)
+-   API Documentation: [https://thinkpixellab.github.io/px-styles](https://thinkpixellab.github.io/px-styles)
+-   NPM Package: [https://www.npmjs.com/package/@thinkpixellab-public/px-styles](https://www.npmjs.com/package/@thinkpixellab-public/px-styles)

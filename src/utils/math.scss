@@ -1,13 +1,13 @@
 ////
 /// @group utils.math
 ////
-///built in math module
+
 @use 'sass:math' as math;
 
 /// Calculate a number raised to the power of the provided exponent. (Wrapper for math.pow)
 /// @param {*} $base The base number
 /// @param {*} $exp The exponent used to raise the base
-///@example pow(2, 3)
+/// @example pow(2, 3)
 
 @function pow($base, $exp) {
     @return math.pow($base, $exp);
@@ -17,7 +17,7 @@
 /// @param {number} $n The number to be rounded
 /// @param {number} $dec [2] The number of decimals in the output
 ///
-///@example $val: round-d(3.33333333, 2) // => 3.33
+/// @example $val: round-d(3.33333333, 2) // => 3.33
 
 @function round-d($n, $dec: 2) {
     $p: pow(10, $dec);
@@ -29,7 +29,8 @@
 /// @param {number} $n The number to be rounded
 /// @param {number} $frac [8] The denominator of the fractional portion of the result
 ///
-///@example $val: round-f(3.3333, 2) // => 3.5
+/// @example  $val: round-f(3.3333, 2) // => 3.5
+
 @function round-f($n, $frac: 8) {
     @if ($frac) {
         @return divide(round($n * $frac), $frac);
@@ -82,7 +83,7 @@
 /// @param {String} $easing The name of the easing function that should be used for interpolation
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease(0.5, 'out-quad') // => 0.75
+/// @example  ease(0.5, 'out-quad') // => 0.75
 
 @function ease($t, $easing: 'out-quad') {
     @if $easing == 'in-quad' {
@@ -110,7 +111,7 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-in-quad(0.5) // => 0.25
+/// @example  ease-in-quad(0.5) // => 0.25
 
 @function ease-in-quad($t) {
     @return $t * $t;
@@ -120,7 +121,7 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-out-quad(0.25) // => 0.4375;
+/// @example  ease-out-quad(0.25) // => 0.4375;
 
 @function ease-out-quad($t) {
     @return -1 * $t * ($t - 2);
@@ -130,7 +131,8 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-in-cubic(0.5) // => 0.125;
+/// @example  ease-in-cubic(0.5) // => 0.125;
+
 @function ease-in-cubic($t) {
     @return $t * $t * $t;
 }
@@ -139,7 +141,8 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-out-cubic(0.25) // => 0.578125
+/// @example  ease-out-cubic(0.25) // => 0.578125
+
 @function ease-out-cubic($t) {
     $t: $t - 1;
     @return $t * $t * $t + 1;
@@ -149,7 +152,7 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-in-quart(0.3) // => 0.0081
+/// @example  ease-in-quart(0.3) // => 0.0081
 
 @function ease-in-quart($t) {
     @return $t * $t * $t * $t;
@@ -159,7 +162,7 @@
 /// @param {number} $t The input value between 0 and 1
 /// @return {number} The eased equivalent of the input (also between 0 and 1).
 ///
-///@example ease-out-quart(0.5) // => 0.9375
+/// @example  ease-out-quart(0.5) // => 0.9375
 
 @function ease-out-quart($t) {
     $t: $t - 1;
@@ -173,7 +176,7 @@
 /// @param {*} $min Min allowed value
 /// @param {*} $max Max allowed value
 ///
-///@example clamp-number(4, 3, 10) // => 4 is above the min
+/// @example clamp-number(4, 3, 10) // => 4 is above the min
 
 @function clamp-number($number, $min, $max) {
     @return min(max($number, $min), $max);
@@ -185,7 +188,8 @@
 /// @param {number} $num1 The first number in the division operation (the numerator)
 /// @param {number} $num2 The first number in the division operation (the numerator)
 ///
-///@example divide(10, 2) // => 5
+/// @example  divide(10, 2) // => 5
+
 @function divide($num1, $num2) {
     @if (function-exists('div', 'math')) {
         @return math.div($num1, $num2);
@@ -199,7 +203,8 @@
 /// @param {number} $num2 The first number in the division operation (the numerator)
 /// @param {number} $round The number of digits to use when rounding the output
 ///
-///@example percent(10, 3, 2) // => 333.33%
+/// @example  percent(10, 3, 2) // => 333.33%
+
 @function percent($num1, $num2, $round: 3) {
     @return round-d(divide($num1, $num2) * 100%, $round);
 }

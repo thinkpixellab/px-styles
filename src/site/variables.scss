@@ -3,82 +3,102 @@
 ////
 
 @use '../utils' as *;
+@use 'config' as *;
 
+// ----------------------------------------------------------------------------
+// CONFIG
+// ----------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    /// A prefix to use with site variables to avoid conflicts with other css variables
+    'vars-prefix': null,
+
+    /// Predefined site variables
+    'vars': null
+);
+
+@include defaults($-defaults);
+
+$-vars-prefix: get('vars-prefix') !default;
+$-vars: get('vars', ()) !default;
+
+// ----------------------------------------------------------------------------
+// API
+// ----------------------------------------------------------------------------
+
+/// Generic mixin that takes a map of variables and outputs them as css variables.
 ///
 /// @param {*} $vars A map containing value pairs which will be output as css variables. Any color
 /// variable that ends with -hsla will will also get h/s/l/a component variables.
 ///
 /// @param {*} $prefix An optional prefix to add the variables that are output.
 
-@mixin css-vars($vars, $prefix: '') {
+@mixin css-vars($vars, $variant: null, $prefix: null) {
     @each $name, $value in $vars {
-        // convert vars that end with '-hsla' to individual hsla variables
+        // converter conflicting color names to strings
+        $name: to-str($name);
+
+        // /* #{$name} */
+
+        // append the prefix, otherwise the default '--'
+        $pre: if($prefix, '--#{$prefix}-', '--');
+
+        // if the value is a map, we create a new prefix using the key and output the variables in the map
+
+        @if (is-map($value)) {
+            // try to get the value by variant
+            @if ($variant) {
+                @if (map-has-key($value, $variant)) {
+                    $value: map-get($value, $variant);
+                } @else {
+                    @warn #{'The variant' $variant 'does not exist for the variable' $name};
+                }
+            }
+
+            // with no variant specififed just get the first value
+            @else {
+                $value: map-get($value, nth(map-keys($value), 1));
+            }
+        }
+
+        // vars that end with 'hsla' also generate individual hsla vars
+
         @if (is-color($value) and ends-with($name, '-hsla')) {
             $name: str-replace($name, '-hsla');
-            $hsla-name: --#{$prefix}-#{'' + $name};
+            $hsla-name: #{$pre}#{'' + $name};
+
             #{$hsla-name}-h: #{hue($value)};
             #{$hsla-name}-s: #{saturation($value)};
             #{$hsla-name}-l: #{lightness($value)};
             #{$hsla-name}-a: #{alpha($value)};
-            #{$hsla-name}-hsla: hsla(
-                var(#{$hsla-name}-h),
-                var(#{$hsla-name}-s),
-                var(#{$hsla-name}-l),
-                var(#{$hsla-name}-a)
-            );
+        }
+
+        // vars that end with 'rgb' also generate an rgb values var
+
+        @if (is-color($value) and ends-with($name, '-rgb')) {
+            $name: str-replace($name, '-rgb');
+            $rgb-name: #{$pre}#{'' + $name};
+            #{$rgb-name}-rgb: #{red($value)}, #{green($value)}, #{blue($value)};
         }
 
         // output the variable
-        --#{$prefix}-#{"" + $name}: #{$value};
+        #{$pre}#{"" + $name}: #{$value};
     }
 }
 
-@mixin site-vars() {
-    $vars: get('variables', (), false);
-    $prefix: get('variables-prefix', 'site', false);
-    :root {
-        @include css-vars($vars, $prefix);
-    }
-}
-
-@function site-var($name) {
-    $vars: get('variables', (), false);
-    $prefix: get('variables-prefix', 'site', false);
-
-    @if (map-has-key($vars, $name)) {
-        $varname: --#{$prefix}-#{'' + $name};
-        @return var(#{$varname});
-    } @else {
-        @debug #{'The site variable' $name 'has not been defined.'};
-        @return '';
-    }
-}
-
-@mixin hsl-vars($name, $color, $alpha: 1) {
-    #{'--' + $name}: $color;
-    #{'--' + $name + '-h'}: #{round-d(hue($color), 3)};
-    #{'--' + $name + '-s'}: #{round-d(saturation($color), 3)};
-    #{'--' + $name + '-l'}: #{round-d(lightness($color), 3)};
-}
-
-@function calc-add($a, $b) {
-    @if ($b > 0) {
-        @return calc(#{$a} + #{$b});
-    }
-    @return calc(#{$a} - #{$b * -1});
-}
+/// Generic function that produces hsla syntax for hsla variables.
 
 @function hsl-var(
     $name,
     $alpha: null,
-
-    $h: null,
-    $s: null,
-    $l: null,
-
     $h-adj: null,
     $s-adj: null,
-    $l-adj: null
+    $l-adj: null,
+    $h: null,
+    $s: null,
+    $l: null
 ) {
     @if ($h or $s or $l or $h-adj or $s-adj or $l-adj or $alpha) {
         $h: if-null($h, var(--#{$name}-h));
@@ -97,9 +117,6 @@
             $l: calc-add(#{$l}, $l-adj);
         }
 
-        //     @return hsla(#{$h}, #{$s}, #{$l}, $alpha);
-        // }
-
         @if ($alpha) {
             @return hsla(#{$h}, #{$s}, #{$l}, $alpha);
         }
@@ -110,6 +127,128 @@
     @return var(--#{$name});
 }
 
-@function hsl-var-lighten($name, $l-adj) {
-    @return hsl-var($name, $l-adj: $l-adj);
+/// Outputs configured site variables as css variables. Intended to be used to established variables
+/// typically once per page or site.
+///
+/// @example
+/// Here's a what a typical config might look like:
+///
+///  @use 'variables' as * with (
+///      $-config: (
+///          vars-prefix: 'theme',
+///          vars: (
+///              page-bg-hsla: white,
+///              page-fg-hsla: black,
+///              green-hsla: (
+///                  base: green,
+///                  dark: lightgreen,
+///              ),
+///              orange-rgb: (
+///                  base: rgb(208, 122, 18),
+///                  dark: rgb(247, 196, 133),
+///              )
+///          )
+///      )
+///  );
+///
+/// Note that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.
+///
+/// Then you can use the mixin to output the variables like this:
+///
+/// body {
+///    // light mode
+///     @include site-vars();
+///
+///     // dark mode
+///     @media (prefers-color-scheme: dark) {
+///         @include site-vars('dark');
+///     }
+/// }
+///
+/// And finally you can access a variable like this:
+///
+/// .selector {
+///     color: site-var('page-fg');
+/// }
+///
+
+@mixin site-vars($variant: null) {
+    @include css-vars($-vars, $variant, $-vars-prefix);
+}
+
+/// Returns true of the given varianble exists in site variables. It's aware of the fact that a
+/// valid variable may have been defined / as a color with hsla and rgb components.
+
+@function site-var-exists($name) {
+    @return map-has-key($-vars, $name) or map-has-key($-vars, $name + '-hsla') or
+        map-has-key($-vars, $name + '-rgb');
+}
+
+/// Produces css variable syntax for a site variable. Verifies that the variable exists and produces
+/// a warning if not found.
+
+@function site-var($name, $alpha: null, $h-adj: null, $s-adj: null, $l-adj: null) {
+    $has-alpha: $alpha != null;
+    $has-adjustments: ($h-adj != null or $s-adj != null or $l-adj != null);
+
+    @if (site-var-exists($name + '-hsla') and ($has-alpha or $has-adjustments)) {
+        @return site-var-hsla($name, $alpha, $h-adj, $s-adj, $l-adj);
+    }
+
+    @if (site-var-exists($name + '-rgb') and $has-alpha) {
+        @return site-var-rgb($name, $alpha);
+    }
+
+    @if ($has-alpha or $has-adjustments) {
+        @warn #{'The site variable "#{$name}" does not support alpha or color adjustments. Just add "-rgb" or "-hsla" to the end of the variable name to support this.'};
+    }
+
+    @if (site-var-exists($name)) {
+        $varname: --#{$-vars-prefix}-#{'' + $name};
+        @return var(#{$varname});
+    }
+
+    // key wasn't found
+    @else {
+        @warn #{'The site variable "#{$name}" has not been defined.'};
+        @return null;
+    }
+}
+
+/// Produces css variable syntax for an hsla variable and can produce the relative complex syntax
+/// required to adjust alhpa and hsla components.
+
+@function site-var-hsla($name, $alpha: null, $h-adj: null, $s-adj: null, $l-adj: null) {
+    @if (site-var-exists($name + '-hsla')) {
+        $varname: #{$-vars-prefix}-#{'' + $name};
+
+        @return hsl-var(
+            $varname + '-hsla',
+            $alpha: $alpha,
+            $h-adj: $h-adj,
+            $s-adj: $s-adj,
+            $l-adj: $l-adj
+        );
+    }
+
+    // key wasn't found
+    @else {
+        @warn #{'The site variable "#{$name}-hsla" has not been defined.'};
+        @return null;
+    }
+}
+
+/// Produces css variable syntax for an rgb variable including an adjust alpha value.
+
+@function site-var-rgb($name, $alpha: 1) {
+    @if (site-var-exists($name + '-rgb')) {
+        $rgb: site-var($name + '-rgb');
+        @return rgba($rgb, $alpha);
+    }
+
+    // key wasn't found
+    @else {
+        @warn #{'The site variable "#{$name}-hsla" has not been defined.'};
+        @return null;
+    }
 }

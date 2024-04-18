@@ -1,0 +1,255 @@
+////
+/// @group site.grids
+////
+
+@use 'strings.scss' as *;
+@use 'collections.scss' as *;
+@use 'math.scss' as *;
+
+/// Create a CSS grid that mimics a table where columns are specified and rows are added as needed.
+/// @param {column definitions} $columns Column definitions
+/// @param {row definition} $row-height [auto] The height of each row
+/// @param {number} $gap [8px] The gap between items
+///
+/// @example @include table-grid(4, auto, 10px); // =>
+/// display: grid;
+/// grid-template-columns: 4;
+/// grid-template-rows: auto;
+/// grid-auto-rows: auto;
+/// grid-gap: 10px;
+
+@mixin table-grid($columns, $row-height: auto, $gap: 8px) {
+    display: grid;
+    grid-template-columns: $columns;
+    grid-template-rows: $row-height;
+    grid-auto-rows: $row-height;
+    grid-gap: $gap;
+}
+
+/// Create a css grid with repeating item (min/max width) and fixed height that autoflows (wraps)
+/// and fills the entire row. Use this, for example, to create a grid of cards or someting along
+/// those lines.
+///
+/// @param {*} $item-min-width Minimum width of the item
+/// @param {*} $item-max-width Maximum width of the item
+/// @param {*} $item-height [auto] The item height
+/// @param {*} $gap [24px] The gap between items
+///
+/// @example item-grid(10px, 50px) // =>
+/// display: grid;
+/// grid-template-columns: repeat(auto-fit, minmax(10px, 50px));
+/// grid-auto-rows: auto;
+/// grid-gap: 24px;
+
+@mixin item-grid($item-min-width, $item-max-width, $item-height: auto, $gap: 24px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($item-min-width, $item-max-width));
+    grid-auto-rows: $item-height;
+    grid-gap: $gap;
+}
+
+/// Creates a grid layout that can be used for card-like content where we limit the number of cards
+/// to a max number per row and a minimum size. Cards will grow indefinitely in size once the
+/// maximum number per row has been reached.
+///
+/// @param {*} $card-max-per-row [4] The maximum number of cards in the row
+/// @param {*} $card-min-width [240px] The minimum size of a card
+/// @param {*} $gap [24px] Gap between cards (using grid-gap)
+/// @param {*} $card-height [auto] The card height (leave as auto if using aspect or another mechanism to determine height)
+
+@mixin card-grid-max-row(
+    $card-max-per-row: 4,
+    $card-min-width: 240px,
+    $gap: 24px,
+    $card-height: auto
+) {
+    $card-width-percent: divide(100%, ($card-max-per-row + 1));
+    $card-max-width: 1fr;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(#{'max' }($card-min-width, $card-width-percent), 1fr)
+    );
+    grid-auto-rows: $card-height;
+    grid-gap: $gap;
+}
+
+/// Mixes definitions for grid columns, rows and areas into a single visual syntax that is easy to
+/// understand and visualize. The first row represents column size and the last column represents
+/// row sizing.
+///
+/// @param {*} $grid - The grid definition (see example)
+///
+/// @example
+///   @include grid-art((
+///     'minmax(250px, 20vw) | auto    |       ',
+///     'header              | header  |  auto ',
+///     'sidebar             | main    | 1fr   ',
+///     'footer              | footer  | auto  '
+///   ));
+
+@mixin grid-art($grid, $area-names: true, $area-classes: false, $prefix: '.') {
+    display: grid;
+    grid-template-columns: -grid-art-cols($grid);
+    grid-template-rows: -grid-art-rows($grid);
+
+    @if ($area-names) {
+        grid-template-areas: -grid-art-areas($grid);
+    }
+
+    @if ($area-classes) {
+        $names: grid-art-area-names($grid);
+
+        @each $area in $names {
+            #{$prefix}#{$area} {
+                @if ($area-names) {
+                    grid-area: $area;
+                } @else {
+                    grid-area: grid-art-lines($grid, $area);
+                }
+            }
+        }
+    }
+}
+
+/// Offers the same functionality as the grid-art mixin, but also creates classes for each area in
+/// the grid using the BEM naming convention
+///
+/// @param {*} $grid - The grid definition (see example)
+/// @param {*} $prefix ['&__'] - The prefix applied to the beginning of the area names
+
+@mixin grid-bem($grid, $prefix: '&__') {
+    @include grid-art($grid, $area-names: true, $area-classes: true, $prefix: $prefix);
+}
+
+/// Gets the unique names of all the areas in the grid.
+
+@function grid-art-area-names($grid) {
+    $areas: str-split(list-join(-grid-art-areas($grid, '|'), '|'), '|');
+    $unique-areas: ();
+    @each $area in $areas {
+        @if (not list-contains($unique-areas, $area)) {
+            @if ($area != '.') {
+                $unique-areas: append($unique-areas, $area);
+            }
+        }
+    }
+    @return $unique-areas;
+}
+
+/// Convert a named grid area to the grid-line syntax (e.g. 2 / 1 / 2 / 4).
+///
+/// @param {*} $grid A variable that represents the grid-art format of the grid.
+/// @param {*} $area-name The name of the area that should be converted to lines
+/// @param {*} $separator [' / '] The separator that should be used between the lines (use false or null to get a list back)
+
+@function grid-art-spans($grid, $area-name, $separator: ' / ') {
+    $start-row: null;
+    $start-col: null;
+    $end-row: null;
+    $end-col: null;
+    $r: 0;
+    $c: 0;
+
+    $areas: -grid-art-areas($grid, '|');
+
+    @each $row in $areas {
+        $r: $r + 1;
+        $c: 0;
+        @each $name in str-split($row, '|') {
+            $c: $c + 1;
+            @if ($name == $area-name) {
+                @if ($start-row == null) {
+                    $start-col: $c;
+                    $start-row: $r;
+                }
+                $end-col: $c;
+                $end-row: $r;
+            }
+        }
+    }
+
+    $lines: ($start-row $start-col $end-row $end-col);
+
+    @if ($separator) {
+        @return unquote(list-join($lines, $separator));
+    } @else {
+        @return $lines;
+    }
+}
+
+// ----------------------------------------------------------------------------
+// PRIVATE HELPERS
+// ----------------------------------------------------------------------------
+
+@function -grid-art-areas($grid, $join: ' ') {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // skip the first row (col defs)
+    $grid: list-remove($grid, 1);
+    $areas: ();
+
+    @each $str in $grid {
+        // remove the last item
+        $row: str-split($str, '|');
+        $row: list-remove($row, length($row));
+        $areas: append($areas, list-join($row, $join));
+    }
+
+    @return $areas;
+}
+
+@function -grid-art-prep($grid) {
+    // remove white space and separators
+    $strings: ();
+
+    @each $str in $grid {
+        $str: str-replace($str, '#', 'minmax');
+
+        $list: str-split($str, '|');
+        $list: list-map($list, get-function(trim));
+        $strings: append($strings, trim(list-join($list, '|')));
+    }
+
+    @return $strings;
+}
+
+@function -grid-art-cols($grid) {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // cols is just the first row in the grid
+    @return str-split(unquote(nth($grid, 1)), '|');
+}
+
+@function -grid-art-rows($grid) {
+    // prepare the grid
+    $grid: -grid-art-prep($grid);
+
+    // skip the first row
+    $grid: list-remove($grid, 1);
+
+    $row-def: ();
+
+    // extract the last item in every row and add it to row defs
+    @each $str in $grid {
+        $row: str-split($str, '|');
+        $row-def: append($row-def, nth($row, length($row)));
+    }
+
+    @return unquote(list-join($row-def, ' '));
+}
+
+// ----------------------------------------------------------------------------
+// DEPRECATED
+// ----------------------------------------------------------------------------
+
+@mixin grid($args...) {
+    @warn 'The mixin "grid" is deprecated. Use grid-art instead.';
+    @include grid-art($args);
+}
+
+@function grid-art-lines($grid, $area-name, $separator: ' / ') {
+    @warn 'The function "grid-art-lines" is deprecated. Use "grid-art-spans" instead.';
+}

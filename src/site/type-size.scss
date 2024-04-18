@@ -1,0 +1,106 @@
+////
+/// @group modules.typography
+////
+
+@use '../utils' as *;
+@use 'config' as *;
+@use 'rems' as *;
+
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+$-defaults: (
+    /// Whether to use rems by default for type lookups
+    'typography.type-use-rems': true,
+
+    /// A map containing a set of type sizes where the key is the name and the value is the size
+    'typography.type-sizes':
+        modular-scale(
+            $bases: get('font-size-base'),
+            $ratio: $typescale-default,
+            $names: (
+                'xxs',
+                'xs',
+                'sm',
+                'base',
+                'md',
+                'lg',
+                'xl',
+                'h4',
+                'h3',
+                'h2',
+                'h1',
+                'd3',
+                'd2',
+                'd1',
+            ),
+            $round: 1,
+            $rems: false,
+        )
+);
+
+@include defaults($-defaults);
+
+// cache config lookups
+$-type-sizes: get('typography.type-sizes') !default;
+$-use-rems: get('typography.type-use-rems') !default;
+
+// ---------------------------------------------------------------------------
+// API
+// ---------------------------------------------------------------------------
+
+/// Get a font-size by name from the default typescale
+///
+/// @param {String or Number} $name The name or offset of the size to lookup. Must be defined in the
+/// config $typescale variable.
+///
+/// @example
+/// config(typescale, (sm: 14px, base: 15px, lg: 18px, xl: 20px));
+///
+/// font-size: fs(base)   // => font-size: 15px
+/// font-size: fs(sm)     // => font-size: 14px
+/// font-size: fs(-1)     // => font-size: 14px
+/// font-size: fs(2)      // => font-size: 20px
+
+@function fs($lookup: 'base', $use-rems: $-use-rems) {
+    // if lookup is a string, find the size by name
+
+    @if (type-of($lookup) == 'string') {
+        //$size: get('type-sizes.' + $lookup);
+        $size: map-get($-type-sizes, $lookup);
+
+        @if ($size) {
+            @if ($use-rems) {
+                @return rems($size);
+            }
+            @return $size;
+        }
+
+        @error '[fs] Could not find a size named #{$lookup} in the typescale.';
+    }
+
+    // if lookup is a number, find the size as an offset from the 'base' size (e.g
+    // fs(2) would return the size that is two larger than the base)
+
+    @if (type-of($lookup) == 'number') {
+        $names: map-keys($-type-sizes);
+        $base-index: index($names, 'base');
+
+        @if ($base-index == null) {
+            @error '[fs] The typescale must contain a size named "base".';
+        }
+
+        $name-index: $base-index + $lookup;
+
+        @if ($base-index < 1 or $base-index > length($names)) {
+            @error '[fs] The requested lookup index exceeds the boundares of the typescale.';
+        }
+
+        @return fs(nth($names, $name-index));
+    }
+
+    @error '[fs] Argument is unusable. Must be a string or a number.';
+}
