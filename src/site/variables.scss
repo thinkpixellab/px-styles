@@ -21,29 +21,34 @@ $-defaults: (
 
 @include defaults($-defaults);
 
-$-vars-prefix: get('vars-prefix') !default;
+$-vars-prefix: get('vars-prefix', null) !default;
 $-vars: get('vars', ()) !default;
 
 // ----------------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------------
 
+@mixin hsl-vars($name, $color) {
+    #{$name}: #{$color};
+    #{$name}-h: #{round-d(hue($color), 2)};
+    #{$name}-s: #{round-d(saturation($color), 2)};
+    #{$name}-l: #{round-d(lightness($color), 2)};
+}
+
+@mixin rgb-vars($name, $color) {
+    #{$name}: #{$color};
+    #{$name}-rgb: #{red($color)}, #{green($color)}, #{blue($color)};
+}
+
 /// Generic mixin that takes a map of variables and outputs them as css variables.
 ///
 /// @param {*} $vars A map containing value pairs which will be output as css variables. Any color
 /// variable that ends with -hsla will will also get h/s/l/a component variables.
-///
-/// @param {*} $prefix An optional prefix to add the variables that are output.
 
-@mixin css-vars($vars, $variant: null, $prefix: null) {
+@mixin css-vars($vars, $variant: null) {
     @each $name, $value in $vars {
         // converter conflicting color names to strings
         $name: to-str($name);
-
-        // /* #{$name} */
-
-        // append the prefix, otherwise the default '--'
-        $pre: if($prefix, '--#{$prefix}-', '--');
 
         // if the value is a map, we create a new prefix using the key and output the variables in the map
 
@@ -63,65 +68,76 @@ $-vars: get('vars', ()) !default;
             }
         }
 
-        // vars that end with 'hsla' also generate individual hsla vars
+        // vars that end with 'hsla' generate individual hsla vars
 
         @if (is-color($value) and ends-with($name, '-hsla')) {
             $name: str-replace($name, '-hsla');
-            $hsla-name: #{$pre}#{'' + $name};
-
-            #{$hsla-name}-h: #{hue($value)};
-            #{$hsla-name}-s: #{saturation($value)};
-            #{$hsla-name}-l: #{lightness($value)};
-            #{$hsla-name}-a: #{alpha($value)};
+            $name: site-var-name($name);
+            @include hsl-vars($name, $value);
         }
 
-        // vars that end with 'rgb' also generate an rgb values var
+        // vars that end with 'rgb' generate an rgb values var
 
-        @if (is-color($value) and ends-with($name, '-rgb')) {
+        @else if (is-color($value) and ends-with($name, '-rgb')) {
             $name: str-replace($name, '-rgb');
-            $rgb-name: #{$pre}#{'' + $name};
-            #{$rgb-name}-rgb: #{red($value)}, #{green($value)}, #{blue($value)};
+            $name: site-var-name($name);
+            @include rgb-vars($name, $value);
         }
 
-        // output the variable
-        #{$pre}#{"" + $name}: #{$value};
+        // output the unmodified variable
+        @else {
+            @if ($value != null) {
+                $name: site-var-name($name);
+                #{$name}: #{$value};
+            }
+        }
     }
 }
 
-/// Generic function that produces hsla syntax for hsla variables.
+/// Function that produces an adjusted color value using hsla syntax for hsla variables. For a given
+/// value of $name, it expects the following variables to be defined:
+///
+///     $--$name (the base color)
+///     $--$name-h (the hue component)
+///     $--$name-s (the saturation component)
+///     $--$name-l (the lightness component)
+///
+/// These variables can be defined using the hsl-var-def mixin. T
+///
+/// @example background: hsl-var('primary', $alpha: 0.5, $s-adj: 10%, $l-adj: -10%);
 
 @function hsl-var(
     $name,
     $alpha: null,
-    $h-adj: null,
-    $s-adj: null,
-    $l-adj: null,
     $h: null,
     $s: null,
-    $l: null
+    $l: null,
+    $dh: null,
+    $ds: null,
+    $dl: null
 ) {
-    @if ($h or $s or $l or $h-adj or $s-adj or $l-adj or $alpha) {
+    @if ($h or $s or $l or $dh or $ds or $dl or $alpha) {
         $h: if-null($h, var(--#{$name}-h));
         $s: if-null($s, var(--#{$name}-s));
         $l: if-null($l, var(--#{$name}-l));
 
-        @if ($h-adj) {
-            $h: calc-add(#{$h}, $h-adj);
+        @if ($dh) {
+            $h: calc-add(#{$h}, $dh);
         }
 
-        @if ($s-adj) {
-            $s: calc-add(#{$s}, $s-adj);
+        @if ($ds) {
+            $s: calc-add(#{$s}, $ds);
         }
 
-        @if ($l-adj) {
-            $l: calc-add(#{$l}, $l-adj);
+        @if ($dl) {
+            $l: calc-add(#{$l}, $dl);
         }
 
         @if ($alpha) {
             @return hsla(#{$h}, #{$s}, #{$l}, $alpha);
         }
 
-        @return hsl(#{$h}, #{$s}, #{$l});
+        @return hsla(#{$h}, #{$s}, #{$l}, 1);
     }
 
     @return var(--#{$name});
@@ -173,7 +189,25 @@ $-vars: get('vars', ()) !default;
 ///
 
 @mixin site-vars($variant: null) {
-    @include css-vars($-vars, $variant, $-vars-prefix);
+    @include css-vars($-vars, $variant);
+}
+
+@mixin site-var-add($nameOrMap, $value) {
+    @if (is-map($nameOrMap)) {
+        @each $name, $value in $nameOrMap {
+            @include site-var-add($name, $value);
+        }
+    } @else {
+        @include config('vars.' + $nameOrMap, $value);
+        $-vars: get('vars', ()) !global;
+    }
+}
+
+@function site-var-name($name, $dashes: true) {
+    $d: if($dashes, '--', '');
+    $p: if($-vars-prefix, $-vars-prefix + '-', '');
+
+    @return #{$d}#{$p}#{'' + $name};
 }
 
 /// Returns true of the given varianble exists in site variables. It's aware of the fact that a
@@ -187,12 +221,12 @@ $-vars: get('vars', ()) !default;
 /// Produces css variable syntax for a site variable. Verifies that the variable exists and produces
 /// a warning if not found.
 
-@function site-var($name, $alpha: null, $h-adj: null, $s-adj: null, $l-adj: null) {
+@function site-var($name, $alpha: null, $dh: null, $ds: null, $dl: null) {
     $has-alpha: $alpha != null;
-    $has-adjustments: ($h-adj != null or $s-adj != null or $l-adj != null);
+    $has-adjustments: ($dh != null or $ds != null or $dl != null);
 
     @if (site-var-exists($name + '-hsla') and ($has-alpha or $has-adjustments)) {
-        @return site-var-hsla($name, $alpha, $h-adj, $s-adj, $l-adj);
+        @return site-var-hsla($name, $alpha, $dh, $ds, $dl);
     }
 
     @if (site-var-exists($name + '-rgb') and $has-alpha) {
@@ -204,8 +238,7 @@ $-vars: get('vars', ()) !default;
     }
 
     @if (site-var-exists($name)) {
-        $varname: --#{$-vars-prefix}-#{'' + $name};
-        @return var(#{$varname});
+        @return var(#{site-var-name($name)});
     }
 
     // key wasn't found
@@ -218,17 +251,10 @@ $-vars: get('vars', ()) !default;
 /// Produces css variable syntax for an hsla variable and can produce the relative complex syntax
 /// required to adjust alhpa and hsla components.
 
-@function site-var-hsla($name, $alpha: null, $h-adj: null, $s-adj: null, $l-adj: null) {
+@function site-var-hsla($name, $alpha: null, $dh: null, $ds: null, $dl: null) {
     @if (site-var-exists($name + '-hsla')) {
-        $varname: #{$-vars-prefix}-#{'' + $name};
-
-        @return hsl-var(
-            $varname + '-hsla',
-            $alpha: $alpha,
-            $h-adj: $h-adj,
-            $s-adj: $s-adj,
-            $l-adj: $l-adj
-        );
+        $name: site-var-name($name, false);
+        @return hsl-var($name, $alpha: $alpha, $dh: $dh, $ds: $ds, $dl: $dl);
     }
 
     // key wasn't found

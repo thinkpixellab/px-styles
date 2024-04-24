@@ -75,3 +75,45 @@
     // 0 (black) - 255 (white)
     @return $yiq;
 }
+
+/// Calculates luminance of a color based on the WCAG2 standard Luminance calculation based on:
+/// https://www.w3.org/TR/WCAG20/#relativeluminancedef
+///
+@function luminance($color) {
+    $R: divide(red($color), 255);
+    $G: divide(green($color), 255);
+    $B: divide(blue($color), 255);
+
+    $c: divide(0.055, 1.055);
+
+    @if $R <= 0.03928 {
+        $R: divide($R, 12.92);
+    } @else {
+        $R: nth-root(pow($R + $c, 24), 10);
+    }
+
+    @if $G <= 0.03928 {
+        $G: divide($G, 12.92);
+    } @else {
+        $G: nth-root(pow($G + $c, 24), 10);
+    }
+
+    @if $B <= 0.03928 {
+        $B: divide($B, 12.92);
+    } @else {
+        $B: nth-root(pow($B + $c, 24), 10);
+    }
+
+    @return $R * 0.2126 + $G * 0.7152 + $B * 0.0722;
+}
+
+// Calculates the contrast of two colors based on the WCAG2 standard Constrast calculation based on:
+// https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+
+@function color-contrast($color1, $color2) {
+    @if luminance($color1) > luminance($color2) {
+        @return divide((luminance($color1) + 0.05), (luminance($color2) + 0.05));
+    } @else {
+        @return divide((luminance($color2) + 0.05), (luminance($color1) + 0.05));
+    }
+}

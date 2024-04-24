@@ -13,6 +13,23 @@
     @return math.pow($base, $exp);
 }
 
+/// Calculates the nth root of a number using iteration.
+/// @param {*} $value
+/// @param {*} $n
+
+@function nth-root($value, $n) {
+    $precision: 1e-10;
+    $previous: 0;
+    $current: $value;
+
+    @while abs($current - $previous) > $precision {
+        $previous: $current;
+        $current: divide(1, $n) * (($n - 1) * $previous + divide($value, pow($previous, $n - 1)));
+    }
+
+    @return $current;
+}
+
 /// Round a number using the specified number of decimals.
 /// @param {number} $n The number to be rounded
 /// @param {number} $dec [2] The number of decimals in the output

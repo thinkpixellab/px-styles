@@ -12,6 +12,8 @@
 /// @type config
 
 $-defaults: (
+    'color-tags': base dark light,
+
     /// Default dark color for calculating shades
     'colors.shade-dark': #303030,
 
@@ -46,27 +48,29 @@ $-defaults: (
     'colors.selection-bg': #2f2c4c,
 
     /// Default foreground color for selected text
-    'colors.selection-fg': white
+    'colors.selection-fg': white,
 );
 
 @include defaults($-defaults);
 
-/// Produce a shade (a lighter or darker version) of a color based on the value
-/// of $shade and an optional darkest to lightest shade range.
+/// Produce a shade (a lighter or darker version) of a color based on the value of $shade and an
+/// optional darkest to lightest shade range.
 ///
-/// @param {color} $color [null] The color to be shaded. If not provided, it will be
-/// calculated as the middle value within $shade-range.
+/// @param {color} $color [null] The color to be shaded. If not provided, it will be calculated as
+/// the middle value within $shade-range.
 ///
-/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
-/// (can be overriden with config(shade-steps)). 0 returns the color itself.
-/// Negative values make the color darker, postive values make it lighter.
+/// @param {number} $shade [0] The shading to be applied, as a percentage from -100% to 100% or as a
+/// shade value between -10, 10 (can be overriden with config(shade-steps)). 0 returns the color
+/// itself. Negative values make the color darker, postive values make it lighter.
 ///
-/// @param {(color, color)} $shade-range [null] The range of colors will be produced
-/// as a list (darkest, lightest).
+/// @param {(color, color)} $shade-range [null] The range of colors will be produced as a list
+/// (darkest, lightest).
 ///
 /// @example $color: shade(red, 5, null) // => #ff8080
 
 @function shade($color: null, $shade: 0, $shade-range: null) {
+    $shade: if(is-percentage($shade), strip-unit($shade * 0.1), $shade);
+
     @if ($shade-range == null) {
         $shade-range: (get('colors.shade-dark'), get('colors.shade-light'));
     }
@@ -92,11 +96,24 @@ $-defaults: (
 /// clr(purple, -1) => (#b16cc7)
 /// clr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))
 
-@function clr($name, $shade: 0, $alpha: 1) {
+@function clr($name, $shade: 0, $alpha: 1, $tag: 1) {
     $color: get('colors.' + $name);
 
     @if ($color == null) {
         @error 'The color #{$name} could not be found.';
+    }
+
+    // if the color is a list, we find the correct tag by index or name, and select the correct color
+    @if (is-list($color)) {
+        $tag-index: $tag;
+
+        @if (is-string($tag)) {
+            $tag-index: if-null(index(get('color-tags'), $tag), 1);
+        }
+
+        $tag-index: clamp-number($tag-index, 1, length($color));
+
+        $color: nth($color, $tag-index);
     }
 
     $base: $color;
