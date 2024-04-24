@@ -77,8 +77,6 @@ $-modifier-prefix: '--' !default;
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
 ///
-///
-///
 /// @example
 ///     .block { @include bem(element) { ... } }
 ///     // => .block__element { ... }

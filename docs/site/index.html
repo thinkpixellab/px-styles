@@ -147,8 +147,14 @@
                     mounted() {
                         hljs.configure({ ignoreUnescapedHTML: true });
                         document
-                            .querySelectorAll('.item-example pre, .group-header pre')
+                            .querySelectorAll(
+                                '.item-example pre, .group-header pre, .markdown pre code'
+                            )
                             .forEach(el => {
+                                // replace double @@ with single @ in scss code blocks so that we
+                                // can use @ without triggering sassdoc annotations (e.g. something
+                                // like @@include becomes @include)
+                                el.textContent = el.textContent.replaceAll('@@', '@');
                                 hljs.highlightElement(el);
                             });
                     },

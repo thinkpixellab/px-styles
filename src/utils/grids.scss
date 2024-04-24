@@ -118,7 +118,7 @@
 /// @param {*} $grid - The grid definition (see example)
 /// @param {*} $prefix ['&__'] - The prefix applied to the beginning of the area names
 
-@mixin grid-bem($grid, $prefix: '&__') {
+@mixin grid-art-bem($grid, $prefix: '&__') {
     @include grid-art($grid, $area-names: true, $area-classes: true, $prefix: $prefix);
 }
 

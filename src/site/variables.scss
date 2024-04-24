@@ -146,47 +146,52 @@ $-vars: get('vars', ()) !default;
 /// Outputs configured site variables as css variables. Intended to be used to established variables
 /// typically once per page or site.
 ///
-/// @example
-/// Here's a what a typical config might look like:
+/// So here's a what a typical config might look like:
 ///
-///  @use 'variables' as * with (
-///      $-config: (
-///          vars-prefix: 'theme',
-///          vars: (
-///              page-bg-hsla: white,
-///              page-fg-hsla: black,
-///              green-hsla: (
-///                  base: green,
-///                  dark: lightgreen,
-///              ),
-///              orange-rgb: (
-///                  base: rgb(208, 122, 18),
-///                  dark: rgb(247, 196, 133),
-///              )
-///          )
-///      )
-///  );
+/// ```scss
+/// @@use 'variables' as * with (
+///     $-config: (
+///         vars-prefix: 'theme',
+///         vars: (
+///             page-bg-hsla: white,
+///             page-fg-hsla: black,
+///             green-hsla: (
+///                 base: green,
+///                 dark: lightgreen,
+///             ),
+///             orange-rgb: (
+///                 base: rgb(208, 122, 18),
+///                 dark: rgb(247, 196, 133),
+///             )
+///         )
+///     )
+/// );
+/// ```
+///
 ///
 /// Note that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.
 ///
 /// Then you can use the mixin to output the variables like this:
 ///
-/// body {
+/// ```scss
+/// .body {
 ///    // light mode
-///     @include site-vars();
+///    @include site-vars();
 ///
 ///     // dark mode
 ///     @media (prefers-color-scheme: dark) {
 ///         @include site-vars('dark');
 ///     }
 /// }
+/// ```
 ///
 /// And finally you can access a variable like this:
 ///
+/// ```css
 /// .selector {
 ///     color: site-var('page-fg');
 /// }
-///
+/// ```
 
 @mixin site-vars($variant: null) {
     @include css-vars($-vars, $variant);

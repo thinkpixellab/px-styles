@@ -44,7 +44,7 @@
 // Default
 // ----------------------------------------------------------------------------
 
-@mixin textbox($overrides: ()) {
+@function textbox($overrides: ()) {
     // textbox base css
     $textbox: textbox-base();
 
@@ -53,6 +53,12 @@
 
     // merge all the css
     $css: flat-merge($textbox, $config, $overrides);
+
+    @return $css;
+}
+
+@mixin textbox($overrides: ()) {
+    $css: textbox($overrides);
 
     // output the css
     @include css-map($css);

@@ -210,56 +210,6 @@ window.pxstyles = {
                 {
                     "group": "modules.controls",
                     "type": [
-                        "mixin"
-                    ],
-                    "name": "scrollbar",
-                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include scrollbar(100%, blue)"
-                        }
-                    ],
-                    "parameters": [
-                        {
-                            "name": "size",
-                            "type": "*",
-                            "description": "The overall width of the scrollbar"
-                        },
-                        {
-                            "name": "color",
-                            "type": "*",
-                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)"
-                        },
-                        {
-                            "name": "radius",
-                            "type": "*",
-                            "default": "0",
-                            "description": "The border radius of the scrollbar thumb"
-                        },
-                        {
-                            "name": "background",
-                            "type": "*",
-                            "default": "null",
-                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)"
-                        },
-                        {
-                            "name": "padding",
-                            "type": "*",
-                            "default": "null",
-                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)"
-                        },
-                        {
-                            "name": "nested",
-                            "type": "true",
-                            "default": "null",
-                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
-                        }
-                    ]
-                },
-                {
-                    "group": "modules.controls",
-                    "type": [
                         "function"
                     ],
                     "name": "control-reset",
@@ -369,6 +319,56 @@ window.pxstyles = {
                             "type": "string",
                             "default": "null",
                             "description": "The name of the state (e.g. hover, checked, indeterminate, etc.) under\nwhich the css in the @content area should apply. The mixin will generate the appropriate rule\nfor that state."
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.controls",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "scrollbar",
+                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include scrollbar(100%, blue)"
+                        }
+                    ],
+                    "parameters": [
+                        {
+                            "name": "size",
+                            "type": "*",
+                            "description": "The overall width of the scrollbar"
+                        },
+                        {
+                            "name": "color",
+                            "type": "*",
+                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)"
+                        },
+                        {
+                            "name": "radius",
+                            "type": "*",
+                            "default": "0",
+                            "description": "The border radius of the scrollbar thumb"
+                        },
+                        {
+                            "name": "background",
+                            "type": "*",
+                            "default": "null",
+                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)"
+                        },
+                        {
+                            "name": "padding",
+                            "type": "*",
+                            "default": "null",
+                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)"
+                        },
+                        {
+                            "name": "nested",
+                            "type": "true",
+                            "default": "null",
+                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
                         }
                     ]
                 }
@@ -521,7 +521,7 @@ window.pxstyles = {
                         "function"
                     ],
                     "name": "shade",
-                    "description": "Produce a shade (a lighter or darker version) of a color based on the value\nof $shade and an optional darkest to lightest shade range.",
+                    "description": "Produce a shade (a lighter or darker version) of a color based on the value of $shade and an\noptional darkest to lightest shade range.",
                     "example": [
                         {
                             "type": "scss",
@@ -533,19 +533,19 @@ window.pxstyles = {
                             "name": "color",
                             "type": "color",
                             "default": "null",
-                            "description": "The color to be shaded. If not provided, it will be\ncalculated as the middle value within $shade-range."
+                            "description": "The color to be shaded. If not provided, it will be calculated as\nthe middle value within $shade-range."
                         },
                         {
                             "name": "shade",
                             "type": "number",
                             "default": "0",
-                            "description": "The shading to be applied, as a value between -10, 10\n(can be overriden with config(shade-steps)). 0 returns the color itself.\nNegative values make the color darker, postive values make it lighter."
+                            "description": "The shading to be applied, as a percentage from -100% to 100% or as a\nshade value between -10, 10 (can be overriden with config(shade-steps)). 0 returns the color\nitself. Negative values make the color darker, postive values make it lighter."
                         },
                         {
                             "name": "shade-range",
                             "type": "(color, color)",
                             "default": "null",
-                            "description": "The range of colors will be produced\nas a list (darkest, lightest)."
+                            "description": "The range of colors will be produced as a list\n(darkest, lightest)."
                         }
                     ]
                 },
@@ -665,6 +665,12 @@ window.pxstyles = {
                 }
             ],
             "config": [
+                {
+                    "group": "site.color",
+                    "key": "color-tags",
+                    "description": "Default dark color for calculating shades",
+                    "default": "base dark light"
+                },
                 {
                     "group": "site.color",
                     "key": "colors.shade-dark",
@@ -911,6 +917,81 @@ window.pxstyles = {
             "config": []
         },
         {
+            "name": "site.darkmode",
+            "items": [
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "clr-dark",
+                    "description": "Wrapper for clr with the defalt tag set to dark.",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "type": "*",
+                            "description": "The name of the color to be retrieved"
+                        },
+                        {
+                            "name": "shade",
+                            "type": "*",
+                            "default": "0",
+                            "description": "The shade to be applied to the color"
+                        },
+                        {
+                            "name": "alpha",
+                            "type": "*",
+                            "default": "1",
+                            "description": "The alpha value of the color"
+                        },
+                        {
+                            "name": "tag",
+                            "type": "*",
+                            "default": "dark",
+                            "description": "The tag of the color (this is used to select the correct color from a list)"
+                        },
+                        {
+                            "name": "darkify",
+                            "type": "*",
+                            "default": "true",
+                            "description": "If the color should be darkified when a dark version hasn't been defined"
+                        }
+                    ]
+                },
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "darkify",
+                    "description": "Create a darkmode version of the color based on the background color and saturation. NOTE: this needs to be refined.",
+                    "parameters": [
+                        {
+                            "name": "color",
+                            "type": "*",
+                            "description": "The color to be darkified"
+                        },
+                        {
+                            "name": "bg",
+                            "type": "*",
+                            "default": "#222",
+                            "description": "The dark background color that color will be placed on"
+                        }
+                    ]
+                },
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "media-dark",
+                    "description": "Creates a media query (or custom selector) that targets dark mode. Custom selector can be\nconfigured using the setting darkmode.selector.",
+                    "parameters": []
+                }
+            ],
+            "config": []
+        },
+        {
             "name": "site.grids",
             "items": [
                 {
@@ -1046,7 +1127,7 @@ window.pxstyles = {
                     "type": [
                         "mixin"
                     ],
-                    "name": "grid-bem",
+                    "name": "grid-art-bem",
                     "description": "Offers the same functionality as the grid-art mixin, but also creates classes for each area in\nthe grid using the BEM naming convention",
                     "parameters": [
                         {
@@ -1461,11 +1542,6 @@ window.pxstyles = {
                             "name": "vars",
                             "type": "*",
                             "description": "A map containing value pairs which will be output as css variables. Any color\nvariable that ends with -hsla will will also get h/s/l/a component variables."
-                        },
-                        {
-                            "name": "prefix",
-                            "type": "*",
-                            "description": "An optional prefix to add the variables that are output."
                         }
                     ]
                 },
@@ -1475,7 +1551,13 @@ window.pxstyles = {
                         "function"
                     ],
                     "name": "hsl-var",
-                    "description": "Generic function that produces hsla syntax for hsla variables.",
+                    "description": "Function that produces an adjusted color value using hsla syntax for hsla variables. For a given\nvalue of $name, it expects the following variables to be defined:\n\n    $--$name (the base color)\n    $--$name-h (the hue component)\n    $--$name-s (the saturation component)\n    $--$name-l (the lightness component)\n\nThese variables can be defined using the hsl-var-def mixin. T",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "background: hsl-var('primary', $alpha: 0.5, $s-adj: 10%, $l-adj: -10%);"
+                        }
+                    ],
                     "parameters": []
                 },
                 {
@@ -1484,13 +1566,7 @@ window.pxstyles = {
                         "mixin"
                     ],
                     "name": "site-vars",
-                    "description": "Outputs configured site variables as css variables. Intended to be used to established variables\ntypically once per page or site.",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "Here's a what a typical config might look like:\n\n @use 'variables' as * with (\n     $-config: (\n         vars-prefix: 'theme',\n         vars: (\n             page-bg-hsla: white,\n             page-fg-hsla: black,\n             green-hsla: (\n                 base: green,\n                 dark: lightgreen,\n             ),\n             orange-rgb: (\n                 base: rgb(208, 122, 18),\n                 dark: rgb(247, 196, 133),\n             )\n         )\n     )\n );\n\nNote that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.\n\nThen you can use the mixin to output the variables like this:\n\nbody {\n   // light mode\n    @include site-vars();\n\n    // dark mode\n    @media (prefers-color-scheme: dark) {\n        @include site-vars('dark');\n    }\n}\n\nAnd finally you can access a variable like this:\n\n.selector {\n    color: site-var('page-fg');\n}"
-                        }
-                    ],
+                    "description": "Outputs configured site variables as css variables. Intended to be used to established variables\ntypically once per page or site.\n\nSo here's a what a typical config might look like:\n\n```scss\n@@use 'variables' as * with (\n    $-config: (\n        vars-prefix: 'theme',\n        vars: (\n            page-bg-hsla: white,\n            page-fg-hsla: black,\n            green-hsla: (\n                base: green,\n                dark: lightgreen,\n            ),\n            orange-rgb: (\n                base: rgb(208, 122, 18),\n                dark: rgb(247, 196, 133),\n            )\n        )\n    )\n);\n```\n\n\nNote that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.\n\nThen you can use the mixin to output the variables like this:\n\n```scss\n.body {\n   // light mode\n   @include site-vars();\n\n    // dark mode\n    @media (prefers-color-scheme: dark) {\n        @include site-vars('dark');\n    }\n}\n```\n\nAnd finally you can access a variable like this:\n\n```css\n.selector {\n    color: site-var('page-fg');\n}\n```",
                     "parameters": []
                 },
                 {
@@ -2158,6 +2234,15 @@ window.pxstyles = {
                         }
                     ],
                     "parameters": []
+                },
+                {
+                    "group": "utils.color",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "luminance",
+                    "description": "Calculates luminance of a color based on the WCAG2 standard Luminance calculation based on:\nhttps://www.w3.org/TR/WCAG20/#relativeluminancedef",
+                    "parameters": []
                 }
             ],
             "config": []
@@ -2640,6 +2725,26 @@ window.pxstyles = {
                     "type": [
                         "function"
                     ],
+                    "name": "nth-root",
+                    "description": "Calculates the nth root of a number using iteration.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": ""
+                        },
+                        {
+                            "name": "n",
+                            "type": "*",
+                            "description": ""
+                        }
+                    ]
+                },
+                {
+                    "group": "utils.math",
+                    "type": [
+                        "function"
+                    ],
                     "name": "round-d",
                     "description": "Round a number using the specified number of decimals.",
                     "example": [
@@ -2970,6 +3075,15 @@ window.pxstyles = {
         {
             "name": "utils.misc",
             "items": [
+                {
+                    "group": "utils.misc",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "root",
+                    "description": "Simple helper that places the content within a root selector (and outside of any nesting)",
+                    "parameters": []
+                },
                 {
                     "group": "utils.misc",
                     "type": [
@@ -4881,56 +4995,6 @@ window.pxstyles = {
                 {
                     "group": "modules.controls",
                     "type": [
-                        "mixin"
-                    ],
-                    "name": "scrollbar",
-                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "@include scrollbar(100%, blue)"
-                        }
-                    ],
-                    "parameters": [
-                        {
-                            "name": "size",
-                            "type": "*",
-                            "description": "The overall width of the scrollbar"
-                        },
-                        {
-                            "name": "color",
-                            "type": "*",
-                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)"
-                        },
-                        {
-                            "name": "radius",
-                            "type": "*",
-                            "default": "0",
-                            "description": "The border radius of the scrollbar thumb"
-                        },
-                        {
-                            "name": "background",
-                            "type": "*",
-                            "default": "null",
-                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)"
-                        },
-                        {
-                            "name": "padding",
-                            "type": "*",
-                            "default": "null",
-                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)"
-                        },
-                        {
-                            "name": "nested",
-                            "type": "true",
-                            "default": "null",
-                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
-                        }
-                    ]
-                },
-                {
-                    "group": "modules.controls",
-                    "type": [
                         "function"
                     ],
                     "name": "control-reset",
@@ -5042,6 +5106,56 @@ window.pxstyles = {
                             "description": "The name of the state (e.g. hover, checked, indeterminate, etc.) under\nwhich the css in the @content area should apply. The mixin will generate the appropriate rule\nfor that state."
                         }
                     ]
+                },
+                {
+                    "group": "modules.controls",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "scrollbar",
+                    "description": "Customize the appearance of a scrollbar. Good support in modern webkit and chromium based\nbrowsers. Has the effect of making scrollbars always visible even if the operating system would\nnormally hide them. There is no way to make the track full transparent. Set $nested to false if\napply to all scrollbars (this will remove the parent join).",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "@include scrollbar(100%, blue)"
+                        }
+                    ],
+                    "parameters": [
+                        {
+                            "name": "size",
+                            "type": "*",
+                            "description": "The overall width of the scrollbar"
+                        },
+                        {
+                            "name": "color",
+                            "type": "*",
+                            "description": "The color of the scrollbar thumb (and background is derived from this if not\nprovided)"
+                        },
+                        {
+                            "name": "radius",
+                            "type": "*",
+                            "default": "0",
+                            "description": "The border radius of the scrollbar thumb"
+                        },
+                        {
+                            "name": "background",
+                            "type": "*",
+                            "default": "null",
+                            "description": "The color of the scrollbar track area (defaults to $color mixed\nwith 50% white if not provided)"
+                        },
+                        {
+                            "name": "padding",
+                            "type": "*",
+                            "default": "null",
+                            "description": "Padding around the scrollbar thumb (created artificially with a hack\nsince this isn't supported by the css)"
+                        },
+                        {
+                            "name": "nested",
+                            "type": "true",
+                            "default": "null",
+                            "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
+                        }
+                    ]
                 }
             ]
         },
@@ -5120,7 +5234,7 @@ window.pxstyles = {
                         "function"
                     ],
                     "name": "shade",
-                    "description": "Produce a shade (a lighter or darker version) of a color based on the value\nof $shade and an optional darkest to lightest shade range.",
+                    "description": "Produce a shade (a lighter or darker version) of a color based on the value of $shade and an\noptional darkest to lightest shade range.",
                     "example": [
                         {
                             "type": "scss",
@@ -5132,19 +5246,19 @@ window.pxstyles = {
                             "name": "color",
                             "type": "color",
                             "default": "null",
-                            "description": "The color to be shaded. If not provided, it will be\ncalculated as the middle value within $shade-range."
+                            "description": "The color to be shaded. If not provided, it will be calculated as\nthe middle value within $shade-range."
                         },
                         {
                             "name": "shade",
                             "type": "number",
                             "default": "0",
-                            "description": "The shading to be applied, as a value between -10, 10\n(can be overriden with config(shade-steps)). 0 returns the color itself.\nNegative values make the color darker, postive values make it lighter."
+                            "description": "The shading to be applied, as a percentage from -100% to 100% or as a\nshade value between -10, 10 (can be overriden with config(shade-steps)). 0 returns the color\nitself. Negative values make the color darker, postive values make it lighter."
                         },
                         {
                             "name": "shade-range",
                             "type": "(color, color)",
                             "default": "null",
-                            "description": "The range of colors will be produced\nas a list (darkest, lightest)."
+                            "description": "The range of colors will be produced as a list\n(darkest, lightest)."
                         }
                     ]
                 },
@@ -5435,6 +5549,80 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "site.darkmode",
+            "api": [
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "clr-dark",
+                    "description": "Wrapper for clr with the defalt tag set to dark.",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "type": "*",
+                            "description": "The name of the color to be retrieved"
+                        },
+                        {
+                            "name": "shade",
+                            "type": "*",
+                            "default": "0",
+                            "description": "The shade to be applied to the color"
+                        },
+                        {
+                            "name": "alpha",
+                            "type": "*",
+                            "default": "1",
+                            "description": "The alpha value of the color"
+                        },
+                        {
+                            "name": "tag",
+                            "type": "*",
+                            "default": "dark",
+                            "description": "The tag of the color (this is used to select the correct color from a list)"
+                        },
+                        {
+                            "name": "darkify",
+                            "type": "*",
+                            "default": "true",
+                            "description": "If the color should be darkified when a dark version hasn't been defined"
+                        }
+                    ]
+                },
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "darkify",
+                    "description": "Create a darkmode version of the color based on the background color and saturation. NOTE: this needs to be refined.",
+                    "parameters": [
+                        {
+                            "name": "color",
+                            "type": "*",
+                            "description": "The color to be darkified"
+                        },
+                        {
+                            "name": "bg",
+                            "type": "*",
+                            "default": "#222",
+                            "description": "The dark background color that color will be placed on"
+                        }
+                    ]
+                },
+                {
+                    "group": "site.darkmode",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "media-dark",
+                    "description": "Creates a media query (or custom selector) that targets dark mode. Custom selector can be\nconfigured using the setting darkmode.selector.",
+                    "parameters": []
+                }
+            ]
+        },
+        {
             "name": "site.grids",
             "api": [
                 {
@@ -5570,7 +5758,7 @@ window.pxstyles = {
                     "type": [
                         "mixin"
                     ],
-                    "name": "grid-bem",
+                    "name": "grid-art-bem",
                     "description": "Offers the same functionality as the grid-art mixin, but also creates classes for each area in\nthe grid using the BEM naming convention",
                     "parameters": [
                         {
@@ -5968,11 +6156,6 @@ window.pxstyles = {
                             "name": "vars",
                             "type": "*",
                             "description": "A map containing value pairs which will be output as css variables. Any color\nvariable that ends with -hsla will will also get h/s/l/a component variables."
-                        },
-                        {
-                            "name": "prefix",
-                            "type": "*",
-                            "description": "An optional prefix to add the variables that are output."
                         }
                     ]
                 },
@@ -5982,7 +6165,13 @@ window.pxstyles = {
                         "function"
                     ],
                     "name": "hsl-var",
-                    "description": "Generic function that produces hsla syntax for hsla variables.",
+                    "description": "Function that produces an adjusted color value using hsla syntax for hsla variables. For a given\nvalue of $name, it expects the following variables to be defined:\n\n    $--$name (the base color)\n    $--$name-h (the hue component)\n    $--$name-s (the saturation component)\n    $--$name-l (the lightness component)\n\nThese variables can be defined using the hsl-var-def mixin. T",
+                    "example": [
+                        {
+                            "type": "scss",
+                            "code": "background: hsl-var('primary', $alpha: 0.5, $s-adj: 10%, $l-adj: -10%);"
+                        }
+                    ],
                     "parameters": []
                 },
                 {
@@ -5991,13 +6180,7 @@ window.pxstyles = {
                         "mixin"
                     ],
                     "name": "site-vars",
-                    "description": "Outputs configured site variables as css variables. Intended to be used to established variables\ntypically once per page or site.",
-                    "example": [
-                        {
-                            "type": "scss",
-                            "code": "Here's a what a typical config might look like:\n\n @use 'variables' as * with (\n     $-config: (\n         vars-prefix: 'theme',\n         vars: (\n             page-bg-hsla: white,\n             page-fg-hsla: black,\n             green-hsla: (\n                 base: green,\n                 dark: lightgreen,\n             ),\n             orange-rgb: (\n                 base: rgb(208, 122, 18),\n                 dark: rgb(247, 196, 133),\n             )\n         )\n     )\n );\n\nNote that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.\n\nThen you can use the mixin to output the variables like this:\n\nbody {\n   // light mode\n    @include site-vars();\n\n    // dark mode\n    @media (prefers-color-scheme: dark) {\n        @include site-vars('dark');\n    }\n}\n\nAnd finally you can access a variable like this:\n\n.selector {\n    color: site-var('page-fg');\n}"
-                        }
-                    ],
+                    "description": "Outputs configured site variables as css variables. Intended to be used to established variables\ntypically once per page or site.\n\nSo here's a what a typical config might look like:\n\n```scss\n@@use 'variables' as * with (\n    $-config: (\n        vars-prefix: 'theme',\n        vars: (\n            page-bg-hsla: white,\n            page-fg-hsla: black,\n            green-hsla: (\n                base: green,\n                dark: lightgreen,\n            ),\n            orange-rgb: (\n                base: rgb(208, 122, 18),\n                dark: rgb(247, 196, 133),\n            )\n        )\n    )\n);\n```\n\n\nNote that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.\n\nThen you can use the mixin to output the variables like this:\n\n```scss\n.body {\n   // light mode\n   @include site-vars();\n\n    // dark mode\n    @media (prefers-color-scheme: dark) {\n        @include site-vars('dark');\n    }\n}\n```\n\nAnd finally you can access a variable like this:\n\n```css\n.selector {\n    color: site-var('page-fg');\n}\n```",
                     "parameters": []
                 },
                 {
@@ -6649,6 +6832,15 @@ window.pxstyles = {
                         }
                     ],
                     "parameters": []
+                },
+                {
+                    "group": "utils.color",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "luminance",
+                    "description": "Calculates luminance of a color based on the WCAG2 standard Luminance calculation based on:\nhttps://www.w3.org/TR/WCAG20/#relativeluminancedef",
+                    "parameters": []
                 }
             ]
         },
@@ -7127,6 +7319,26 @@ window.pxstyles = {
                     "type": [
                         "function"
                     ],
+                    "name": "nth-root",
+                    "description": "Calculates the nth root of a number using iteration.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": ""
+                        },
+                        {
+                            "name": "n",
+                            "type": "*",
+                            "description": ""
+                        }
+                    ]
+                },
+                {
+                    "group": "utils.math",
+                    "type": [
+                        "function"
+                    ],
                     "name": "round-d",
                     "description": "Round a number using the specified number of decimals.",
                     "example": [
@@ -7456,6 +7668,15 @@ window.pxstyles = {
         {
             "name": "utils.misc",
             "api": [
+                {
+                    "group": "utils.misc",
+                    "type": [
+                        "mixin"
+                    ],
+                    "name": "root",
+                    "description": "Simple helper that places the content within a root selector (and outside of any nesting)",
+                    "parameters": []
+                },
                 {
                     "group": "utils.misc",
                     "type": [
@@ -9153,6 +9374,12 @@ window.pxstyles = {
             "key": "typography.type-styles",
             "description": "Full set of type styles. Each style consists of an optional base (which references a different style in the list) and a set of css properties (using css-map syntax for states if required).",
             "default": "(\n    heading: (\n        font-family: null,\n        font-weight: 700,\n        line-height: 1,\n        letter-spacing: null,\n        color: null,\n        margin-top: 0.75em,\n        margin-bottom: 0.75em,\n    ),\n    subheading: (\n        font-family: null,\n        font-weight: null,\n        line-height: 1.15,\n        letter-spacing: null,\n        color: null,\n        margin-bottom: 0.5em,\n    ),\n    code: (\n        // prettier-ignore\n        font-family: (menlo, monaco, consolas, monospace),\n        font-size: 13px,\n        font-weight: 400,\n        line-height: 1.4,\n    ),\n    d1: (\n        __base: heading,\n        __selector: '.d1',\n        font-size: fs(8),\n    ),\n    d2: (\n        __base: heading,\n        __selector: '.d2',\n        font-size: fs(7),\n    ),\n    d3: (\n        __base: heading,\n        __selector: '.d3',\n        font-size: fs(6),\n    ),\n    h1: (\n        __base: heading,\n        __selector: '.h1',\n        font-size: fs(5),\n    ),\n    h2: (\n        __base: heading,\n        __selector: '.h2',\n        font-size: fs(4),\n    ),\n    h3: (\n        __base: heading,\n        __selector: '.h3',\n        font-size: fs(3),\n    ),\n    h4: (\n        __base: heading,\n        __selector: '.h4',\n        font-size: fs(2),\n    ),\n    h5: (\n        __base: heading,\n        __selector: '.h5',\n        font-size: fs(1),\n    ),\n    sh1: (\n        __base: subheading,\n        __selector: '.sh1',\n        font-size: fs(2),\n    ),\n    sh2: (\n        __base: subheading,\n        __selector: '.sh2',\n        font-size: fs(1),\n    ),\n    sh3: (\n        __base: subheading,\n        __selector: '.sh3',\n        font-size: fs(0),\n    ),\n)"
+        },
+        {
+            "group": "site.color",
+            "key": "color-tags",
+            "description": "Default dark color for calculating shades",
+            "default": "base dark light"
         },
         {
             "group": "site.color",

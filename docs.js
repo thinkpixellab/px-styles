@@ -186,7 +186,7 @@ sassdoc.parse(SOURCE_PATH, { verbose: true }).then(data => {
 
     docs.config = config;
 
-    fs.writeFileSync('./docs/docs.js', `window.pxstyles = ${JSON.stringify(docs, null, 4)};`);
+    fs.writeFileSync('./docs/site/docs.js', `window.pxstyles = ${JSON.stringify(docs, null, 4)};`);
 
     console.log('DONE!');
 });
