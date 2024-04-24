@@ -7,6 +7,14 @@
 @use 'strings.scss' as *;
 @use 'units.scss' as *;
 
+/// Simple helper that places the content within a root selector (and outside of any nesting)
+
+@mixin root() {
+    @at-root :root {
+        @content;
+    }
+}
+
 /// Helper for a hover state selector that only applies hover styles when not disabled.
 
 @mixin hover() {
