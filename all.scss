@@ -15,29 +15,24 @@
 // DEFAULTS / CONFIG
 // ----------------------------------------------------------------------------
 
-@use 'defaults' as defaults;
-
-$config: defaults.$config !default;
-
-@use 'src/config' as * with (
-    $-config: $config
-);
+$-config: () !default;
 
 // ----------------------------------------------------------------------------
 // FORWARDS
 // ----------------------------------------------------------------------------
 
-// Configuration library (manages a shared config between all modules)
-@forward 'src/config';
-
 // Reusuable utils (functions, mixins) that have no dependency on site configuration settings
 @forward 'src/utils';
 
 // Mixins / functions that have configuration settings / site awareness
-@forward 'src/site';
+@forward 'src/site' with (
+    $-config: $-config
+);
 
 // Standalone modules (depends on both utils and site)
-@forward 'src/modules';
-
-// Standalone modules for generating controls (depends on both utils and site)
-@forward 'src/controls';
+@forward 'src/modules/atoms';
+@forward 'src/modules/boilerplate';
+@forward 'src/modules/highlightjs';
+@forward 'src/modules/reading';
+@forward 'src/modules/sanitize';
+@forward 'src/modules/controls';
