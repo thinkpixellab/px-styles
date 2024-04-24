@@ -21,24 +21,24 @@ $-defaults: ();
 // ----------------------------------------------------------------------------
 
 @function button-base() {
-    @return flat-merge(
-        control-reset(),
-        (
-            display: inline-flex,
-            align-items: center,
-            justify-content: center,
-            text-overflow: ellipsis,
-            user-select: none,
-            padding: get('button.padding' 'controls.padding'),
-            border-radius: get('button.border-radius' 'controls.border-radius'),
-            min-width: get('button.min-width' 'controls.min-width'),
-            min-height: get('button.min-height' 'controls.min-height'),
-            cursor: get('button.cursor'),
-            disabled: (
-                cursor: not-allowed,
-            ),
-        )
+    $reset: control-reset();
+    $base: (
+        display: inline-flex,
+        align-items: center,
+        justify-content: center,
+        text-overflow: ellipsis,
+        user-select: none,
+        padding: get('button.padding' 'controls.padding'),
+        border-radius: get('button.border-radius' 'controls.border-radius'),
+        min-width: get('button.min-width' 'controls.min-width'),
+        min-height: get('button.min-height' 'controls.min-height'),
+        cursor: get('button.cursor'),
+        disabled: (
+            cursor: not-allowed,
+        ),
     );
+
+    @return flat-merge($reset, $base);
 }
 
 @mixin button-base() {
@@ -74,9 +74,7 @@ $-defaults: ();
     $accent: get-control-accent($overrides, background, background-color);
     $accent-fg: if-color($accent, contrast-color($accent), null);
     $accent-hover: if-color($accent, shade($accent, 1), null);
-    $accent-hover-fg: if-color($accent-hover, contrast-color($accent-hover), null);
     $accent-active: if-color($accent, shade($accent, -2), null);
-    $accent-active-fg: if-color($accent-active, contrast-color($accent-active), null);
 
     // get button defaults from global config
     $config: get('button', null);
@@ -86,15 +84,13 @@ $-defaults: ();
         background-color: $accent,
         color: $accent-fg,
         box-shadow: shadow(2, 0.15),
-        transition: transition(background color box-shadow, get('controls.transition', 'fast')),
+        transition: transition(background-color color box-shadow),
         hover: (
             background-color: $accent-hover,
-            color: $accent-hover-fg,
             box-shadow: shadow(4, 0.25),
         ),
         active: (
             background-color: $accent-active,
-            color: $accent-active-fg,
             box-shadow: shadow(0),
         ),
         disabled: (
@@ -173,7 +169,7 @@ $-defaults: ();
 }
 
 @mixin button-outline($overrides: ()) {
-    @include css-map-dpr(button-outline($overrides));
+    @include css-map(button-outline($overrides));
 }
 
 // ----------------------------------------------------------------------------

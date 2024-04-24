@@ -20,15 +20,22 @@
             min-height: get('controls.min-height'),
             font-weight: get('controls.font-weight'),
             font-family: get('controls.font-family'),
-            border: 1px solid gray(6),
             background-color: clr('page-bg'),
+            border: 1px solid gray(5),
             color: clr('page-fg'),
             padding: 0 0.5em,
             disabled: (
                 cursor: not-allowed,
+                background-color: gray(5, $alpha: 0.5),
+                color: gray(-2),
             ),
-            focus: control-focus-style(),
-            white-space: null,
+            focus:
+                map-merge(
+                    control-focus-style(),
+                    (
+                        border-color: gray(),
+                    )
+                ),
         )
     );
 }
@@ -42,7 +49,7 @@
     $textbox: textbox-base();
 
     // config
-    $config: get('controls.textbox', false);
+    $config: get('textbox', false);
 
     // merge all the css
     $css: flat-merge($textbox, $config, $overrides);

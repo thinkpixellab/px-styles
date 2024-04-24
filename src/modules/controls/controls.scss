@@ -54,7 +54,7 @@
         visibility: hidden;
         opacity: 0;
 
-        @include css-map-dpr($tooltip);
+        @include css-map($tooltip);
 
         @include transition(visibility opacity transform, $dur: 200ms, $delay: $hide-delay);
     }
