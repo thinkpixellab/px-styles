@@ -7,7 +7,6 @@ $-config: false !default;
 @use '../utils' as *;
 @use '../site' as *;
 @use 'sanitize' as *;
-@use 'typography' as *;
 
 // ---------------------------------------------------------------------------
 // HELPERS
