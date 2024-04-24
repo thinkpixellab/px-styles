@@ -1,7 +1,12 @@
 const fs = require('fs');
 const sassdoc = require('sassdoc');
+const sass = require('sass');
 
-const SOURCE_PATH = './src/**/*.scss';
+const DOCS_SOURCE_PATH = './src/**/*.scss';
+const DOCS_OUTPUT_PATH = './docs/site/data.js';
+const SCSS_SOURCE_PATH = './docs/site/styles.scss';
+const SCSS_OUTPUT_PATH = './docs/site/styles.css';
+// SASSDOC
 
 function formatDefaultValue(inputString) {
     // remove intendation
@@ -84,7 +89,7 @@ function parseConfigString(configString) {
     return result;
 }
 
-sassdoc.parse(SOURCE_PATH, { verbose: true }).then(data => {
+sassdoc.parse(DOCS_SOURCE_PATH, { verbose: true }).then(data => {
     let config = [];
     let api = [];
 
@@ -153,6 +158,8 @@ sassdoc.parse(SOURCE_PATH, { verbose: true }).then(data => {
         return acc;
     }, []);
 
+    const groupOrder = ['utils', 'site', 'modules'];
+
     docs.groups = [
         ...new Set([
             ...new Set(api.map(item => item.group)),
@@ -160,10 +167,22 @@ sassdoc.parse(SOURCE_PATH, { verbose: true }).then(data => {
         ]),
     ]
         .sort((a, b) => {
-            if (a.group < b.group) {
+            let aGroup = a;
+            let bGroup = b;
+
+            if (a.indexOf('.') > -1 && b.indexOf('.') > -1) {
+                [aGroup, a] = a.split('.');
+                [bGroup, b] = b.split('.');
+
+                if (aGroup !== bGroup) {
+                    return groupOrder.indexOf(aGroup) - groupOrder.indexOf(bGroup);
+                }
+            }
+
+            if (a < b) {
                 return -1;
             }
-            if (a.group > b.group) {
+            if (a > b) {
                 return 1;
             }
             return 0;
@@ -186,7 +205,29 @@ sassdoc.parse(SOURCE_PATH, { verbose: true }).then(data => {
 
     docs.config = config;
 
-    fs.writeFileSync('./docs/site/docs.js', `window.pxstyles = ${JSON.stringify(docs, null, 4)};`);
+    fs.writeFileSync(DOCS_OUTPUT_PATH, `window.pxstyles = ${JSON.stringify(docs, null, 4)};`);
 
     console.log('DONE!');
 });
+
+// SASS
+
+const sassResult = sass.compile(SCSS_SOURCE_PATH);
+
+if (sassResult.css) {
+    fs.writeFileSync(SCSS_OUTPUT_PATH, sassResult.css.toString());
+}
+// sass.render(
+//     {
+//         file: SCSS_SOURCE_PATH,
+//     },
+//     function (err, result) {
+//         if (err) {
+//             console.error(err);
+//             return;
+//         } else {
+//             console.log(result.css.toString());
+//             //fs.writeFileSync(SCSS_OUTPUT_PATH, result);
+//         }
+//     }
+// );

@@ -95,7 +95,7 @@ $-config: false !default;
         headings,
         paragraph,
     ),
-    $fonts: (),
+    $fonts: null,
     $type-styles: null,
     $code-style: 'code',
     $link-selector: '.link',
@@ -107,7 +107,10 @@ $-config: false !default;
     // fonts
     // ---------------------------------------------------------------------------
 
+    $fonts: if-null($fonts, get('fonts'));
+
     @if ($fonts) {
+        @debug fonts;
         @at-root {
             // local fonts
             @each $font-name, $variants in $fonts {

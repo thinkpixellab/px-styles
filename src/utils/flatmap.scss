@@ -8,7 +8,7 @@
 @use 'collections.scss' as *;
 
 /// A function that retrieves a "deep" value from a map using path syntax where key names are
-/// separated by colons
+/// separated by periods.
 ///
 /// @param {map} $map An existing map that serves as the lookup source
 ///
@@ -19,7 +19,7 @@
 /// found
 ///
 /// @example
-/// $color: flat-get((colors: (somecolor: #F00)), 'colors:somecolor')
+/// $color: flat-get((colors: (somecolor: #F00)), 'colors.somecolor')
 /// ==> #F00
 
 @function flat-get($map, $path, $fallback: null) {
@@ -44,12 +44,12 @@
 }
 
 /// A function that allows you to set a "deep" value in a map using path syntax where key names are
-/// separated by colons
+/// separated by periods.
 ///
 /// @param {map} $map An existing map that serves as the basis for the returned value
 ///
 /// @param {string} $path The path where the value should be set, expressed as a list of keys
-/// separated by colons (e.g. 'colors:accent')
+/// separated by perods (e.g. 'colors.accent')
 ///
 /// @param {*} $val The value to be set at the path
 ///
@@ -57,10 +57,10 @@
 /// overwritten as needed)
 ///
 /// @example
-/// $map: flat-set((), 'colors:somecolor', #F00) // ==> (colors: (somecolor: #F00))
+/// $map: flat-set((), 'colors.somecolor', #F00) // ==> (colors: (somecolor: #F00))
 ///
 /// @example
-/// $map: flat-set((colors: (clr1: #F00)), 'colors:clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
+/// $map: flat-set((colors: (clr1: #F00)), 'colors.clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
 
 @function flat-set($map, $path, $val, $merge-maps: false) {
     // TEMPORARY: replace colons with periods for backwards compatibility

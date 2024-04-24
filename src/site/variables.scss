@@ -168,7 +168,6 @@ $-vars: get('vars', ()) !default;
 /// );
 /// ```
 ///
-///
 /// Note that you can also set $-vars-prefix and $-vars directly in the use definition instead of using $-config.
 ///
 /// Then you can use the mixin to output the variables like this:
