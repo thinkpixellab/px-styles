@@ -759,117 +759,6 @@ window.pxstyles = {
             "config": []
         },
         {
-            "name": "utils.json",
-            "items": [
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode",
-                    "description": "Encode any sass value as a JSON-ready string.",
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "type": "*",
-                            "description": "The scss data to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-list",
-                    "description": "Encode each item in a Sass list, and convert to a JSON-ready\nsquare-bracketed list.",
-                    "parameters": [
-                        {
-                            "name": "list",
-                            "type": "list",
-                            "description": "List to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-map",
-                    "description": "Encode each key/value in a Sass map, and convert to a JSON-ready object.",
-                    "parameters": [
-                        {
-                            "name": "map",
-                            "type": "map",
-                            "description": "Map to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-number",
-                    "description": "Encode a number for JSON, adding proof-quotes for length values.",
-                    "parameters": [
-                        {
-                            "name": "number",
-                            "type": "number",
-                            "description": "Number to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "quotes",
-                    "description": "Convert any value to a double-quoted string.",
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "type": "*",
-                            "description": "The value to inspect and quote."
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "escape-quotes",
-                    "description": "Return a string, with internal quotes escaped.",
-                    "parameters": [
-                        {
-                            "name": "string",
-                            "type": "string",
-                            "description": "The string to be manipulated"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "escape-backslashes",
-                    "description": "Return a string, with internal backslashes escaped.",
-                    "parameters": [
-                        {
-                            "name": "string",
-                            "type": "string",
-                            "description": "The string to be manipulated"
-                        }
-                    ]
-                }
-            ],
-            "config": []
-        },
-        {
             "name": "utils.layout",
             "items": [
                 {
@@ -3244,86 +3133,7 @@ window.pxstyles = {
                     "parameters": []
                 }
             ],
-            "config": [
-                {
-                    "group": "site.color",
-                    "key": "color-tags",
-                    "description": "Default dark color for calculating shades",
-                    "default": "base dark light"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.shade-dark",
-                    "description": "Default light color for calculating shades",
-                    "default": "#303030"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.shade-light",
-                    "description": "Global default primary color",
-                    "default": "white"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.accent",
-                    "description": "Default base gray color",
-                    "default": "#5d5897"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.gray",
-                    "description": "Default page background color",
-                    "default": "#a0a0a0"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.page-bg",
-                    "description": "Default page foreground",
-                    "default": "white"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.page-fg",
-                    "description": "Default light color used when computing contrast colors",
-                    "default": "#303030"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.contrast-light",
-                    "description": "Default light color used when computing contrast colors",
-                    "default": "white"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.contrast-dark",
-                    "description": "Default text selection color",
-                    "default": "#303030"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.select",
-                    "description": "Default text selection color",
-                    "default": "#2f2c4c"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.disabled",
-                    "description": "Default background color for selected text",
-                    "default": "#c0c0c0"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.selection-bg",
-                    "description": "Default foreground color for selected text",
-                    "default": "#2f2c4c"
-                },
-                {
-                    "group": "site.color",
-                    "key": "colors.selection-fg",
-                    "description": "Default foreground color for selected text",
-                    "default": "white\n)"
-                }
-            ]
+            "config": []
         },
         {
             "name": "site.config",
@@ -3572,10 +3382,10 @@ window.pxstyles = {
             "config": []
         },
         {
-            "name": "site.grids",
+            "name": "site.grid",
             "items": [
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -3609,7 +3419,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -3648,7 +3458,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -3682,7 +3492,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -3703,7 +3513,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -3724,7 +3534,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "function"
                     ],
@@ -3733,7 +3543,7 @@ window.pxstyles = {
                     "parameters": []
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "function"
                     ],
@@ -3990,20 +3800,7 @@ window.pxstyles = {
                     "parameters": []
                 }
             ],
-            "config": [
-                {
-                    "group": "site.mediaquery",
-                    "key": "breakpoints",
-                    "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin `@media-until-mobile() {...}`.",
-                    "default": "(\n    xs: 640px,\n    mobile: 768px,\n    sm: 1024px,\n    md: 1366px,\n    lg: 1600px,\n    xl: 1920px,\n)"
-                },
-                {
-                    "group": "site.mediaquery",
-                    "key": "mobile-breakpoint",
-                    "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin `@media-until-mobile() {...}`.",
-                    "default": "'mobile'\n)"
-                }
-            ]
+            "config": []
         },
         {
             "name": "site.misc",
@@ -4084,7 +3881,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "rems(1.5px) // => 0.1rem;"
+                            "code": "rems(1.5px) => 0.1rem;"
                         }
                     ],
                     "parameters": []
@@ -4099,73 +3896,13 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "px(1.3rem, 10px) // => 13px"
+                            "code": "px(1.3rem, 10px) => 13px"
                         }
                     ],
                     "parameters": []
                 }
             ],
             "config": []
-        },
-        {
-            "name": "site.shared",
-            "items": [],
-            "config": [
-                {
-                    "group": "site.shared",
-                    "key": "font-size-base",
-                    "description": "If provided, we'll assume scalable font-size at the root that gets adjusted based on the screen width. This will also result in a scalable value for the mean of 1rem. Rems will still be calculated internally based on the value of font-size-base, but the actual size of 1rem will vary with the screen width. Leave the at parameter as null to use container.width (the same behavior as the scale-vw function). Set to null to disable this behavior.",
-                    "default": "15px"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "font-size-scale",
-                    "description": "_boilerplate_ Default / fallback font family for the site",
-                    "default": "(\n    min: 13px,\n    max: 16px,\n    max-at: null,\n)"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "font-family",
-                    "description": "_boilerplate_ Default / fallback font-weight for the site",
-                    "default": "sans-serif"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "font-weight",
-                    "description": "_boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)",
-                    "default": "400"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "font-smoothing",
-                    "description": "_boilerplate_ Default / fallback line-height for standard text",
-                    "default": "false"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "line-height",
-                    "description": "_boilerplate_ Default / fallback letter spacing for the site",
-                    "default": "normal"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "letter-spacing",
-                    "description": "Default settings for links",
-                    "default": "normal"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "links",
-                    "description": "Default container settings",
-                    "default": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n)"
-                },
-                {
-                    "group": "site.shared",
-                    "key": "container",
-                    "description": "Default container settings",
-                    "default": "(\n    width: 1200px,\n    gutter: 2rem,\n    gutter-mobile: 1rem,\n)"
-                }
-            ]
         },
         {
             "name": "site.variables",
@@ -4246,20 +3983,7 @@ window.pxstyles = {
                     "parameters": []
                 }
             ],
-            "config": [
-                {
-                    "group": "site.variables",
-                    "key": "vars-prefix",
-                    "description": "Predefined site variables",
-                    "default": "null"
-                },
-                {
-                    "group": "site.variables",
-                    "key": "vars",
-                    "description": "Predefined site variables",
-                    "default": "null\n)"
-                }
-            ]
+            "config": []
         },
         {
             "name": "modules.atoms",
@@ -4649,6 +4373,117 @@ window.pxstyles = {
             ]
         },
         {
+            "name": "modules.json",
+            "items": [
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode",
+                    "description": "Encode any sass value as a JSON-ready string.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": "The scss data to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-list",
+                    "description": "Encode each item in a Sass list, and convert to a JSON-ready\nsquare-bracketed array.",
+                    "parameters": [
+                        {
+                            "name": "list",
+                            "type": "list",
+                            "description": "List to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-map",
+                    "description": "Encode each key/value in a Sass map, and convert to a JSON-ready object.",
+                    "parameters": [
+                        {
+                            "name": "map",
+                            "type": "map",
+                            "description": "Map to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-number",
+                    "description": "Encode a number for JSON, adding proof-quotes for length values.",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "number",
+                            "description": "Number to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "quotes",
+                    "description": "Convert any value to a double-quoted string.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": "The value to inspect and quote."
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "escape-quotes",
+                    "description": "Return a string, with internal quotes escaped.",
+                    "parameters": [
+                        {
+                            "name": "string",
+                            "type": "string",
+                            "description": "The string to be manipulated"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "escape-backslashes",
+                    "description": "Return a string, with internal backslashes escaped.",
+                    "parameters": [
+                        {
+                            "name": "string",
+                            "type": "string",
+                            "description": "The string to be manipulated"
+                        }
+                    ]
+                }
+            ],
+            "config": []
+        },
+        {
             "name": "modules.reading",
             "items": [
                 {
@@ -4776,12 +4611,6 @@ window.pxstyles = {
                     "key": "typography.type-sizes",
                     "description": "A map containing a set of type sizes where the key is the name and the value is the size",
                     "default": "modular-scale(\n    $bases: get('font-size-base'),\n    $ratio: $typescale-default,\n    $names: (\n        'xxs',\n        'xs',\n        'sm',\n        'base',\n        'md',\n        'lg',\n        'xl',\n        'h4',\n        'h3',\n        'h2',\n        'h1',\n        'd3',\n        'd2',\n        'd1',\n    ),\n    $round: 1,\n    $rems: false,\n)"
-                },
-                {
-                    "group": "modules.typography",
-                    "key": "typography.type-styles",
-                    "description": "Full set of type styles. Each style consists of an optional base (which references a different style in the list) and a set of css properties (using css-map syntax for states if required).",
-                    "default": "(\n    heading: (\n        font-family: null,\n        font-weight: 700,\n        line-height: 1,\n        letter-spacing: null,\n        color: null,\n        margin-top: 0.75em,\n        margin-bottom: 0.75em,\n    ),\n    subheading: (\n        font-family: null,\n        font-weight: null,\n        line-height: 1.15,\n        letter-spacing: null,\n        color: null,\n        margin-bottom: 0.5em,\n    ),\n    code: (\n        // prettier-ignore\n        font-family: (menlo, monaco, consolas, monospace),\n        font-size: 13px,\n        font-weight: 400,\n        line-height: 1.4,\n    ),\n    d1: (\n        __base: heading,\n        __selector: '.d1',\n        font-size: fs(8),\n    ),\n    d2: (\n        __base: heading,\n        __selector: '.d2',\n        font-size: fs(7),\n    ),\n    d3: (\n        __base: heading,\n        __selector: '.d3',\n        font-size: fs(6),\n    ),\n    h1: (\n        __base: heading,\n        __selector: '.h1',\n        font-size: fs(5),\n    ),\n    h2: (\n        __base: heading,\n        __selector: '.h2',\n        font-size: fs(4),\n    ),\n    h3: (\n        __base: heading,\n        __selector: '.h3',\n        font-size: fs(3),\n    ),\n    h4: (\n        __base: heading,\n        __selector: '.h4',\n        font-size: fs(2),\n    ),\n    h5: (\n        __base: heading,\n        __selector: '.h5',\n        font-size: fs(1),\n    ),\n    sh1: (\n        __base: subheading,\n        __selector: '.sh1',\n        font-size: fs(2),\n    ),\n    sh2: (\n        __base: subheading,\n        __selector: '.sh2',\n        font-size: fs(1),\n    ),\n    sh3: (\n        __base: subheading,\n        __selector: '.sh3',\n        font-size: fs(0),\n    ),\n)"
                 }
             ]
         }
@@ -5154,6 +4983,116 @@ window.pxstyles = {
                             "type": "true",
                             "default": "null",
                             "description": "Set to false if this is using outside of a parent selector (to\napply to all scrollbars)."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "modules.json",
+            "api": [
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode",
+                    "description": "Encode any sass value as a JSON-ready string.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": "The scss data to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-list",
+                    "description": "Encode each item in a Sass list, and convert to a JSON-ready\nsquare-bracketed array.",
+                    "parameters": [
+                        {
+                            "name": "list",
+                            "type": "list",
+                            "description": "List to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-map",
+                    "description": "Encode each key/value in a Sass map, and convert to a JSON-ready object.",
+                    "parameters": [
+                        {
+                            "name": "map",
+                            "type": "map",
+                            "description": "Map to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "encode-number",
+                    "description": "Encode a number for JSON, adding proof-quotes for length values.",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "number",
+                            "description": "Number to be encoded for JSON exporting"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "quotes",
+                    "description": "Convert any value to a double-quoted string.",
+                    "parameters": [
+                        {
+                            "name": "value",
+                            "type": "*",
+                            "description": "The value to inspect and quote."
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "escape-quotes",
+                    "description": "Return a string, with internal quotes escaped.",
+                    "parameters": [
+                        {
+                            "name": "string",
+                            "type": "string",
+                            "description": "The string to be manipulated"
+                        }
+                    ]
+                },
+                {
+                    "group": "modules.json",
+                    "type": [
+                        "function"
+                    ],
+                    "name": "escape-backslashes",
+                    "description": "Return a string, with internal backslashes escaped.",
+                    "parameters": [
+                        {
+                            "name": "string",
+                            "type": "string",
+                            "description": "The string to be manipulated"
                         }
                     ]
                 }
@@ -5623,10 +5562,10 @@ window.pxstyles = {
             ]
         },
         {
-            "name": "site.grids",
+            "name": "site.grid",
             "api": [
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -5660,7 +5599,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -5699,7 +5638,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -5733,7 +5672,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -5754,7 +5693,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "mixin"
                     ],
@@ -5775,7 +5714,7 @@ window.pxstyles = {
                     ]
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "function"
                     ],
@@ -5784,7 +5723,7 @@ window.pxstyles = {
                     "parameters": []
                 },
                 {
-                    "group": "site.grids",
+                    "group": "site.grid",
                     "type": [
                         "function"
                     ],
@@ -6119,7 +6058,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "rems(1.5px) // => 0.1rem;"
+                            "code": "rems(1.5px) => 0.1rem;"
                         }
                     ],
                     "parameters": []
@@ -6134,7 +6073,7 @@ window.pxstyles = {
                     "example": [
                         {
                             "type": "scss",
-                            "code": "px(1.3rem, 10px) // => 13px"
+                            "code": "px(1.3rem, 10px) => 13px"
                         }
                     ],
                     "parameters": []
@@ -6970,116 +6909,6 @@ window.pxstyles = {
                             "type": "*",
                             "default": "null",
                             "description": "Subsetting text"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "utils.json",
-            "api": [
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode",
-                    "description": "Encode any sass value as a JSON-ready string.",
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "type": "*",
-                            "description": "The scss data to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-list",
-                    "description": "Encode each item in a Sass list, and convert to a JSON-ready\nsquare-bracketed list.",
-                    "parameters": [
-                        {
-                            "name": "list",
-                            "type": "list",
-                            "description": "List to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-map",
-                    "description": "Encode each key/value in a Sass map, and convert to a JSON-ready object.",
-                    "parameters": [
-                        {
-                            "name": "map",
-                            "type": "map",
-                            "description": "Map to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "encode-number",
-                    "description": "Encode a number for JSON, adding proof-quotes for length values.",
-                    "parameters": [
-                        {
-                            "name": "number",
-                            "type": "number",
-                            "description": "Number to be encoded for JSON exporting"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "quotes",
-                    "description": "Convert any value to a double-quoted string.",
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "type": "*",
-                            "description": "The value to inspect and quote."
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "escape-quotes",
-                    "description": "Return a string, with internal quotes escaped.",
-                    "parameters": [
-                        {
-                            "name": "string",
-                            "type": "string",
-                            "description": "The string to be manipulated"
-                        }
-                    ]
-                },
-                {
-                    "group": "utils.json",
-                    "type": [
-                        "function"
-                    ],
-                    "name": "escape-backslashes",
-                    "description": "Return a string, with internal backslashes escaped.",
-                    "parameters": [
-                        {
-                            "name": "string",
-                            "type": "string",
-                            "description": "The string to be manipulated"
                         }
                     ]
                 }
@@ -9368,168 +9197,6 @@ window.pxstyles = {
             "key": "typography.type-sizes",
             "description": "A map containing a set of type sizes where the key is the name and the value is the size",
             "default": "modular-scale(\n    $bases: get('font-size-base'),\n    $ratio: $typescale-default,\n    $names: (\n        'xxs',\n        'xs',\n        'sm',\n        'base',\n        'md',\n        'lg',\n        'xl',\n        'h4',\n        'h3',\n        'h2',\n        'h1',\n        'd3',\n        'd2',\n        'd1',\n    ),\n    $round: 1,\n    $rems: false,\n)"
-        },
-        {
-            "group": "modules.typography",
-            "key": "typography.type-styles",
-            "description": "Full set of type styles. Each style consists of an optional base (which references a different style in the list) and a set of css properties (using css-map syntax for states if required).",
-            "default": "(\n    heading: (\n        font-family: null,\n        font-weight: 700,\n        line-height: 1,\n        letter-spacing: null,\n        color: null,\n        margin-top: 0.75em,\n        margin-bottom: 0.75em,\n    ),\n    subheading: (\n        font-family: null,\n        font-weight: null,\n        line-height: 1.15,\n        letter-spacing: null,\n        color: null,\n        margin-bottom: 0.5em,\n    ),\n    code: (\n        // prettier-ignore\n        font-family: (menlo, monaco, consolas, monospace),\n        font-size: 13px,\n        font-weight: 400,\n        line-height: 1.4,\n    ),\n    d1: (\n        __base: heading,\n        __selector: '.d1',\n        font-size: fs(8),\n    ),\n    d2: (\n        __base: heading,\n        __selector: '.d2',\n        font-size: fs(7),\n    ),\n    d3: (\n        __base: heading,\n        __selector: '.d3',\n        font-size: fs(6),\n    ),\n    h1: (\n        __base: heading,\n        __selector: '.h1',\n        font-size: fs(5),\n    ),\n    h2: (\n        __base: heading,\n        __selector: '.h2',\n        font-size: fs(4),\n    ),\n    h3: (\n        __base: heading,\n        __selector: '.h3',\n        font-size: fs(3),\n    ),\n    h4: (\n        __base: heading,\n        __selector: '.h4',\n        font-size: fs(2),\n    ),\n    h5: (\n        __base: heading,\n        __selector: '.h5',\n        font-size: fs(1),\n    ),\n    sh1: (\n        __base: subheading,\n        __selector: '.sh1',\n        font-size: fs(2),\n    ),\n    sh2: (\n        __base: subheading,\n        __selector: '.sh2',\n        font-size: fs(1),\n    ),\n    sh3: (\n        __base: subheading,\n        __selector: '.sh3',\n        font-size: fs(0),\n    ),\n)"
-        },
-        {
-            "group": "site.color",
-            "key": "color-tags",
-            "description": "Default dark color for calculating shades",
-            "default": "base dark light"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.shade-dark",
-            "description": "Default light color for calculating shades",
-            "default": "#303030"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.shade-light",
-            "description": "Global default primary color",
-            "default": "white"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.accent",
-            "description": "Default base gray color",
-            "default": "#5d5897"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.gray",
-            "description": "Default page background color",
-            "default": "#a0a0a0"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.page-bg",
-            "description": "Default page foreground",
-            "default": "white"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.page-fg",
-            "description": "Default light color used when computing contrast colors",
-            "default": "#303030"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.contrast-light",
-            "description": "Default light color used when computing contrast colors",
-            "default": "white"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.contrast-dark",
-            "description": "Default text selection color",
-            "default": "#303030"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.select",
-            "description": "Default text selection color",
-            "default": "#2f2c4c"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.disabled",
-            "description": "Default background color for selected text",
-            "default": "#c0c0c0"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.selection-bg",
-            "description": "Default foreground color for selected text",
-            "default": "#2f2c4c"
-        },
-        {
-            "group": "site.color",
-            "key": "colors.selection-fg",
-            "description": "Default foreground color for selected text",
-            "default": "white\n)"
-        },
-        {
-            "group": "site.mediaquery",
-            "key": "breakpoints",
-            "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin `@media-until-mobile() {...}`.",
-            "default": "(\n    xs: 640px,\n    mobile: 768px,\n    sm: 1024px,\n    md: 1366px,\n    lg: 1600px,\n    xl: 1920px,\n)"
-        },
-        {
-            "group": "site.mediaquery",
-            "key": "mobile-breakpoint",
-            "description": "The standardized breakpoint where a mobile version of the design begins. Used by the mixin `@media-until-mobile() {...}`.",
-            "default": "'mobile'\n)"
-        },
-        {
-            "group": "site.shared",
-            "key": "font-size-base",
-            "description": "If provided, we'll assume scalable font-size at the root that gets adjusted based on the screen width. This will also result in a scalable value for the mean of 1rem. Rems will still be calculated internally based on the value of font-size-base, but the actual size of 1rem will vary with the screen width. Leave the at parameter as null to use container.width (the same behavior as the scale-vw function). Set to null to disable this behavior.",
-            "default": "15px"
-        },
-        {
-            "group": "site.shared",
-            "key": "font-size-scale",
-            "description": "_boilerplate_ Default / fallback font family for the site",
-            "default": "(\n    min: 13px,\n    max: 16px,\n    max-at: null,\n)"
-        },
-        {
-            "group": "site.shared",
-            "key": "font-family",
-            "description": "_boilerplate_ Default / fallback font-weight for the site",
-            "default": "sans-serif"
-        },
-        {
-            "group": "site.shared",
-            "key": "font-weight",
-            "description": "_boilerplate_ Whether to enable font-smoothing (makes letterforms lighter)",
-            "default": "400"
-        },
-        {
-            "group": "site.shared",
-            "key": "font-smoothing",
-            "description": "_boilerplate_ Default / fallback line-height for standard text",
-            "default": "false"
-        },
-        {
-            "group": "site.shared",
-            "key": "line-height",
-            "description": "_boilerplate_ Default / fallback letter spacing for the site",
-            "default": "normal"
-        },
-        {
-            "group": "site.shared",
-            "key": "letter-spacing",
-            "description": "Default settings for links",
-            "default": "normal"
-        },
-        {
-            "group": "site.shared",
-            "key": "links",
-            "description": "Default container settings",
-            "default": "(\n    color: adjust-color(accent(), $saturation: 40%),\n    text-decoration: none,\n    text-decoration-color: null,\n    hover: (\n        color: null,\n        text-decoration: underline,\n        text-decoration-color: null,\n    ),\n)"
-        },
-        {
-            "group": "site.shared",
-            "key": "container",
-            "description": "Default container settings",
-            "default": "(\n    width: 1200px,\n    gutter: 2rem,\n    gutter-mobile: 1rem,\n)"
-        },
-        {
-            "group": "site.variables",
-            "key": "vars-prefix",
-            "description": "Predefined site variables",
-            "default": "null"
-        },
-        {
-            "group": "site.variables",
-            "key": "vars",
-            "description": "Predefined site variables",
-            "default": "null\n)"
         }
     ]
 };

@@ -5,22 +5,35 @@
     "main": "index.scss",
     "license": "MIT",
     "directories": {
-        "doc": "docs"
+        "doc": "docs",
+        "lib": "src"
     },
-    "devDependencies": {
-        "gulp": "^4.0.2",
-        "gulp-replace": "^1.1.3",
-        "gulp-sass": "^5.1.0",
-        "jest": "^27.5.1",
-        "lodash": "^4.17.21",
-        "node-sass": "^9.0.0",
-        "sass": "^1.49.9",
-        "sass-true": "^6.0.1",
-        "sassdoc": "^2.7.4"
+    "watch": {
+        "scratch": {
+            "patterns": [
+                "src/**/*.scss",
+                "scratch"
+            ],
+            "extensions": "scss"
+        }
     },
     "scripts": {
         "test": "jest",
-        "prepare": "gulp verToSass"
+        "scratch:open": "node scratch/build.js && node scratch/open.js",
+        "scratch:build": "node scratch/build.js",
+        "scratch": "node scratch/open.js && nodemon --watch '{scratch,src}/**/*' -e scss --exec 'npm run scratch:build'",
+        "docs:build": "node docs/build.js",
+        "docs:dev": "node docs/open.js && nodemon --watch '{docs,src}/**/*' -e scss --exec 'npm run docs:build'",
+        "docs": "node docs/build.js && node docs/open.js"
+    },
+    "devDependencies": {
+        "better-opn": "^3.0.2",
+        "jest": "^27.5.1",
+        "nodemon": "^3.1.0",
+        "npm-watch": "^0.11.0",
+        "sass": "^1.49.9",
+        "sass-true": "^6.0.1",
+        "sassdoc": "^2.7.4"
     },
     "repository": {
         "type": "git",

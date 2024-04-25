@@ -1,11 +1,13 @@
 const fs = require('fs');
 const sassdoc = require('sassdoc');
 const sass = require('sass');
+const path = require('path');
 
-const DOCS_SOURCE_PATH = './src/**/*.scss';
-const DOCS_OUTPUT_PATH = './docs/site/data.js';
-const SCSS_SOURCE_PATH = './docs/site/styles.scss';
-const SCSS_OUTPUT_PATH = './docs/site/styles.css';
+const DOCS_SOURCE_PATH = path.resolve(__dirname, '../src/**/*.scss');
+const DOCS_OUTPUT_PATH = path.resolve(__dirname, './site/data.js');
+const SCSS_SOURCE_PATH = path.resolve(__dirname, './site/styles.scss');
+const SCSS_OUTPUT_PATH = path.resolve(__dirname, './site/styles.css');
+
 // SASSDOC
 
 function formatDefaultValue(inputString) {

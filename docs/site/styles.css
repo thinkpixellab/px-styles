@@ -369,7 +369,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 3.6rem;
+  font-size: fs(8);
 }
 
 .d2 {
@@ -377,7 +377,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 3.067rem;
+  font-size: fs(7);
 }
 
 .d3 {
@@ -385,7 +385,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 2.6rem;
+  font-size: fs(6);
 }
 
 .h1 {
@@ -393,7 +393,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 2.267rem;
+  font-size: fs(5);
 }
 
 .h2 {
@@ -401,7 +401,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 1.933rem;
+  font-size: fs(4);
 }
 
 .h3 {
@@ -409,7 +409,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 1.6rem;
+  font-size: fs(3);
 }
 
 .h4 {
@@ -417,7 +417,7 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 1.4rem;
+  font-size: fs(2);
 }
 
 .h5 {
@@ -425,25 +425,25 @@ code {
   line-height: 1;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  font-size: 1.2rem;
+  font-size: fs(1);
 }
 
 .sh1 {
   line-height: 1.15;
   margin-bottom: 0.5em;
-  font-size: 1.4rem;
+  font-size: fs(2);
 }
 
 .sh2 {
   line-height: 1.15;
   margin-bottom: 0.5em;
-  font-size: 1.2rem;
+  font-size: fs(1);
 }
 
 .sh3 {
   line-height: 1.15;
   margin-bottom: 0.5em;
-  font-size: 1rem;
+  font-size: fs(0);
 }
 
 .link {
