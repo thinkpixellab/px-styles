@@ -6,10 +6,19 @@ window.pxstyles = {
                 {
                     "group": "utils.bem",
                     "type": [
+                        "mixin"
+                    ],
+                    "name": "block",
+                    "description": "Establishes a block context for the bem mixin. The bem mixins will still work with regular\nnesting but they will create deeply nested classnames (e.g. `.block .block__element` instead of\njust `.block__element`) which may create more specificity than desired.\n\n```scss\n@@include block('block') {\n    @include bem('element') {\n        ...\n    }\n}\n```",
+                    "parameters": []
+                },
+                {
+                    "group": "utils.bem",
+                    "type": [
                         "function"
                     ],
                     "name": "get-block-name",
-                    "description": "Extracts the block name form a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.",
+                    "description": "Extracts the block name from a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.",
                     "example": [
                         {
                             "type": "scss",
@@ -31,10 +40,19 @@ window.pxstyles = {
                 {
                     "group": "utils.bem",
                     "type": [
+                        "function"
+                    ],
+                    "name": "get-bem",
+                    "description": "Function version of the bem mixin (see mixin for details).",
+                    "parameters": []
+                },
+                {
+                    "group": "utils.bem",
+                    "type": [
                         "mixin"
                     ],
                     "name": "bem",
-                    "description": "Creates a element--modifier class name using the bem approach to class naming. Can be used\ninside of the block mixin or just within a class declartion. Should also work with media media\nqueries and other complex scnearios.",
+                    "description": "Creates a element--modifier class name using the bem approach to class naming. Can be used\ninside of the block mixin or just within a class declartion. Should also work with media media\nqueries and other complex scnearios.\n\nHere's a pretty thorough example that demonstrates why this might be useful\n\n```scss\n\n@@include block('NEW') {\n    @include element(element) {\n        content: 'Basic Element';\n    }\n    @include element(element, blue) {\n        content: 'Blue Modifier';\n\n        @include element(child-of-blue) {\n            content: 'Child (in Blue Modified)';\n\n            @include element(deep-nested-element) {\n                content: 'Deep Nested Element (RIGHT)';\n            }\n        }\n    }\n}\n\n.OLD {\n    &__element {\n        content: 'Basic Element';\n    }\n\n    &__element--blue {\n        content: 'Blue Modifier';\n    }\n\n    &__element--blue & {\n        &__child-of-blue {\n            content: 'Child in Blue Modified';\n\n            &__deep-nested-element {\n                content: 'Deep Nested Element (WRONG)';\n            }\n        }\n\n        &__deep-nested-element {\n            content: 'Deep Nested Element (ALSO WRONG)';\n        }\n\n        &__child-of-blue & {\n            &__deep-nested-element {\n                content: 'Deep Nested Element (THIS IS WRONG TOO)';\n            }\n        }\n    }\n}\n```\n\nAnd some more basic examples:",
                     "example": [
                         {
                             "type": "scss",
@@ -83,7 +101,7 @@ window.pxstyles = {
                         "mixin"
                     ],
                     "name": "element",
-                    "description": "Wrapper for bem mixin with slightly more contextual naming",
+                    "description": "Wrapper for bem mixin with more contextual naming",
                     "parameters": []
                 }
             ],
@@ -6166,10 +6184,19 @@ window.pxstyles = {
                 {
                     "group": "utils.bem",
                     "type": [
+                        "mixin"
+                    ],
+                    "name": "block",
+                    "description": "Establishes a block context for the bem mixin. The bem mixins will still work with regular\nnesting but they will create deeply nested classnames (e.g. `.block .block__element` instead of\njust `.block__element`) which may create more specificity than desired.\n\n```scss\n@@include block('block') {\n    @include bem('element') {\n        ...\n    }\n}\n```",
+                    "parameters": []
+                },
+                {
+                    "group": "utils.bem",
+                    "type": [
                         "function"
                     ],
                     "name": "get-block-name",
-                    "description": "Extracts the block name form a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.",
+                    "description": "Extracts the block name from a selector. So if $selector is something like\n`.block__element--mod` the function would return `block`.",
                     "example": [
                         {
                             "type": "scss",
@@ -6191,10 +6218,19 @@ window.pxstyles = {
                 {
                     "group": "utils.bem",
                     "type": [
+                        "function"
+                    ],
+                    "name": "get-bem",
+                    "description": "Function version of the bem mixin (see mixin for details).",
+                    "parameters": []
+                },
+                {
+                    "group": "utils.bem",
+                    "type": [
                         "mixin"
                     ],
                     "name": "bem",
-                    "description": "Creates a element--modifier class name using the bem approach to class naming. Can be used\ninside of the block mixin or just within a class declartion. Should also work with media media\nqueries and other complex scnearios.",
+                    "description": "Creates a element--modifier class name using the bem approach to class naming. Can be used\ninside of the block mixin or just within a class declartion. Should also work with media media\nqueries and other complex scnearios.\n\nHere's a pretty thorough example that demonstrates why this might be useful\n\n```scss\n\n@@include block('NEW') {\n    @include element(element) {\n        content: 'Basic Element';\n    }\n    @include element(element, blue) {\n        content: 'Blue Modifier';\n\n        @include element(child-of-blue) {\n            content: 'Child (in Blue Modified)';\n\n            @include element(deep-nested-element) {\n                content: 'Deep Nested Element (RIGHT)';\n            }\n        }\n    }\n}\n\n.OLD {\n    &__element {\n        content: 'Basic Element';\n    }\n\n    &__element--blue {\n        content: 'Blue Modifier';\n    }\n\n    &__element--blue & {\n        &__child-of-blue {\n            content: 'Child in Blue Modified';\n\n            &__deep-nested-element {\n                content: 'Deep Nested Element (WRONG)';\n            }\n        }\n\n        &__deep-nested-element {\n            content: 'Deep Nested Element (ALSO WRONG)';\n        }\n\n        &__child-of-blue & {\n            &__deep-nested-element {\n                content: 'Deep Nested Element (THIS IS WRONG TOO)';\n            }\n        }\n    }\n}\n```\n\nAnd some more basic examples:",
                     "example": [
                         {
                             "type": "scss",
@@ -6243,7 +6279,7 @@ window.pxstyles = {
                         "mixin"
                     ],
                     "name": "element",
-                    "description": "Wrapper for bem mixin with slightly more contextual naming",
+                    "description": "Wrapper for bem mixin with more contextual naming",
                     "parameters": []
                 }
             ]
