@@ -104,8 +104,6 @@ output/
 docs/styles.css.map
 
 # scratch / testing sass files
-# scratch.scss
-# scratch.css
-# scratch.html
-# scratch/
-
+/scratch/scratch.css
+/scratch/scratch.scss
+/scratch/index.html
