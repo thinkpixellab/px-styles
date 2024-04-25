@@ -1,5 +1,5 @@
 ////
-/// @group utils.json
+/// @group modules.json
 ////
 
 /// Encode any sass value as a JSON-ready string.
@@ -25,7 +25,7 @@
 }
 
 /// Encode each item in a Sass list, and convert to a JSON-ready
-/// square-bracketed list.
+/// square-bracketed array.
 ///
 /// @param {list} $list - List to be encoded for JSON exporting
 

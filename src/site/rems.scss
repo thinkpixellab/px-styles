@@ -10,7 +10,7 @@
 // ---------------------------------------------------------------------------
 
 /// Convert px to rem for a given base font size (the font size of the document root element)
-/// @example rems(1.5px) // => 0.1rem;
+/// @example rems(1.5px) => 0.1rem;
 
 @function rems($px, $round: 1000) {
     $px: strip-unit($px);
@@ -20,7 +20,7 @@
 }
 
 /// Convert rem to px for a given base font size (the font size of the document root element)
-/// @example px(1.3rem, 10px) // => 13px
+/// @example px(1.3rem, 10px) => 13px
 
 @function px($rems, $basepx: null) {
     $basepx: if-null($basepx, get(font-size-base));

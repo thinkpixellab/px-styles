@@ -107,10 +107,9 @@ $-config: false !default;
     // fonts
     // ---------------------------------------------------------------------------
 
-    $fonts: if-null($fonts, get('fonts'));
+    $fonts: if-null($fonts, get('fonts', null));
 
     @if ($fonts) {
-        @debug fonts;
         @at-root {
             // local fonts
             @each $font-name, $variants in $fonts {

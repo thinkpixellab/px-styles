@@ -5,22 +5,6 @@
 @use '../utils' as *;
 @use 'config' as *;
 
-// ----------------------------------------------------------------------------
-// CONFIG
-// ----------------------------------------------------------------------------
-
-/// @type config
-
-$-defaults: (
-    /// A prefix to use with site variables to avoid conflicts with other css variables
-    'vars-prefix': null,
-
-    /// Predefined site variables
-    'vars': null
-);
-
-@include defaults($-defaults);
-
 $-vars-prefix: get('vars-prefix', null) !default;
 $-vars: get('vars', ()) !default;
 

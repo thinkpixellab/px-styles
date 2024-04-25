@@ -64,7 +64,6 @@
     //$d: (100% + $l) / 100%;
     $clr: change-color($color, $lightness: $l);
 
-    @warn "The darkify function is experimental and needs to be refined so don't rely on these colors yet.";
     @return $clr;
 }
 

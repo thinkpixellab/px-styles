@@ -9,50 +9,6 @@
 // CONFIG
 // ---------------------------------------------------------------------------
 
-/// @type config
-
-$-defaults: (
-    'color-tags': base dark light,
-
-    /// Default dark color for calculating shades
-    'colors.shade-dark': #303030,
-
-    /// Default light color for calculating shades
-    'colors.shade-light': white,
-
-    /// Global default primary color
-    'colors.accent': #5d5897,
-
-    /// Default base gray color
-    'colors.gray': #a0a0a0,
-
-    /// Default page background color
-    'colors.page-bg': white,
-
-    /// Default page foreground
-    'colors.page-fg': #303030,
-
-    /// Default light color used when computing contrast colors
-    'colors.contrast-light': white,
-
-    /// Default light color used when computing contrast colors
-    'colors.contrast-dark': #303030,
-
-    /// Default text selection color
-    'colors.select': #2f2c4c,
-
-    /// Default text selection color
-    'colors.disabled': #c0c0c0,
-
-    /// Default background color for selected text
-    'colors.selection-bg': #2f2c4c,
-
-    /// Default foreground color for selected text
-    'colors.selection-fg': white,
-);
-
-@include defaults($-defaults);
-
 /// Produce a shade (a lighter or darker version) of a color based on the value of $shade and an
 /// optional darkest to lightest shade range.
 ///

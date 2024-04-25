@@ -57,32 +57,6 @@
 @use '../utils' as *;
 @use 'config' as *;
 
-// ---------------------------------------------------------------------------
-// CONFIG
-// ---------------------------------------------------------------------------
-
-/// @type config
-
-$-defaults: (
-    /// Named breakpoints that can be used by the standard mediaquery mixins
-    /// (e.g. `media-until(md) {...}`).
-    'breakpoints':
-        (
-            xs: 640px,
-            mobile: 768px,
-            sm: 1024px,
-            md: 1366px,
-            lg: 1600px,
-            xl: 1920px,
-        ),
-
-    /// The standardized breakpoint where a mobile version of the design begins. Used by the mixin
-    /// `@media-until-mobile() {...}`.
-    'mobile-breakpoint': 'mobile'
-);
-
-@include defaults($-defaults);
-
 $-breakpoints: get('breakpoints') !default;
 $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 
