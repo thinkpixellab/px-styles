@@ -8,14 +8,10 @@
         "doc": "docs",
         "lib": "src"
     },
-    "watch": {
-        "scratch": {
-            "patterns": [
-                "src/**/*.scss",
-                "scratch"
-            ],
-            "extensions": "scss"
-        }
+    "style": {
+        "all": "all.scss",
+        "utils": "utils.scss",
+        "controls": "src/modules/controls/controls.scss"
     },
     "scripts": {
         "test": "jest",
@@ -24,6 +20,7 @@
         "scratch": "node scratch/open.js && nodemon --watch '{scratch,src}/**/*' -e scss --exec 'npm run scratch:build'",
         "docs:build": "node docs/build.js",
         "docs:dev": "node docs/open.js && nodemon --watch '{docs,src}/**/*' -e scss --exec 'npm run docs:build'",
+        "docs:watch": "node docs/open.js && nodemon --watch '{docs,src}/**/*' -e scss --exec 'npm run docs:build'",
         "docs": "node docs/build.js && node docs/open.js"
     },
     "devDependencies": {
