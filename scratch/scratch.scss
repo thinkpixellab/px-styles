@@ -1,0 +1,5 @@
+@use '../all' as *;
+
+.test {
+    color: accent(-2);
+}
