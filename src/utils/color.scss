@@ -3,20 +3,20 @@
 ////
 
 @use 'math.scss' as *;
+@use 'units.scss' as *;
 
 ///
-/// Produce a shade (a lighter or darker version) of a color based on the value
-/// of $shade and an optional darkest to lightest shade range.
+/// Produce a shade (a lighter or darker version) of a color based on the value of $shade and an
+/// optional darkest to lightest shade range.
 ///
-/// @param {color} $color [null] The color to be shaded. If not provided, it will be
-/// calculated as the middle value within $shade-range.
+/// @param {color} $color [null] The color to be shaded. If not provided, it will be calculated as
+/// the middle value within $shade-range.
 ///
-/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
-/// (can be overriden with config(shade-steps)). 0 returns the color itself.
-/// Negative values make the color darker, postive values make it lighter.
+/// @param {number} $shade [0]The shading to be applied, as a percentage from -100% to 100% (for
+/// legacy reasons we also take a value between -10, 10 and convert to a percentage).
 ///
-/// @param {(color, color)} $shade-range [null] The range of colors will be produced
-/// as a list (darkest, lightest).
+/// @param {(color, color)} $shade-range [null] The range of colors will be produced as a list
+/// (darkest, lightest).
 ///
 /// @example $color: shade(red, 5, null) // => #ff8080
 ///
@@ -29,9 +29,9 @@
         white,
     )
 ) {
-    $shade-steps: 20;
-    $shade-amount: divide(100%, $shade-steps) * 2;
-    $shade: clamp-number($shade, divide($shade-steps, -2), $shade-steps * 0.5);
+    $shade: if(is-percentage($shade), $shade, $shade * 10%);
+
+    $shade: clamp-number($shade, -100%, 100%);
 
     @if ($color == null) {
         $color: mix(nth($shade-range, 1), nth($shade-range, 2));
@@ -39,11 +39,11 @@
 
     @if ($shade < 0) {
         $color1: nth($shade-range, 1);
-        @return mix($color1, $color, ($shade * $shade-amount) * -1);
+        @return mix($color1, $color, $shade * -1);
     }
 
     @if ($shade > 0) {
-        @return mix(nth($shade-range, 2), $color, ($shade * $shade-amount));
+        @return mix(nth($shade-range, 2), $color, $shade);
     }
 
     @return $color;
