@@ -15,8 +15,14 @@
 @function rems($px, $round: 1000) {
     $px: strip-unit($px);
     $basepx: strip-unit(get(font-size-base));
-    $r: divide($px, $basepx) * 1rem;
-    @return if($round > 0, round-f($r, $round), $r);
+
+    @if (is-number($px)) {
+        $r: divide($px, $basepx) * 1rem;
+        @return if($round > 0, round-f($r, $round), $r);
+    } @else {
+        @warn 'Could not convert "#{$px}" to rems because it is not a number.';
+        @return $px;
+    }
 }
 
 /// Convert rem to px for a given base font size (the font size of the document root element)

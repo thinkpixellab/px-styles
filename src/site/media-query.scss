@@ -57,9 +57,6 @@
 @use '../utils' as *;
 @use 'config' as *;
 
-$-breakpoints: get('breakpoints') !default;
-$-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
-
 // ---------------------------------------------------------------------------
 // PUBLIC API
 // ---------------------------------------------------------------------------
@@ -74,6 +71,7 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 /// @example get-breakpoint(md) // => 1366px
 
 @function get-breakpoint($break) {
+    $-breakpoints: get('breakpoints');
     @if is-number($break) {
         @return $break;
     } @else {
@@ -193,6 +191,7 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 ///     @include media-until-mobile() {color: red}
 
 @mixin media-until-mobile() {
+    $-mobile-breakpoint: get('mobile-breakpoint');
     @include media-until($-mobile-breakpoint) {
         @content;
     }
@@ -201,6 +200,7 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 /// A convenience mixin that is equivalent to media-after($mobile-breakpoint).
 
 @mixin media-after-mobile() {
+    $-mobile-breakpoint: get('mobile-breakpoint');
     @include media-after($-mobile-breakpoint) {
         @content;
     }
@@ -210,6 +210,7 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 /// @example  // => (xs: 640px, mobile: 768px, sm: 1024px, md: 1366px, lg: 1600px, xl: 1920px)
 
 @function breakpoints-asc() {
+    $-breakpoints: get('breakpoints');
     @return map-sort-by-values($-breakpoints);
 }
 
@@ -217,6 +218,7 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
 /// @example  // => (xl: 1920px, lg: 1600px, md: 1366px, sm: 1024px, mobile: 768px, xs: 640px)
 
 @function breakpoints-desc() {
+    $-breakpoints: get('breakpoints');
     @return map-reverse(map-sort-by-values($-breakpoints));
 }
 
@@ -238,7 +240,8 @@ $-mobile-breakpoint: get('mobile-breakpoint', 'mobile') !default;
     $var-breakpoint-sizes: '--breakpoint-sizes'
 ) {
     $breakpoints: breakpoints-desc();
-    $mobile: get-breakpoint($-mobile-breakpoint);
+    $mobile-breakpoint: get('mobile-breakpoint');
+    $mobile: get-breakpoint($mobile-breakpoint);
     :root {
         $breakpoint-names: ();
         $breakpoint-sizes: ();

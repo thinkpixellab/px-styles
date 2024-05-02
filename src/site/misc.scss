@@ -20,7 +20,7 @@
         $at-width: if-null($at-width, get('container.width'));
     }
 
-    @return clamp(#{$min}, #{divide($max, $at-width) * 100vw}, #{$max});
+    @return clamp(#{$min}, #{round-d(divide($max, $at-width), 5) * 100vw}, #{$max});
 }
 
 /// Creates a css clamp value that scales in vh units from $min to $max. The vh value is calculated
@@ -40,7 +40,7 @@
 // ---------------------------------------------------------------------------
 
 @function z($layerName, $offset: 0) {
-    $z: get('z.' + $layerName, 0, false);
+    $z: get('z.' + $layerName, 0);
     @return $z + $offset;
 }
 

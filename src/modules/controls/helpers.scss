@@ -21,9 +21,9 @@
         border: none,
         white-space: nowrap,
         background-color: transparent,
-        font-size: get('controls.font-size'),
-        font-family: get('controls.font-family'),
-        font-weight: get('controls.font-weight')
+        font-size: get('controls.base.font-size'),
+        font-family: get('controls.base.font-family'),
+        font-weight: get('controls.base.font-weight')
     );
 }
 
@@ -64,7 +64,7 @@
 // ----------------------------------------------------------------------------
 
 /// Extract an accent color from any of the properties in $accent-props, with a fallback value of
-/// 'controlsaccent' (note: last property in list wins)
+/// 'controls.accent' (note: last property in list wins)
 ///
 /// @param {*} $overrides
 /// @param {*} $accent-props...
@@ -73,7 +73,8 @@
 /// @example get-control-accent()
 
 @function get-control-accent($overrides, $accent-props...) {
-    $accent: get('controls.accent');
+    $accent: get('controls.base.accent', accent());
+
     @each $prop in $accent-props {
         $clr: map-get-default($overrides, $prop, $accent);
         $accent: if-color($clr, $clr, $accent);
@@ -95,16 +96,16 @@
 /// red)
 
 @function control-focus-style($style: null, $color: null) {
-    $style: if-null($style, get('focus.style'));
+    $style: if-null($style, get('controls.focus.style'));
 
     @if ($style == 'shadow') {
-        $color: if-null($color, get('focus.shadow-color'));
-        $width: get('focus.shadow-width');
+        $color: if-null($color, get('controls.focus.shadow-color'));
+        $width: get('controls.focus.shadow-width');
         @return (box-shadow: 0 0 0 $width $color);
     }
 
     @if ($style == 'outline') {
-        $color: if-null($color, get('focus.outline-color'));
+        $color: if-null($color, get('controls.focus.outline-color'));
         @return (outline-offset: 0px, outline: 1px dashed $color);
     }
 
@@ -124,7 +125,9 @@
 /// @param {map} $overrides
 
 @function control-placeholder-style($overrides) {
-    @return flat-merge(get('controls.placeholder'), $overrides);
+    // TODO v3
+    // @return flat-merge(get('controls.placeholder'), $overrides);
+    @return ();
 }
 
 @mixin control-placeholder-style($overrides) {

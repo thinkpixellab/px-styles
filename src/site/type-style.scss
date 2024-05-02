@@ -6,9 +6,9 @@
 @use 'type-size' as *;
 @use 'config' as *;
 
-$-type-styles: get('typography.type-styles') !default;
+@function type-style($name, $base-prop: '__base', $type-styles: null) {
+    $type-styles: if-null($type-styles, get('typography.type-styles'));
 
-@function type-style($name, $base-prop: '__base', $type-styles: $-type-styles) {
     $style: map-get($type-styles, $name);
 
     @if (not $style) {
@@ -34,7 +34,8 @@ $-type-styles: get('typography.type-styles') !default;
     @return null;
 }
 
-@mixin type-style($name, $base-prop: '__base', $type-styles: $-type-styles) {
+@mixin type-style($name, $base-prop: '__base', $type-styles: null) {
+    $type-styles: if-null($type-styles, get('typography.type-styles'));
     @include css-map(type-style($name, $base-prop, $type-styles), $ignore: '__');
 }
 

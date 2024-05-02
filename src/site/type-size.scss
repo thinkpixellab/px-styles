@@ -4,49 +4,8 @@
 
 @use '../utils' as *;
 @use 'config' as *;
+@use 'misc' as *;
 @use 'rems' as *;
-
-// ---------------------------------------------------------------------------
-// CONFIG
-// ---------------------------------------------------------------------------
-
-/// @type config
-
-$-defaults: (
-    /// Whether to use rems by default for type lookups
-    'typography.type-use-rems': true,
-
-    /// A map containing a set of type sizes where the key is the name and the value is the size
-    'typography.type-sizes':
-        modular-scale(
-            $bases: get('font-size-base'),
-            $ratio: $typescale-default,
-            $names: (
-                'xxs',
-                'xs',
-                'sm',
-                'base',
-                'md',
-                'lg',
-                'xl',
-                'h4',
-                'h3',
-                'h2',
-                'h1',
-                'd3',
-                'd2',
-                'd1',
-            ),
-            $round: 1,
-            $rems: false,
-        )
-);
-
-@include defaults($-defaults);
-
-// cache config lookups
-$-type-sizes: get('typography.type-sizes') !default;
-$-use-rems: get('typography.type-use-rems') !default;
 
 // ---------------------------------------------------------------------------
 // API
@@ -65,17 +24,31 @@ $-use-rems: get('typography.type-use-rems') !default;
 /// font-size: fs(-1)     // => font-size: 14px
 /// font-size: fs(2)      // => font-size: 20px
 
-@function fs($lookup: 'base', $use-rems: $-use-rems) {
+@function fs($lookup: 'base', $use-rems: null) {
+    $sizes: get('typography.type-sizes');
+    $use-rems-default: get('typography.use-rems');
+    $use-rems: if-null($use-rems, $use-rems-default);
+
     // if lookup is a string, find the size by name
 
     @if (type-of($lookup) == 'string') {
-        //$size: get('type-sizes.' + $lookup);
-        $size: map-get($-type-sizes, $lookup);
+        $size: map-get($sizes, $lookup);
 
         @if ($size) {
+            @if (is-list($size)) {
+                // if size is a map, use it with scale-vw (use-rems is ignored)
+                $from: nth($size, 1);
+
+                $to: nth($size, 2);
+                $at-width: nth-or-val($size, 3, null);
+
+                @return scale-vw($from, $to, $at-width);
+            }
+
             @if ($use-rems) {
                 @return rems($size);
             }
+
             @return $size;
         }
 
@@ -86,7 +59,9 @@ $-use-rems: get('typography.type-use-rems') !default;
     // fs(2) would return the size that is two larger than the base)
 
     @if (type-of($lookup) == 'number') {
-        $names: map-keys($-type-sizes);
+        $sizes: get('typography.type-sizes');
+
+        $names: map-keys($sizes);
         $base-index: index($names, 'base');
 
         @if ($base-index == null) {

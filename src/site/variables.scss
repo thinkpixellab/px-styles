@@ -5,9 +5,6 @@
 @use '../utils' as *;
 @use 'config' as *;
 
-$-vars-prefix: get('vars-prefix', null) !default;
-$-vars: get('vars', ()) !default;
-
 // ----------------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------------
@@ -177,7 +174,8 @@ $-vars: get('vars', ()) !default;
 /// ```
 
 @mixin site-vars($variant: null) {
-    @include css-vars($-vars, $variant);
+    $vars: get('vars');
+    @include css-vars($vars, $variant);
 }
 
 @mixin site-var-add($nameOrMap, $value) {
@@ -187,13 +185,13 @@ $-vars: get('vars', ()) !default;
         }
     } @else {
         @include config('vars.' + $nameOrMap, $value);
-        $-vars: get('vars', ()) !global;
     }
 }
 
 @function site-var-name($name, $dashes: true) {
+    $vars-prefix: get('vars-prefix', null);
     $d: if($dashes, '--', '');
-    $p: if($-vars-prefix, $-vars-prefix + '-', '');
+    $p: if($vars-prefix, $vars-prefix + '-', '');
 
     @return #{$d}#{$p}#{'' + $name};
 }
@@ -202,8 +200,10 @@ $-vars: get('vars', ()) !default;
 /// valid variable may have been defined / as a color with hsla and rgb components.
 
 @function site-var-exists($name) {
-    @return map-has-key($-vars, $name) or map-has-key($-vars, $name + '-hsla') or
-        map-has-key($-vars, $name + '-rgb');
+    $vars: get('vars');
+
+    @return map-has-key($vars, $name) or map-has-key($vars, $name + '-hsla') or
+        map-has-key($vars, $name + '-rgb');
 }
 
 /// Produces css variable syntax for a site variable. Verifies that the variable exists and produces
@@ -222,7 +222,7 @@ $-vars: get('vars', ()) !default;
     }
 
     @if ($has-alpha or $has-adjustments) {
-        @warn #{'The site variable "#{$name}" does not support alpha or color adjustments. Just add "-rgb" or "-hsla" to the end of the variable name to support this.'};
+        @warn #{'The site variable "#{$name}" has not been defined or does not support alpha or color adjustments. Just add "-rgb" or "-hsla" to the end of the variable name to support this.'};
     }
 
     @if (site-var-exists($name)) {

@@ -28,11 +28,11 @@ $-defaults: ();
         justify-content: center,
         text-overflow: ellipsis,
         user-select: none,
-        padding: get('button.padding' 'controls.padding'),
-        border-radius: get('button.border-radius' 'controls.border-radius'),
-        min-width: get('button.min-width' 'controls.min-width'),
-        min-height: get('button.min-height' 'controls.min-height'),
-        cursor: get('button.cursor'),
+        padding: get('controls.button.padding' 'controls.base.padding'),
+        border-radius: get('controls.button.border-radius' 'controls.base.border-radius'),
+        min-width: get('controls.button.min-width' 'controls.base.min-width'),
+        min-height: get('controls.button.min-height' 'controls.base.min-height'),
+        cursor: get('controls.button.cursor'),
         disabled: (
             cursor: not-allowed,
         ),
@@ -77,7 +77,7 @@ $-defaults: ();
     $accent-active: if-color($accent, shade($accent, -2), null);
 
     // get button defaults from global config
-    $config: get('button', null);
+    $config: get('controls.button', null);
 
     // standard button styling
     $button: (
@@ -135,7 +135,7 @@ $-defaults: ();
     $accent: get-control-accent($overrides, background, background-color);
 
     // get button / button-outline defaults from global config
-    $config: flat-merge(get('button', ()), get('button-outline', ()));
+    $config: flat-merge(get('controls.button', ()), get('controls.button-outline', ()));
 
     // standard button styleing
     $button: (
@@ -159,8 +159,7 @@ $-defaults: ();
             color: gray(-2),
             box-shadow: none,
         ),
-        transition:
-            transition(background color border box-shadow, get('controls.transition', 'fast')),
+        transition: transition(background color border box-shadow, get('controls.base.transition')),
         focus: control-focus-style(),
     );
 

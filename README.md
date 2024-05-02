@@ -1,5 +1,21 @@
 # px-styles
 
+## V4
+
+### Breaking Changes
+
+-   use dots instead of colons with get / config
+-   clr prefers percentage instead of level
+-   config items that have been removed
+    -   shade levels
+    -
+
+### Todo
+
+-   rename 'config' as 'set'
+-   refine the tag stuff
+-   would it be faster to store config with the dots in place instead of
+
 ## Install the Package
 
 Just dd the package to your project using npm.
