@@ -51,7 +51,11 @@
     @if (not $list-or-value) {
         @return $default;
     }
+
     @if (type-of($list-or-value) == 'list') {
+        @if (length($list-or-value) < $n) {
+            @return $default;
+        }
         @return nth($list-or-value, $n);
     }
     @return $list-or-value;
@@ -249,4 +253,22 @@
         $collection: map-merge($collection, $map);
     }
     @return $collection;
+}
+
+/// Ensure that all keys in a map are strings. This is useful because certain keys that look like
+/// strings might actually be numbers or (more commonly) colors.
+/// @param {*} $map
+
+@function map-keys-ensure-str($map) {
+    $new-map: ();
+    @each $key, $val in $map {
+        $new-key: if(type-of($key) == 'string', $key, to-str($key));
+        $new-map: map-merge(
+            $new-map,
+            (
+                $new-key: $val,
+            )
+        );
+    }
+    @return $new-map;
 }

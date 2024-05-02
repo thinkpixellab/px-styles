@@ -27,10 +27,18 @@ $-config: () !default;
     @return $-config;
 }
 
+/// Check if a configuration setting exists.
+///
+/// @param {string} $path The path of the setting with keys separated by a period.
+
+@function config-exists($path) {
+    @return flat-has-key($-config, $path);
+}
+
 /// Retrieve a configuration setting.
 ///
 /// @param {string or list} $paths The path (string) or list of paths (list) where the setting should
-/// be found. Each path is one or more keys separated by colons (e.g. 'colors:accent' would find the
+/// be found. Each path is one or more keys separated by a period (e.g. 'colors.accent' would find the
 /// value accent in the colors map). If a list of strings is provided, they will searched in order
 /// and the first non-null value will be returned.
 ///
@@ -42,27 +50,28 @@ $-config: () !default;
 /// $value: get('colors.mycolor', red);
 
 @function get($paths, $fallback: 'INVALID_FALLBACK') {
-    // $paths is a list
+    // $paths is a list so we get the first non-null value
     @if (type-of($paths) == 'list') {
         @each $path in $paths {
-            $result: get($path, null);
-            @if ($result != null) {
-                @return $result;
+            @if (flat-has-key($-config, $path)) {
+                @return flat-get($-config, $path);
             }
         }
-    } @else {
-        $result: flat-get($-config, $paths, $fallback);
-        @if ($result != null) {
-            @return $result;
+    }
+
+    // $paths is a string
+    @else {
+        @if (flat-has-key($-config, $paths)) {
+            @return flat-get($-config, $paths);
         }
     }
 
-    @if ($fallback != 'INVALID_FALLBACK') {
-        @return $fallback;
+    @if ($fallback == 'INVALID_FALLBACK') {
+        $path-str: if(type-of($paths) == 'list', list-join($paths, ', '), $paths);
+        @warn '[CONFIG] Could not find required config value for path "#{$path-str}".';
     }
 
-    $path-str: if(type-of($paths) == 'list', list-join($paths, '.'), $paths);
-    @error 'Could not find required config value for path "#{$path-str}". This could mean that px-styles wasn\'t properly configured using the init() mixin. If you are seeing this error during a call to config, then you are likely using a function that requires configuration. You can fix this by also configuring the missing value.';
+    @return $fallback;
 }
 
 /// Retrieve a configuration setting if and only if the provided $value is null.
@@ -84,8 +93,8 @@ $-config: () !default;
 /// ---------------------------------------------------------------------------
 /// Add a configuration setting.
 ///
-/// @param {*} $path The path of the setting with keys separated by colons (e.g.
-/// 'colors:accent' would set the value accent in the colors map).
+/// @param {*} $path The path of the setting with keys separated by periods (e.g.
+/// 'colors.accent' would set the value accent in the colors map).
 ///
 /// @param {*} $val [null] The value to be added.
 /// ---------------------------------------------------------------------------
@@ -98,7 +107,7 @@ $-config: () !default;
 /// Add a default configuration setting (provides the same functionality as config, but will not
 /// overwrite an existing setting).
 ///
-/// @param {*} $path The path of the setting with keys separated by colons (e.g. 'colors.accent'
+/// @param {*} $path The path of the setting with keys separated by periods (e.g. 'colors.accent'
 /// would set the value accent in the colors map).
 ///
 /// @param {*} $val [null] The value to be added.

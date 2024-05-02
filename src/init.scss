@@ -1,0 +1,429 @@
+////
+/// @group site.init
+////
+
+@use 'utils' as *;
+@use 'site' as *;
+
+@mixin init() {
+    @include default('color-tags', base dark light);
+
+    /// Default dark color for calculating shades
+    @include default('colors.shade-dark', #303030);
+
+    /// Default light color for calculating shades
+    @include default('colors.shade-light', white);
+
+    /// Global default primary color
+    @include default('colors.accent', #5d5897);
+
+    /// Default base gray color
+    @include default('colors.gray', #a0a0a0);
+
+    /// Default page background color
+    @include default('colors.page-bg', white);
+
+    /// Default page foreground
+    @include default('colors.page-fg', #303030);
+
+    /// Default light color used when computing contrast colors
+    @include default('colors.contrast-light', white);
+
+    /// Default light color used when computing contrast colors
+    @include default('colors.contrast-dark', #303030);
+
+    /// Default text selection color
+    @include default('colors.select', #2f2c4c);
+
+    /// Default text selection color
+    @include default('colors.disabled', #c0c0c0);
+
+    /// Default background color for selected text
+    @include default('colors.selection-bg', #2f2c4c);
+
+    /// Default foreground color for selected text
+    @include default('colors.selection-fg', white);
+
+    // FONT METRICS
+
+    /// Base font size (set on the body, used for rems calculations)
+    @include default('font-size-base', 15px);
+
+    /// If provided, we'll assume scalable font-size at the root that gets adjusted based on the
+    /// screen width. This will also result in a scalable value for the mean of 1rem. Rems will
+    /// still be calculated internally based on the value of font-size-base, but the actual size of
+    /// 1rem will vary with the screen width. Leave the max-at parameter as null to use
+    /// container.width (the same behavior as the scale-vw function).
+    @include default(
+        'font-size-scale',
+        (
+            min: 13px,
+            max: 16px,
+            max-at: null,
+        )
+    );
+
+    /// Default / fallback font family for the site
+    @include default('font-family', sans-serif);
+
+    /// Default / fallback font-weight for the site
+    @include default('font-weight', 400);
+
+    /// Whether to enable font-smoothing (makes letterforms lighter)
+    @include default('font-smoothing', false);
+
+    /// Default / fallback line-height for standard text
+    @include default('line-height', normal);
+
+    /// _boilerplate_ Default / fallback letter spacing for the site
+    @include default('letter-spacing', normal);
+
+    /// Default settings for links
+    @include default(
+        'links',
+        (
+            color: adjust-color(accent(), $saturation: 40%),
+            text-decoration: none,
+            text-decoration-color: null,
+            hover: (
+                color: null,
+                text-decoration: underline,
+                text-decoration-color: null,
+            ),
+        )
+    );
+
+    // CONTAINER
+
+    /// Default container settings
+    @include default(
+        'container',
+        (
+            width: 1200px,
+            padding: 2rem,
+            padding-mobile: 1rem,
+        )
+    );
+
+    // MEDIA QUERY
+
+    /// Named breakpoints that can be used by the standard mediaquery mixins
+    /// (e.g. `media-until(md) {...}`).
+    @include default(
+        'breakpoints',
+        (
+            xs: 640px,
+            mobile: 768px,
+            sm: 1024px,
+            md: 1366px,
+            lg: 1600px,
+            xl: 1920px,
+        )
+    );
+    /// The standardized breakpoint where a mobile version of the design begins. Used by the mixin
+    /// `@media-until-mobile() {...}`.
+    @include default('mobile-breakpoint', 'mobile');
+
+    // TYPOGRAPHY
+
+    /// Whether to use rems by default for type lookups
+    @include default('typography.use-rems', true);
+
+    /// A map containing a set of type sizes where the key is the name and the value is the size
+
+    @include default(
+        'typography.type-sizes',
+        (
+            xxs: 9px,
+            xs: 11px,
+            sm: 13px,
+            base: 15px,
+            md: 18px,
+            lg: 21px,
+            xl: 24px,
+            h4: 29px,
+            h3: 34px,
+            h2: 39px,
+            h1: 46px,
+            d3: 54px,
+            d2: 64px,
+            d1: 75px,
+        )
+    );
+
+    /// Full set of type styles. Each style consists of an optional base (which references a
+    /// different style in the list) and a set of css properties (using css-map syntax for states if
+    /// required). If the __selector property is defined, a corresponding style will be created in
+    /// the boilerplate mixin.
+    @include default(
+        'typography.type-styles',
+        (
+            heading: (
+                font-family: null,
+                font-weight: 700,
+                line-height: 1,
+                letter-spacing: null,
+                color: null,
+                margin-top: 0.75em,
+                margin-bottom: 0.75em,
+            ),
+            subheading: (
+                font-family: null,
+                font-weight: null,
+                line-height: 1.15,
+                letter-spacing: null,
+                color: null,
+                margin-bottom: 0.5em,
+            ),
+            code: (
+                // prettier-ignore
+                font-family: (menlo, monaco, consolas, monospace),
+                font-size: 13px,
+                font-weight: 400,
+                line-height: 1.4,
+            ),
+            d1: (
+                __base: heading,
+                __selector: '.d1',
+                font-size: fs(8),
+            ),
+            d2: (
+                __base: heading,
+                __selector: '.d2',
+                font-size: fs(7),
+            ),
+            d3: (
+                __base: heading,
+                __selector: '.d3',
+                font-size: fs(6),
+            ),
+            h1: (
+                __base: heading,
+                __selector: '.h1',
+                font-size: fs(5),
+            ),
+            h2: (
+                __base: heading,
+                __selector: '.h2',
+                font-size: fs(4),
+            ),
+            h3: (
+                __base: heading,
+                __selector: '.h3',
+                font-size: fs(3),
+            ),
+            h4: (
+                __base: heading,
+                __selector: '.h4',
+                font-size: fs(2),
+            ),
+            h5: (
+                __base: heading,
+                __selector: '.h5',
+                font-size: fs(1),
+            ),
+            sh1: (
+                __base: subheading,
+                __selector: '.sh1',
+                font-size: fs(2),
+            ),
+            sh2: (
+                __base: subheading,
+                __selector: '.sh2',
+                font-size: fs(1),
+            ),
+            sh3: (
+                __base: subheading,
+                __selector: '.sh3',
+                font-size: fs(0),
+            ),
+        )
+    );
+
+    // VARS
+
+    /// A prefix to use with site variables to avoid conflicts with other css variables
+    @include default('vars-prefix', null);
+
+    /// Predefined site variables
+    @include default('vars', null);
+
+    // Z-INDEX
+
+    /// Z-index layers
+    @include default(
+        'z',
+        (
+            // ui that floats above other screen elements on the main layer (like a sticky nav)
+            float: 999,
+
+            // dialogs boxes, message boxes, etc.
+            dialog: 9999,
+
+            // popups and dropdowns
+            popups: 99999
+        )
+    );
+
+    // ----------------------------------------------------------------------------
+    // MODULE: CONTROLS
+    // ----------------------------------------------------------------------------
+
+    @include default(
+        'controls.base',
+        (
+            accent: accent(),
+            border-radius: 3px,
+            padding: 0 1em,
+            font-family: get(font-family),
+            font-size: inherit,
+            font-weight: 400,
+            min-height: 2.25em,
+            min-width: 6em,
+            transition: 0.3s,
+        )
+    );
+
+    @include default(
+        'controls.focus',
+        (
+            selector: ':focus-visible',
+            style: 'shadow',
+            shadow-color: accent($alpha: 0.33),
+            shadow-width: 3px,
+            outline-color: accent(),
+        )
+    );
+
+    // placeholder defaults
+    @include default(
+        'controls.placeholder',
+        (
+            color: currentColor,
+            opacity: 0.5,
+        )
+    );
+
+    // button defaults
+    @include default(
+        'controls.button',
+        (
+            cursor: pointer,
+        )
+    );
+
+    @include default(
+        'controls.slider',
+        (
+            track-height: 4px,
+            track-max-width: 200px,
+            track-radius: 2px,
+            track-bg: gray(5),
+            track-border: none,
+            track-shadow: null,
+            thumb-bg: accent(),
+            thumb-border: none,
+            thumb-width: 12px,
+            thumb-height: 12px,
+            thumb-radius: 50%,
+            thumb-px-shadow: shadow(2),
+        )
+    );
+
+    // checkbox
+    @include default('controls.checkbox', ());
+
+    // radio
+    @include default('controls.radio', ());
+
+    // toggle
+    @include default('controls.toggle', ());
+
+    // toggle-button
+    @include default('controls.toggle-button', ());
+
+    // TOOLTIP
+
+    @include default(
+        'controls.tooltip',
+        (
+            // background-color: #fae9c8,
+            // border: 1px solid #e3ba71,
+            // font-size: rems(13px),
+            // max-width: 40em,
+            // min-height: 1.75em,
+            // display: flex,
+            // align-items: center,
+            // padding: 0 0.75em,
+            // border-radius: get('controls:base:-px-radius'),
+        )
+    );
+
+    // POPUP
+
+    @include default(
+        'controls.popup',
+        (
+            background-color: clr(page-bg),
+            border-radius: get('controls.base.border-radius'),
+            box-shadow: depth-shadow(20, 0.1),
+        )
+    );
+
+    // ----------------------------------------------------------------------------
+    // MODULE: READING
+    // ----------------------------------------------------------------------------
+
+    /// Font weight for <strong> text
+    @include default('reading.font-weight-strong', 600);
+
+    // Default vertical spacing between block elements (set as a margin-bottom)
+    @include default('reading.blocks', (p, iframe, ul, ol, form, section, table, pre));
+    @include default('reading.block-spacing', 1em);
+
+    /// Indent padding for lists
+    @include default('reading.list-padding', 1.25em);
+
+    /// Indent padding for individual items
+    @include default('reading.list-item-padding', 0.25em);
+
+    /// Spacing between individual list items
+    @include default('reading.list-item-spacing', 0.25em);
+
+    /// Links (by default inherits from default links but adds underline)
+    @include default(
+        'reading.links',
+        flat-merge(
+            get('links'),
+            (
+                text-decoration: underline,
+            )
+        )
+    );
+
+    // reading. type styles
+    @include default('reading.styles-base', 'headings');
+    @include default(
+        'reading.styles',
+        (
+            'h1, .h1': (
+                'font-size': fs(5),
+            ),
+            'h2, .h2': (
+                'font-size': fs(4),
+            ),
+            'h3, .h3': (
+                'font-size': fs(3),
+            ),
+            'h4, .h4': (
+                'font-size': fs(2),
+            ),
+            'h5, .h5': (
+                'font-size': fs(1),
+            ),
+        )
+    );
+
+    // flag as initialized
+    @include config('px.init', true);
+}
