@@ -2,8 +2,6 @@
 /// @group modules.boilerplate
 ////
 
-$-config: false !default;
-
 @use '../utils' as *;
 @use '../site' as *;
 @use 'sanitize' as *;
@@ -323,7 +321,8 @@ $-config: false !default;
     // ---------------------------------------------------------------------------
     @if ($button-selector) {
         #{$button-selector} {
-            @warn 'TODO: need to reenable button in boilerplate.scss';
+            // @warn 'TODO: need to reenable button in boilerplate.scss';
+            // TODO v3
             //@include button();
         }
     }
