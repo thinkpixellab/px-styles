@@ -3,16 +3,9 @@
 // ----------------------------------------------------------------------------
 //
 // Load this file in your main Sass file to include utils and basic site utils. There is essentially
-// no tree-shaking in Sass, so you will get everything in this package. In complex sites it probably
-// makes sense to be more strategic about loading.
+// no tree-shaking in Sass, so you will get everything in this package.
 //
 // USAGE: @use '@thinkpixellab-public/px-styles' as *;
-
-// ----------------------------------------------------------------------------
-// DEFAULTS / CONFIG
-// ----------------------------------------------------------------------------
-
-$-config: () !default;
 
 // ----------------------------------------------------------------------------
 // FORWARDS
@@ -22,6 +15,7 @@ $-config: () !default;
 @forward 'src/utils';
 
 // Mixins / functions that have configuration settings / site awareness
-@forward 'src/site' with (
-    $-config: $-config
-);
+@forward 'src/site';
+
+// Initializer (must run init() to set up site)
+@forward 'src/init';
