@@ -41,7 +41,7 @@
     @if ($style == 'shadow') {
         $color: if-null($color, get('focus:shadow-color'));
         $width: get('focus:shadow-width');
-        @return (box-shadow: 0 0 0 $width $color);
+        @return (box-shadow: 0 0 0 $width $color !important);
     }
     @if ($style == 'outline') {
         $color: if-null($color, get('focus:outline-color'));
