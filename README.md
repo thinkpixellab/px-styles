@@ -4,21 +4,22 @@
 
 ### Breaking Changes
 
--   use dots instead of colons with get / config
--   clr prefers percentage instead of level
--   config items that have been removed
-    -   shade levels
-    -
+This isn't a complete list, but here are some notable changes when upgrading to V4.
 
-### Todo
+-   The config syntax now uses use dots instead of colons with get / config so `get('colors:accent')` is now `get('colors.accent')`.
+-   The clr function now prefers percentages instead of a level so `clr(accent, -5)` is now `clr(accent, -50%)`.
 
--   rename 'config' as 'set'
--   refine the tag stuff
--   would it be faster to store config with the dots in place instead of
+### Todo / Considerations
 
-## Install the Package
+-   Would it make sense to rename `config` as `set` so that it matches the `get` function naming?
+-   Need to refine the color / theme tagging system. The syntax is different for colors vs. site variables.
+-   Controls mixins still need some cleanup and need to figure out how to handle site-vars.
+-   Need to make a decision on whether to use color-mix with site-vars (or make it an option?).
+-   Add the ability to load px-styles with a complete config object and a way to export a configuration object (this is all on the assumption that loading this way would be faster...not sure if that's actually true so probably good to investigate first).
 
-Just dd the package to your project using npm.
+## Installation / Usage
+
+Add the package to your project using npm.
 
 ```
 npm install @thinkpixellab-public/px-styles --save
@@ -26,81 +27,92 @@ npm install @thinkpixellab-public/px-styles --save
 
 ## Load the Module
 
-### General loading
+#### Basic utils (no configuration)
 
-There are different ways that px-styles can be loaded depending on which functionality you need.
-
-#### utils (no configuration)
-
-If you just want utilities and don't want to use site-level configuration, you can load the basic utils functionality direction.
+Each of these basic utility mixins or functions is completely standalone and requires no shared configuration. This is the most lightweight version of px-styles and is adequate for many scenarios.
 
 ```
 @use '@thinkpixellab-public/px-styles/utils' as *
 ```
 
-#### site (default)
+#### Site configuration
 
-If you want to access the site-configured utilities you can load the default library with a $-config object. (See configuration notes below).
+If you want to access the site-configured utilities y9ou can load the default package which includes the basic utility functions and the site-configured utilitis. It does not include a handful of less commonly used modules (e.g. controls, boilerplate, etc.) on the assumption that those can be loaded as needed (to reduce overall loading times).
 
+Here's a basic loader:
+
+```scss
+// forwards come first
+@forward '@thinkpixellab-public/px-styles';
+
+// now import it (so we can configure it)
+@use '@thinkpixellab-public/px-styles' as *;
+
+// add configuration as needed (this is optional)
+@include config('colors.accent', #5157bd);
+@include config('colors.selection', clr('accent', -10%));
+@include config('controls.border-radius', 0.5em);
+
+// call init() to set missing defaults, etc.
+@include init();
 ```
-@use '@thinkpixellab-public/px-styles' as * with (
-    $-config: ( ... )
-)
-```
 
-#### modules
+Note: it might seem a little out of order to call init() (and loading defaults) after configuration, but we do this to avoid situations where local configuration accidentally relies on unintended usage of px-styles defaults. A good example of this would be the lines that configure `colors.accent` followed by `colors.selection` (which relies on colors.accent). If these were done in the opposite order they would fail (and rightly so since `colors.selection` is based on `colors.accent`). But if the library had been initialized with defaults, then the calls wouldn't fail but the selection color would be based on the wrong color (the px-styles default instead of the custom version).
+
+#### Modules
 
 You can Load individual modules after loading the configured library.
 
 ```
-// load px-styles
-@use '@thinkpixellab-public/px-styles' as * with (
-    $-config: ( ... )
-)
-
 // load the module
 @use '@thinkpixellab-public/px-styles/src/modules/boilerplate' as *;
 ```
 
-Or, you can load the module directly (this accomplishes the same thing as above but the syntax is a little confusing).
-
-```
-// load the boilerplate module
-@use '@thinkpixellab-public/px-styles/src/modules/boilerplate' as * with (
-    $-config: ( ... )
-)
-```
-
 ### Create a Shared Loader / Configuration File
 
-If you have multiple components or files that need to access a shared configuration, it might make sense to create a shared loader / configuration file. A typical setup might consist of the following:
+If you have multiple components or files that need to access a shared configuration, it often makes sense to create a shared loader / configuration file.
 
+#### px.scss
+
+```scss
+@forward '@thinkpixellab-public/px-styles';
+@use '@thinkpixellab-public/px-styles' as *;
+
+@include config('colors.accent', #5157bd);
+@include config('colors.selection', clr('accent', -10%));
+@include config('controls.border-radius', 0.5em);
+
+@include init();
 ```
-// px.scss
 
-@forward '@thinkpixellab-public/px-styles' with (
-    $-config: (...)
-)
+#### my-component.scss
 
-// my-file.scss
+```scss
 
+// load configured-styles
 @use 'px' as *;
 
+// load other custom modules if needed
+@use '@thinkpixellab-public/px-styles/src/modules/controls' as *;
+
+.my-class { ... }
 ```
 
 Optionally, you could also create a utils only loader to make loading utils seem a bit cleaner (so you don't have to include the long package name every time). This might also encourage loading the simpler utils which require no configuration or config parsing.
 
-```
-// px-utils.scss
+#### px-utils.scss
 
+```scss
 @forward '@thinkpixellab-public/px-styles/utils';
-
-
-// my-simple-file.scss
-
-@use 'px-utils' as *;
-
 ```
+
+#### my-simple-component.scss
+
+```scss
+@use 'px-utils' as *;
+```
+
+### Providing Configuration for px-vue
 
 ## Defauls, Config, Variables, etc.
 

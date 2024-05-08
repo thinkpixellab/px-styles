@@ -8,11 +8,6 @@
         "doc": "docs",
         "lib": "src"
     },
-    "style": {
-        "all": "all.scss",
-        "utils": "utils.scss",
-        "controls": "src/modules/controls/controls.scss"
-    },
     "scripts": {
         "test": "jest",
         "scratch:build": "node scratch/build.js",
