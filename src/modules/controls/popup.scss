@@ -12,7 +12,7 @@
 
 @function popup($overrides: ()) {
     // global config
-    $config: get('popup', null);
+    $config: get('controls.popup', null);
 
     // merge and return all the css
     @return flat-merge($config, $overrides);
