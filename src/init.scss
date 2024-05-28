@@ -367,6 +367,7 @@
             background-color: clr(page-bg),
             border-radius: get('controls.base.border-radius'),
             box-shadow: depth-shadow(20, 0.1),
+            font-family: get('controls.base.font-family'),
         )
     );
 
