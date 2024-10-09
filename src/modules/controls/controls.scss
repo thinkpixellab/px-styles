@@ -1,0 +1,68 @@
+////
+/// @group modules.controls
+////
+
+@use '../../utils' as *;
+@use '../../site' as *;
+@use 'helpers.scss' as *;
+
+// Implementation notes:
+//
+// Some general control style implementation notes:
+//
+// - For most controls, we use css-map to generate the style. This means that we are, for the most
+//   part, keeping the css in a map until we finalize it and then we use css-map($css) to actually
+//   generate the style. This prevents duplicate properties and lets us keep the css fluid as we
+//   merge in defaults and overrides, etc.
+//
+// - We're not using @extend much, primarily because the expectation is that in many cases these
+//   control styles are generated from within component files with relatively narrow scope, where
+//   @extend won't provide much advantage.
+//
+// - Generally moving away from css only themed controls and relying on components that allow us to
+//   also inlcude specific markup and code. Because of that, I'm not include styles for things like
+//   checkbox, radio, etc. since those all relied on specific markup and very opinionated css.
+
+// ----------------------------------------------------------------------------
+// tooltip
+// ----------------------------------------------------------------------------
+
+@mixin tooltip(
+    $content-attr,
+    $overrides: (),
+    $show-delay: 1000ms,
+    $hide-delay: 100ms,
+    $pseudo: after
+) {
+    &:#{$pseudo} {
+        $tooltip: (
+            background: accent(-7),
+            color: contrast-color(accent(-7)),
+            font-size: 11px,
+            padding: 0.33em 0.66em,
+            border-radius: 3px,
+            line-height: 1.1,
+            box-shadow: 0 1px 4px rgba(black, 0.1),
+        );
+
+        content: attr($content-attr);
+        display: block;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, 4px);
+        visibility: hidden;
+        opacity: 0;
+
+        @include css-map($tooltip);
+
+        @include transition(visibility opacity transform, $dur: 200ms, $delay: $hide-delay);
+    }
+
+    &:hover:#{$pseudo} {
+        visibility: visible;
+        opacity: 1;
+        transform: translate(-50%, -4px);
+        transition-delay: $show-delay;
+    }
+}

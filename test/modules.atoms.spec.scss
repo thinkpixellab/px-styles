@@ -1,4 +1,4 @@
-@use 'px' as *;
+@use '../src/modules/atoms.scss' as *;
 @use 'true' as *;
 
 @include test-module('modules.atoms') {

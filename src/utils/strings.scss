@@ -2,6 +2,15 @@
 /// @group utils.strings
 ////
 
+/// Ensures that that provided value is a string.
+
+@function to-str($str) {
+    @if (type-of($str) == 'string') {
+        @return $str;
+    }
+    @return '' + $str;
+}
+
 /// Replace all instances of a string within another string
 ///
 /// @example str-replace('test test test', 'test', 'pass') // => 'pass pass pass'
@@ -68,7 +77,11 @@
     @return url('data:image/svg+xml,#{url-encode($string)}');
 }
 
+/// Split a string into an array of strings based on a separator.
+/// @param {String} $string - the string to split
+/// @param {String} $separator - the character to split the string on
 /// @example str-split('you are here', 'a') // => "you " "re here"
+
 @function str-split($string, $separator) {
     // empty array/list
     $split-arr: ();
@@ -105,6 +118,7 @@
     }
 
     $str: '';
+
     @for $i from 1 through length($list) {
         $s: nth($list, $i);
         $str: $str + $s + if($i != length($list), $separator, '');
@@ -140,7 +154,7 @@
     @return false;
 }
 
-// Trims the start/left of the string:
+// private function that trims the start/left of the string:
 @function -trimStart($str) {
     @if (str-slice($str, 1, 1) == ' ') {
         @return -trimStart(str-slice($str, 2));
@@ -149,7 +163,7 @@
     }
 }
 
-// Trims the end/right of the string:
+// private function that trims the end/right of the string:
 @function -trimEnd($str) {
     @if (str-slice($str, str-length($str), -1) == ' ') {
         @return -trimEnd(str-slice($str, 1, -2));
@@ -161,6 +175,7 @@
 /// Trims whitespace from the beinning and end of a string
 /// @param {String} $string - the string to trim
 /// @example trim('  abc ') => 'abc'
+
 @function trim($str) {
     @return -trimStart(-trimEnd($str));
 }

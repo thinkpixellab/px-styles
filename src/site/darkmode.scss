@@ -1,0 +1,100 @@
+////
+/// @group site.darkmode
+////
+
+@use '../utils' as *;
+@use 'color.scss' as *;
+@use 'config' as *;
+
+@function clr-has-dark($name, $tag: dark) {
+    $color: get('colors.' + $name);
+
+    @if (is-list($color)) {
+        $tag-index: index(get('color-tags'), $tag);
+        @return length($color) >= $tag-index;
+    }
+
+    @return false;
+}
+
+/// Wrapper for clr with the defalt tag set to dark.
+///
+/// @param {*} $name The name of the color to be retrieved
+/// @param {*} $shade [0] The shade to be applied to the color
+/// @param {*} $alpha [1] The alpha value of the color
+/// @param {*} $tag [dark] The tag of the color (this is used to select the correct color from a list)
+/// @param {*} $darkify [true] If the color should be darkified when a dark version hasn't been defined
+
+@function clr-dark($name, $shade: 0, $alpha: 1, $tag: dark, $darkify: true) {
+    @if (clr-has-dark($name, $tag)) {
+        @return clr($name, $shade, $alpha, $tag: $tag);
+    }
+
+    $clr: clr($name, $shade, $alpha);
+    $bg: clr(page-bg, $tag: $tag);
+
+    @if ($darkify) {
+        $clr: darkify($clr);
+    }
+
+    @return $clr;
+}
+
+/// Create a darkmode version of the color based on the background color and saturation. NOTE: this needs to be refined.
+///
+/// @param {*} $color The color to be darkified
+/// @param {*} $bg [#222] The dark background color that color will be placed on
+
+@function darkify($color, $bg: null) {
+    @if ($bg == null) {
+        @if (clr-has-dark('page-bg')) {
+            $bg: clr(page-bg, $tag: dark);
+        } @else {
+            $bg: #222;
+        }
+    }
+
+    $l: 100% - lightness($color) + lightness($bg);
+    $l: clamp-number($l, 0%, max(90%, lightness($bg)));
+
+    @if ($l < 60% and $l > 45%) {
+        @return $color;
+    }
+
+    //$d: (100% + $l) / 100%;
+    $clr: change-color($color, $lightness: $l);
+
+    @return $clr;
+}
+
+$is-dark-mode: false;
+
+/// Creates a media query (or custom selector) that targets dark mode. Custom selector can be
+/// configured using the setting darkmode.selector.
+
+@mixin media-dark() {
+    $dark-mode-prev: $is-dark-mode;
+    $is-dark-mode: true !global;
+
+    $selector: get('darkmode.selector', null);
+
+    @if ($selector) {
+        $parent: &;
+
+        @if ($parent) {
+            #{$selector} & {
+                @content;
+            }
+        } @else {
+            #{$selector} {
+                @content;
+            }
+        }
+    } @else {
+        @media (prefers-color-scheme: dark) {
+            @content;
+        }
+    }
+
+    $is-dark-mode: $dark-mode-prev !global;
+}

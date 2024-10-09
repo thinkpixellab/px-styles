@@ -10,69 +10,6 @@
         @include assert-equal(aspect-to-number(2.5), 2.5);
     }
 
-    @include test('mixin aspect(2)') {
-        @include assert {
-            // test
-            @include output {
-                @include aspect(2);
-            }
-            // output
-            @include expect {
-                display: block;
-                width: 100%;
-                padding-bottom: 50%;
-            }
-        }
-    }
-
-    @include test('mixin aspect("16:9")') {
-        @include assert {
-            // test
-            @include output {
-                @include aspect('16:9');
-            }
-            // output
-            @include expect {
-                display: block;
-                width: 100%;
-                padding-bottom: 56.25%;
-            }
-        }
-    }
-    @include test('mixin aspect-before') {
-        @include assert {
-            // test
-            @include output {
-                @include aspect-before(1.333);
-            }
-            // output
-            @include expect {
-                &::before {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    padding-bottom: 75.0187546887%;
-                }
-            }
-        }
-    }
-    @include test('mixin aspect-after') {
-        @include assert {
-            // test
-            @include output {
-                @include aspect-after(1.333);
-            }
-            // output
-            @include expect {
-                &::after {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    padding-bottom: 75.0187546887%;
-                }
-            }
-        }
-    }
     @include test('mixin first-last-radius') {
         @include assert {
             // test

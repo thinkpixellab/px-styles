@@ -2,7 +2,6 @@
 /// @group utils.collections
 ////
 
-@use 'json.scss' as *;
 @use 'strings.scss' as *;
 @use 'units.scss' as *;
 
@@ -31,30 +30,9 @@
     @return $map;
 }
 
-// /// Get just the keys from a map (similar to JavaScript's Object.keys)
-// /// @param {*} $map
-
-// @function map-keys($map) {
-//     $keys: ();
-//     @each $key, $val in $map {
-//         $keys: append($keys, $key);
-//     }
-//     @return $keys;
-// }
-
-// /// Get just the keys from a map (similar to JavaScript's Object.values)
-// /// @param {*} $map
-
-// @function map-values($map) {
-//     $vals: ();
-//     @each $key, $val in $map {
-//         $vals: append($vals, $val);
-//     }
-//     @return $vals;
-// }
-
 /// If $list has an $nth element, return that element. Otherwise return $fallback.
-///@example nth-if-length((a, b, c), 1) // => a
+/// @example  nth-if-length((a, b, c), 1) // => a
+
 @function nth-if-length($list, $n, $fallback: null) {
     @if ($n <= length($list)) {
         @return nth($list, $n);
@@ -73,7 +51,11 @@
     @if (not $list-or-value) {
         @return $default;
     }
+
     @if (type-of($list-or-value) == 'list') {
+        @if (length($list-or-value) < $n) {
+            @return $default;
+        }
         @return nth($list-or-value, $n);
     }
     @return $list-or-value;
@@ -187,7 +169,8 @@
     @return $sortedMap;
 }
 
-/// returns a copy of a map with the items in the reverse order of the original
+/// Returns a copy of a map with the items in the reverse order of the original
+
 @function map-reverse($map) {
     $keys: ();
     $values: ();
@@ -224,6 +207,7 @@
 ///     @function square($x) { @return $x * $x }
 ///     list-map(1 2 3 4, get-function(square)); // => 1 4 9 16
 ///
+
 @function list-map($list, $fn) {
     @if length($list) == 0 {
         @return ();
@@ -256,6 +240,7 @@
 }
 
 /// Merge multiple maps into a single map
+///
 /// @param {*} $maps... One or more maps that should be merged into a single map.
 ///
 /// @example
@@ -268,4 +253,22 @@
         $collection: map-merge($collection, $map);
     }
     @return $collection;
+}
+
+/// Ensure that all keys in a map are strings. This is useful because certain keys that look like
+/// strings might actually be numbers or (more commonly) colors.
+/// @param {*} $map
+
+@function map-keys-ensure-str($map) {
+    $new-map: ();
+    @each $key, $val in $map {
+        $new-key: if(type-of($key) == 'string', $key, to-str($key));
+        $new-map: map-merge(
+            $new-map,
+            (
+                $new-key: $val,
+            )
+        );
+    }
+    @return $new-map;
 }

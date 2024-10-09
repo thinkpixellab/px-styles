@@ -1,15 +1,155 @@
 ////
 /// @group modules.boilerplate
-/// Generated boilerplate classes for a site based on global configuration settings.
-//// @example @include boilerplate()
+////
 
 @use '../utils' as *;
 @use '../site' as *;
 @use 'sanitize' as *;
 
-@mixin resets($force-reset-all: false) {
+// ---------------------------------------------------------------------------
+// HELPERS
+// ---------------------------------------------------------------------------
+
+// body and root styles setup fonts, page background, etc.
+
+@mixin -root-styles() {
+    // set the root font size (will become the basis for rem units)
+
+    // if a font-size-scale has been defined then we create a scalable font-size
+    @if (get(font-size-scale)) {
+        $min: get('font-size-scale.min');
+        $max: get('font-size-scale.max');
+        $max-at: get('font-size-scale.max-at', null);
+        font-size: scale-vw($min, $max, $max-at);
+    }
+
+    // otherwise, just a hard-coded font-size
+    @else {
+        font-size: get(font-size-base);
+    }
+}
+
+@mixin -body-root-styles() {
+    font-family: get(font-family);
+    font-weight: get(font-weight);
+    line-height: get(line-height);
+    letter-spacing: get(letter-spacing);
+
+    @if (get(font-smoothing)) {
+        @include font-smoothing-on();
+    }
+
+    background-color: clr(page-bg);
+    color: clr(page-fg);
+}
+
+// ---------------------------------------------------------------------------
+// PUBLIC API
+// ---------------------------------------------------------------------------
+
+/// Generates boilerplate css for a site. Generally this only needs to be called once as part of the
+/// site's global css. Many components and styles have a soft dependency on this (e.g. may expect
+/// that a reset has been applied, etc.). This mixin relies on some shared settings from the site
+/// module, so it should be included after that module.
+///
+/// @param {*} $scoped [false] If true we generate all rules directly within the provides scope rather than use the :root selector.
+/// @param {*} $sanitize [true] If true, include the sanitize general site reset.
+/// @param {*} $reset [(link,button,lists,headings,paragraph)] The list of additional resets to include.
+/// @param {*} $fonts [()] The list of fonts to be loaded.
+/// @param {*} $type-styles [null] A map containing a set of type styles where the key is the name and the value is the style. Leave null to use the default config. Set to false to skip.
+/// @param {*} $code-style ['code'] A type-style to apply to code and pre elements (must be contained in the $type-styles map). Set to false to skip.
+/// @param {*} $link-selector ['.link'] A selector to use for generated .link style to. Set to false to skip.
+/// @param {*} $container-selector ['.container'] A selector to use for a generated container style to. Set to false to skip.
+/// @param {*} $button-selector ['.button'] A selector to use for a generated button style. Set to false to skip.
+/// @param {*} $hide-selector ['.visually-hidden'] A selector to use for a generated style that hides things visually but allows them to stay visible for screen readers. Set to false to skip.
+///
+/// @example
+///     // This is probably the most common usage. For post parameters the default
+///     // values will make sense but you'll often want to provide font definitions
+///     // and the syntax is a little complex.
+///
+///     @include boilerplate( $fonts: (
+///
+///         // google font
+///         Inter: (googleFont: true, weight: (400 500 700), style: normal),
+///
+///         // local font
+///         circular:
+///             (
+///                 (src: '../assets/fonts/circular', weight: 400, style: normal, exts: woff2 woff ttf),
+///                 (src: '../assets/fonts/circular-bold', weight: 700, style: normal, exts: woff2 woff ttf )
+///             ),
+///         )
+///
+///     );
+
+@mixin boilerplate(
+    $scoped: false,
+    $sanitize: true,
+    $reset: (
+        link,
+        button,
+        lists,
+        headings,
+        paragraph,
+    ),
+    $fonts: null,
+    $type-styles: null,
+    $code-style: 'code',
+    $link-selector: '.link',
+    $container-selector: '.container',
+    $button-selector: '.button',
+    $hide-selector: '.visually-hidden'
+) {
+    // ---------------------------------------------------------------------------
+    // fonts
+    // ---------------------------------------------------------------------------
+
+    $fonts: if-null($fonts, get('fonts', null));
+
+    @if ($fonts) {
+        @at-root {
+            // local fonts
+            @each $font-name, $variants in $fonts {
+                $variants-list: if(is-map($variants), ($variants, ()), $variants);
+                @each $options in $variants-list {
+                    @if (map-has-key($options, src)) {
+                        $src: map-get($options, src);
+                        $weight: map-get-default($options, 'weight', null);
+                        $style: map-get-default($options, style, null);
+                        $exts: map-get-default($options, exts, woff ttf);
+                        @include font-face($font-name, $src, $weight, $style, $exts);
+                    }
+                }
+            }
+
+            // google fonts
+            @each $font-name, $variants in $fonts {
+                $variants-list: if(is-map($variants), ($variants, ()), $variants);
+                @each $options in $variants-list {
+                    @if (map-has-key($options, googleFont) and map-get($options, googleFont)) {
+                        $weight: map-get-default($options, 'weight', '400');
+                        $style: map-get-default($options, style, 'normal');
+                        @include google-font($name: $font-name, $weights: $weight, $styles: $style);
+                    }
+                }
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // sanitize
+    // ---------------------------------------------------------------------------
+
+    @if ($sanitize) {
+        @include sanitize();
+    }
+
+    // ---------------------------------------------------------------------------
     // reset links
-    @if ($force-reset-all or get('reset:link')) {
+    // ---------------------------------------------------------------------------
+
+    @if (list-contains($reset, 'link')) {
         a {
             color: inherit;
         }
@@ -19,8 +159,11 @@
         }
     }
 
+    // ---------------------------------------------------------------------------
     // headings reset
-    @if ($force-reset-all or get('reset:headings')) {
+    // ---------------------------------------------------------------------------
+
+    @if (list-contains($reset, 'headings')) {
         h1,
         h2,
         h3,
@@ -34,8 +177,11 @@
         }
     }
 
+    // ---------------------------------------------------------------------------
     // paragraph reset
-    @if ($force-reset-all or get('reset:paragraph')) {
+    // ---------------------------------------------------------------------------
+
+    @if (list-contains($reset, 'paragraph')) {
         p {
             font-size: inherit;
             padding: 0;
@@ -43,8 +189,11 @@
         }
     }
 
+    // ---------------------------------------------------------------------------
     // button reset
-    @if ($force-reset-all or get('reset:button')) {
+    // ---------------------------------------------------------------------------
+
+    @if (list-contains($reset, 'button')) {
         button {
             appearance: none;
             display: block;
@@ -66,8 +215,11 @@
         }
     }
 
+    // ---------------------------------------------------------------------------
     // list reset
-    @if ($force-reset-all or get('reset:lists')) {
+    // ---------------------------------------------------------------------------
+
+    @if (list-contains($reset, 'lists')) {
         ul,
         ol {
             padding: 0;
@@ -79,69 +231,10 @@
             }
         }
     }
-}
 
-// body and root styles setup fonts, page background, etc.
-
-@mixin -root-styles() {
-    // set the root font size (must be in px, sets the basis for rems)
-    font-size: get(font-size-base);
-
-    // set the font size at the specified breakpoints
-    @each $break, $font-size in get(font-size-breaks) {
-        @include media-until($break) {
-            font-size: $font-size;
-        }
-    }
-}
-
-@mixin -body-root-styles() {
-    font-family: get(font-family);
-    font-weight: get(font-weight);
-    line-height: get(line-height);
-    letter-spacing: get(letter-spacing);
-
-    @if (get(font-smoothing)) {
-        @include font-smoothing-on();
-    }
-
-    background-color: clr(page-bg);
-    color: clr(page-fg);
-}
-
-@mixin boilerplate($env: vue, $scoped: false) {
-    @if (get('fonts')) {
-        // local fonts
-        @each $font-name, $variants in get('fonts') {
-            $variants-list: if(is-map($variants), ($variants, ()), $variants);
-            @each $options in $variants-list {
-                @if (map-has-key($options, src)) {
-                    $src: map-get($options, src);
-                    $weight: map-get-default($options, 'weight', null);
-                    $style: map-get-default($options, style, null);
-                    $exts: map-get-default($options, exts, woff ttf);
-                    @include font-face($font-name, $src, $weight, $style, $exts);
-                }
-            }
-        }
-
-        // google fonts
-        @each $font-name, $variants in get('fonts') {
-            $variants-list: if(is-map($variants), ($variants, ()), $variants);
-            @each $options in $variants-list {
-                @if (map-has-key($options, googleFont) and map-get($options, googleFont)) {
-                    $weight: map-get-default($options, 'weight', '400');
-                    $style: map-get-default($options, style, 'normal');
-                    @include google-font($name: $font-name, $weights: $weight, $styles: $style);
-                }
-            }
-        }
-    }
-
-    // run sanitize (general page reset)
-    @if (get('reset:sanitize')) {
-        @include sanitize();
-    }
+    // ---------------------------------------------------------------------------
+    // root styles
+    // ---------------------------------------------------------------------------
 
     // if $scoped, we generate font directly within the element
     @if ($scoped) {
@@ -151,33 +244,44 @@
 
     // otherwise, generate within root elements
     @else {
-        html {
-            @include -root-styles();
-        }
+        @at-root {
+            html {
+                @include -root-styles();
+            }
 
-        html,
-        body {
-            @include -body-root-styles();
-        }
+            html,
+            body {
+                @include -body-root-styles();
+            }
 
-        // set the body font size to be 1rem
-        body {
-            font-size: 1rem;
+            // set the body font size to be 1rem
+            body {
+                font-size: 1rem;
+            }
         }
     }
 
     // customize the text selection color
     ::selection {
-        background: get('colors:selection-bg');
-        color: get('colors:selection-fg');
+        background: get('colors.selection-bg');
+        color: get('colors.selection-fg');
     }
 
-    // code, pre
-    pre,
-    code {
-        font-family: get(code-font-family);
-        font-size: get(code-font-size);
+    // ---------------------------------------------------------------------------
+    // code
+    // ---------------------------------------------------------------------------
+
+    @if ($code-style) {
+        // code, pre
+        pre,
+        code {
+            @include type-style($code-style);
+        }
     }
+
+    // ---------------------------------------------------------------------------
+    // other defaults
+    // ---------------------------------------------------------------------------
 
     // defaults for hr
     hr {
@@ -185,7 +289,7 @@
         margin: 2rem 0;
         padding: 0;
         border: none;
-        border-top: 1px solid clr(page-fg);
+        border-top: 1px solid currentColor;
     }
 
     // prevent sup from affecting line-height
@@ -193,57 +297,56 @@
         line-height: 0.5;
     }
 
-    // inline SVG inherits the current color (helpful for inline icons)
-    .svg-icon,
-    .svg-icon svg {
-        path,
-        circle,
-        rect,
-        polygon,
-        ellipse {
-            fill: currentColor;
-        }
+    // ---------------------------------------------------------------------------
+    // type styles
+    // ---------------------------------------------------------------------------
+
+    $type-styles: if-null($type-styles, get('typography.type-styles'));
+    @if ($type-styles) {
+        @include type-styles($type-styles);
     }
 
-    // create a basic content container (centered div with a max size and padding)
-    @if (get('container:selector')) {
-        #{get('container:selector')} {
-            @include container();
-        }
-    }
+    // ---------------------------------------------------------------------------
+    // links
+    // ---------------------------------------------------------------------------
 
-    // create class for visually hiding content that should still be available for accessibility
-    .visually-hidden {
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-    }
-
-    // resets
-    @include resets();
-
-    // create type styles
-    @each $selector, $props in get('type-styles') {
-        $base-name: map-get-default($props, '--base', ());
-
-        #{$selector} {
-            @include type-base-expand($base-name, $props);
-        }
-    }
-
-    // link styles
-    @if (get('links:-selector')) {
-        #{get('links:-selector')} {
+    @if ($link-selector) {
+        #{$link-selector} {
             @include link();
         }
     }
 
-    // set a variable
+    // ---------------------------------------------------------------------------
+    // button class
+    // ---------------------------------------------------------------------------
+    @if ($button-selector) {
+        #{$button-selector} {
+            // @warn 'TODO: need to reenable button in boilerplate.scss';
+            // TODO v3
+            //@include button();
+        }
+    }
 
-    // vue-specific helpers
-    @if ($env == 'vue') {
-        @include vue-transition-fade('fade');
+    // ---------------------------------------------------------------------------
+    // container class
+    // ---------------------------------------------------------------------------
+    @if ($container-selector) {
+        #{$container-selector} {
+            @include container();
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // hide class
+    // ---------------------------------------------------------------------------
+
+    @if ($hide-selector) {
+        #{$hide-selector} {
+            position: absolute !important;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+            clip: rect(1px, 1px, 1px, 1px);
+        }
     }
 }

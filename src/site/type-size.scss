@@ -1,0 +1,81 @@
+////
+/// @group modules.typography
+////
+
+@use '../utils' as *;
+@use 'config' as *;
+@use 'misc' as *;
+@use 'rems' as *;
+
+// ---------------------------------------------------------------------------
+// API
+// ---------------------------------------------------------------------------
+
+/// Get a font-size by name from the default typescale
+///
+/// @param {String or Number} $name The name or offset of the size to lookup. Must be defined in the
+/// config $typescale variable.
+///
+/// @example
+/// config(typescale, (sm: 14px, base: 15px, lg: 18px, xl: 20px));
+///
+/// font-size: fs(base)   // => font-size: 15px
+/// font-size: fs(sm)     // => font-size: 14px
+/// font-size: fs(-1)     // => font-size: 14px
+/// font-size: fs(2)      // => font-size: 20px
+
+@function fs($lookup: 'base', $use-rems: null) {
+    $sizes: get('typography.type-sizes');
+    $use-rems-default: get('typography.use-rems');
+    $use-rems: if-null($use-rems, $use-rems-default);
+
+    // if lookup is a string, find the size by name
+
+    @if (type-of($lookup) == 'string') {
+        $size: map-get($sizes, $lookup);
+
+        @if ($size) {
+            @if (is-list($size)) {
+                // if size is a map, use it with scale-vw (use-rems is ignored)
+                $from: nth($size, 1);
+
+                $to: nth($size, 2);
+                $at-width: nth-or-val($size, 3, null);
+
+                @return scale-vw($from, $to, $at-width);
+            }
+
+            @if ($use-rems) {
+                @return rems($size);
+            }
+
+            @return $size;
+        }
+
+        @error '[fs] Could not find a size named #{$lookup} in the typescale.';
+    }
+
+    // if lookup is a number, find the size as an offset from the 'base' size (e.g
+    // fs(2) would return the size that is two larger than the base)
+
+    @if (type-of($lookup) == 'number') {
+        $sizes: get('typography.type-sizes');
+
+        $names: map-keys($sizes);
+        $base-index: index($names, 'base');
+
+        @if ($base-index == null) {
+            @error '[fs] The typescale must contain a size named "base".';
+        }
+
+        $name-index: $base-index + $lookup;
+
+        @if ($base-index < 1 or $base-index > length($names)) {
+            @error '[fs] The requested lookup index exceeds the boundares of the typescale.';
+        }
+
+        @return fs(nth($names, $name-index));
+    }
+
+    @error '[fs] Argument is unusable. Must be a string or a number.';
+}

@@ -1,0 +1,206 @@
+////
+/// @group modules.controls
+////
+
+@use '../../site' as *;
+@use '../../utils' as *;
+
+// ----------------------------------------------------------------------------
+// Resets
+// ----------------------------------------------------------------------------
+
+/// Resets the appearance of controls with some opinionated defaults (see source or
+/// output for details). Typically used as part of restyling a component.
+
+@function control-reset() {
+    @return (
+        appearance: none,
+        box-sizing: border-box,
+        position: relative,
+        outline: none,
+        border: none,
+        white-space: nowrap,
+        background-color: transparent,
+        font-size: get('controls.base.font-size'),
+        font-family: get('controls.base.font-family'),
+        font-weight: get('controls.base.font-weight')
+    );
+}
+
+@mixin control-reset($overrides: ()) {
+    @include css-map(flat-merge(control-reset(), $overrides));
+}
+
+/// Resets the style of control much more aggressively than regular control-reset. Really cleans
+/// things out!
+
+@function control-reset-hard() {
+    @return (
+        appearance: none,
+        display: block,
+        outline: none,
+        border: none,
+        border-radius: 0,
+        background: none transparent,
+        padding: 0,
+        width: auto,
+        height: auto,
+        border-spacing: 0,
+        text-align: left,
+        text-indent: 0,
+        line-height: 1,
+        color: inherit,
+        font-family: inherit,
+        font-size: inherit
+    );
+}
+
+@mixin control-reset-hard($overrides: ()) {
+    @include css-map(flat-merge(control-reset-hard(), $overrides));
+}
+
+// ----------------------------------------------------------------------------
+// Color
+// ----------------------------------------------------------------------------
+
+/// Extract an accent color from any of the properties in $accent-props, with a fallback value of
+/// 'controls.accent' (note: last property in list wins)
+///
+/// @param {*} $overrides
+/// @param {*} $accent-props...
+/// @param {*} {$accent [get('controls.accent']
+///
+/// @example get-control-accent()
+
+@function get-control-accent($overrides, $accent-props...) {
+    $accent: get('controls.base.accent', accent());
+
+    @each $prop in $accent-props {
+        $clr: map-get-default($overrides, $prop, $accent);
+        $accent: if-color($clr, $clr, $accent);
+    }
+    @return $accent;
+}
+
+// ----------------------------------------------------------------------------
+// Focus
+// ----------------------------------------------------------------------------
+
+/// Generates one of a number of common focus styles as a css map (which can be combined with the
+/// css-map function to generate the correct focus visual css)
+///
+/// @param {shadow | outline} $style A named style.
+/// @param {color} $color [null]
+///
+/// @example control-focus-style('outline', red) // => (outline-offset: 0px, outline: 1px dashed
+/// red)
+
+@function control-focus-style($style: null, $color: null) {
+    $style: if-null($style, get('controls.focus.style'));
+
+    @if ($style == 'shadow') {
+        $color: if-null($color, get('controls.focus.shadow-color'));
+        $width: get('controls.focus.shadow-width');
+        @return (box-shadow: 0 0 0 $width $color);
+    }
+
+    @if ($style == 'outline') {
+        $color: if-null($color, get('controls.focus.outline-color'));
+        @return (outline-offset: 0px, outline: 1px dashed $color);
+    }
+
+    @return ();
+}
+
+@mixin control-focus-style($style: null, $color: null) {
+    @include css-map(control-focus-style($style, $color));
+}
+
+// ----------------------------------------------------------------------------
+// Placeholder
+// ----------------------------------------------------------------------------
+
+/// Generates a css map for a control's placeholder style based on the global config.
+///
+/// @param {map} $overrides
+
+@function control-placeholder-style($overrides) {
+    // TODO v3
+    // @return flat-merge(get('controls.placeholder'), $overrides);
+    @return ();
+}
+
+@mixin control-placeholder-style($overrides) {
+    @include css-map(control-placeholder-style($overrides));
+}
+
+// ----------------------------------------------------------------------------
+// Toggle
+// ----------------------------------------------------------------------------
+
+/// Mixin to help create toggle components (checkbox, radiobutton, toggle, togglebutton, etc.) using
+/// the common input+label structure. The basic idea behind this pattern is to use an <input> and a
+/// <label> component together as follows:
+///
+/// ```html
+/// <div class="my-checkbox">
+///     <input type="checkbox" id="cb" />
+///     <label for="cb">Toggle Me</label>
+/// </div>
+/// ```
+///
+/// The label and input are bound together by the for property on the label (which refers to the
+/// input by id), making the label a proxy for the input. The label can be styled much more readily
+/// than the input, so the common practice is to hide the input and style the label but the css
+/// rules that allow us to manage states in this situation can be difficult to remember and can be a
+/// little complex. This mixin helps to generate those rules.
+///
+/// @param {string} $state [null] The name of the state (e.g. hover, checked, indeterminate, etc.) under
+/// which the css in the @content area should apply. The mixin will generate the appropriate rule
+/// for that state.
+///
+/// @example
+/// .my-toggle {
+///
+///     // do the basic setup (hide inputs, etc.)
+///     @include toggle-helper(base);
+///
+///     @include toggle-helper {
+///         // default state
+///     }
+///     @include toggle-helper(checked) {
+///         // checked state
+///     }
+///     @include toggle-helper(hover) {
+///         // hover state
+///     }
+/// }
+
+@mixin toggle-helper($state: null) {
+    @if ($state == null) {
+        > label {
+            @content;
+        }
+    } @else if ($state == base) {
+        > input {
+            position: absolute;
+            appearance: none;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            transform: scale(0);
+        }
+    } @else if ($state == checked or $state == indeterminate or $state == disabled) {
+        > input:#{$state} + label {
+            @content;
+        }
+    } @else if ($state == focus) {
+        > input:focus-visible + label {
+            @content;
+        }
+    } @else {
+        &:#{$state} > input + label {
+            @content;
+        }
+    }
+}

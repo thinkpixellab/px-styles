@@ -1,0 +1,23 @@
+////
+/// @group modules.controls
+////
+
+@use '../../site' as *;
+@use '../../utils' as *;
+@use 'helpers.scss' as *;
+
+// ---------------------------------------------------------------------------
+// PUBLIC API
+// ---------------------------------------------------------------------------
+
+@function popup($overrides: ()) {
+    // global config
+    $config: get('controls.popup', null);
+
+    // merge and return all the css
+    @return flat-merge($config, $overrides);
+}
+
+@mixin popup($overrides: ()) {
+    @include css-map(popup($overrides));
+}

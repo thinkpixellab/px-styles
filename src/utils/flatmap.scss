@@ -1,49 +1,59 @@
 ////
-/// @group utils.flatmap
+/// @group utils.collections
 ////
 
-@use 'json.scss' as *;
 @use 'strings.scss' as *;
 @use 'units.scss' as *;
 @use 'collections.scss' as *;
 
 /// A function that retrieves a "deep" value from a map using path syntax where key names are
-/// separated by colons
+/// separated by periods.
 ///
 /// @param {map} $map An existing map that serves as the lookup source
 ///
 /// @param {string} $path The path where the value is found, expressed as a list of keys separated
-/// by colons (e.g. 'colors:accent')
+/// by commas (e.g. 'colors.accent')
 ///
 /// @param {*} $fallback [null] An optional fallback value that will be returned in the value isn't
 /// found
 ///
 /// @example
-/// $color: flat-get((colors: (somecolor: #F00)), 'colors:somecolor')
+/// $color: flat-get((colors: (somecolor: #F00)), 'colors.somecolor')
 /// ==> #F00
 
 @function flat-get($map, $path, $fallback: null) {
-    $keys: str-split($path, ':');
+    // TEMPORARY: replace colons with periods for backwards compatibility
+    @if (str-index($path, ':') != null) {
+        @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
+        $path: str-replace($path, ':', '.');
+    }
+
+    $keys: str-split($path, '.');
+    $found: false;
+
     @each $key in $keys {
         @if (map-has-key($map, $key)) {
             $map: map-get($map, $key);
+            $found: true;
         } @else {
             @return $fallback;
         }
     }
-    @if not $map and $fallback {
+
+    @if (not $found) {
         @return $fallback;
     }
+
     @return $map;
 }
 
 /// A function that allows you to set a "deep" value in a map using path syntax where key names are
-/// separated by colons
+/// separated by periods.
 ///
 /// @param {map} $map An existing map that serves as the basis for the returned value
 ///
 /// @param {string} $path The path where the value should be set, expressed as a list of keys
-/// separated by colons (e.g. 'colors:accent')
+/// separated by perods (e.g. 'colors.accent')
 ///
 /// @param {*} $val The value to be set at the path
 ///
@@ -51,16 +61,28 @@
 /// overwritten as needed)
 ///
 /// @example
-/// $map: flat-set((), 'colors:somecolor', #F00) // ==> (colors: (somecolor: #F00))
+/// $map: flat-set((), 'colors.somecolor', #F00) // ==> (colors: (somecolor: #F00))
 ///
 /// @example
-/// $map: flat-set((colors: (clr1: #F00)), 'colors:clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
+/// $map: flat-set((colors: (clr1: #F00)), 'colors.clr2', #00F) // ==> {colors: {clr1: #F00, clr2: #00F}}
 
 @function flat-set($map, $path, $val, $merge-maps: false) {
-    $keys: str-split($path, ':');
+    // TEMPORARY: replace colons with periods for backwards compatibility
+    @if (str-index($path, ':') != null) {
+        @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
+        $path: str-replace($path, ':', '.');
+    }
+
+    $map: if-null($map, ());
+    $keys: str-split($path, '.');
     $key: nth($keys, 1);
-    $next-path: list-join(list-remove($keys, 1), ':');
+
+    $next-path: list-join(list-remove($keys, 1), '.');
     $merge: ();
+
+    @if (is-map($val)) {
+        $val: map-keys-ensure-str($val);
+    }
 
     @if (map-has-key($map, $key)) {
         $existing-value: map-get($map, $key);
@@ -126,7 +148,7 @@
         @if (type-of($value) == 'map') {
             $fmap: flatten-map($value);
             @each $fkey, $fvalue in $fmap {
-                $flat: map-merge($flat, (#{$key + ':' + $fkey}: $fvalue));
+                $flat: map-merge($flat, (#{$key + '.' + $fkey}: $fvalue));
             }
         } @else {
             $flat: map-merge(
@@ -193,6 +215,6 @@
 /// @example flat-has-key((colors: (clr1: #f00, clr2: #00f)), 'colors:clr2') => true
 
 @function flat-has-key($map, $key) {
-    $flat: flatten-map($map);
-    @return map-has-key($flat, $key);
+    $val: flat-get($map, $key, 'INVALID_FALLBACK');
+    @return $val != 'INVALID_FALLBACK';
 }

@@ -1,11 +1,9 @@
+@forward 'config.scss';
 @forward 'color.scss';
-@forward 'grids.scss';
-@forward 'mediaquery.scss';
+@forward 'darkmode.scss';
+@forward 'media-query.scss';
 @forward 'misc.scss';
 @forward 'rems.scss';
-@forward 'shadows.scss';
-@forward 'spacing.scss';
-@forward 'theme.scss';
-@forward 'transitions.scss';
-@forward 'typography.scss';
+@forward 'type-size.scss';
+@forward 'type-style.scss';
 @forward 'variables.scss';

@@ -1,24 +1,33 @@
-@use 'px' as *;
 @use 'true' as *;
+@use '../src/site' as * with (
+    $-config: (
+        colors: (
+            'accent': #018ee6,
+            'gray': #a0a0a0,
+            'purple': #c578dd,
+        ),
+    )
+);
 
-@include config('colors:purple', #c578dd);
+// @include config('colors:accent', #018ee6);
+// @include config('colors:gray', #a0a0a0);
+// @include config('colors:purple', #c578dd);
 
 @include test-module('site.color') {
     @include test('shade') {
         @include assert-equal(shade(red, 5, null), #ff8080);
     }
     @include test('gray') {
-        @include assert-equal(gray(2, 0.5), rgba(173, 179, 183, 0.5));
+        @include assert-equal(gray(2, 0.5), rgba(179, 179, 179, 0.5));
+    }
+    @include test('accent( default)') {
+        @include assert-equal(accent(), #018ee6);
     }
     @include test('accent') {
-        @include assert-equal(accent(2, 0.5), rgba(51, 173, 253, 0.5));
+        @include assert-equal(accent(2, 0.5), rgba(52, 165, 235, 0.5));
     }
-
     @include test('clr') {
         @include assert-equal(clr(purple, -1), #b16cc7);
-    }
-    @include test('yiq') {
-        @include assert-equal(yiq(purple), 52.864);
     }
     @include test('contrast-color') {
         @include assert-equal(

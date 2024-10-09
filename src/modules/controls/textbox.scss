@@ -1,0 +1,71 @@
+////
+/// @group modules.controls
+////
+
+@use '../../utils' as *;
+@use '../../site' as *;
+@use 'helpers.scss' as *;
+
+// ----------------------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------------------
+
+@function textbox-base() {
+    @return flat-merge(
+        control-reset(),
+        (
+            display: inline-flex,
+            border-radius: get('controls.base.border-radius'),
+            min-width: get('controls.base.min-width'),
+            min-height: get('controls.base.min-height'),
+            font-weight: get('controls.base.font-weight'),
+            font-family: get('controls.base.font-family'),
+            background-color: clr('page-bg'),
+            border: 1px solid gray(5),
+            color: clr('page-fg'),
+            padding: 0 0.5em,
+            disabled: (
+                cursor: not-allowed,
+                background-color: gray(5, $alpha: 0.5),
+                color: gray(-2),
+            ),
+            focus:
+                map-merge(
+                    control-focus-style(),
+                    (
+                        border-color: gray(),
+                    )
+                ),
+        )
+    );
+}
+
+// ----------------------------------------------------------------------------
+// Default
+// ----------------------------------------------------------------------------
+
+@function textbox($overrides: ()) {
+    // textbox base css
+    $textbox: textbox-base();
+
+    // config
+    $config: get('textbox', false);
+
+    // merge all the css
+    $css: flat-merge($textbox, $config, $overrides);
+
+    @return $css;
+}
+
+@mixin textbox($overrides: ()) {
+    $css: textbox($overrides);
+
+    // output the css
+    @include css-map($css);
+
+    // add a placeholder
+    $placeholder: control-placeholder-style(flat-get($css, '--placeholder'));
+    @include placeholder {
+        @include css-map($placeholder);
+    }
+}

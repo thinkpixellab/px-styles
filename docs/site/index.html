@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>px-styles</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- navigation -->
+
+            <nav class="nav">
+                <div class="nav-filter">
+                    <input class="textbox" placeholder="filter" type="textbox" v-model="filter" />
+                </div>
+                <ul>
+                    <li v-for="group in filteredGroups" :key="group.name" class="nav-group">
+                        <strong class="nav-header">{{group.name}}</strong>
+                        <ul>
+                            <li class="nav-item" v-for="item in group.items" :key="item.name">
+                                <a :href="`#${itemToId(item)}`">{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- content -->
+
+            <main class="main">
+                <section class="container">
+                    <h1 class="h1">px-styles</h1>
+                </section>
+                <section v-for="group in groups" :key="group.name" class="group container">
+                    <div class="group-header">
+                        <h2>{{group.name}}</h2>
+                        <div class="markdown" v-html="toMarkdown(group.description)"></div>
+                    </div>
+
+                    <!-- items -->
+
+                    <div
+                        :id="itemToId(item)"
+                        :class="['item', 'item-' + item.type]"
+                        v-for="item in group.items"
+                        :key="item.name"
+                    >
+                        <!-- item name -->
+
+                        <h3 class="item-header">
+                            <strong>{{item.name}}</strong>
+                            <span v-if="itemParamString && itemParamString.length">
+                                {{itemParamString(item)}}
+                            </span>
+                        </h3>
+
+                        <!-- item description -->
+
+                        <p
+                            class="item-description markdown"
+                            v-html="toMarkdown(item.description)"
+                        />
+
+                        <!-- item parameters -->
+
+                        <div class="item-params" v-if="item.parameter && item.parameter.length">
+                            <div class="item-params-heading">
+                                <span>Parameter Name</span>
+                                <span>Type</span>
+                                <span>Default</span>
+                                <span>Description</span>
+                            </div>
+                            <div
+                                class="item-param"
+                                v-for="(param, index) in item.parameter"
+                                :key="index"
+                            >
+                                <span>${{param.name}}</span>
+                                <span>{{param.type}}</span>
+                                <span>{{param.default}}</span>
+                                <span>{{param.description}}</span>
+                            </div>
+                        </div>
+
+                        <!-- item examples -->
+
+                        <div class="item-examples" v-if="item.example && item.example.length">
+                            <!--prettier-ignore -->
+                            <div
+                                class="item-example"
+                                v-for="(example, index) in item.example"
+                                :key="index"
+                            >
+                                <pre :class="example.type"><code>{{example.code}}</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- item configuration defaults -->
+
+                        <div class="item-defaults" v-if="item.defaults">
+                            <div class="item-defaults-heading">
+                                <span>Config Key</span>
+                                <span>Description / Default</span>
+                            </div>
+                            <div
+                                class="item-default"
+                                v-for="(config,index) in item.defaults"
+                                :key="index"
+                                @click="configItemClick(config)"
+                            >
+                                <div class="item-default-name">{{config.name}}</div>
+                                <div class="item-default-desc">
+                                    <div
+                                        class="markdown"
+                                        v-html="toMarkdown(config.description)"
+                                    ></div>
+                                    <div class="item-default-default">
+                                        <h5>Default</h5>
+                                        <pre>{{config.value}}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <ul>
+                        <li v-for="item in group" :key="item.name">
+                            <a :href="`#${itemToId(item)}`">{{item.docName}}</a>
+                        </li>
+                    </ul> -->
+                </section>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.0/dist/markdown-it.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+        <script src="data.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+@use 'true' as *;
+@use '../src/site' as * with (
+    $-config: (
+        vars-prefix: 'theme',
+        vars: (
+            'blue': blue,
+            'green-hsla': (
+                base: green,
+                dark: lightgreen,
+            ),
+            'orange-rgb': (
+                base: rgb(208, 122, 18),
+                dark: rgb(247, 196, 133),
+            ),
+        ),
+    )
+);
+
+@include test-module('site.variables') {
+    @include test('general usage') {
+        @include assert {
+            // test
+            @include output {
+                body {
+                    @include site-vars();
+                    // .dark {
+                    //     @include site-vars('dark');
+                    // }
+                }
+            }
+            // output
+            @include expect {
+                body {
+                    --theme-blue: blue;
+                    --theme-green-h: 120deg;
+                    --theme-green-s: 100%;
+                    --theme-green-l: 25.0980392157%;
+                    --theme-green-a: 1;
+                    --theme-green: green;
+                    --theme-orange-rgb: 208, 122, 18;
+                    --theme-orange: #d07a12;
+                }
+            }
+        }
+    }
+}

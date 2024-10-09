@@ -1,10 +1,8 @@
 ////
-/// @group utils.typography
+/// @group utils.fonts
 ////
 
-// Based on this: https://codepen.io/jakob-e/pen/LVVXjO
-
-@function __gf__list-unique($list) {
+@function -gf-list-unique($list) {
     $result: ();
     @each $item in $list {
         @if not index($result, $item + '') {
@@ -16,16 +14,16 @@
     }
     @return $result;
 }
-@function __gf__str-replace($string, $search, $replace: '') {
+@function -gf-str-replace($string, $search, $replace: '') {
     $index: str-index($string, $search);
     @return if(
         $index,
         str-slice($string, 1, $index - 1) + $replace +
-            __gf__str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
+            -gf-str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
         $string
     );
 }
-@function __gf__str-explode($string) {
+@function -gf-str-explode($string) {
     $list: ();
     @for $i from 1 through str-length($string) {
         $list: append($list, str-slice($string, $i, $i));
@@ -33,11 +31,10 @@
     @return $list;
 }
 
-/// The font subset to loaded. Note that the latin subset is always included if
-/// available and need not be specified. Also, if a client browser supports
-/// supports unicode-range then this subset parameter is igored and the browser
-/// will select from the subsets supported by the font to get what it needs to
-/// render the text.
+/// The font subset to load. Note that the latin subset is always included if available and need not
+/// be specified. Also, if a client browser supports supports unicode-range then this subset
+/// parameter is igored and the browser will select from the subsets supported by the font to get
+/// what it needs to render the text.
 
 $google-font-subsets: (
     'arabic': false,
@@ -96,11 +93,11 @@ $google-font-subsets: (
     $URL: 'https://fonts.googleapis.com/css?family=';
 
     //  create global variables
-    @if not variable-exists(__gf__combine) {
-        $__gf__combine: false !global;
+    @if not variable-exists(-gf-combine) {
+        $-gf-combine: false !global;
     }
-    @if not variable-exists(__gf__map) {
-        $__gf__map: () !global;
+    @if not variable-exists(-gf-map) {
+        $-gf-map: () !global;
     }
     @if not variable-exists(google-font-subsets) {
         $google-font-subsets: () !global;
@@ -117,7 +114,7 @@ $google-font-subsets: (
 
     //  reduce and encode text
     @if $text {
-        $list: __gf__list-unique(__gf__str-explode($text));
+        $list: -gf-list-unique(-gf-str-explode($text));
         $text: '&text=';
         $encode: (
             '!': '%21',
@@ -158,13 +155,13 @@ $google-font-subsets: (
     @if $name {
         //  replace name whitespaces
         $name: if(type-of($name) == string, unquote($name), $name);
-        $name: __gf__str-replace(inspect($name), ' ', '+');
-        @if $__gf__combine and not $text {
+        $name: -gf-str-replace(inspect($name), ' ', '+');
+        @if $-gf-combine and not $text {
             //  add weights to combine map
-            $wgt: map-get($__gf__map, $name) or ();
-            $wgt: __gf__list-unique(join($wgt, $weights, comma));
-            $__gf__map: map-merge(
-                $__gf__map,
+            $wgt: map-get($-gf-map, $name) or ();
+            $wgt: -gf-list-unique(join($wgt, $weights, comma));
+            $-gf-map: map-merge(
+                $-gf-map,
                 (
                     $name: $wgt,
                 )
@@ -175,7 +172,7 @@ $google-font-subsets: (
             @each $weight in $weights {
                 $query: $query + if($query != '', ',', '') + $weight;
             }
-            $query: __gf__str-replace($query, ' ');
+            $query: -gf-str-replace($query, ' ');
             $query: $name + if(str-length($query) > 0 and $query != '400', ':' + $query, '');
 
             //  create single immport
@@ -186,7 +183,7 @@ $google-font-subsets: (
         }
     } @else {
         //  set combine flag
-        $__gf__combine: true !global;
+        $-gf-combine: true !global;
 
         //  nested includes
         @content;
@@ -194,7 +191,7 @@ $google-font-subsets: (
         //  convert combine map to query
         //  (remove weights if just 400)
         $query: '';
-        @each $font, $weights in $__gf__map {
+        @each $font, $weights in $-gf-map {
             $query: $query +
                 if($query != '', '|', '') +
                 $font +
@@ -206,7 +203,7 @@ $google-font-subsets: (
         }
 
         //  remove query whitespaces
-        $query: __gf__str-replace($query, ' ');
+        $query: -gf-str-replace($query, ' ');
 
         //  create combined immport
         @at-root {
@@ -214,6 +211,6 @@ $google-font-subsets: (
         }
 
         //  reset combine flag
-        $__gf__combine: false !global;
+        $-gf-combine: false !global;
     }
 }

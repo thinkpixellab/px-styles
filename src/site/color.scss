@@ -3,74 +3,38 @@
 ////
 
 @use '../utils' as *;
-// @use 'config.scss' as *;
+@use 'config' as *;
 
-/// Produce a shade (a lighter or darker version) of a color based on the value
-/// of $shade and an optional darkest to lightest shade range.
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// Produce a shade (a lighter or darker version) of a color based on the value of $shade and an
+/// optional darkest to lightest shade range.
 ///
-/// @param {color} $color [null] The color to be shaded. If not provided, it will be
-/// calculated as the middle value within $shade-range.
+/// @param {color} $color [null] The color to be shaded. If not provided, it will be calculated as
+/// the middle value within $shade-range.
 ///
-/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
-/// (can be overriden with config(shade-steps)). 0 returns the color itself.
-/// Negative values make the color darker, postive values make it lighter.
+/// @param {number} $shade [0] The shading to be applied, as a percentage from -100% to 100% or as a
+/// shade value between -10, 10 (can be overriden with config(shade-steps)). 0 returns the color
+/// itself. Negative values make the color darker, postive values make it lighter.
 ///
-/// @param {(color, color)} $shade-range [null] The range of colors will be produced
-/// as a list (darkest, lightest).
+/// @param {(color, color)} $shade-range [null] The range of colors will be produced as a list
+/// (darkest, lightest).
+///
 /// @example $color: shade(red, 5, null) // => #ff8080
 
 @function shade($color: null, $shade: 0, $shade-range: null) {
-    $shade-steps: get(shade-steps);
-    $shade-amount: divide(100%, $shade-steps) * 2;
-    $shade: clamp-number($shade, divide($shade-steps, -2), $shade-steps * 0.5);
-    $shade-range: if-null($shade-range, get(shade-range));
+    $shade: if(is-percentage($shade), strip-unit($shade * 0.1), $shade);
 
-    @if ($color == null) {
-        $color: mix(nth($shade-range, 1), nth($shade-range, 2));
+    @if ($shade-range == null) {
+        $shade-range: (get('colors.shade-dark'), get('colors.shade-light'));
     }
 
-    @if ($shade < 0) {
-        $color1: nth($shade-range, 1);
-        @return mix($color1, $color, ($shade * $shade-amount) * -1);
-    }
-    @if ($shade > 0) {
-        @return mix(nth($shade-range, 2), $color, ($shade * $shade-amount));
-    }
-
-    @return $color;
+    @return color-shade($color, $shade, $shade-range);
 }
 
-/// Get a standardized shade of site's base gray.
-///
-/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
-/// (can be overriden with config(shade-steps)). 0 returns the color itself.
-/// Negative values make the color darker, postive values make it lighter.
-///
-/// @param {number} $alpha [1] The alpha value of the final color that will be returned.
-///
-/// @example gray(2, 0.5) // => rgba(173, 179, 183, 0.5)
-
-@function gray($shade: 0, $alpha: 1) {
-    @return clr(gray, $shade, $alpha);
-    //@return shade($color: get('colors:gray'), $shade: $shade, $shade-range: get(('gray-range')));
-}
-
-/// Get a standardized shade of the site's primary accent color
-///
-/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10 (can be overriden
-/// with config(shade-steps)). 0 returns the color itself. Negative values make the color darker,
-/// postive values make it lighter.
-///
-/// @param {number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
-/// is provided, the output will be in rgba format.
-///
-/// @example accent(2, 0.5) // => rgba(51, 173, 253, 0.5)
-
-@function accent($shade: 0, $alpha: 1) {
-    @return clr(accent, $shade, $alpha);
-}
-
-/// Lookup a color by name and optionally get a shade of it
+/// Lookup a color by name and optionally get a shade of it or apply alpha.
 ///
 /// @param {*} $shade [0] The shading to be applied, as a value between -10, 10
 /// (can be overriden with config(shade-steps)). 0 returns the color itself.
@@ -81,22 +45,35 @@
 ///
 /// @example
 /// // Add the color to the global configuration
-/// config('colors:purple', #C578DD);
+/// config('colors.purple', #C578DD);
 ///
 /// // Retrieve the color
 /// clr(purple) => #C578DD
 /// clr(purple, -1) => (#b16cc7)
 /// clr(purple, $alpha: 0.5) => (rgba(197, 120, 221, 0.5))
 
-@function clr($name, $shade: 0, $alpha: 1) {
-    $color: get('colors:' + $name);
+@function clr($name, $shade: 0, $alpha: 1, $tag: 1) {
+    $color: get('colors.' + $name);
 
     @if ($color == null) {
         @error 'The color #{$name} could not be found.';
     }
 
+    // if the color is a list, we find the correct tag by index or name, and select the correct color
+    @if (is-list($color)) {
+        $tag-index: $tag;
+
+        @if (is-string($tag)) {
+            $tag-index: if-null(index(get('color-tags'), $tag), 1);
+        }
+
+        $tag-index: clamp-number($tag-index, 1, length($color));
+
+        $color: nth($color, $tag-index);
+    }
+
     $base: $color;
-    $range: get('shade-range');
+    $range: null;
 
     // $color is a list of 2 values representing the dark and light shade range,
     // so calculate base as the middle value between them
@@ -117,32 +94,67 @@
     @return rgba($shade, $alpha);
 }
 
-/// Computes the the luminance (grayscale value) of a color in the yiq color space. This can be used
-/// for determining the relative contrast between two colors.
-/// @example yiq(purple) // => 52.864
+/// Get a standardized shade of site's base gray.
+///
+/// @param {number} $shade [0] The shading to be applied, as a value between -10, 10
+/// (can be overriden with config(shade-steps)). 0 returns the color itself.
+/// Negative values make the color darker, postive values make it lighter.
+///
+/// @param {number} $alpha [1] The alpha value of the final color that will be returned.
+///
+/// @example gray(2, 0.5) // => rgba(173, 179, 183, 0.5)
 
-@function yiq($color) {
-    $r: red($color);
-    $g: green($color);
-    $b: blue($color);
-    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
+@function gray($shade: 0, $alpha: 1) {
+    @return clr(gray, $shade, $alpha);
+}
 
-    // 0 (black) - 255 (white)
-    @return $yiq;
+/// Get a standardized shade of the site's primary accent color
+///
+/// @param {*} $shade [0] The shading to be applied, as a value between -10, 10 (can be overriden
+/// with config(shade-steps)). 0 returns the color itself. Negative values make the color darker,
+/// postive values make it lighter.
+///
+/// @param {number} $alpha [1] The alpha value of the color to be returned. If a value other than 1
+/// is provided, the output will be in rgba format.
+///
+/// @example accent(2, 0.5) // => rgba(51, 173, 253, 0.5)
+
+@function accent($shade: 0, $alpha: 1) {
+    @return clr(accent, $shade, $alpha);
 }
 
 /// Choose a contrasting foreground based on the contrast between a background and two foreground
 /// options (a light and dark).
+///
 /// @example contrast-color(rgb(233, 229, 31), rgb(199, 192, 192), rgb(133, 133, 231)) // => #8585e7
 
-@function contrast-color(
-    $bg,
-    $light-fg: get('colors:contrast-light'),
-    $dark-fg: get('colors:contrast-dark'),
-    $contrast-threshold: 128
-) {
+@function contrast-color($bg, $light-fg: null, $dark-fg: null, $contrast-threshold: 128) {
     @if (not(is-color($bg))) {
         $bg: clr($bg);
     }
+
+    $light-fg: if-null($light-fg, get('colors.contrast-light'));
+    $dark-fg: if-null($dark-fg, get('colors.contrast-dark'));
+
     @return if(yiq($bg) < $contrast-threshold, $light-fg, $dark-fg);
+}
+
+/// Helper mixin that generates a set of classes for previewing each of the site's registered
+//colors. It will also output the html required for preview unless supressed.
+///
+/// @example color-preview-classes()
+
+@mixin color-preview-classes($colors: get('colors'), $output-html: true) {
+    $html: '';
+    @each $name, $color in $colors {
+        $html: $html + '\a<div class="color-preview-'+ $name + '">' + $name + '</div>';
+        .color-preview-#{$name} {
+            background-color: $color;
+            color: contrast-color($color);
+        }
+    }
+
+    @if ($output-html) {
+        @debug $html;
+    }
 }

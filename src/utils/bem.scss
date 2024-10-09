@@ -1,13 +1,5 @@
 ////
 /// @group utils.bem
-///
-/// Provides a series of functions and mixins that make it easier to generate
-/// [bem](http://getbem.com/) style class names. Modified from the great thinking done
-/// [here](https://codepen.io/gionkunz/pen/rkswl?editors=010).
-///
-/// Unlike many bem mixins, there is no specific mixin for creating modifier classes. Instead,
-/// modifiers and pseudo classes can be included directly in the call to the block or element mixin.
-///
 ////
 
 @use 'units' as *;
@@ -16,8 +8,12 @@ $-block-prefix: '' !default;
 $-element-prefix: '__' !default;
 $-modifier-prefix: '--' !default;
 
-@function -bem-name($name: false, $modifier: '', $pseudo: '', $prefix: '') {
-    @if (not $name) {
+// ----------------------------------------------------------------------------
+// PRIVATE
+// ----------------------------------------------------------------------------
+
+@function -bem-class($blockOrElement: false, $modifier: '', $pseudo: '', $prefix: '') {
+    @if (not $blockOrElement) {
         @error "Missing block or element name.";
     }
 
@@ -29,27 +25,51 @@ $-modifier-prefix: '--' !default;
         $pseudo: #{':' + $pseudo};
     }
 
-    @return #{'.' + $prefix + $name + $modifier + $pseudo};
+    @return #{'.' + $prefix + $blockOrElement + $modifier + $pseudo};
 }
 
-@mixin -bem-base($name: false, $modifier: '', $pseudo: '', $prefix: '') {
+@mixin -bem-class($nameOrNames: false, $modifier: '', $pseudo: '', $prefix: '') {
     $selector: false;
 
-    @if is-list($name) {
+    @if is-list($nameOrNames) {
         $selector: ();
 
-        @each $n in $name {
-            $selector: append($selector, -bem-name($n, $modifier, $pseudo, $prefix), comma);
+        @each $n in $nameOrNames {
+            $selector: append($selector, -bem-class($n, $modifier, $pseudo, $prefix), comma);
         }
     } @else {
-        $selector: -bem-name($name, $modifier, $pseudo, $prefix);
+        $selector: -bem-class($nameOrNames, $modifier, $pseudo, $prefix);
     }
     #{$selector} {
         @content;
     }
 }
 
-/// Extracts the block name form a selector. So if $selector is something like
+// ----------------------------------------------------------------------------
+// PUBLIC
+// ----------------------------------------------------------------------------
+
+$--block: null;
+
+/// Establishes a block context for the bem mixin. The bem mixins will still work with regular
+/// nesting but they will create deeply nested classnames (e.g. `.block .block__element` instead of
+/// just `.block__element`) which may create more specificity than desired.
+///
+/// ```scss
+/// @@include block('block') {
+///     @include bem('element') {
+///         ...
+///     }
+/// }
+/// ```
+
+@mixin block($name) {
+    $--block: $name !global;
+    @content;
+    $--block: null !global;
+}
+
+/// Extracts the block name from a selector. So if $selector is something like
 /// `.block__element--mod` the function would return `block`.
 ///
 /// @param {*} $selector
@@ -57,6 +77,9 @@ $-modifier-prefix: '--' !default;
 /// @example get-block-name(&) => [name of block as extracted from current path]
 
 @function get-block-name($selector) {
+    @if ($--block != null) {
+        @return $--block;
+    }
     $selector: #{$selector};
     $inf: 9999999;
     $dot-index: if-null(str-index($selector, '.'), 1);
@@ -65,42 +88,73 @@ $-modifier-prefix: '--' !default;
     $element-index: if-null(str-index($selector, $-element-prefix), $inf);
     $pseudo-index: if-null(str-index($selector, ':'), $inf);
     $min-index: min($space-index, $modifier-index, $element-index, $pseudo-index);
-
     @return str-slice($selector, $dot-index + 1, $min-index - 1);
 }
 
-/// Creates a block class selector using the bem approach to class naming. This is often unecessary
-/// since elements can be nested under the block class using a normal declation.
-///
-/// @param {string} $name - The block name string
-/// @param {string} $modifier [''] - An optional modifier string. Use this to indicate that the
-/// block is in a modified state (e.g. selected).
-///
-/// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
-/// (e.g. hover or after)
-///
-/// @example
-/// // An intentionally complex example:
-///  @include block(block, modifier) {
-///     @include bem(element, modifier) {
-///         @media only screen and (max-width: 800px) {
-///             @include bem(element) { ... }
-///         }
-///     }
-/// }
-/// @example @include block(my-component, red, before) { color: red } // =>
-/// .my-component--red::before {color: red;}
+/// Function version of the bem mixin (see mixin for details).
 
-@mixin block($name, $modifier: '', $pseudo: '') {
-    @include -bem-base($name, $modifier, $pseudo, $-block-prefix) {
-        $bem-block: $name !global;
-        @content;
-    }
+@function get-bem($name, $modifier: '', $pseudo: '', $block: null) {
+    $block: if-null($block, get-block-name(&));
+    @return -bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix});
 }
 
 /// Creates a element--modifier class name using the bem approach to class naming. Can be used
 /// inside of the block mixin or just within a class declartion. Should also work with media media
 /// queries and other complex scnearios.
+///
+/// Here's a pretty thorough example that demonstrates why this might be useful
+///
+/// ```scss
+///
+/// @@include block('NEW') {
+///     @include element(element) {
+///         content: 'Basic Element';
+///     }
+///     @include element(element, blue) {
+///         content: 'Blue Modifier';
+///
+///         @include element(child-of-blue) {
+///             content: 'Child (in Blue Modified)';
+///
+///             @include element(deep-nested-element) {
+///                 content: 'Deep Nested Element (RIGHT)';
+///             }
+///         }
+///     }
+/// }
+///
+/// .OLD {
+///     &__element {
+///         content: 'Basic Element';
+///     }
+///
+///     &__element--blue {
+///         content: 'Blue Modifier';
+///     }
+///
+///     &__element--blue & {
+///         &__child-of-blue {
+///             content: 'Child in Blue Modified';
+///
+///             &__deep-nested-element {
+///                 content: 'Deep Nested Element (WRONG)';
+///             }
+///         }
+///
+///         &__deep-nested-element {
+///             content: 'Deep Nested Element (ALSO WRONG)';
+///         }
+///
+///         &__child-of-blue & {
+///             &__deep-nested-element {
+///                 content: 'Deep Nested Element (THIS IS WRONG TOO)';
+///             }
+///         }
+///     }
+/// }
+/// ```
+///
+/// And some more basic examples:
 ///
 /// @param {string | list} $name - The element name string (if a list is provided the selector will
 /// include a selector for each item in the list)
@@ -110,8 +164,6 @@ $-modifier-prefix: '--' !default;
 ///
 /// @param {string} $pseudo [''] - An optional pseudo class that should be appended to the selector
 /// (e.g. hover or after)
-///
-///
 ///
 /// @example
 ///     .block { @include bem(element) { ... } }
@@ -135,17 +187,13 @@ $-modifier-prefix: '--' !default;
 
 @mixin bem($name, $modifier: '', $pseudo: '', $block: null) {
     $block: if-null($block, get-block-name(&));
-    @include -bem-base($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix}) {
+    @include -bem-class($name, $modifier, $pseudo, #{$-block-prefix + $block + $-element-prefix}) {
         @content;
     }
 }
-/// @example @include element(my-component, modifier, before) {
-/// color: red;
-/// } // =>
-/// .test-output__my-component--modifier::before {
-///   color: red;
-/// }
-/// Wrapper for bem mixin with slightly more contextual naming
+
+/// Wrapper for bem mixin with more contextual naming
+
 @mixin element($name, $modifier: '', $pseudo: '', $block: null) {
     @include bem($name, $modifier, $pseudo, $block) {
         @content;

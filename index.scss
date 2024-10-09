@@ -1,14 +1,21 @@
+// ----------------------------------------------------------------------------
+// DESCRIPTION
+// ----------------------------------------------------------------------------
+//
+// Load this file in your main Sass file to include utils and basic site utils. There is essentially
+// no tree-shaking in Sass, so you will get everything in this package.
+//
+// USAGE: @use '@thinkpixellab-public/px-styles' as *;
+
+// ----------------------------------------------------------------------------
+// FORWARDS
+// ----------------------------------------------------------------------------
+
 // Reusuable utils (functions, mixins) that have no dependency on site configuration settings
 @forward 'src/utils';
 
 // Mixins / functions that have configuration settings / site awareness
 @forward 'src/site';
 
-// Standalone modules (depends on both utils and site)
-@forward 'src/modules';
-
-// Standalone modules for generating controls (depends on both utils and site)
-// @forward 'controls';
-
-// All defaults
+// Initializer (must run init() to set up site)
 @forward 'src/init';

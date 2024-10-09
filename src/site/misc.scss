@@ -2,45 +2,12 @@
 /// @group site.misc
 ////
 
-@use './mediaquery' as *;
 @use '../utils' as *;
+@use './media-query' as *;
+@use './color' as *;
+@use 'config' as *;
 
-/// Adds a site-specific focus selector use the value defined by `focus:selector`
-///
-/// @example
-/// .item { @include focus() {...} }  => .item:focus-visible {...}
-
-@mixin focus() {
-    &#{get('focus:selector')} {
-        @content;
-    }
-}
-
-/// Shortcut for checked state (and a reminder to use aria to manage this)
-///
-/// @example
-/// .item { @include aria-checked() {...} }  => .item:[aria-checked] {...}
-
-@mixin aria-checked() {
-    &[aria-checked] {
-        @content;
-    }
-}
-
-/// Shortcut for checked state (and a reminder to use aria to manage this)
-///
-/// @example
-/// .item { @include disabled() {...} }  =>
-/// .item:disabled, .item:disabled:hover, .item:disabled:active, .item:disabled[aria-checked] {...}
-
-@mixin disabled() {
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active,
-    &:disabled[aria-checked] {
-        @content;
-    }
-}
+/// PUBLIC API
 
 /// Creates a css clamp value that scales in vw units from $min to $max. The vw value is calculated
 /// such that it will have the $max value when the screen is $at-width wide.
@@ -50,10 +17,10 @@
 
 @function scale-vw($min, $max, $at-width: null) {
     @if (not is-length($at-width)) {
-        $at-width: if-null($at-width, get('container:width'));
+        $at-width: if-null($at-width, get('container.width'));
     }
 
-    @return clamp(#{$min}, #{divide($max, $at-width) * 100vw}, #{$max});
+    @return clamp(#{$min}, #{round-d(divide($max, $at-width), 5) * 100vw}, #{$max});
 }
 
 /// Creates a css clamp value that scales in vh units from $min to $max. The vh value is calculated
@@ -70,32 +37,35 @@
 ///
 /// @example
 /// font-size: scale-vw(18px, 36px, 1200px) => font-size: clamp(18px, 3vh, 36px)
+// ---------------------------------------------------------------------------
 
 @function z($layerName, $offset: 0) {
-    $z: get('z:' + $layerName, 0, false);
+    $z: get('z.' + $layerName, 0);
     @return $z + $offset;
 }
 
 /// Creates a standardized container based on site container settings.
 ///
 /// @example
-/// @include container();
+///  @include container();
+
 @mixin container() {
     width: 100%;
-    max-width: get('container:width');
-    padding: 0 get('container:padding', get('container:gutter'));
+    max-width: get('container.width');
+    padding: 0 get('container.padding');
     margin: 0 auto;
     position: relative;
     @include media-until-mobile() {
-        padding-left: get('container:gutter-mobile', null, false);
-        padding-right: get('container:gutter-mobile', null, false);
+        padding-left: get('container.padding-mobile', null);
+        padding-right: get('container.padding-mobile', null);
     }
 }
 
 /// Creates a standardized link based on site settings
 ///
 /// @example
-/// @include link();
+///  @include link();
+
 @mixin link() {
-    @include css-map-dpr(get('links'));
+    @include css-map(get('links'));
 }

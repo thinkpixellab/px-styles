@@ -5,8 +5,86 @@
 @use '../utils' as *;
 @use '../site' as *;
 
-/// Generates classes for "readable" content, e.g. standard HTML that should be
-/// formatted to be read, rather than structured as ui.
+// ---------------------------------------------------------------------------
+// CONFIG
+// ---------------------------------------------------------------------------
+
+/// @type config
+
+// $-defaults: (
+//     /// Base styles applied to reading content
+//     'reading.base':
+//         (
+//             font-family: inherit,
+//             font-size: inherit,
+//             font-weight: inherit,
+//             line-height: inherit,
+//             color: inherit,
+//         ),
+
+//     /// Font weight for <strong> text
+//     'reading.font-weight-strong': 600,
+
+//     /// Vertical spacing between block elements (set as a margin-bottom) in reading content
+//     'reading.block-spacing': 1em,
+
+//     /// Left padding for lists
+//     'reading.list-padding': 1.25em,
+
+//     /// Left padding for list items
+//     'reading.list-item-padding': 0.25em,
+
+//     /// Vertical spacing between list items
+//     'reading.list-item-spacing': 0.25em,
+
+//     /// Link styles in reading content
+//     'reading.links':
+//         flat-merge(
+//             get('links'),
+//             (
+//                 text-decoration: underline,
+//             )
+//         ),
+//     /// Set of type styles for reading content
+//     'reading.styles':
+//         (
+//             heading: type-style('heading'),
+//             'h1': (
+//                 font-size: fs(5),
+//                 __base: heading,
+//                 __selector: 'h1, .h1',
+//             ),
+//             'h2': (
+//                 font-size: fs(4),
+//                 __selector: 'h2, .h2',
+//                 __base: heading,
+//             ),
+//             'h3': (
+//                 font-size: fs(3),
+//                 __selector: 'h3, .h3',
+//                 __base: heading,
+//             ),
+//             'h4': (
+//                 font-size: fs(2),
+//                 __selector: 'h4, .h4',
+//                 __base: heading,
+//             ),
+//             'h5': (
+//                 font-size: fs(1),
+//                 __selector: 'h5, .h5',
+//                 __base: heading,
+//             ),
+//         )
+// );
+
+// ---------------------------------------------------------------------------
+// API
+// ---------------------------------------------------------------------------
+
+//@include defaults($-defaults);
+
+/// Most of pxstyles is oriented around building UI. Use this mixin to reintroduce styles optimized
+/// for "readable" content, e.g. standard HTML that should be formatted to be read.
 ///
 /// @example @include reading()
 
@@ -14,16 +92,16 @@
     $config: flat-merge(get('reading'), $overrides);
 
     // base styles
-    @include css-map-dpr(flat-get($config, 'base'));
+    @include css-map(flat-get($config, 'base'));
 
     // should we reevaluate this?
     a,
     span,
     p {
-        font-family: flat-get($config, 'p:font-family', inherit);
-        font-size: flat-get($config, 'p:font-size', inherit);
-        font-weight: flat-get($config, 'p:font-weight', inherit);
-        line-height: flat-get($config, 'p:line-height', inherit);
+        font-family: flat-get($config, 'p.font-family', inherit);
+        font-size: flat-get($config, 'p.font-size', inherit);
+        font-weight: flat-get($config, 'p.font-weight', inherit);
+        line-height: flat-get($config, 'p.line-height', inherit);
     }
 
     strong {
@@ -32,8 +110,14 @@
 
     // block spacing
 
-    $blocks: join(flat-get($config, 'blocks'), ',');
-    #{$blocks} {
+    p,
+    iframe,
+    ul,
+    ol,
+    form,
+    section,
+    table,
+    pre {
         margin: 0 0 flat-get($config, 'block-spacing') 0;
         &:last-child {
             margin-bottom: 0;
@@ -80,21 +164,21 @@
 
     // headings and other styles
 
-    $styles-base-name: flat-get($config, 'styles-base');
     $styles: flat-get($config, 'styles');
 
+    /* styles */
     @if ($styles) {
-        @include type-styles($styles, $styles-base-name);
+        @include type-styles($styles);
     }
 
     // link styles
 
     $links: flat-get($config, 'links');
-    $link-selector: flat-get($config, 'links:-selector');
+    $link-selector: flat-get($config, 'links.__selector');
     @if ($links) {
         a,
         #{$link-selector} {
-            @include css-map-dpr($links);
+            @include css-map($links);
         }
     }
 }

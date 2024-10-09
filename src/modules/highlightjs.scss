@@ -1,8 +1,12 @@
+////
+/// @group modules.highlightjs
+////
+
 // highlight.js theme generator
 @use '../utils' as *;
 @use '../site' as *;
 
-$default-colors: (
+$-default-colors: (
     fg: #abb2bf,
     bg: #282c34,
     comment: #7f848e,
@@ -15,7 +19,7 @@ $default-colors: (
     class: #e6c07b,
 );
 
-@mixin highlightjs($colors: $default-colors, $prefix: hljs) {
+@mixin highlightjs($colors: $-default-colors, $prefix: hljs) {
     color: map-get($colors, fg);
     background: map-get($colors, bg);
 
