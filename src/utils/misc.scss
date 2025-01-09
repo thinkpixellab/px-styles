@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
 ////
 /// @group utils.misc
 ////
@@ -232,7 +235,7 @@
             $prop: ($prop);
         }
         @each $propname in $prop {
-            $remap: map-merge(
+            $remap: map.merge(
                 $remap,
                 (
                     $propname: $val,
@@ -282,7 +285,7 @@
             optional: '&:optional',
             placeholder: '&::placeholder',
         );
-        $aliases: map-merge($common-states, $aliases);
+        $aliases: map.merge($common-states, $aliases);
     }
     // walk through $map and replace any aliases with their counterparts
     $remap: map-key-replace($map, $aliases);
@@ -290,13 +293,13 @@
     // remove keys that start with $ignore
     @each $key, $val in $remap {
         @if starts-with($key, $ignore) {
-            $remap: map-remove($remap, $key);
+            $remap: map.remove($remap, $key);
         }
     }
 
     // output non-states first
     @each $key, $val in $remap {
-        @if (is-map($val) or (is-list($val) and length($val) == 0)) {
+        @if (is-map($val) or (is-list($val) and list.length($val) == 0)) {
             // do nothing (this is a map or an empty list)
         } @else {
             #{$key}: $val;
@@ -305,9 +308,9 @@
 
     // now output mapped states
     @each $key, $val in $remap {
-        @if (is-map($val) or (is-list($val) and length($val) == 0)) {
-            $state-map: map-get($remap, $key);
-            $state-key: unquote($key);
+        @if (is-map($val) or (is-list($val) and list.length($val) == 0)) {
+            $state-map: map.get($remap, $key);
+            $state-key: string.unquote($key);
             #{$state-key} {
                 @include css-map($state-map, $aliases, $ignore);
             }

@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "sass:meta";
 ////
 /// @group modules.atoms
 ////
@@ -408,7 +410,7 @@ $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
 }
 
 @function -spacer-val($val, $space) {
-    @return if(type-of($val) == 'number', $val * $space, $val);
+    @return if(meta.type-of($val) == 'number', $val * $space, $val);
 }
 
 @mixin -atoms-spacer(
@@ -422,10 +424,10 @@ $-spacer-vals: (0, 0.25, 0.5, 1, 2, 3, 4);
     $child-sel: ''
 ) {
     // lookup the property name
-    $prop-base: map-get($-spacer-props, $base);
+    $prop-base: map.get($-spacer-props, $base);
 
     // lookup the variants
-    $prop-variants: map-get($-spacer-variants, $variant);
+    $prop-variants: map.get($-spacer-variants, $variant);
 
     // change all to empty string now that the lookup is done
     $variant: if($variant == 'all', '', $variant);

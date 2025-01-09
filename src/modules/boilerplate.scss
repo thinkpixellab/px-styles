@@ -1,3 +1,4 @@
+@use "sass:map";
 ////
 /// @group modules.boilerplate
 ////
@@ -113,8 +114,8 @@
             @each $font-name, $variants in $fonts {
                 $variants-list: if(is-map($variants), ($variants, ()), $variants);
                 @each $options in $variants-list {
-                    @if (map-has-key($options, src)) {
-                        $src: map-get($options, src);
+                    @if (map.has-key($options, src)) {
+                        $src: map.get($options, src);
                         $weight: map-get-default($options, 'weight', null);
                         $style: map-get-default($options, style, null);
                         $exts: map-get-default($options, exts, woff ttf);
@@ -127,7 +128,7 @@
             @each $font-name, $variants in $fonts {
                 $variants-list: if(is-map($variants), ($variants, ()), $variants);
                 @each $options in $variants-list {
-                    @if (map-has-key($options, googleFont) and map-get($options, googleFont)) {
+                    @if (map.has-key($options, googleFont) and map.get($options, googleFont)) {
                         $weight: map-get-default($options, 'weight', '400');
                         $style: map-get-default($options, style, 'normal');
                         @include google-font($name: $font-name, $weights: $weight, $styles: $style);

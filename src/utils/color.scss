@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:list";
 ////
 /// @group utils.color
 ////
@@ -34,16 +36,16 @@
     $shade: clamp-number($shade, -100%, 100%);
 
     @if ($color == null) {
-        $color: mix(nth($shade-range, 1), nth($shade-range, 2));
+        $color: color.mix(list.nth($shade-range, 1), list.nth($shade-range, 2));
     }
 
     @if ($shade < 0) {
-        $color1: nth($shade-range, 1);
-        @return mix($color1, $color, $shade * -1);
+        $color1: list.nth($shade-range, 1);
+        @return color.mix($color1, $color, $shade * -1);
     }
 
     @if ($shade > 0) {
-        @return mix(nth($shade-range, 2), $color, $shade);
+        @return color.mix(list.nth($shade-range, 2), $color, $shade);
     }
 
     @return $color;
@@ -67,9 +69,9 @@
 /// @example yiq(purple) // => 52.864
 
 @function yiq($color) {
-    $r: red($color);
-    $g: green($color);
-    $b: blue($color);
+    $r: color.red($color);
+    $g: color.green($color);
+    $b: color.blue($color);
     $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
 
     // 0 (black) - 255 (white)
@@ -80,9 +82,9 @@
 /// https://www.w3.org/TR/WCAG20/#relativeluminancedef
 ///
 @function luminance($color) {
-    $R: divide(red($color), 255);
-    $G: divide(green($color), 255);
-    $B: divide(blue($color), 255);
+    $R: divide(color.red($color), 255);
+    $G: divide(color.green($color), 255);
+    $B: divide(color.blue($color), 255);
 
     $c: divide(0.055, 1.055);
 

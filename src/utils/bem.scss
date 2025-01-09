@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:string";
 ////
 /// @group utils.bem
 ////
@@ -35,7 +37,7 @@ $-modifier-prefix: '--' !default;
         $selector: ();
 
         @each $n in $nameOrNames {
-            $selector: append($selector, -bem-class($n, $modifier, $pseudo, $prefix), comma);
+            $selector: list.append($selector, -bem-class($n, $modifier, $pseudo, $prefix), comma);
         }
     } @else {
         $selector: -bem-class($nameOrNames, $modifier, $pseudo, $prefix);
@@ -82,13 +84,13 @@ $--block: null;
     }
     $selector: #{$selector};
     $inf: 9999999;
-    $dot-index: if-null(str-index($selector, '.'), 1);
-    $space-index: if-null(str-index($selector, ' '), $inf);
-    $modifier-index: if-null(str-index($selector, $-modifier-prefix), $inf);
-    $element-index: if-null(str-index($selector, $-element-prefix), $inf);
-    $pseudo-index: if-null(str-index($selector, ':'), $inf);
+    $dot-index: if-null(string.index($selector, '.'), 1);
+    $space-index: if-null(string.index($selector, ' '), $inf);
+    $modifier-index: if-null(string.index($selector, $-modifier-prefix), $inf);
+    $element-index: if-null(string.index($selector, $-element-prefix), $inf);
+    $pseudo-index: if-null(string.index($selector, ':'), $inf);
     $min-index: min($space-index, $modifier-index, $element-index, $pseudo-index);
-    @return str-slice($selector, $dot-index + 1, $min-index - 1);
+    @return string.slice($selector, $dot-index + 1, $min-index - 1);
 }
 
 /// Function version of the bem mixin (see mixin for details).

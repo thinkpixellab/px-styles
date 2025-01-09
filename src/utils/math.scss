@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:meta";
 ////
 /// @group utils.math
 ////
@@ -22,7 +24,7 @@
     $previous: 0;
     $current: $value;
 
-    @while abs($current - $previous) > $precision {
+    @while math.abs($current - $previous) > $precision {
         $previous: $current;
         $current: divide(1, $n) * (($n - 1) * $previous + divide($value, pow($previous, $n - 1)));
     }
@@ -38,8 +40,8 @@
 
 @function round-d($n, $dec: 2) {
     $p: pow(10, $dec);
-    $r: round($n * $p);
-    @return divide(round($n * $p), $p);
+    $r: math.round($n * $p);
+    @return divide(math.round($n * $p), $p);
 }
 
 /// Round a number with the specified fraction (e.g. 4 will produce 1.0, 1.25, 1.5, etc.)
@@ -50,9 +52,9 @@
 
 @function round-f($n, $frac: 8) {
     @if ($frac) {
-        @return divide(round($n * $frac), $frac);
+        @return divide(math.round($n * $frac), $frac);
     } @else {
-        @return round($n);
+        @return math.round($n);
     }
 }
 
@@ -75,9 +77,9 @@
     $from: 0;
     $to: $range;
 
-    @if (type-of($to) == 'list') {
-        $from: nth($to, 1);
-        $to: nth($to, 2);
+    @if (meta.type-of($to) == 'list') {
+        $from: list.nth($to, 1);
+        $to: list.nth($to, 2);
     }
 
     @if ($ease) {
@@ -208,7 +210,7 @@
 /// @example  divide(10, 2) // => 5
 
 @function divide($num1, $num2) {
-    @if (function-exists('div', 'math')) {
+    @if (meta.function-exists('div', 'math')) {
         @return math.div($num1, $num2);
     }
     @return (($num1 / $num2) * 1);

@@ -1,3 +1,4 @@
+@use "sass:color";
 ////
 /// @group site.init
 ////
@@ -82,7 +83,7 @@
     @include default(
         'links',
         (
-            color: adjust-color(accent(), $saturation: 40%),
+            color: color.adjust(accent(), $saturation: 40%),
             text-decoration: none,
             text-decoration-color: null,
             hover: (

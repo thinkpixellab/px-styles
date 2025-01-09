@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
 ////
 /// @group modules.typography
 ////
@@ -31,15 +34,15 @@
 
     // if lookup is a string, find the size by name
 
-    @if (type-of($lookup) == 'string') {
-        $size: map-get($sizes, $lookup);
+    @if (meta.type-of($lookup) == 'string') {
+        $size: map.get($sizes, $lookup);
 
         @if ($size) {
             @if (is-list($size)) {
                 // if size is a map, use it with scale-vw (use-rems is ignored)
-                $from: nth($size, 1);
+                $from: list.nth($size, 1);
 
-                $to: nth($size, 2);
+                $to: list.nth($size, 2);
                 $at-width: nth-or-val($size, 3, null);
 
                 @return scale-vw($from, $to, $at-width);
@@ -58,11 +61,11 @@
     // if lookup is a number, find the size as an offset from the 'base' size (e.g
     // fs(2) would return the size that is two larger than the base)
 
-    @if (type-of($lookup) == 'number') {
+    @if (meta.type-of($lookup) == 'number') {
         $sizes: get('typography.type-sizes');
 
-        $names: map-keys($sizes);
-        $base-index: index($names, 'base');
+        $names: map.keys($sizes);
+        $base-index: list.index($names, 'base');
 
         @if ($base-index == null) {
             @error '[fs] The typescale must contain a size named "base".';
@@ -70,11 +73,11 @@
 
         $name-index: $base-index + $lookup;
 
-        @if ($base-index < 1 or $base-index > length($names)) {
+        @if ($base-index < 1 or $base-index > list.length($names)) {
             @error '[fs] The requested lookup index exceeds the boundares of the typescale.';
         }
 
-        @return fs(nth($names, $name-index));
+        @return fs(list.nth($names, $name-index));
     }
 
     @error '[fs] Argument is unusable. Must be a string or a number.';

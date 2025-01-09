@@ -1,3 +1,4 @@
+@use "sass:map";
 ////
 /// @group modules.typography
 ////
@@ -9,18 +10,18 @@
 @function type-style($name, $base-prop: '__base', $type-styles: null) {
     $type-styles: if-null($type-styles, get('typography.type-styles'));
 
-    $style: map-get($type-styles, $name);
+    $style: map.get($type-styles, $name);
 
     @if (not $style) {
         @error '[type-style] Could not find a style named #{$name} in the type-styles.';
         @return null;
     }
 
-    $base-name: map-get($style, $base-prop);
+    $base-name: map.get($style, $base-prop);
     $base: if($base-name, type-style($base-name), null);
 
     @if ($style and $base) {
-        @return map-merge($base, $style);
+        @return map.merge($base, $style);
     }
 
     @if ($base) {
@@ -43,8 +44,8 @@
     @each $name, $props in $type-styles {
         $selector: $name;
 
-        @if (map-has-key($props, $selector-prop)) {
-            $selector: map-get($props, $selector-prop);
+        @if (map.has-key($props, $selector-prop)) {
+            $selector: map.get($props, $selector-prop);
         }
 
         #{$selector} {

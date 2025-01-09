@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:meta";
+@use "sass:string";
 ////
 /// @group utils.strings
 ////
@@ -5,7 +8,7 @@
 /// Ensures that that provided value is a string.
 
 @function to-str($str) {
-    @if (type-of($str) == 'string') {
+    @if (meta.type-of($str) == 'string') {
         @return $str;
     }
     @return '' + $str;
@@ -16,10 +19,10 @@
 /// @example str-replace('test test test', 'test', 'pass') // => 'pass pass pass'
 
 @function str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
+    $index: string.index($string, $search);
     @if $index {
-        @return str-slice($string, 1, $index - 1) + $replace +
-            str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+        @return string.slice($string, 1, $index - 1) + $replace +
+            str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
     }
     @return $string;
 }
@@ -86,20 +89,20 @@
     // empty array/list
     $split-arr: ();
     // first index of separator in string
-    $index: str-index($string, $separator);
+    $index: string.index($string, $separator);
     // loop through string
     @while $index != null {
         // get the substring from the first character to the separator
-        $item: str-slice($string, 1, $index - 1);
+        $item: string.slice($string, 1, $index - 1);
         // push item to array
-        $split-arr: append($split-arr, $item);
+        $split-arr: list.append($split-arr, $item);
         // remove item and separator from string
-        $string: str-slice($string, $index + 1);
+        $string: string.slice($string, $index + 1);
         // find new index of separator
-        $index: str-index($string, $separator);
+        $index: string.index($string, $separator);
     }
     // add the remaining string to list (the last item)
-    $split-arr: append($split-arr, $string);
+    $split-arr: list.append($split-arr, $string);
 
     @return $split-arr;
 }
@@ -113,15 +116,15 @@
 /// @example list-join('a' 'b' 'c', ':') // => 'a:b:c'
 
 @function list-join($list, $separator) {
-    @if (length($list) == 0) {
+    @if (list.length($list) == 0) {
         @return '';
     }
 
     $str: '';
 
-    @for $i from 1 through length($list) {
-        $s: nth($list, $i);
-        $str: $str + $s + if($i != length($list), $separator, '');
+    @for $i from 1 through list.length($list) {
+        $s: list.nth($list, $i);
+        $str: $str + $s + if($i != list.length($list), $separator, '');
     }
     @return $str;
 }
@@ -134,8 +137,8 @@
 /// @example starts-with('abc', 'a') // => true
 
 @function starts-with($str, $start) {
-    @if ($str and str-length($str)) {
-        @return str-index($str, $start) == 1;
+    @if ($str and string.length($str)) {
+        @return string.index($str, $start) == 1;
     }
     @return false;
 }
@@ -148,16 +151,16 @@
 /// @example starts-with('abc', 'a') // => true
 
 @function ends-with($str, $end) {
-    @if ($str and str-length($str)) {
-        @return str-index($str, $end) == (str-length($str) - str-length($end) + 1);
+    @if ($str and string.length($str)) {
+        @return string.index($str, $end) == (string.length($str) - string.length($end) + 1);
     }
     @return false;
 }
 
 // private function that trims the start/left of the string:
 @function -trimStart($str) {
-    @if (str-slice($str, 1, 1) == ' ') {
-        @return -trimStart(str-slice($str, 2));
+    @if (string.slice($str, 1, 1) == ' ') {
+        @return -trimStart(string.slice($str, 2));
     } @else {
         @return $str;
     }
@@ -165,8 +168,8 @@
 
 // private function that trims the end/right of the string:
 @function -trimEnd($str) {
-    @if (str-slice($str, str-length($str), -1) == ' ') {
-        @return -trimEnd(str-slice($str, 1, -2));
+    @if (string.slice($str, string.length($str), -1) == ' ') {
+        @return -trimEnd(string.slice($str, 1, -2));
     } @else {
         @return $str;
     }

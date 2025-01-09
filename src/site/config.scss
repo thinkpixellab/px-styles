@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
 ////
 /// @group site.config
 ////
@@ -15,7 +18,7 @@ $-config: () !default;
 /// @param {*} $config
 
 @mixin set-config-map($config) {
-    @if (length(map-keys($-config)) > 0) {
+    @if (list.length(map.keys($-config)) > 0) {
         @warn 'The px-styles configuration map has already been set. This could cause unexpected behavior.';
     }
     $-config: $config !global;
@@ -51,7 +54,7 @@ $-config: () !default;
 
 @function get($paths, $fallback: 'INVALID_FALLBACK') {
     // $paths is a list so we get the first non-null value
-    @if (type-of($paths) == 'list') {
+    @if (meta.type-of($paths) == 'list') {
         @each $path in $paths {
             @if (flat-has-key($-config, $path)) {
                 @return flat-get($-config, $path);
@@ -67,7 +70,7 @@ $-config: () !default;
     }
 
     @if ($fallback == 'INVALID_FALLBACK') {
-        $path-str: if(type-of($paths) == 'list', list-join($paths, ', '), $paths);
+        $path-str: if(meta.type-of($paths) == 'list', list-join($paths, ', '), $paths);
         @warn '[CONFIG] Could not find required config value for path "#{$path-str}".';
     }
 

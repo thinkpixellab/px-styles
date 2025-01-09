@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:string";
 ////
 /// @group utils.transitions
 ////
@@ -24,18 +26,18 @@
     $attrs: ($dur);
 
     @if ($ease) {
-        $attrs: append($attrs, $ease);
+        $attrs: list.append($attrs, $ease);
     }
 
     @if ($delay) {
-        $attrs: append($attrs, $delay);
+        $attrs: list.append($attrs, $delay);
     }
 
     @each $prop in $proplist {
-        $transitions: append($transitions, $prop unquote(list-join($attrs, ' ')));
+        $transitions: list.append($transitions, $prop string.unquote(list-join($attrs, ' ')));
     }
 
-    @return unquote(list-join($transitions, ', '));
+    @return string.unquote(list-join($transitions, ', '));
 }
 
 /// Mixin version of the transition function.

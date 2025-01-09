@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math" as sass-math;
 ////
 /// @group utils.typography
 ////
@@ -38,7 +41,7 @@ $typescale-golden-section: 1.1618;
     @if ($step >= 0) {
         $size: $base * (math.pow($ratio, $step));
     } @else {
-        $size: math.divide($base, math.pow($ratio, abs($step)));
+        $size: math.divide($base, math.pow($ratio, sass-math.abs($step)));
     }
 
     @return $size;
@@ -79,26 +82,26 @@ $typescale-golden-section: 1.1618;
 ) {
     // if $names isn't provided but range is, we use numeric values for names
     @if (not($names)) {
-        $from: nth($range, 1);
-        $to: nth($range, 2);
+        $from: list.nth($range, 1);
+        $to: list.nth($range, 2);
         $names: ();
 
-        @for $n from nth($range, 1) through nth($range, 2) {
+        @for $n from list.nth($range, 1) through list.nth($range, 2) {
             @if ($n == 0) {
-                $names: append($names, 'base');
+                $names: list.append($names, 'base');
             } @else {
-                $names: append($names, $n);
+                $names: list.append($names, $n);
             }
         }
     }
 
     $scale: ();
     $bases: if(is-list($bases), $bases, ($bases));
-    $remsfs: nth($bases, 1);
+    $remsfs: list.nth($bases, 1);
 
-    $base-index: index($names, 'base') - 1;
+    $base-index: list.index($names, 'base') - 1;
 
-    $count: length($names);
+    $count: list.length($names);
     $step-from: $base-index * -1;
     $step-to: $count - ($base-index + 1);
 
@@ -107,7 +110,7 @@ $typescale-golden-section: 1.1618;
     @each $b in $bases {
         @for $step from $step-from through $step-to {
             $s: modular-size($b, $ratio, $step);
-            $sizes: append($sizes, $s);
+            $sizes: list.append($sizes, $s);
         }
     }
 
@@ -115,14 +118,14 @@ $typescale-golden-section: 1.1618;
     $sizes: collections.list-sort-num($sizes);
 
     // find the index of the original first base
-    $size-base-index: index($sizes, nth($bases, 1));
+    $size-base-index: list.index($sizes, list.nth($bases, 1));
     $sizes-from: $size-base-index + $step-from;
     $sizes-to: $sizes-from + ($count - 1);
 
     // match generated sizes to the list of size names
     @for $step from $sizes-from through $sizes-to {
         // find the size
-        $size: nth($sizes, $step);
+        $size: list.nth($sizes, $step);
 
         // convert to rems if specified (this will also round)
         @if ($rems) {
@@ -138,8 +141,8 @@ $typescale-golden-section: 1.1618;
             }
         }
 
-        $name: nth($names, ($step - $sizes-from) + 1);
-        $scale: map-merge($scale, (#{$name}: $size));
+        $name: list.nth($names, ($step - $sizes-from) + 1);
+        $scale: map.merge($scale, (#{$name}: $size));
     }
 
     @return $scale;

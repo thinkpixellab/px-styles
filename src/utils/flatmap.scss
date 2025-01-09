@@ -1,3 +1,7 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
 ////
 /// @group utils.collections
 ////
@@ -23,7 +27,7 @@
 
 @function flat-get($map, $path, $fallback: null) {
     // TEMPORARY: replace colons with periods for backwards compatibility
-    @if (str-index($path, ':') != null) {
+    @if (string.index($path, ':') != null) {
         @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
         $path: str-replace($path, ':', '.');
     }
@@ -32,8 +36,8 @@
     $found: false;
 
     @each $key in $keys {
-        @if (map-has-key($map, $key)) {
-            $map: map-get($map, $key);
+        @if (map.has-key($map, $key)) {
+            $map: map.get($map, $key);
             $found: true;
         } @else {
             @return $fallback;
@@ -68,14 +72,14 @@
 
 @function flat-set($map, $path, $val, $merge-maps: false) {
     // TEMPORARY: replace colons with periods for backwards compatibility
-    @if (str-index($path, ':') != null) {
+    @if (string.index($path, ':') != null) {
         @warn 'Using colons in flat-maps is deprecated. Use periods instead. (#{$path})';
         $path: str-replace($path, ':', '.');
     }
 
     $map: if-null($map, ());
     $keys: str-split($path, '.');
-    $key: nth($keys, 1);
+    $key: list.nth($keys, 1);
 
     $next-path: list-join(list-remove($keys, 1), '.');
     $merge: ();
@@ -84,20 +88,20 @@
         $val: map-keys-ensure-str($val);
     }
 
-    @if (map-has-key($map, $key)) {
-        $existing-value: map-get($map, $key);
+    @if (map.has-key($map, $key)) {
+        $existing-value: map.get($map, $key);
         $merge: if(is-map($existing-value), $existing-value, $merge);
     }
 
-    @if (length($keys) > 1) {
+    @if (list.length($keys) > 1) {
         $val: flat-set($merge, $next-path, $val);
     }
 
     @if ($merge-maps and is-map($merge) and is-map($val)) {
-        $val: map-merge($merge, $val);
+        $val: map.merge($merge, $val);
     }
 
-    @return map-merge(
+    @return map.merge(
         $map,
         (
             $key: $val,
@@ -145,13 +149,13 @@
 @function flatten-map($map) {
     $flat: ();
     @each $key, $value in $map {
-        @if (type-of($value) == 'map') {
+        @if (meta.type-of($value) == 'map') {
             $fmap: flatten-map($value);
             @each $fkey, $fvalue in $fmap {
-                $flat: map-merge($flat, (#{$key + '.' + $fkey}: $fvalue));
+                $flat: map.merge($flat, (#{$key + '.' + $fkey}: $fvalue));
             }
         } @else {
-            $flat: map-merge(
+            $flat: map.merge(
                 $flat,
                 (
                     $key: $value,
@@ -195,13 +199,13 @@
     $flat-maps: ();
     @each $map in $maps {
         @if ($map) {
-            $flat-maps: append($flat-maps, flatten-map($map));
+            $flat-maps: list.append($flat-maps, flatten-map($map));
         }
     }
 
     $flat-collection: ();
     @each $map in $flat-maps {
-        $flat-collection: map-merge($flat-collection, $map);
+        $flat-collection: map.merge($flat-collection, $map);
     }
 
     @return unflatten-map($flat-collection);

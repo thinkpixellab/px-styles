@@ -1,3 +1,4 @@
+@use "sass:list";
 ////
 /// @group site.color
 ////
@@ -64,12 +65,12 @@
         $tag-index: $tag;
 
         @if (is-string($tag)) {
-            $tag-index: if-null(index(get('color-tags'), $tag), 1);
+            $tag-index: if-null(list.index(get('color-tags'), $tag), 1);
         }
 
-        $tag-index: clamp-number($tag-index, 1, length($color));
+        $tag-index: clamp-number($tag-index, 1, list.length($color));
 
-        $color: nth($color, $tag-index);
+        $color: list.nth($color, $tag-index);
     }
 
     $base: $color;
@@ -77,15 +78,15 @@
 
     // $color is a list of 2 values representing the dark and light shade range,
     // so calculate base as the middle value between them
-    @if (is-list($color) and length($color) == 2) {
-        $range: (nth($color, 1), nth($color, 2));
+    @if (is-list($color) and list.length($color) == 2) {
+        $range: (list.nth($color, 1), list.nth($color, 2));
         $base: null;
     }
 
     // $color is a list of 3 values like: (base, range-dark, range-light)
-    @if (is-list($color) and length($color) == 3) {
-        $base: nth($color, 1);
-        $range: (nth($color, 2), nth($color, 3));
+    @if (is-list($color) and list.length($color) == 3) {
+        $base: list.nth($color, 1);
+        $range: (list.nth($color, 2), list.nth($color, 3));
     }
 
     // get the shaded version of the color

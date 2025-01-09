@@ -1,6 +1,8 @@
 @use 'px' as *;
 @use 'true' as *;
 
+@include init();
+
 @include test-module('site.typography') {
     @include test('fs') {
         @include assert-equal(fs(base), 15px);

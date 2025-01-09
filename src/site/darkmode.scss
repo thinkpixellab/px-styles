@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:list";
 ////
 /// @group site.darkmode
 ////
@@ -10,8 +12,8 @@
     $color: get('colors.' + $name);
 
     @if (is-list($color)) {
-        $tag-index: index(get('color-tags'), $tag);
-        @return length($color) >= $tag-index;
+        $tag-index: list.index(get('color-tags'), $tag);
+        @return list.length($color) >= $tag-index;
     }
 
     @return false;
@@ -54,15 +56,15 @@
         }
     }
 
-    $l: 100% - lightness($color) + lightness($bg);
-    $l: clamp-number($l, 0%, max(90%, lightness($bg)));
+    $l: 100% - color.lightness($color) + color.lightness($bg);
+    $l: clamp-number($l, 0%, max(90%, color.lightness($bg)));
 
     @if ($l < 60% and $l > 45%) {
         @return $color;
     }
 
     //$d: (100% + $l) / 100%;
-    $clr: change-color($color, $lightness: $l);
+    $clr: color.change($color, $lightness: $l);
 
     @return $clr;
 }

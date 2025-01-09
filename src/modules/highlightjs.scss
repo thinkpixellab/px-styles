@@ -1,3 +1,4 @@
+@use "sass:map";
 ////
 /// @group modules.highlightjs
 ////
@@ -20,20 +21,20 @@ $-default-colors: (
 );
 
 @mixin highlightjs($colors: $-default-colors, $prefix: hljs) {
-    color: map-get($colors, fg);
-    background: map-get($colors, bg);
+    color: map.get($colors, fg);
+    background: map.get($colors, bg);
 
     .#{$prefix} {
         &-comment,
         &-quote {
-            color: map-get($colors, comment);
+            color: map.get($colors, comment);
             font-style: italic;
         }
 
         &-doctag,
         &-keyword,
         &-formula {
-            color: map-get($colors, keyword);
+            color: map.get($colors, keyword);
         }
 
         &-section,
@@ -41,11 +42,11 @@ $-default-colors: (
         &-selector-tag,
         &-deletion,
         &-subst {
-            color: map-get($colors, name);
+            color: map.get($colors, name);
         }
 
         &-literal {
-            color: map-get($colors, literal);
+            color: map.get($colors, literal);
         }
 
         &-string,
@@ -53,7 +54,7 @@ $-default-colors: (
         &-addition,
         &-attribute,
         &-meta &-string {
-            color: map-get($colors, string);
+            color: map.get($colors, string);
         }
 
         &-attr,
@@ -64,7 +65,7 @@ $-default-colors: (
         &-selector-attr,
         &-selector-pseudo,
         &-number {
-            color: map-get($colors, variable);
+            color: map.get($colors, variable);
         }
 
         &-symbol,
@@ -73,13 +74,13 @@ $-default-colors: (
         &-meta,
         &-selector-id,
         &-title {
-            color: map-get($colors, symbol);
+            color: map.get($colors, symbol);
         }
 
         &-built_in,
         &-title.class_,
         &-class &-title {
-            color: map-get($colors, class);
+            color: map.get($colors, class);
         }
 
         &-emphasis {

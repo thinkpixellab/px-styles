@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
 ////
 /// @group utils.collections
 ////
@@ -11,8 +14,8 @@
 /// @example map-get-default((a:1, b:2), wontwork, 3) => 3
 
 @function map-get-default($map, $key, $default) {
-    @if (map-has-key($map, $key)) {
-        @return map-get($map, $key);
+    @if (map.has-key($map, $key)) {
+        @return map.get($map, $key);
     } @else {
         @return $default;
     }
@@ -25,7 +28,7 @@
 
 @function map-deep-get($map, $keys...) {
     @each $key in $keys {
-        $map: map-get($map, $key);
+        $map: map.get($map, $key);
     }
     @return $map;
 }
@@ -34,8 +37,8 @@
 /// @example  nth-if-length((a, b, c), 1) // => a
 
 @function nth-if-length($list, $n, $fallback: null) {
-    @if ($n <= length($list)) {
-        @return nth($list, $n);
+    @if ($n <= list.length($list)) {
+        @return list.nth($list, $n);
     }
     @return $fallback;
 }
@@ -52,11 +55,11 @@
         @return $default;
     }
 
-    @if (type-of($list-or-value) == 'list') {
-        @if (length($list-or-value) < $n) {
+    @if (meta.type-of($list-or-value) == 'list') {
+        @if (list.length($list-or-value) < $n) {
             @return $default;
         }
-        @return nth($list-or-value, $n);
+        @return list.nth($list-or-value, $n);
     }
     @return $list-or-value;
 }
@@ -66,15 +69,15 @@
 
 @function list-remove($list, $n) {
     $result: ();
-    $n: if($n < 0, length($list) + $n + 1, $n);
-    $bracketed: is-bracketed($list);
-    $separator: list-separator($list);
-    @for $i from 1 through length($list) {
+    $n: if($n < 0, list.length($list) + $n + 1, $n);
+    $bracketed: list.is-bracketed($list);
+    $separator: list.separator($list);
+    @for $i from 1 through list.length($list) {
         @if $i != $n {
-            $result: append($result, nth($list, $i));
+            $result: list.append($result, list.nth($list, $i));
         }
     }
-    @return join((), $result, $separator, $bracketed);
+    @return list.join((), $result, $separator, $bracketed);
 }
 
 /// Performas a find and replace of items within a list
@@ -88,7 +91,7 @@
 
     @each $item in $list {
         $new-item: map-get-default($replacements, $item, $item);
-        $result: append($result, $new-item);
+        $result: list.append($result, $new-item);
     }
 
     @return $result;
@@ -98,7 +101,7 @@
 /// @example list-contains((a, b, c), c) // => true
 
 @function list-contains($list, $val) {
-    @return index($list, $val) != null;
+    @return list.index($list, $val) != null;
 }
 
 /// Return a copy of a list sorted numerically
@@ -106,15 +109,15 @@
 
 @function list-sort-num($list) {
     $sortedlist: ();
-    @while length($list) > 0 {
-        $value: nth($list, 1);
+    @while list.length($list) > 0 {
+        $value: list.nth($list, 1);
         @each $item in $list {
             @if $item < $value {
                 $value: $item;
             }
         }
-        $sortedlist: append($sortedlist, $value, 'space');
-        $list: list-remove($list, index($list, $value));
+        $sortedlist: list.append($sortedlist, $value, 'space');
+        $list: list-remove($list, list.index($list, $value));
     }
     @return $sortedlist;
 }
@@ -128,27 +131,27 @@
     $sortedMap: ();
 
     @each $key, $val in $map {
-        $keys: append($keys, $key);
-        $values: append($values, $val);
+        $keys: list.append($keys, $key);
+        $values: list.append($values, $val);
     }
 
-    $list: zip($keys, $values);
+    $list: list.zip($keys, $values);
 
-    @while length($list) > 0 {
+    @while list.length($list) > 0 {
         // find smallest pair
-        $smallestPair: nth($list, 1);
+        $smallestPair: list.nth($list, 1);
         @each $pair in $list {
-            $value: nth($pair, 2);
-            $smallestValue: nth($smallestPair, 2);
+            $value: list.nth($pair, 2);
+            $smallestValue: list.nth($smallestPair, 2);
             @if $value < $smallestValue {
                 $smallestPair: $pair;
             }
         }
 
         // add smallest pair to sorted map
-        $key: nth($smallestPair, 1);
-        $value: nth($smallestPair, 2);
-        $sortedMap: map-merge(
+        $key: list.nth($smallestPair, 1);
+        $value: list.nth($smallestPair, 2);
+        $sortedMap: map.merge(
             $sortedMap,
             (
                 $key: $value,
@@ -156,11 +159,11 @@
         );
 
         // remove from list smallest pair
-        $smallestPairIndex: index($list, $smallestPair);
+        $smallestPairIndex: list.index($list, $smallestPair);
         $newList: ();
-        @for $i from 1 through length($list) {
+        @for $i from 1 through list.length($list) {
             @if $i != $smallestPairIndex {
-                $newList: append($newList, nth($list, $i), 'space');
+                $newList: list.append($newList, list.nth($list, $i), 'space');
             }
         }
         $list: $newList;
@@ -177,14 +180,14 @@
     $reverse: ();
 
     @each $key, $val in $map {
-        $keys: append($keys, $key);
-        $values: append($values, $val);
+        $keys: list.append($keys, $key);
+        $values: list.append($values, $val);
     }
 
-    @for $i from length($map) to 0 {
-        $key: nth($keys, $i);
-        $value: nth($values, $i);
-        $reverse: map-merge(
+    @for $i from list.length($map) to 0 {
+        $key: list.nth($keys, $i);
+        $value: list.nth($values, $i);
+        $reverse: map.merge(
             $reverse,
             (
                 $key: $value,
@@ -209,12 +212,12 @@
 ///
 
 @function list-map($list, $fn) {
-    @if length($list) == 0 {
+    @if list.length($list) == 0 {
         @return ();
     }
     $new-list: $list;
-    @for $i from 1 through length($list) {
-        $new-list: set-nth($new-list, $i, call($fn, nth($list, $i)));
+    @for $i from 1 through list.length($list) {
+        $new-list: list.set-nth($new-list, $i, meta.call($fn, list.nth($list, $i)));
     }
     @return $new-list;
 }
@@ -232,8 +235,8 @@
 @function list-filter($list, $fn) {
     $new-list: ();
     @each $item in $list {
-        @if call($fn, $item) {
-            $new-list: append($new-list, $item);
+        @if meta.call($fn, $item) {
+            $new-list: list.append($new-list, $item);
         }
     }
     @return $new-list;
@@ -250,7 +253,7 @@
     $collection: ();
 
     @each $map in $maps {
-        $collection: map-merge($collection, $map);
+        $collection: map.merge($collection, $map);
     }
     @return $collection;
 }
@@ -262,8 +265,8 @@
 @function map-keys-ensure-str($map) {
     $new-map: ();
     @each $key, $val in $map {
-        $new-key: if(type-of($key) == 'string', $key, to-str($key));
-        $new-map: map-merge(
+        $new-key: if(meta.type-of($key) == 'string', $key, to-str($key));
+        $new-map: map.merge(
             $new-map,
             (
                 $new-key: $val,

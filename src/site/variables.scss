@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
 ////
 /// @group site.variables
 ////
@@ -11,14 +14,14 @@
 
 @mixin hsl-vars($name, $color) {
     #{$name}: #{$color};
-    #{$name}-h: #{round-d(hue($color), 2)};
-    #{$name}-s: #{round-d(saturation($color), 2)};
-    #{$name}-l: #{round-d(lightness($color), 2)};
+    #{$name}-h: #{round-d(color.hue($color), 2)};
+    #{$name}-s: #{round-d(color.saturation($color), 2)};
+    #{$name}-l: #{round-d(color.lightness($color), 2)};
 }
 
 @mixin rgb-vars($name, $color) {
     #{$name}: #{$color};
-    #{$name}-rgb: #{red($color)}, #{green($color)}, #{blue($color)};
+    #{$name}-rgb: #{color.red($color)}, #{color.green($color)}, #{color.blue($color)};
 }
 
 /// Generic mixin that takes a map of variables and outputs them as css variables.
@@ -36,8 +39,8 @@
         @if (is-map($value)) {
             // try to get the value by variant
             @if ($variant) {
-                @if (map-has-key($value, $variant)) {
-                    $value: map-get($value, $variant);
+                @if (map.has-key($value, $variant)) {
+                    $value: map.get($value, $variant);
                 } @else {
                     @warn #{'The variant' $variant 'does not exist for the variable' $name};
                 }
@@ -45,7 +48,7 @@
 
             // with no variant specififed just get the first value
             @else {
-                $value: map-get($value, nth(map-keys($value), 1));
+                $value: map.get($value, list.nth(map.keys($value), 1));
             }
         }
 
@@ -202,8 +205,8 @@
 @function site-var-exists($name) {
     $vars: get('vars');
 
-    @return map-has-key($vars, $name) or map-has-key($vars, $name + '-hsla') or
-        map-has-key($vars, $name + '-rgb');
+    @return map.has-key($vars, $name) or map.has-key($vars, $name + '-hsla') or
+        map.has-key($vars, $name + '-rgb');
 }
 
 /// Produces css variable syntax for a site variable. Verifies that the variable exists and produces

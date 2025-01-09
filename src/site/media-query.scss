@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:map";
 ////
 /// @group site.mediaquery
 ////
@@ -75,7 +77,7 @@
     @if is-number($break) {
         @return $break;
     } @else {
-        $bp: map-get($-breakpoints, $break);
+        $bp: map.get($-breakpoints, $break);
         @if ($bp) {
             @return $bp;
         } @else {
@@ -247,8 +249,8 @@
         $breakpoint-sizes: ();
 
         @each $break, $width in $breakpoints {
-            $breakpoint-names: append($breakpoint-names, $break);
-            $breakpoint-sizes: append($breakpoint-sizes, $width);
+            $breakpoint-names: list.append($breakpoint-names, $break);
+            $breakpoint-sizes: list.append($breakpoint-sizes, $width);
 
             @include media-until($break) {
                 #{$var-breakpoint}: #{$break};

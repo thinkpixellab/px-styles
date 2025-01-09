@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:list";
 ////
 /// @group utils.shadows
 ////
@@ -37,7 +39,7 @@ $shadow-growth: 1.25;
     $ease: false;
     $round: 2;
 
-    $alpha: $alpha * alpha($color);
+    $alpha: $alpha * color.alpha($color);
 
     //@debug $alpha;
 
@@ -72,7 +74,7 @@ $shadow-growth: 1.25;
 
 @function depth-shadow-effect($level: 5, $alpha: 0.2, $color: black) {
     $shadow: depth-shadow($level, $alpha, $color, true);
-    @return drop-shadow(nth($shadow, 1)) drop-shadow(nth($shadow, 2)) drop-shadow(nth($shadow, 3));
+    @return drop-shadow(list.nth($shadow, 1)) drop-shadow(list.nth($shadow, 2)) drop-shadow(list.nth($shadow, 3));
 }
 
 /// Generates a depth shadow using the filter property

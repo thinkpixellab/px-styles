@@ -1,3 +1,7 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
 ////
 /// @group utils.fonts
 ////
@@ -5,28 +9,28 @@
 @function -gf-list-unique($list) {
     $result: ();
     @each $item in $list {
-        @if not index($result, $item + '') {
-            $result: append($result, $item + '');
+        @if not list.index($result, $item + '') {
+            $result: list.append($result, $item + '');
         }
     }
     @each $item in $result {
-        $result: set-nth($result, index($result, $item), unquote($item));
+        $result: list.set-nth($result, list.index($result, $item), string.unquote($item));
     }
     @return $result;
 }
 @function -gf-str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
+    $index: string.index($string, $search);
     @return if(
         $index,
-        str-slice($string, 1, $index - 1) + $replace +
-            -gf-str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
+        string.slice($string, 1, $index - 1) + $replace +
+            -gf-str-replace(string.slice($string, $index + string.length($search)), $search, $replace),
         $string
     );
 }
 @function -gf-str-explode($string) {
     $list: ();
-    @for $i from 1 through str-length($string) {
-        $list: append($list, str-slice($string, $i, $i));
+    @for $i from 1 through string.length($string) {
+        $list: list.append($list, string.slice($string, $i, $i));
     }
     @return $list;
 }
@@ -93,21 +97,21 @@ $google-font-subsets: (
     $URL: 'https://fonts.googleapis.com/css?family=';
 
     //  create global variables
-    @if not variable-exists(-gf-combine) {
+    @if not meta.variable-exists(-gf-combine) {
         $-gf-combine: false !global;
     }
-    @if not variable-exists(-gf-map) {
+    @if not meta.variable-exists(-gf-map) {
         $-gf-map: () !global;
     }
-    @if not variable-exists(google-font-subsets) {
+    @if not meta.variable-exists(google-font-subsets) {
         $google-font-subsets: () !global;
     }
 
     //  append italic to weights
-    @if index($styles, italic) and not str-index($weights + '', i) {
-        $wgt: if(index($styles, normal), $weights, ());
+    @if list.index($styles, italic) and not string.index($weights + '', i) {
+        $wgt: if(list.index($styles, normal), $weights, ());
         @each $weight in $weights {
-            $wgt: append($wgt, $weight + i);
+            $wgt: list.append($wgt, $weight + i);
         }
         $weights: $wgt;
     }
@@ -137,8 +141,8 @@ $google-font-subsets: (
             ']': '%5D',
             ' ': '%20',
         );
-        @for $i from 1 through length($list) {
-            $char: map-get($encode, nth($list, $i)) or nth($list, $i);
+        @for $i from 1 through list.length($list) {
+            $char: map.get($encode, list.nth($list, $i)) or list.nth($list, $i);
             $text: $text + $char;
         }
     }
@@ -150,17 +154,17 @@ $google-font-subsets: (
             $subset: $subset + if($subset == '', '', ',') + $set;
         }
     }
-    $subset: if(str-length($subset) > 0 and $subset != latin, '&subset=' + $subset, '');
+    $subset: if(string.length($subset) > 0 and $subset != latin, '&subset=' + $subset, '');
 
     @if $name {
         //  replace name whitespaces
-        $name: if(type-of($name) == string, unquote($name), $name);
-        $name: -gf-str-replace(inspect($name), ' ', '+');
+        $name: if(meta.type-of($name) == string, string.unquote($name), $name);
+        $name: -gf-str-replace(meta.inspect($name), ' ', '+');
         @if $-gf-combine and not $text {
             //  add weights to combine map
-            $wgt: map-get($-gf-map, $name) or ();
-            $wgt: -gf-list-unique(join($wgt, $weights, comma));
-            $-gf-map: map-merge(
+            $wgt: map.get($-gf-map, $name) or ();
+            $wgt: -gf-list-unique(list.join($wgt, $weights, comma));
+            $-gf-map: map.merge(
                 $-gf-map,
                 (
                     $name: $wgt,
@@ -173,7 +177,7 @@ $google-font-subsets: (
                 $query: $query + if($query != '', ',', '') + $weight;
             }
             $query: -gf-str-replace($query, ' ');
-            $query: $name + if(str-length($query) > 0 and $query != '400', ':' + $query, '');
+            $query: $name + if(string.length($query) > 0 and $query != '400', ':' + $query, '');
 
             //  create single immport
             @at-root {
@@ -196,9 +200,9 @@ $google-font-subsets: (
                 if($query != '', '|', '') +
                 $font +
                 if(
-                    length($weights) == 1 and (nth($weights, 1) == '400'),
+                    list.length($weights) == 1 and (list.nth($weights, 1) == '400'),
                     '',
-                    ':' + join((), $weights, comma)
+                    ':' + list.join((), $weights, comma)
                 );
         }
 

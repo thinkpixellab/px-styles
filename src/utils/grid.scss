@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:meta";
+@use "sass:string";
 ////
 /// @group site.grid
 ////
@@ -130,7 +133,7 @@
     @each $area in $areas {
         @if (not list-contains($unique-areas, $area)) {
             @if ($area != '.') {
-                $unique-areas: append($unique-areas, $area);
+                $unique-areas: list.append($unique-areas, $area);
             }
         }
     }
@@ -172,7 +175,7 @@
     $lines: ($start-row $start-col $end-row $end-col);
 
     @if ($separator) {
-        @return unquote(list-join($lines, $separator));
+        @return string.unquote(list-join($lines, $separator));
     } @else {
         @return $lines;
     }
@@ -193,8 +196,8 @@
     @each $str in $grid {
         // remove the last item
         $row: str-split($str, '|');
-        $row: list-remove($row, length($row));
-        $areas: append($areas, list-join($row, $join));
+        $row: list-remove($row, list.length($row));
+        $areas: list.append($areas, list-join($row, $join));
     }
 
     @return $areas;
@@ -208,8 +211,8 @@
         $str: str-replace($str, '#', 'minmax');
 
         $list: str-split($str, '|');
-        $list: list-map($list, get-function(trim));
-        $strings: append($strings, trim(list-join($list, '|')));
+        $list: list-map($list, meta.get-function(trim));
+        $strings: list.append($strings, trim(list-join($list, '|')));
     }
 
     @return $strings;
@@ -220,7 +223,7 @@
     $grid: -grid-art-prep($grid);
 
     // cols is just the first row in the grid
-    @return str-split(unquote(nth($grid, 1)), '|');
+    @return str-split(string.unquote(list.nth($grid, 1)), '|');
 }
 
 @function -grid-art-rows($grid) {
@@ -235,10 +238,10 @@
     // extract the last item in every row and add it to row defs
     @each $str in $grid {
         $row: str-split($str, '|');
-        $row-def: append($row-def, nth($row, length($row)));
+        $row-def: list.append($row-def, list.nth($row, list.length($row)));
     }
 
-    @return unquote(list-join($row-def, ' '));
+    @return string.unquote(list-join($row-def, ' '));
 }
 
 // ----------------------------------------------------------------------------

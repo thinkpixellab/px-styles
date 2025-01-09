@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:string";
 ////
 /// @group modules.controls
 ////
@@ -34,14 +36,14 @@
 /// @example @include scrollbar(100%, blue)
 
 @mixin scrollbar($size, $color, $radius: null, $background: null, $padding: null, $nested: true) {
-    $background: if-null($background, mix($color, white));
+    $background: if-null($background, color.mix($color, white));
 
-    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar {
+    #{if($nested, string.unquote('&::'),string.unquote('::'))}-webkit-scrollbar {
         width: $size;
         height: $size;
     }
 
-    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-thumb {
+    #{if($nested, string.unquote('&::'),string.unquote('::'))}-webkit-scrollbar-thumb {
         border-radius: $radius;
 
         // if $padding is defined, we use a shadow to create the background and
@@ -54,7 +56,7 @@
         }
     }
 
-    #{if($nested, unquote('&::'),unquote('::'))}-webkit-scrollbar-track {
+    #{if($nested, string.unquote('&::'),string.unquote('::'))}-webkit-scrollbar-track {
         background: $background;
     }
 }
