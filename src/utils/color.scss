@@ -1,11 +1,38 @@
-@use "sass:color";
-@use "sass:list";
+@use 'sass:color';
+@use 'sass:list';
 ////
 /// @group utils.color
 ////
 
 @use 'math.scss' as *;
 @use 'units.scss' as *;
+
+/// Return the red channel of a particular rgb color as either a value between 0 and 255 or as a float between 0 and 1.
+/// @param {*} $color The color to be evaluated
+/// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
+
+@function rgb-red($color, $as-float: false) {
+    $v: color.channel($color, 'red', $space: rgb);
+    @return if($as-float, divide($v, 255), $v);
+}
+
+/// Return the green channel of a particular rgb color as either a value between 0 and 255 or as a float between 0 and 1.
+/// @param {*} $color The color to be evaluated
+/// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
+
+@function rgb-green($color, $as-float: false) {
+    $v: color.channel($color, 'green', $space: rgb);
+    @return if($as-float, divide($v, 255), $v);
+}
+
+/// Return the blue channel of a particular rgb color as either a value between 0 and 255 or as a float between 0 and 1.
+/// @param {*} $color The color to be evaluated
+/// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
+
+@function rgb-blue($color, $as-float: false) {
+    $v: color.channel($color, 'blue', $space: rgb);
+    @return if($as-float, divide($v, 255), $v);
+}
 
 ///
 /// Produce a shade (a lighter or darker version) of a color based on the value of $shade and an
@@ -69,9 +96,9 @@
 /// @example yiq(purple) // => 52.864
 
 @function yiq($color) {
-    $r: color.red($color);
-    $g: color.green($color);
-    $b: color.blue($color);
+    $r: rgb-red($color);
+    $g: rgb-green($color);
+    $b: rgb-blue($color);
     $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
 
     // 0 (black) - 255 (white)
@@ -82,9 +109,9 @@
 /// https://www.w3.org/TR/WCAG20/#relativeluminancedef
 ///
 @function luminance($color) {
-    $R: divide(color.red($color), 255);
-    $G: divide(color.green($color), 255);
-    $B: divide(color.blue($color), 255);
+    $R: rgb-red($color, true);
+    $G: rgb-green($color, true);
+    $B: rgb-blue($color, true);
 
     $c: divide(0.055, 1.055);
 
