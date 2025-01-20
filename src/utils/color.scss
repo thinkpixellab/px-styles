@@ -12,7 +12,12 @@
 /// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
 
 @function rgb-red($color, $as-float: false) {
-    $v: color.channel($color, 'red', $space: rgb);
+    $v: null;
+    @if (function-exists('color.channel')) {
+        $v: color.channel($color, 'red', $space: rgb);
+    } @else {
+        $v: color.red($color);
+    }
     @return if($as-float, divide($v, 255), $v);
 }
 
@@ -21,7 +26,12 @@
 /// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
 
 @function rgb-green($color, $as-float: false) {
-    $v: color.channel($color, 'green', $space: rgb);
+    $v: null;
+    @if (function-exists('color.channel')) {
+        $v: color.channel($color, 'green', $space: rgb);
+    } @else {
+        $v: color.green($color);
+    }
     @return if($as-float, divide($v, 255), $v);
 }
 
@@ -30,7 +40,12 @@
 /// @param {*} $as-float [false] If true, return the value as a float between 0 and 1
 
 @function rgb-blue($color, $as-float: false) {
-    $v: color.channel($color, 'blue', $space: rgb);
+    $v: null;
+    @if (function-exists('color.channel')) {
+        $v: color.channel($color, 'blue', $space: rgb);
+    } @else {
+        $v: color.blue($color);
+    }
     @return if($as-float, divide($v, 255), $v);
 }
 
