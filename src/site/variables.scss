@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "sass:list";
-@use "sass:map";
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
 ////
 /// @group site.variables
 ////
@@ -135,6 +135,7 @@
 /// ```scss
 /// @@use 'variables' as * with (
 ///     $-config: (
+///
 ///         vars-prefix: 'theme',
 ///         vars: (
 ///             page-bg-hsla: white,

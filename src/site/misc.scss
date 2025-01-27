@@ -69,3 +69,63 @@
 @mixin link() {
     @include css-map(get('links'));
 }
+
+// ----------------------------------------------------------------------------
+// Control Resets
+// ----------------------------------------------------------------------------
+
+/// Resets the appearance of controls with some opinionated defaults (see source or
+/// output for details). Typically used as part of restyling a component.
+
+@function reset-control($overrides: ()) {
+    @return flat-merge(
+        (
+            appearance: none,
+            box-sizing: border-box,
+            position: relative,
+            outline: none,
+            border: none,
+            white-space: nowrap,
+            background-color: transparent,
+            font-size: get('controls.base.font-size'),
+            font-family: get('controls.base.font-family'),
+            font-weight: get('controls.base.font-weight'),
+        ),
+        $overrides
+    );
+}
+
+@mixin reset-control($overrides: ()) {
+    @include css-map(reset-control($overrides));
+}
+
+/// Resets the style of control much more aggressively than regular control-reset. Really cleans
+/// things out!
+
+@function reset-control-hard($overrides: ()) {
+    @return flat-merge(
+        (
+            appearance: none,
+            display: block,
+            outline: none,
+            border: none,
+            border-radius: 0,
+            background: none transparent,
+            padding: 0,
+            width: auto,
+            height: auto,
+            border-spacing: 0,
+            text-align: left,
+            text-indent: 0,
+            line-height: initial,
+            color: initial,
+            font-family: initial,
+            font-size: initial,
+        ),
+        $overrides
+    );
+}
+
+@mixin reset-control-hard($overrides: ()) {
+    @include css-map(control-reset-hard($overrides));
+}
