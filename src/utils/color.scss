@@ -1,8 +1,10 @@
-@use 'sass:color';
-@use 'sass:list';
 ////
 /// @group utils.color
 ////
+
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:meta';
 
 @use 'math.scss' as *;
 @use 'units.scss' as *;
@@ -13,7 +15,7 @@
 
 @function rgb-red($color, $as-float: false) {
     $v: null;
-    @if (function-exists('color.channel')) {
+    @if (meta.function-exists('channel', 'color')) {
         $v: color.channel($color, 'red', $space: rgb);
     } @else {
         $v: color.red($color);
@@ -27,7 +29,7 @@
 
 @function rgb-green($color, $as-float: false) {
     $v: null;
-    @if (function-exists('color.channel')) {
+    @if (meta.function-exists('channel', 'color')) {
         $v: color.channel($color, 'green', $space: rgb);
     } @else {
         $v: color.green($color);
@@ -41,7 +43,7 @@
 
 @function rgb-blue($color, $as-float: false) {
     $v: null;
-    @if (function-exists('color.channel')) {
+    @if (meta.function-exists('channel', 'color')) {
         $v: color.channel($color, 'blue', $space: rgb);
     } @else {
         $v: color.blue($color);
