@@ -260,7 +260,7 @@ Domain specific functions include:
 -   `fs($name)` - gets a font-size from the type ramp
 -   `sp($n)` - gets a spacing value derived from the common spacer value
 -   `rems($px)` - convert px value to rems based on the sites base font-size
--   `color($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of
+-   `clr($name, $shade, $alpha)` - retrieves a common named color and optionally produce a shade of
     that color
 -   `gray($scaler)` // gets a derived a gray value
 -   `shadow($level)` // creates a box shadow
@@ -285,7 +285,7 @@ Sample code that retrieves a bunch of common values:
 
     &:hover {
         // set the color called accent but one level darker
-        color: color(accent, -1);
+        color: clr(accent, -1);
     }
 }
 ```

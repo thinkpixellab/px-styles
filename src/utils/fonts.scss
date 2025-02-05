@@ -1,6 +1,6 @@
-@use "sass:list";
-@use "sass:map";
-@use "sass:string";
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
 ////
 /// @group utils.fonts
 ////
@@ -40,7 +40,11 @@
     @each $ext in $exts {
         $extmod: if(map.has-key($extmods, $ext), $ext + map.get($extmods, $ext), $ext);
         $format: if(map.has-key($formats, $ext), map.get($formats, $ext), $ext);
-        $src: list.append($src, url(string.quote($path + '.' + $extmod)) format(string.quote($format)), comma);
+        $src: list.append(
+            $src,
+            url(string.quote($path + '.' + $extmod)) format(string.quote($format)),
+            comma
+        );
     }
 
     @font-face {

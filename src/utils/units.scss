@@ -1,8 +1,8 @@
-@use "sass:list";
-@use "sass:map";
-@use "sass:math" as sass-math;
-@use "sass:meta";
-@use "sass:string";
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math' as sass-math;
+@use 'sass:meta';
+@use 'sass:string';
 ////
 /// @group utils.units
 ////
@@ -119,7 +119,8 @@
 /// @example is-angle(45deg) // => true
 
 @function is-angle($value) {
-    @return is-number($value) and list.index('deg' 'rad' 'grad' 'turn', sass-math.unit($value)) != null;
+    @return is-number($value) and list.index('deg' 'rad' 'grad' 'turn', sass-math.unit($value)) !=
+        null;
 }
 
 /// Return true if the provided value is an integer
@@ -140,8 +141,8 @@
 /// @example is-relative-length(20vmin) // => true
 
 @function is-relative-length($value) {
-    @return is-number($value) and list.index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', sass-math.unit($value))
-        != null;
+    @return is-number($value) and
+        list.index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', sass-math.unit($value)) != null;
 }
 
 /// Return true if the provided value is an absolute length value
@@ -150,7 +151,8 @@
 /// @example is-absolute-length(10cm) // => true
 
 @function is-absolute-length($value) {
-    @return is-number($value) and list.index('cm' 'mm' 'in' 'px' 'pt' 'pc', sass-math.unit($value)) != null;
+    @return is-number($value) and list.index('cm' 'mm' 'in' 'px' 'pt' 'pc', sass-math.unit($value))
+        != null;
 }
 
 /// Return true if the provided value is an absolute length value
@@ -190,7 +192,8 @@
 /// @example is-map((red: #f00, blue: #00f)) // => true
 
 @function is-map($value, $strict: false) {
-    @return meta.type-of($value) == 'map' or (not $strict and is-list($value) and list.length($value) == 0);
+    @return meta.type-of($value) == 'map' or
+        (not $strict and is-list($value) and list.length($value) == 0);
 }
 
 /// Return true if the provided value is a string

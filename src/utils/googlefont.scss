@@ -1,7 +1,8 @@
-@use "sass:list";
-@use "sass:map";
-@use "sass:meta";
-@use "sass:string";
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
 ////
 /// @group utils.fonts
 ////
@@ -23,7 +24,11 @@
     @return if(
         $index,
         string.slice($string, 1, $index - 1) + $replace +
-            -gf-str-replace(string.slice($string, $index + string.length($search)), $search, $replace),
+            -gf-str-replace(
+                string.slice($string, $index + string.length($search)),
+                $search,
+                $replace
+            ),
         $string
     );
 }
