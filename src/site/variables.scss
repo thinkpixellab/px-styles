@@ -21,7 +21,7 @@
 
 @mixin rgb-vars($name, $color) {
     #{$name}: #{$color};
-    #{$name}-rgb: #{color.red($color)}, #{color.green($color)}, #{color.blue($color)};
+    #{$name}-rgb: #{rgb-red($color)}, #{rgb-green($color)}, #{rgb-blue($color)};
 }
 
 /// Generic mixin that takes a map of variables and outputs them as css variables.
